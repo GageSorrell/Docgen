@@ -2,7 +2,7 @@
 import type { ApiReferenceRecord } from "@sorrell/docs-core";
 import { recordToAgentDocument } from "@sorrell/docs-api-reference";
 import { DefaultDesignTokens, formatAgentDocument } from "@sorrell/docs-core";
-import { canonicalUrl, docsPath } from "@sorrell/docs-astro";
+import { canonicalUrl } from "@sorrell/docs-astro";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
 
@@ -38,7 +38,6 @@ const declarationsFor = (categoryId: string) => record.declarations.filter((decl
             <div class="docs-api-page">
                 <aside class="docs-sidebar" aria-label="API reference navigation">
                     <div class="docs-sidebar-label">API REFERENCE</div>
-                    <a class="docs-api-search-link" href={docsPath("/docs", "search")}>Search documentation</a>
                     <h2 class="docs-api-package">{record.packageName}</h2>
                     <p class="docs-api-version">{record.version}</p>
                     {record.categories.map((category) => <section class="docs-sidebar-group">
@@ -111,7 +110,6 @@ const declarationsFor = (categoryId: string) => record.declarations.filter((decl
     .docs-api-site { min-height: 100vh; }
     .docs-api-package { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.1rem; margin: 1.8rem 0 .3rem; overflow-wrap: anywhere; }
     .docs-api-version { color: var(--docs-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; margin: 0; }
-    .docs-api-search-link { color: var(--docs-accent); display: inline-block; font-size: .85rem; margin-top: 1rem; }
     .docs-sidebar-group { margin-top: 2rem; }
     .docs-sidebar-group h3 { align-items: center; display: flex; font-size: .95rem; justify-content: space-between; margin: 0 0 .6rem; }
     .docs-sidebar-group h3 span { color: var(--docs-muted); }

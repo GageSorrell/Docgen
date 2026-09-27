@@ -61,7 +61,6 @@ const pageHref = (page: PageSummary): string => {
             <div class="docs-layout">
                 <aside class="docs-sidebar" aria-label="Documentation navigation">
                     <div class="docs-sidebar-label">CONTENTS</div>
-                    <a class="docs-search-link" href={docsPath(prefix, "search")}>Search documentation</a>
                     {groups.map((group) => <section class="docs-nav-group">
                         <h2>{group}</h2>
                         <ul>
@@ -118,7 +117,6 @@ const pageHref = (page: PageSummary): string => {
     :root { color-scheme: dark; }
     [data-theme="light"] { color-scheme: light; }
     body { margin: 0; }
-    .docs-search-link { color: var(--docs-accent); display: inline-block; font-size: .85rem; margin-top: 1rem; }
     .docs-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr) 220px; margin: 0 auto; max-width: 1480px; min-height: calc(100vh - 120px); }
     .docs-layout > .docs-sidebar, .docs-layout > .docs-toc { padding: 2rem 1rem; }
     .docs-sidebar { border-right: 1px solid var(--docs-border); }

@@ -1226,7 +1226,24 @@ const createWebsiteFromConfig = (
             }),
             path: "package.json"
         },
-        { content: json(config), path: "docs.config.json" },
+        {
+            content: json({
+                ...config,
+                versions: config.versions.map((version) => {
+                    if (!version.current)
+                    {
+                        return version;
+                    }
+                    const versionNumber = version.version ?? "1";
+                    return {
+                        ...version,
+                        label: `v${versionNumber} (Latest)`,
+                        version: versionNumber
+                    };
+                })
+            }),
+            path: "docs.config.json"
+        },
         { content: json(config.vercel.projects), path: "VercelProjects.json" },
         {
             content: json(createSnapshotProjects(config)),

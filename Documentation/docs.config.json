@@ -55,8 +55,9 @@
       "current": true,
       "directory": ".",
       "id": "current",
-      "label": "Current",
-      "order": 0
+      "label": "v1.0.1 (Latest)",
+      "order": 0,
+      "version": "1.0.1"
     },
     {
       "directory": "v1",

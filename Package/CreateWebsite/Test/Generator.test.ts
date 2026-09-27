@@ -111,6 +111,20 @@ describe("three-package website generation", () =>
             )
         ).toBe(false);
         expect(
+            website.files.some((file: GeneratedWebsiteFile) =>
+                file.path === "Documentation/Source/pages/search.astro"
+            )
+        ).toBe(false);
+        const generatedConfig = JSON.parse(
+            website.files.find((file: GeneratedWebsiteFile) =>
+                file.path === "docs.config.json"
+            )?.content ?? "{}"
+        );
+        expect(generatedConfig.versions[0]).toMatchObject({
+            label: "v1 (Latest)",
+            version: "1"
+        });
+        expect(
             website.files.find(
                 (file: GeneratedWebsiteFile) =>
                     file.path === "Landing/RouteManifest.json"
@@ -138,6 +152,46 @@ describe("three-package website generation", () =>
                     file.path === "VercelProjects.snapshot.json"
             )
         ).toBe(true);
+    });
+    it("labels the configured current documentation version as latest", () =>
+    {
+        const website = createGeneratedWebsite({
+            config: {
+                versions: [
+                    {
+                        current: true,
+                        directory: ".",
+                        id: "current",
+                        label: "Current",
+                        order: 0,
+                        version: "4"
+                    },
+                    {
+                        current: false,
+                        directory: "v3",
+                        id: "v3",
+                        label: "v3",
+                        order: 1,
+                        version: "3"
+                    }
+                ]
+            },
+            target: "generated"
+        });
+        const generatedConfig = JSON.parse(
+            website.files.find((file: GeneratedWebsiteFile) =>
+                file.path === "docs.config.json"
+            )?.content ?? "{}"
+        );
+        expect(generatedConfig.versions).toEqual([
+            expect.objectContaining({ id: "current", label: "v4 (Latest)", version: "4" }),
+            expect.objectContaining({ id: "v3", label: "v3", version: "3" })
+        ]);
+        expect(
+            website.files.some((file: GeneratedWebsiteFile) =>
+                file.path === "Documentation/Source/pages/search.astro"
+            )
+        ).toBe(false);
     });
     it("generates the optional Storybook package with a matching base path", () =>
     {

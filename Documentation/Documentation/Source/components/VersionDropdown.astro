@@ -15,7 +15,11 @@ interface Props
 }
 
 const { currentVersion, slug = "", placement = "header" } = Astro.props;
-const selectedVersion = documentationVersions.find((item) => item.id === currentVersion) ?? documentationVersions[0];
+const selectedVersion = documentationVersions.find((item) => item.id === currentVersion)
+    ?? documentationVersions[0]
+    ?? { id: "current", label: "Latest", version: "1" };
+const versionLabel = (versionId: string, label: string, version: string): string =>
+    versionId === "current" ? `v${version} (Latest)` : label;
 const versionHref = (versionId: string): string =>
     versionId === "current"
         ? `/docs/${slug}`
@@ -24,7 +28,7 @@ const versionHref = (versionId: string): string =>
 
 <details class:list={["docs-version-dropdown", `docs-version-dropdown-${placement}`]}>
     <summary aria-label={`Documentation version: ${selectedVersion.label}`}>
-        <span class="docs-version-label">{selectedVersion.label}</span>
+        <span class="docs-version-label">{versionLabel(selectedVersion.id, selectedVersion.label, selectedVersion.version)}</span>
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5" /></svg>
     </summary>
     <nav aria-label="Documentation versions">
@@ -32,7 +36,7 @@ const versionHref = (versionId: string): string =>
             aria-current={currentVersion === item.id ? "page" : undefined}
             href={versionHref(item.id)}
         >
-            <span>{item.label}</span>
+            <span>{versionLabel(item.id, item.label, item.version)}</span>
             {currentVersion === item.id && <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>}
         </a>)}
     </nav>

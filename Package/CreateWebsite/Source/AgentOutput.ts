@@ -150,8 +150,9 @@ const documentationDocuments = (
                     current: true,
                     directory: ".",
                     id: "current",
-                    label: "Current",
-                    order: 0
+                    label: "v1 (Latest)",
+                    order: 0,
+                    version: "1"
                 }
             ]
             : config.versions;
@@ -409,8 +410,9 @@ const dogfoodConfig = (): DocsConfig =>
                 current: true,
                 directory: ".",
                 id: "current",
-                label: "Current",
-                order: 0
+                label: "v1.0.1 (Latest)",
+                order: 0,
+                version: "1.0.1"
             },
             {
                 current: false,

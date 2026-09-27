@@ -13,7 +13,7 @@ import Sun from "@lucide/astro/icons/sun"
 interface Props { readonly className?: string }
 const { className = "" } = Astro.props
 ---
-<button type="button" aria-label="Theme: System. Activate to switch to light." title="Theme: System" data-theme-mode="system" data-theme-toggle class={`inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-muted ${className}`}>
+<button type="button" aria-label="Theme: System. Activate to switch to light." title="Theme: System" data-theme-mode="system" data-theme-toggle class={`inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md transition-colors hover:bg-muted ${className}`}>
   <span data-theme-icon="system"><Monitor size={17} aria-hidden="true" /></span>
   <span data-theme-icon="light" class="hidden"><Sun size={17} aria-hidden="true" /></span>
   <span data-theme-icon="dark" class="hidden"><Moon size={17} aria-hidden="true" /></span>
