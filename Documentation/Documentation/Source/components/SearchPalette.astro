@@ -29,6 +29,12 @@ import "@pagefind/default-ui/css/ui.css";
     const dialog = document.querySelector<HTMLDialogElement>(".docs-search-dialog");
     let pagefind: PagefindUI | undefined;
 
+    // The header actions are hidden at mobile widths; keep the dialog in the
+    // top-level document so it can still open from the mobile menu trigger.
+    if (dialog !== null && dialog.parentElement !== document.body) {
+        document.body.append(dialog);
+    }
+
     const openSearch = () => {
         if (dialog === null) return;
         if (!pagefind) {
@@ -98,10 +104,10 @@ import "@pagefind/default-ui/css/ui.css";
     }
     .landing-mobile-menu .site-search-trigger { justify-content: flex-start; width: 100%; }
     .docs-search-dialog {
-        background: var(--docs-background);
+        background: var(--docs-card-background);
         border: 1px solid var(--docs-border);
-        border-radius: .75rem;
-        box-shadow: 0 24px 80px rgb(0 0 0 / .24);
+        border-radius: .8rem;
+        box-shadow: 0 24px 80px color-mix(in oklch, var(--docs-foreground) 22%, transparent);
         color: var(--docs-foreground);
         margin: 10vh auto auto;
         max-height: 80vh;
@@ -110,12 +116,12 @@ import "@pagefind/default-ui/css/ui.css";
         padding: 0;
         width: 100%;
     }
-    .docs-search-dialog::backdrop { background: rgb(9 9 11 / .56); backdrop-filter: blur(3px); }
-    .docs-search-panel { padding: 1rem 1.25rem 1.25rem; }
-    .docs-search-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: .75rem; }
-    .docs-search-heading h2 { color: var(--docs-foreground); font-size: .9rem; font-weight: 600; margin: 0; }
-    .docs-search-close { background: transparent; border: 1px solid var(--docs-border); border-radius: .375rem; color: var(--docs-muted); cursor: pointer; font: inherit; font-size: .75rem; padding: .25rem .45rem; }
-    .docs-search-close:hover, .docs-search-close:focus-visible { color: var(--docs-foreground); }
+    .docs-search-dialog::backdrop { background: color-mix(in oklch, var(--docs-foreground) 48%, transparent); backdrop-filter: blur(5px); }
+    .docs-search-panel { padding: 1.1rem 1.25rem 1.25rem; }
+    .docs-search-heading { align-items: center; border-bottom: 1px solid var(--docs-border); display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: .8rem; }
+    .docs-search-heading h2 { color: var(--docs-foreground); font-size: 1rem; font-weight: 600; letter-spacing: -.025em; margin: 0; }
+    .docs-search-close { background: var(--docs-background); border: 1px solid var(--docs-border); border-radius: .4rem; color: var(--docs-muted); cursor: pointer; font: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .7rem; line-height: 1; padding: .4rem .5rem; transition: border-color .15s, color .15s; }
+    .docs-search-close:hover, .docs-search-close:focus-visible { border-color: var(--docs-accent); color: var(--docs-foreground); }
     .docs-search-dialog .pagefind-ui {
         --pagefind-ui-primary: var(--docs-accent);
         --pagefind-ui-text: var(--docs-foreground);
@@ -126,12 +132,34 @@ import "@pagefind/default-ui/css/ui.css";
         --pagefind-ui-border-radius: .5rem;
         --pagefind-ui-font: inherit;
     }
-    .docs-search-dialog .pagefind-ui__search-input { font-size: 1rem; padding: .75rem 1rem; }
-    .docs-search-dialog .pagefind-ui__result { padding-block: 1rem; }
-    .docs-search-dialog .pagefind-ui__result-title { font-size: 1rem; }
-    .docs-search-dialog .pagefind-ui__result-excerpt { font-size: .875rem; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__form::before { background-color: var(--docs-muted); }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__search-input {
+        appearance: none;
+        background: var(--docs-background);
+        border: 1px solid var(--docs-border);
+        border-radius: .5rem;
+        box-shadow: none;
+        color: var(--docs-foreground);
+        font-size: 1rem;
+        font-weight: 400;
+        padding-inline: 3.375rem 4.375rem;
+        transition: border-color .15s, box-shadow .15s;
+    }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__search-input::placeholder { color: var(--docs-muted); opacity: .7; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__search-input:focus { border-color: var(--docs-accent); box-shadow: 0 0 0 3px color-mix(in oklch, var(--docs-accent) 18%, transparent); outline: none; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__result { border-color: var(--docs-border); border-radius: .5rem; padding: .8rem .75rem; transition: background-color .15s; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__result:hover { background: color-mix(in oklch, var(--docs-code-background) 75%, var(--docs-accent) 4%); }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__result-title { font-size: 1rem; font-weight: 600; letter-spacing: -.015em; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__result-link { color: var(--docs-foreground); }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__result-link:hover { color: var(--docs-accent); }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__result-excerpt { color: var(--docs-muted); font-size: .875rem; line-height: 1.55; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__message { color: var(--docs-muted); font-size: .875rem; font-weight: 500; height: auto; padding-block: .8rem; }
+    .docs-search-dialog .pagefind-ui mark { background: color-mix(in oklch, var(--docs-accent) 16%, transparent); border-radius: .15rem; color: var(--docs-foreground); }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__button { border-color: var(--docs-border); border-radius: .5rem; color: var(--docs-foreground); font-size: .875rem; font-weight: 500; }
+    .docs-search-dialog .pagefind-ui .pagefind-ui__button:hover { background: var(--docs-code-background); border-color: var(--docs-accent); }
     @media (max-width: 700px) {
         .docs-search-dialog { margin: 5vh auto auto; max-height: 90vh; }
         .docs-search-panel { padding: .75rem; }
+        .docs-search-heading { margin-bottom: .75rem; }
     }
 </style>
