@@ -20,6 +20,7 @@ describe("three-package website generation", () =>
             website.files.map((file: GeneratedWebsiteFile) => [ file.path, file.content ])
         );
         const landingPackage = JSON.parse(contents.get("Landing/package.json") ?? "{}");
+        const documentationPackage = JSON.parse(contents.get("Documentation/package.json") ?? "{}");
         const landingTsconfig = JSON.parse(contents.get("Landing/tsconfig.json") ?? "{}");
         expect(landingTsconfig.compilerOptions.moduleResolution).toBe("Bundler");
         expect(landingPackage.scripts).toEqual({
@@ -51,6 +52,25 @@ describe("three-package website generation", () =>
             .toContain("landing-grid-rails");
         expect(contents.get("Landing/Source/styles/tokens.css"))
             .toContain("[data-theme=\"dark\"]");
+        expect(documentationPackage.dependencies).toMatchObject({
+            "@tailwindcss/typography": "0.5.20",
+            "@tailwindcss/vite": "4.3.3",
+            tailwindcss: "4.3.3"
+        });
+        expect(contents.get("Documentation/astro.config.mjs"))
+            .toContain("vite: { plugins: [ tailwindcss() ] }");
+        expect(contents.get("Documentation/Source/layouts/DocsLayout.astro"))
+            .toContain("class=\"prose prose-effect\"");
+        expect(contents.get("Documentation/Source/pages/index.astro"))
+            .toContain("<h1>{title}</h1>");
+        const generatedDocsCss = contents.get("Documentation/Source/styles/docs.css") ?? "";
+        expect(generatedDocsCss).toContain("@plugin \"@tailwindcss/typography\"");
+        expect(generatedDocsCss).toContain("--tw-prose-body: var(--docs-prose-foreground)");
+        expect(generatedDocsCss).toContain("--tw-prose-pre-bg: var(--docs-card-background)");
+        expect(generatedDocsCss).toContain("--docs-prose-foreground: oklch(0.37 0.013 285.805)");
+        expect(generatedDocsCss).toContain("--docs-prose-foreground: oklch(0.871 0.006 286.286)");
+        expect(generatedDocsCss).not.toContain("{{LIGHT_");
+        expect(generatedDocsCss).not.toContain("{{DARK_");
     });
     it("interpolates site identity, routes, actions, and theme tokens into the Astro landing source", () =>
     {
@@ -72,7 +92,7 @@ describe("three-package website generation", () =>
                 },
                 routing: { documentationPrefix: "/reference", storybookPrefix: "/stories" },
                 storybook: { enabled: true },
-                tokens: { light: { accent: "#f00" } }
+                tokens: { light: { accent: "#f00", proseForeground: "#222" } }
             },
             target: "generated"
         });
@@ -88,6 +108,10 @@ describe("three-package website generation", () =>
         expect(contents.get("Landing/Source/pages/index.astro")).toContain("question: \"What does the package render?\"");
         expect(contents.get("Landing/Source/lib/landing.ts")).not.toContain("LANDING_CONFIG");
         expect(contents.get("Landing/Source/styles/tokens.css")).toContain("--accent: #f00;");
+        expect(contents.get("Documentation/Source/styles/docs.css"))
+            .toContain("--docs-accent: #f00;");
+        expect(contents.get("Documentation/Source/styles/docs.css"))
+            .toContain("--docs-prose-foreground: #222;");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/reference\"");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/stories\"");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/reference\":");

@@ -10,6 +10,7 @@
  */
 
 import mdx from "@astrojs/mdx";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { docsAstroIntegration } from "@sorrell/docs-astro";
 
@@ -20,5 +21,6 @@ export default defineConfig({
     },
     integrations: [ mdx(), docsAstroIntegration({ prefix: "/docs", site: "https://docs.sorrell.sh" }) ],
     output: "static",
-    srcDir: "./Source"
+    srcDir: "./Source",
+    vite: { plugins: [ tailwindcss() ] }
 });

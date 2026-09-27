@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --text-xs: 0.7rem;
+    --text-xs--line-height: 1.5;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: 1.5;
+    --text-base: 1rem;
+    --text-base--line-height: 1.5;
+    --text-lg: 1.25rem;
+    --text-lg--line-height: 1.375;
+    --text-xl: 1.563rem;
+    --text-xl--line-height: 1.375;
+    --text-2xl: 1.953rem;
+    --text-2xl--line-height: 1.375;
+    --text-3xl: 2.441rem;
+    --text-3xl--line-height: 1.25;
+    --text-4xl: 3.052rem;
+    --text-4xl--line-height: 1.25;
+    --text-5xl: 3.815rem;
+    --text-5xl--line-height: 1.15;
+    --text-6xl: 4.768rem;
+    --text-6xl--line-height: 1.15;
+}
+
+:root {
+    color-scheme: light;
+    background-color: var(--docs-background);
+    color: var(--docs-foreground);
+    --docs-background: {{LIGHT_BACKGROUND}};
+    --docs-foreground: {{LIGHT_FOREGROUND}};
+    --docs-muted: {{LIGHT_MUTED}};
+    --docs-border: {{LIGHT_BORDER}};
+    --docs-accent: {{LIGHT_ACCENT}};
+    --docs-card-background: {{LIGHT_CARD_BACKGROUND}};
+    --docs-code-background: {{LIGHT_CODE_BACKGROUND}};
+    --docs-prose-foreground: {{LIGHT_PROSE_FOREGROUND}};
+    --docs-subtle-foreground: {{LIGHT_SUBTLE_FOREGROUND}};
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --docs-background: {{DARK_BACKGROUND}};
+    --docs-foreground: {{DARK_FOREGROUND}};
+    --docs-muted: {{DARK_MUTED}};
+    --docs-border: {{DARK_BORDER}};
+    --docs-accent: {{DARK_ACCENT}};
+    --docs-card-background: {{DARK_CARD_BACKGROUND}};
+    --docs-code-background: {{DARK_CODE_BACKGROUND}};
+    --docs-prose-foreground: {{DARK_PROSE_FOREGROUND}};
+    --docs-subtle-foreground: {{DARK_SUBTLE_FOREGROUND}};
+}
+
+body {
+    margin: 0;
+    background-color: var(--docs-background);
+    color: var(--docs-foreground);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer utilities {
+    .prose :where(h1):not(:where([class~="not-prose"] *)) {
+        font-size: var(--text-3xl);
+        line-height: var(--text-3xl--line-height);
+    }
+    @media (min-width: 768px) {
+        .prose :where(h1):not(:where([class~="not-prose"] *)) {
+            font-size: var(--text-4xl);
+            line-height: var(--text-4xl--line-height);
+        }
+    }
+    .prose :where(h2):not(:where([class~="not-prose"] *)) { font-size: var(--text-2xl); line-height: var(--text-2xl--line-height); }
+    .prose :where(h3):not(:where([class~="not-prose"] *)) { font-size: var(--text-xl); line-height: var(--text-xl--line-height); }
+    .prose :where(h4):not(:where([class~="not-prose"] *)) { font-size: var(--text-lg); line-height: var(--text-lg--line-height); }
+    .prose :where(h1, h2, h3, h4, h5, h6) code { font-size: 0.85em; }
+    .prose-effect :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) { font-weight: 600; letter-spacing: -0.025em; }
+}
+
+.prose-effect {
+    --tw-prose-body: var(--docs-prose-foreground);
+    --tw-prose-headings: var(--docs-foreground);
+    --tw-prose-lead: var(--docs-muted);
+    --tw-prose-links: var(--docs-foreground);
+    --tw-prose-bold: var(--docs-foreground);
+    --tw-prose-counters: var(--docs-muted);
+    --tw-prose-bullets: var(--docs-subtle-foreground);
+    --tw-prose-hr: var(--docs-border);
+    --tw-prose-quotes: var(--docs-foreground);
+    --tw-prose-quote-borders: var(--docs-border);
+    --tw-prose-captions: var(--docs-muted);
+    --tw-prose-kbd: var(--docs-foreground);
+    --tw-prose-code: var(--docs-foreground);
+    --tw-prose-pre-code: var(--docs-foreground);
+    --tw-prose-pre-bg: var(--docs-card-background);
+    --tw-prose-th-borders: var(--docs-border);
+    --tw-prose-td-borders: var(--docs-border);
+}
+
+.prose-effect :where(a):not(:where([class~="not-prose"] *)) { font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+.prose-effect :where(a):not(:where([class~="not-prose"] *)):hover { text-decoration: none; }
+.prose-effect :where(code):not(:where([class~="not-prose"] *, pre *)) { background: var(--docs-code-background); border-radius: 0.375rem; padding: 0.125rem 0.375rem; font-size: 0.85em; font-weight: 400; }
+.prose-effect :where(code):not(:where([class~="not-prose"] *, pre *))::before,
+.prose-effect :where(code):not(:where([class~="not-prose"] *, pre *))::after { content: none; }

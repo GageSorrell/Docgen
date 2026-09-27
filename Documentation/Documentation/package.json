@@ -28,12 +28,15 @@
   },
   "dependencies": {
     "@astrojs/mdx": "8.0.2",
+    "@tailwindcss/typography": "0.5.20",
+    "@tailwindcss/vite": "4.3.3",
     "@pagefind/default-ui": "1.5.2",
     "@sorrell/docs-api-reference": "1.0.1",
     "@sorrell/docs-astro": "1.0.1",
     "@sorrell/docs-core": "1.0.1",
     "@sorrell/docs-ui": "1.0.1",
-    "astro": "7.3.4"
+    "astro": "7.3.4",
+    "tailwindcss": "4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

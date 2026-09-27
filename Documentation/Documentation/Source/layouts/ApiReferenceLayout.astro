@@ -5,6 +5,7 @@ import { DefaultDesignTokens, formatAgentDocument } from "@sorrell/docs-core";
 import { canonicalUrl } from "@sorrell/docs-astro";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/docs.css";
 
 interface Props
 {
@@ -58,7 +59,7 @@ const declarationsFor = (categoryId: string) => record.declarations.filter((decl
                         <div>
                             <p class="docs-eyebrow">API REFERENCE</p>
                             <h1>{record.displayName}</h1>
-                            <p>{record.summary}</p>
+                            <div class="prose prose-effect"><p>{record.summary}</p></div>
                         </div>
                         <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
                     </div>
@@ -67,25 +68,27 @@ const declarationsFor = (categoryId: string) => record.declarations.filter((decl
                         {record.introductionVersion === undefined ? null : <span>Added in {record.introductionVersion}</span>}
                         {sourceHref(record.source) === undefined ? null : <a href={sourceHref(record.source)} rel="noreferrer">◉ Source ↗</a>}
                     </div>
-                    {record.categories.map((category) => <section class="docs-api-category" id={`category-${category.id}`}>
-                        <h2>{category.label}</h2>
-                        {declarationsFor(category.id).map((declaration) => <article class="docs-api-declaration" id={declaration.id}>
-                            <div class="docs-declaration-heading">
-                                <h3>{declaration.name}<span class="docs-kind-badge">{declaration.kind.toUpperCase()}</span></h3>
-                                <div class="docs-declaration-links">
-                                    {declaration.introductionVersion === undefined ? null : <span>Added in {declaration.introductionVersion}</span>}
-                                    {sourceHref(declaration.source) === undefined ? null : <a href={sourceHref(declaration.source)} rel="noreferrer">Source ↗</a>}
-                                    <a href={`#${declaration.id}`}>#</a>
+                    <div class="docs-api-prose prose prose-effect">
+                        {record.categories.map((category) => <section class="docs-api-category" id={`category-${category.id}`}>
+                            <h2>{category.label}</h2>
+                            {declarationsFor(category.id).map((declaration) => <article class="docs-api-declaration" id={declaration.id}>
+                                <div class="docs-declaration-heading">
+                                    <h3>{declaration.name}<span class="docs-kind-badge">{declaration.kind.toUpperCase()}</span></h3>
+                                    <div class="docs-declaration-links">
+                                        {declaration.introductionVersion === undefined ? null : <span>Added in {declaration.introductionVersion}</span>}
+                                        {sourceHref(declaration.source) === undefined ? null : <a href={sourceHref(declaration.source)} rel="noreferrer">Source ↗</a>}
+                                        <a href={`#${declaration.id}`}>#</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <p>{declaration.description}</p>
-                            <h4>Signature</h4>
-                            <div class="docs-signature-row">
-                                <pre><code>{declaration.signature}</code></pre>
-                                <button class="docs-signature-copy" type="button" data-copy-signature={declaration.signature}>Copy</button>
-                            </div>
-                        </article>)}
-                    </section>)}
+                                <p>{declaration.description}</p>
+                                <h4>Signature</h4>
+                                <div class="docs-signature-row">
+                                    <pre><code>{declaration.signature}</code></pre>
+                                    <button class="docs-signature-copy" type="button" data-copy-signature={declaration.signature}>Copy</button>
+                                </div>
+                            </article>)}
+                        </section>)}
+                    </div>
                 </main>
                 <aside class="docs-toc" aria-label="On this page">
                     <strong>On this page</strong>

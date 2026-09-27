@@ -77,20 +77,26 @@ export interface DocsConfig {
     readonly manifests: ReadonlyArray<GeneratedManifest>;
 }
 const defaultColors = {
-    accent: "#2563eb",
-    background: "#ffffff",
-    border: "#e5e7eb",
-    codeBackground: "#f3f4f6",
-    foreground: "#111111",
-    muted: "#6b7280"
+    accent: "oklch(0.696 0.17 162.48)",
+    background: "oklch(1 0 0)",
+    border: "oklch(0.92 0.004 286.32)",
+    cardBackground: "oklch(0.985 0 0)",
+    codeBackground: "oklch(0.967 0.001 286.375)",
+    foreground: "oklch(0.21 0.006 285.885)",
+    muted: "oklch(0.442 0.017 285.786)",
+    proseForeground: "oklch(0.37 0.013 285.805)",
+    subtleForeground: "oklch(0.705 0.015 286.067)"
 } as const;
 const defaultDarkColors = {
-    accent: "#93c5fd",
-    background: "#09090b",
-    border: "#27272a",
-    codeBackground: "#18181b",
-    foreground: "#f4f4f5",
-    muted: "#a1a1aa"
+    accent: "oklch(0.765 0.177 163.223)",
+    background: "oklch(0.141 0.005 285.823)",
+    border: "oklch(0.274 0.006 286.033)",
+    cardBackground: "oklch(0.21 0.006 285.885)",
+    codeBackground: "oklch(0.274 0.006 286.033)",
+    foreground: "oklch(0.985 0 0)",
+    muted: "oklch(0.705 0.015 286.067)",
+    proseForeground: "oklch(0.871 0.006 286.286)",
+    subtleForeground: "oklch(0.552 0.016 285.938)"
 } as const;
 export /** @internal */ const DefaultDesignTokens: DesignTokens = {
     dark: defaultDarkColors,

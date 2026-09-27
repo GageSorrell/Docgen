@@ -1,5 +1,5 @@
 {
-  "checksum": "2669771c1241b7355e2c1d2d57542d054ed15f93b183eb709f653a6e813913ec",
+  "checksum": "b06e5f9ace6127fbdc592a0b71292f17c75ed139479fcde8444ca75ec3e0b97c",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -70,7 +70,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 597
+            "line": 603
           }
         },
         {
@@ -84,7 +84,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 351
+            "line": 354
           }
         },
         {
@@ -98,7 +98,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 595
+            "line": 601
           }
         },
         {
@@ -112,7 +112,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 338
+            "line": 341
           }
         },
         {
@@ -126,7 +126,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 583
+            "line": 589
           }
         },
         {
@@ -140,7 +140,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 298
+            "line": 301
           }
         },
         {
@@ -154,7 +154,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 589
+            "line": 595
           }
         },
         {
@@ -168,7 +168,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 585
+            "line": 591
           }
         },
         {
@@ -182,7 +182,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 311
+            "line": 314
           }
         },
         {
@@ -196,7 +196,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 328
+            "line": 331
           }
         },
         {
@@ -238,7 +238,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 591
+            "line": 597
           }
         },
         {
@@ -252,7 +252,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 190
+            "line": 193
           }
         },
         {
@@ -266,7 +266,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 196
+            "line": 199
           }
         },
         {
@@ -280,7 +280,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 603
+            "line": 609
           }
         },
         {
@@ -294,7 +294,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 321
+            "line": 324
           }
         },
         {
@@ -308,7 +308,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 599
+            "line": 605
           }
         },
         {
@@ -322,7 +322,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 346
+            "line": 349
           }
         },
         {
@@ -336,7 +336,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 537
+            "line": 543
           }
         },
         {
@@ -350,7 +350,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 145
+            "line": 148
           }
         },
         {
@@ -364,7 +364,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 561
+            "line": 567
           }
         },
         {
@@ -378,7 +378,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 235
+            "line": 238
           }
         },
         {
@@ -392,7 +392,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 565
+            "line": 571
           }
         },
         {
@@ -406,7 +406,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 241
+            "line": 244
           }
         },
         {
@@ -420,7 +420,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 575
+            "line": 581
           }
         },
         {
@@ -434,7 +434,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 262
+            "line": 265
           }
         },
         {
@@ -448,7 +448,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 579
+            "line": 585
           }
         },
         {
@@ -462,7 +462,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 282
+            "line": 285
           }
         },
         {
@@ -490,7 +490,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 569
+            "line": 575
           }
         },
         {
@@ -504,7 +504,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 248
+            "line": 251
           }
         },
         {
@@ -546,7 +546,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 697
+            "line": 703
           }
         },
         {
@@ -560,7 +560,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 723
+            "line": 729
           }
         },
         {
@@ -574,7 +574,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 712
+            "line": 718
           }
         },
         {
@@ -588,7 +588,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 95
+            "line": 101
           }
         },
         {
@@ -602,7 +602,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 521
+            "line": 527
           }
         },
         {
@@ -616,7 +616,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 42
+            "line": 45
           }
         },
         {
@@ -672,7 +672,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 607
+            "line": 613
           }
         },
         {
@@ -686,7 +686,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 503
+            "line": 509
           }
         },
         {
@@ -700,7 +700,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 523
+            "line": 529
           }
         },
         {
@@ -714,7 +714,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 93
+            "line": 96
           }
         },
         {
@@ -770,7 +770,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 557
+            "line": 563
           }
         },
         {
@@ -784,7 +784,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 227
+            "line": 230
           }
         },
         {
@@ -798,7 +798,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 531
+            "line": 537
           }
         },
         {
@@ -812,7 +812,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 119
+            "line": 122
           }
         },
         {
@@ -826,7 +826,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 112
+            "line": 115
           }
         },
         {
@@ -840,7 +840,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 61
+            "line": 64
           }
         },
         {
@@ -854,7 +854,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 55
+            "line": 58
           }
         },
         {
@@ -868,7 +868,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 83
+            "line": 86
           }
         },
         {
@@ -882,7 +882,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 47
+            "line": 50
           }
         },
         {
@@ -896,7 +896,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 65
+            "line": 68
           }
         },
         {
@@ -910,7 +910,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 73
+            "line": 76
           }
         },
         {
@@ -924,7 +924,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 89
+            "line": 92
           }
         },
         {
@@ -952,7 +952,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 369
+            "line": 375
           }
         },
         {
@@ -966,7 +966,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 527
+            "line": 533
           }
         },
         {
@@ -980,7 +980,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 103
+            "line": 106
           }
         },
         {
@@ -994,7 +994,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 533
+            "line": 539
           }
         },
         {
@@ -1008,7 +1008,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 131
+            "line": 134
           }
         },
         {
@@ -1036,7 +1036,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 519
+            "line": 525
           }
         },
         {
@@ -1064,7 +1064,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 541
+            "line": 547
           }
         },
         {
@@ -1078,7 +1078,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 154
+            "line": 157
           }
         },
         {
@@ -1092,7 +1092,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 573
+            "line": 579
           }
         },
         {
@@ -1106,7 +1106,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 256
+            "line": 259
           }
         },
         {
@@ -1120,7 +1120,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 535
+            "line": 541
           }
         },
         {
@@ -1134,7 +1134,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 137
+            "line": 140
           }
         },
         {
@@ -1148,7 +1148,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 555
+            "line": 561
           }
         },
         {
@@ -1162,7 +1162,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 217
+            "line": 220
           }
         },
         {
@@ -1176,7 +1176,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 547
+            "line": 553
           }
         },
         {
@@ -1190,7 +1190,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 176
+            "line": 179
           }
         },
         {
@@ -1204,7 +1204,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 183
+            "line": 186
           }
         },
         {
@@ -1218,7 +1218,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 543
+            "line": 549
           }
         },
         {
@@ -1232,7 +1232,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 545
+            "line": 551
           }
         },
         {
@@ -1246,7 +1246,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 159
+            "line": 162
           }
         },
         {
@@ -1260,7 +1260,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 169
+            "line": 172
           }
         },
         {
@@ -1274,7 +1274,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 551
+            "line": 557
           }
         },
         {
@@ -1288,7 +1288,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 202
+            "line": 205
           }
         }
       ],
@@ -1814,7 +1814,7 @@
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 70
+            "line": 76
           }
         },
         {
@@ -1828,7 +1828,7 @@
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 120
+            "line": 126
           }
         },
         {
@@ -1842,7 +1842,7 @@
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 112
+            "line": 118
           }
         }
       ],

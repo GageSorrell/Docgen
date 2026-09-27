@@ -1,0 +1,25 @@
+---
+import "../styles/docs.css";
+
+interface Props {
+    readonly title: string;
+    readonly description: string;
+}
+
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="description" content={description} />
+        <meta name="color-scheme" content="light dark" />
+        <title>{title}</title>
+    </head>
+    <body>
+        <main class="prose prose-effect">
+            <slot />
+        </main>
+    </body>
+</html>

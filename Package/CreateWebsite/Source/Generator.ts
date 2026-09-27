@@ -25,6 +25,7 @@ import type {
     WebsiteGenerationOptions
 } from "./Types.js";
 import { landingTemplateFiles } from "./LandingTemplate.js";
+import { documentationTemplateFiles } from "./DocumentationTemplate.js";
 import {
     createLandingRewrites,
     createPlaceholderDeployments,
@@ -130,12 +131,15 @@ const documentationFiles = (
             },
             {
                 "@astrojs/mdx": "8.0.2",
+                "@tailwindcss/typography": "0.5.20",
+                "@tailwindcss/vite": "4.3.3",
                 "@sorrell/docs-api-reference": "1.0.1",
                 "@sorrell/docs-core": "1.0.1",
                 "@sorrell/docs-astro": "1.0.1",
                 "@sorrell/docs-create-website": "1.0.1",
                 "@sorrell/docs-ui": "1.0.1",
-                astro: "7.3.4"
+                astro: "7.3.4",
+                tailwindcss: "4.3.3"
             },
             {
                 "@astrojs/check": "0.9.10",
@@ -148,6 +152,7 @@ const documentationFiles = (
     { content: baseTsconfig(), path: "Documentation/tsconfig.json" },
     {
         content: `import mdx from "@astrojs/mdx";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { docsAstroIntegration } from "@sorrell/docs-astro";
 
@@ -162,29 +167,13 @@ export default defineConfig({
         })
     ],
     output: "static",
-    srcDir: "./Source"
+    srcDir: "./Source",
+    vite: { plugins: [ tailwindcss() ] }
 });
 `,
         path: "Documentation/astro.config.mjs"
     },
-    {
-        content: `---
-const title = ${JSON.stringify(config.metadata.title)};
-const description = ${JSON.stringify(config.metadata.description)};
----
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        <title>{title}</title>
-    </head>
-    <body>
-        <main><h1>{title}</h1><p>{description}</p></main>
-    </body>
-</html>
-`,
-        path: "Documentation/Source/pages/index.astro"
-    },
+    ...documentationTemplateFiles(config),
     {
         content: `---
 title: ${config.metadata.title}

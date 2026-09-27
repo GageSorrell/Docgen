@@ -3,6 +3,7 @@ import { canonicalUrl, docsPath, docsVersionPath } from "@sorrell/docs-astro";
 import { DefaultDesignTokens } from "@sorrell/docs-core";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/docs.css";
 
 interface PageSummary
 {
@@ -84,7 +85,7 @@ const pageHref = (page: PageSummary): string => {
                         <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
                     </div>
                     <p class="docs-lede">{description}</p>
-                    <article class="docs-prose" data-pagefind-body>
+                    <article class="docs-prose prose prose-effect" data-pagefind-body>
                         <slot />
                     </article>
                     <nav class="docs-previous-next" aria-label="Page navigation">
@@ -139,14 +140,6 @@ const pageHref = (page: PageSummary): string => {
     .docs-copy-button { background: var(--docs-foreground); border: 0; border-radius: 999px; color: var(--docs-background); cursor: pointer; font-weight: 700; padding: .75rem 1rem; white-space: nowrap; }
     .docs-copy-button[data-copied="true"] { background: var(--docs-accent); color: var(--docs-background); }
     .docs-lede { color: var(--docs-muted); font-size: 1.15rem; line-height: 1.65; margin: 1.25rem 0 3rem; max-width: 48rem; }
-    .docs-prose { color: var(--docs-foreground); font-size: 1.05rem; line-height: 1.75; max-width: 48rem; }
-    .docs-prose h2 { font-size: 2rem; letter-spacing: -.04em; margin: 3.5rem 0 1rem; }
-    .docs-prose h3 { font-size: 1.35rem; margin: 2.25rem 0 .75rem; }
-    .docs-prose a { color: var(--docs-accent); }
-    .docs-prose blockquote { border-left: 3px solid var(--docs-accent); color: var(--docs-muted); margin: 2rem 0; padding-left: 1.25rem; }
-    .docs-prose code { background: var(--docs-code-background); border-radius: .35rem; padding: .12rem .3rem; }
-    .docs-prose pre { background: var(--docs-code-background); border: 1px solid var(--docs-border); border-radius: .75rem; overflow-x: auto; padding: 1rem; }
-    .docs-prose pre code { background: transparent; padding: 0; }
     .docs-previous-next { border-top: 1px solid var(--docs-border); display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-top: 5rem; padding-top: 1.5rem; }
     .docs-previous-next a { color: var(--docs-foreground); display: flex; flex-direction: column; gap: .35rem; text-decoration: none; }
     .docs-previous-next a.next { align-items: end; text-align: right; }

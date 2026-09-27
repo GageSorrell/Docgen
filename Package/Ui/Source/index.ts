@@ -396,6 +396,7 @@ font-size: clamp(22px,
 32px);
 letter-spacing: -0.04em;
 margin: 0;
+overflow-wrap: anywhere;
 }
 .docs-declaration-anchor { color: var(--docs-accent);
 font-size: .55em;

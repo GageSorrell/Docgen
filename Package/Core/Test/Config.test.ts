@@ -34,7 +34,11 @@ describe("docs-core configuration", () =>
             }
         ]);
         expect(config.api.enabled).toBe(false);
-        expect(config.tokens.dark.codeBackground).toBe("#18181b");
+        expect(config.tokens.dark.codeBackground).toBe("oklch(0.274 0.006 286.033)");
+        expect(config.tokens.light.proseForeground).toBe("oklch(0.37 0.013 285.805)");
+        expect(config.tokens.dark.proseForeground).toBe("oklch(0.871 0.006 286.286)");
+        expect(config.tokens.light.cardBackground).toBe("oklch(0.985 0 0)");
+        expect(config.tokens.dark.subtleForeground).toBe("oklch(0.552 0.016 285.938)");
         expect(config.routing).toEqual({
             documentationPrefix: "/docs",
             storybookPrefix: "/storybook"

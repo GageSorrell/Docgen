@@ -54,7 +54,10 @@ const createThemeCss = (tokens: DesignTokens): string =>
   --docs-muted: ${ tokens.light.muted };
   --docs-border: ${ tokens.light.border };
   --docs-accent: ${ tokens.light.accent };
+  --docs-card-background: ${ tokens.light.cardBackground ?? tokens.light.codeBackground };
   --docs-code-background: ${ tokens.light.codeBackground };
+  --docs-prose-foreground: ${ tokens.light.proseForeground ?? tokens.light.foreground };
+  --docs-subtle-foreground: ${ tokens.light.subtleForeground ?? tokens.light.muted };
 }
 
 [data-theme="dark"] {
@@ -63,7 +66,10 @@ const createThemeCss = (tokens: DesignTokens): string =>
   --docs-muted: ${ tokens.dark.muted};
   --docs-border: ${ tokens.dark.border };
   --docs-accent: ${ tokens.dark.accent };
+  --docs-card-background: ${ tokens.dark.cardBackground ?? tokens.dark.codeBackground };
   --docs-code-background: ${ tokens.dark.codeBackground };
+  --docs-prose-foreground: ${ tokens.dark.proseForeground ?? tokens.dark.foreground };
+  --docs-subtle-foreground: ${ tokens.dark.subtleForeground ?? tokens.dark.muted };
 }`;
 
 export/** @internal */

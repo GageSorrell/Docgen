@@ -34,9 +34,12 @@ const ColorTokensSchema = Schema.Struct({
     accent: Schema.String,
     background: Schema.String,
     border: Schema.String,
+    cardBackground: Schema.optionalKey(Schema.String),
     codeBackground: Schema.String,
     foreground: Schema.String,
-    muted: Schema.String
+    muted: Schema.String,
+    proseForeground: Schema.optionalKey(Schema.String),
+    subtleForeground: Schema.optionalKey(Schema.String)
 });
 export/** @internal */
 const DesignTokensSchema = Schema.Struct({
@@ -367,9 +370,12 @@ const OptionalColorTokensSchema = Schema.Struct({
     accent: optionalString,
     background: optionalString,
     border: optionalString,
+    cardBackground: optionalString,
     codeBackground: optionalString,
     foreground: optionalString,
-    muted: optionalString
+    muted: optionalString,
+    proseForeground: optionalString,
+    subtleForeground: optionalString
 });
 const OptionalDesignTokensSchema = Schema.Struct({
     dark: Schema.optionalKey(OptionalColorTokensSchema),
