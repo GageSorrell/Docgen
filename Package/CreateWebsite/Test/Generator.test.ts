@@ -13,6 +13,33 @@ import { describe, expect, it } from "vitest";
 import { createGeneratedWebsite } from "../Source/Generator.js";
 describe("three-package website generation", () =>
 {
+    it("generates package API reference pages with searchable export groups", () =>
+    {
+        const website = createGeneratedWebsite({
+            config: {
+                api: {
+                    enabled: true,
+                    entryPoints: [ "Package/Widget/Source/index.ts" ],
+                    packages: [ "@example/widget" ]
+                }
+            },
+            target: "generated"
+        });
+        const contents = new Map(
+            website.files.map((file: GeneratedWebsiteFile) => [ file.path, file.content ])
+        );
+        const apiPackageLayout = contents.get("Documentation/Source/layouts/ApiPackageLayout.astro") ?? "";
+        expect(apiPackageLayout).toContain("record.packageDescription");
+        expect(apiPackageLayout).toContain("record.packagePrivate === true");
+        expect(apiPackageLayout).toContain("record.packageSourceUrl");
+        expect(apiPackageLayout).toContain("docs-api-module-card");
+        expect(apiPackageLayout).toContain("docs-package-module-search");
+        expect(contents.get("Documentation/Source/pages/api/[...slug].astro"))
+            .toContain("ApiPackageLayout record={record}");
+        expect(contents.get("Documentation/Source/pages/api/index.astro"))
+            .toContain("docs-api-package-card");
+        expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
+    });
     it("generates the ported Astro landing composition and interactive components", () =>
     {
         const website = createGeneratedWebsite({ target: "generated" });

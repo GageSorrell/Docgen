@@ -64,7 +64,10 @@ export const documentationTemplateFiles = (
             version: versionNumber
         };
     });
-    return readTemplates(templateRoot).map((template) => ({
+    const templates = readTemplates(templateRoot).filter((template) =>
+        config.api.enabled || !template.path.startsWith("Source/pages/api/")
+    );
+    const files = templates.map((template) => ({
         path: `Documentation/${template.path}`,
         content: replace(template.content, {
             DARK_ACCENT: config.tokens.dark.accent,
@@ -94,4 +97,18 @@ export const documentationTemplateFiles = (
             VERSIONS_ESCAPED: JSON.stringify(JSON.stringify(versions)).slice(1, -1)
         })
     }));
+    return config.api.enabled
+        ? [
+            ...files,
+            {
+                path: "Documentation/Source/data/ApiReference.json",
+                content: `${JSON.stringify({
+                    checksum: "",
+                    generatedAt: "1970-01-01T00:00:00.000Z",
+                    records: [],
+                    version: 1
+                }, null, 2)}\n`
+            }
+        ]
+        : files;
 };

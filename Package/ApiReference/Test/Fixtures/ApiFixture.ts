@@ -1,7 +1,7 @@
 /**
  *
  *
- * @module @sorrell/docs-api-reference/Test/Fixtures/ApiFixture
+ * @module @sorrell/fixture/Test/Fixtures/ApiFixture
  *
  * @file      ApiFixture.ts
  * @author    Gage Sorrell <gage@sorrell.sh>

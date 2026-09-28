@@ -34,8 +34,17 @@ describe("TypeDoc generation", () =>
                 }
             ]
         });
-        expect(dataset.records).toHaveLength(1);
-        expect(dataset.records[0]?.breadcrumbs[1]?.label).toBe("V1.0.1");
+        expect(dataset.records).toHaveLength(2);
+        const rootModule = dataset.records.find((record) => record.module === "fixture");
+        const extraModule = dataset.records.find((record) => record.module === "fixture/Extra");
+        expect(rootModule?.breadcrumbs[1]?.label).toBe("V1.0.1");
+        expect(rootModule?.packageDescription)
+            .toBe("A fixture package with an exported root module.");
+        expect(rootModule?.packagePrivate).toBe(false);
+        expect(rootModule?.packageSourceUrl).toBe("https://github.com/Sorrell/fixture");
+        expect(rootModule?.packageExports).toEqual([ ".", "./Extra" ]);
+        expect(extraModule?.displayName).toBe("Extra");
+        expect(extraModule?.link?.href).toBe("/docs/api/fixture/Extra");
         expect(
             dataset.records[0]?.declarations.some(
                 (declaration: {

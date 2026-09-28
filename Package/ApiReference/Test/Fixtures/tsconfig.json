@@ -4,5 +4,5 @@
     "noEmit": true,
     "rootDir": "."
   },
-  "include": ["ApiFixture.ts"]
+  "include": ["ApiFixture.ts", "Source/Extra.ts"]
 }

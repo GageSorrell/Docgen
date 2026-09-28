@@ -382,6 +382,74 @@ display: inline-flex;
 gap: 7px;
 text-decoration: none;
 }
+.docs-package-link { align-items: center;
+color: var(--docs-muted) !important;
+display: inline-flex;
+gap: 7px;
+text-decoration: none;
+}
+.docs-package-link:hover { color: var(--docs-foreground) !important;
+}
+.docs-npm-logo { flex: none;
+height: 14px;
+width: 32px;
+}
+.docs-package-modules { margin: -30px 0 62px;
+}
+.docs-package-search-label { display: block;
+font-size: 13px;
+font-weight: 600;
+margin-bottom: 10px;
+}
+.docs-package-search { background: var(--docs-card-background);
+border: 1px solid var(--docs-border);
+border-radius: 9px;
+box-sizing: border-box;
+color: var(--docs-foreground);
+font: inherit;
+margin-bottom: 28px;
+max-width: 100%;
+padding: 12px 14px;
+width: min(100%, 560px);
+}
+.docs-package-search:focus-visible { border-color: var(--docs-accent);
+outline: 2px solid color-mix(in srgb, var(--docs-accent) 30%, transparent);
+outline-offset: 2px;
+}
+.docs-package-module-group { margin: 0 0 30px;
+}
+.docs-package-module-group h2 { font-size: 1.25rem;
+margin: 0 0 12px;
+}
+.docs-package-module-grid { display: grid;
+gap: 12px;
+grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+}
+.docs-package-module-card { align-items: center;
+background: var(--docs-card-background);
+border: 1px solid var(--docs-border);
+border-radius: 10px;
+color: var(--docs-foreground);
+display: flex;
+font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+gap: 12px;
+justify-content: space-between;
+min-width: 0;
+padding: 15px 16px;
+text-decoration: none;
+transition: border-color 120ms ease, background 120ms ease;
+}
+.docs-package-module-card:hover,
+.docs-package-module-card:focus-visible { background: var(--docs-muted);
+border-color: var(--docs-accent);
+}
+.docs-package-module-card span:first-child { overflow-wrap: anywhere;
+}
+.docs-package-module-card span:last-child { color: var(--docs-muted);
+flex: none;
+}
+.docs-package-no-results { color: var(--docs-muted);
+}
 .docs-source-link svg { flex: none;
 height: 14px;
 width: 14px;

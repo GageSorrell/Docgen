@@ -293,6 +293,10 @@ const ApiReferenceRecordSchema = Schema.Struct({
     module: Schema.String,
     packageId: Schema.String,
     packageName: Schema.String,
+    packageDescription: Schema.optionalKey(Schema.String),
+    packageExports: Schema.optionalKey(Schema.Array(Schema.String)),
+    packagePrivate: Schema.optionalKey(Schema.Boolean),
+    packageSourceUrl: Schema.optionalKey(Schema.String),
     source: Schema.optionalKey(ApiReferenceSourceSchema),
     summary: Schema.optionalKey(Schema.String),
     version: Schema.String

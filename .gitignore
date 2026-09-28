@@ -38,3 +38,5 @@ Thumbs.db
 screenshots/
 
 .vercel
+.tmp-*
+.release*

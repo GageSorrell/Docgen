@@ -43,6 +43,9 @@ interface PackageManifestLike {
     readonly name?: string;
     readonly main?: string;
     readonly exports?: unknown;
+    readonly description?: string;
+    readonly private?: boolean;
+    readonly repository?: string | { readonly url?: string };
 }
 interface ReflectionFlagsLike {
     readonly isAbstract?: boolean;
@@ -185,6 +188,144 @@ const manifestFor = async (
         }
     }
     return undefined;
+};
+const packageMetadataFor = async (
+    packageInput: ApiReferenceGenerationOptions["packages"][number]
+): Promise<{
+    readonly description?: string;
+    readonly exports: ReadonlyArray<string>;
+    readonly private?: boolean;
+    readonly repositoryUrl?: string;
+}> =>
+{
+    const located = await manifestFor(packageInput.entryPoints, packageInput.name);
+    if (located === undefined)
+    {
+        return { exports: [ "." ] };
+    }
+    const exportsMap = recordLike(located.manifest.exports);
+    const exportPaths = exportsMap === undefined
+        ? [ "." ]
+        : Object.keys(exportsMap)
+            .filter((path) => path === "." || path.startsWith("./"))
+            .sort((left, right) => left.localeCompare(right));
+    const exports = exportPaths.length === 0 ? [ "." ] : exportPaths;
+    const repository = typeof located.manifest.repository === "string"
+        ? located.manifest.repository
+        : located.manifest.repository?.url;
+    const repositoryUrl = repository
+        ?.replace(/^git@github\.com:/u, "https://github.com/")
+        .replace(/^git\+/u, "")
+        .replace(/\.git(?:#.*)?$/u, "")
+        .replace(/#.*$/u, "")
+        .replace(/\/tree\/[^/]+(?:\/.*)?$/u, "")
+        .replace(/\/$/u, "");
+    return {
+        exports,
+        ...(located.manifest.description === undefined
+            ? {}
+            : { description: located.manifest.description }),
+        ...(located.manifest.private === undefined
+            ? {}
+            : { private: located.manifest.private }),
+        ...(repositoryUrl === undefined ? {} : { repositoryUrl })
+    };
+};
+interface PackageExportEntryPoint {
+    readonly exportPath: string;
+    readonly entryPoint: string;
+}
+const sourceEntryPointForExport = async (
+    directory: string,
+    exportPath: string,
+    target: string | undefined
+): Promise<string | undefined> =>
+{
+    const candidates = new Set<string>();
+    if (target !== undefined)
+    {
+        const targetAbsolute = resolve(directory, target);
+        const targetRelative = target.replace(/^\.\//u, "").replaceAll("\\", "/");
+        const targetParts = targetRelative.split("/");
+        const buildDirectoryIndex = targetParts.findIndex((part) =>
+            [ "dist", "distribution", "build", "lib" ].includes(part.toLocaleLowerCase())
+        );
+        const sourceRelative = buildDirectoryIndex < 0
+            ? targetRelative
+            : targetParts.slice(buildDirectoryIndex + 1).join("/");
+        const sourceStem = sourceRelative.replace(/\.(?:d\.)?[cm]?[jt]sx?$/iu, "");
+        const sourceExtensions = [ ".ts", ".tsx", ".mts", ".cts", ".js", ".jsx" ];
+        for (const sourceDirectory of [ "Source", "source", "src" ])
+        {
+            for (const extension of sourceExtensions)
+            {
+                candidates.add(resolve(directory, sourceDirectory, `${sourceStem}${extension}`));
+                candidates.add(resolve(directory, sourceDirectory, sourceStem, `index${extension}`));
+            }
+        }
+        candidates.add(targetAbsolute);
+    }
+    const exportSubpath = exportPath.replace(/^\.\//u, "");
+    if (exportSubpath !== "")
+    {
+        const exportStem = exportSubpath.replace(/\.(?:d\.)?[cm]?[jt]sx?$/iu, "");
+        for (const sourceDirectory of [ "Source", "source", "src" ])
+        {
+            for (const extension of [ ".ts", ".tsx", ".mts", ".cts" ])
+            {
+                candidates.add(resolve(directory, sourceDirectory, `${exportStem}${extension}`));
+                candidates.add(resolve(directory, sourceDirectory, exportStem, `index${extension}`));
+            }
+        }
+    }
+    for (const candidate of candidates)
+    {
+        try
+        {
+            await readFile(candidate);
+            return candidate;
+        }
+        catch
+        {
+            // Try the next source layout used by TypeScript packages.
+        }
+    }
+    return undefined;
+};
+const packageExportEntryPoints = async (
+    packageInput: ApiReferenceGenerationOptions["packages"][number]
+): Promise<ReadonlyArray<PackageExportEntryPoint>> =>
+{
+    const located = await manifestFor(packageInput.entryPoints, packageInput.name);
+    if (located === undefined)
+    {
+        const fallback = packageInput.entryPoints[0];
+        return fallback === undefined ? [] : [ { exportPath: ".", entryPoint: resolve(fallback) } ];
+    }
+    const exportsMap = recordLike(located.manifest.exports);
+    const paths = exportsMap === undefined
+        ? [ "." ]
+        : Object.keys(exportsMap)
+            .filter((path) => path === "." || path.startsWith("./"))
+            .sort((left, right) => left.localeCompare(right));
+    const exportPaths = paths.length === 0 ? [ "." ] : paths;
+    const result: Array<PackageExportEntryPoint> = [];
+    for (const exportPath of exportPaths)
+    {
+        const target = exportPath === "."
+            ? await packageModuleEntryPoint(packageInput)
+            : await sourceEntryPointForExport(
+                located.directory,
+                exportPath,
+                exportsMap === undefined ? undefined : exportTarget(exportsMap[exportPath])
+            );
+        const entryPoint = target ?? (exportPath === "." ? packageInput.entryPoints[0] : undefined);
+        if (entryPoint !== undefined)
+        {
+            result.push({ exportPath, entryPoint: resolve(entryPoint) });
+        }
+    }
+    return result;
 };
 const packageModuleEntryPoint = async (
     packageInput: ApiReferenceGenerationOptions["packages"][number]
@@ -512,9 +653,14 @@ const recordFrom = (
     packageInput: ApiReferenceGenerationOptions["packages"][number],
     options: ApiReferenceGenerationOptions,
     summary: string | undefined,
-    selectedModuleSource: ApiReferenceSource | undefined
+    selectedModuleSource: ApiReferenceSource | undefined,
+    packageMetadata: Awaited<ReturnType<typeof packageMetadataFor>>,
+    exportPath: string
 ): ApiReferenceRecord =>
 {
+    const packageOptions = options.repositoryUrl === undefined && packageMetadata.repositoryUrl !== undefined
+        ? { ...options, repositoryUrl: packageMetadata.repositoryUrl }
+        : options;
     const children = [ ...(reflection.children ?? []) ]
         .filter((child: ReflectionLike) => child.name !== undefined)
         .sort((left: ReflectionLike, right: ReflectionLike) =>
@@ -530,15 +676,20 @@ const recordFrom = (
         ).values()
     ].sort((left: Category, right: Category) => left.order - right.order);
     const declarations = children.map((child: ReflectionLike) =>
-        declarationFrom(child, packageInput, categoryFor(child).id, options)
+        declarationFrom(child, packageInput, categoryFor(child).id, packageOptions)
     );
-    const moduleName = packageInput.id;
-    const displayName = reflection.name ?? packageInput.name;
+    const modulePath = exportPath === "." ? "Core" : exportPath.replace(/^\.\//u, "");
+    const moduleName = exportPath === "."
+        ? packageInput.id
+        : `${packageInput.id}/${modulePath}`;
+    const displayName = exportPath === "."
+        ? reflection.name ?? packageInput.name
+        : modulePath;
     const moduleSource = sourceOf(
         reflection,
-        options.repositoryUrl,
-        options.revision,
-        options.sourceRoot
+        packageOptions.repositoryUrl,
+        packageOptions.revision,
+        packageOptions.sourceRoot
     ) ?? selectedModuleSource;
     return {
         breadcrumbs: [
@@ -570,12 +721,22 @@ const recordFrom = (
         module: moduleName,
         packageId: packageInput.id,
         packageName: packageInput.name,
+        packageExports: packageMetadata.exports,
+        ...(packageMetadata.repositoryUrl === undefined
+            ? {}
+            : { packageSourceUrl: packageMetadata.repositoryUrl }),
+        ...(packageMetadata.description === undefined
+            ? {}
+            : { packageDescription: packageMetadata.description }),
+        ...(packageMetadata.private === undefined
+            ? {}
+            : { packagePrivate: packageMetadata.private }),
         version: packageInput.version,
         ...(summary === undefined ? {} : { summary }),
         ...(moduleSource === undefined ? {} : { source: moduleSource }),
         link: {
             external: false,
-            href: `${options.referencePrefix ?? "/docs/api"}/${moduleName}`,
+            href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.id}/${modulePath}`,
             label: displayName
         }
     };
@@ -613,41 +774,45 @@ const generateApiDataset = async (
     const records: Array<ApiReferenceRecord> = [];
     for (const packageInput of options.packages)
     {
-        const app = await Application.bootstrapWithPlugins(
-            {
-                entryPoints: packageInput.entryPoints.map(
-                    (entryPoint: string) => entryPoint.replaceAll("\\", "/")
-                ),
-                skipErrorChecking: true,
-                ...(packageInput.tsconfig === undefined
-                    ? {}
-                    : { tsconfig: packageInput.tsconfig }),
-                ...typedocOptionsFor(options)
-            },
-            [ new TSConfigReader(), new TypeDocReader() ]
-        );
-        const project = await app.convert();
-        if (project === undefined)
+        const packageMetadata = await packageMetadataFor(packageInput);
+        const moduleEntries = await packageExportEntryPoints(packageInput);
+        for (const { entryPoint, exportPath } of moduleEntries)
         {
-            throw new ApiReferenceError(
-                `TypeDoc could not convert ${packageInput.name}`
+            const app = await Application.bootstrapWithPlugins(
+                {
+                    entryPoints: [ entryPoint.replaceAll("\\", "/") ],
+                    skipErrorChecking: true,
+                    ...(packageInput.tsconfig === undefined
+                        ? {}
+                        : { tsconfig: packageInput.tsconfig }),
+                    ...typedocOptionsFor(options)
+                },
+                [ new TSConfigReader(), new TypeDocReader() ]
+            );
+            const project = await app.convert();
+            if (project === undefined)
+            {
+                throw new ApiReferenceError(
+                    `TypeDoc could not convert ${packageInput.name} export ${exportPath}`
+                );
+            }
+            records.push(
+                recordFrom(
+                    moduleReflection(project as unknown as ReflectionLike),
+                    packageInput,
+                    options,
+                    await moduleDescriptionFrom(entryPoint),
+                    sourceFromPath(
+                        entryPoint,
+                        options.repositoryUrl ?? packageMetadata.repositoryUrl,
+                        options.revision,
+                        options.sourceRoot
+                    ),
+                    packageMetadata,
+                    exportPath
+                )
             );
         }
-        const moduleEntryPoint = await packageModuleEntryPoint(packageInput);
-        records.push(
-            recordFrom(
-                moduleReflection(project as unknown as ReflectionLike),
-                packageInput,
-                options,
-                await moduleDescriptionFrom(moduleEntryPoint),
-                sourceFromPath(
-                    moduleEntryPoint,
-                    options.repositoryUrl,
-                    options.revision,
-                    options.sourceRoot
-                )
-            )
-        );
     }
     const validation = validateApiRecords(records);
     if (!validation.valid)

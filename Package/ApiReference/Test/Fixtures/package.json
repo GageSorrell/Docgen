@@ -1,0 +1,14 @@
+{
+  "name": "@sorrell/fixture",
+  "version": "1.0.1",
+  "description": "A fixture package with an exported root module.",
+  "private": false,
+  "repository": "https://github.com/Sorrell/fixture.git",
+  "exports": {
+    ".": "./ApiFixture.ts",
+    "./Extra": {
+      "types": "./Distribution/Extra.d.ts",
+      "import": "./Distribution/Extra.js"
+    }
+  }
+}

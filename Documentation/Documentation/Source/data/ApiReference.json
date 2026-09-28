@@ -1,5 +1,5 @@
 {
-  "checksum": "f60a8731e2cd761e3faa31dac6997923899a62f7013bf36545384f326d7407fd",
+  "checksum": "e3bb8e1ea0a62a2d377bad063b042106b75dd023ada65772c4d2d55f95af1e6c",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -70,7 +70,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 603
+            "line": 606
           }
         },
         {
@@ -84,7 +84,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 354
+            "line": 357
           }
         },
         {
@@ -98,7 +98,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 601
+            "line": 604
           }
         },
         {
@@ -112,7 +112,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 341
+            "line": 344
           }
         },
         {
@@ -126,7 +126,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 589
+            "line": 592
           }
         },
         {
@@ -140,7 +140,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 301
+            "line": 304
           }
         },
         {
@@ -154,7 +154,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 595
+            "line": 598
           }
         },
         {
@@ -168,7 +168,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 591
+            "line": 594
           }
         },
         {
@@ -182,7 +182,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 314
+            "line": 317
           }
         },
         {
@@ -196,7 +196,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 331
+            "line": 334
           }
         },
         {
@@ -238,7 +238,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 597
+            "line": 600
           }
         },
         {
@@ -280,7 +280,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 609
+            "line": 612
           }
         },
         {
@@ -294,7 +294,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 324
+            "line": 327
           }
         },
         {
@@ -308,7 +308,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 605
+            "line": 608
           }
         },
         {
@@ -322,7 +322,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 349
+            "line": 352
           }
         },
         {
@@ -336,7 +336,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 543
+            "line": 546
           }
         },
         {
@@ -364,7 +364,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 567
+            "line": 570
           }
         },
         {
@@ -392,7 +392,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 571
+            "line": 574
           }
         },
         {
@@ -420,7 +420,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 581
+            "line": 584
           }
         },
         {
@@ -448,7 +448,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 585
+            "line": 588
           }
         },
         {
@@ -457,7 +457,7 @@
           "id": "ApiReferenceRecordSchema",
           "kind": "variable",
           "name": "ApiReferenceRecordSchema",
-          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ categoryId: String; description: String; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageId: String; packageName: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: optionalKey<String>; version: String }>;",
+          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ categoryId: String; description: String; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageDescription: optionalKey<String>; packageExports: optionalKey<$Array<String>>; packageId: String; packageName: String; packagePrivate: optionalKey<Boolean>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: optionalKey<String>; version: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -471,7 +471,7 @@
           "id": "apiReferenceRecordToAgentDocument",
           "kind": "function",
           "name": "apiReferenceRecordToAgentDocument",
-          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageId: string; packageName: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
+          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -490,7 +490,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 575
+            "line": 578
           }
         },
         {
@@ -602,7 +602,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 527
+            "line": 530
           }
         },
         {
@@ -672,7 +672,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 613
+            "line": 616
           }
         },
         {
@@ -686,7 +686,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 509
+            "line": 512
           }
         },
         {
@@ -700,7 +700,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 529
+            "line": 532
           }
         },
         {
@@ -770,7 +770,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 563
+            "line": 566
           }
         },
         {
@@ -798,7 +798,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 537
+            "line": 540
           }
         },
         {
@@ -966,7 +966,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 533
+            "line": 536
           }
         },
         {
@@ -994,7 +994,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 539
+            "line": 542
           }
         },
         {
@@ -1036,7 +1036,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 525
+            "line": 528
           }
         },
         {
@@ -1064,7 +1064,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 547
+            "line": 550
           }
         },
         {
@@ -1092,7 +1092,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 579
+            "line": 582
           }
         },
         {
@@ -1120,7 +1120,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 541
+            "line": 544
           }
         },
         {
@@ -1148,7 +1148,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 561
+            "line": 564
           }
         },
         {
@@ -1176,7 +1176,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 553
+            "line": 556
           }
         },
         {
@@ -1218,7 +1218,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 549
+            "line": 552
           }
         },
         {
@@ -1232,7 +1232,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 551
+            "line": 554
           }
         },
         {
@@ -1274,7 +1274,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 557
+            "line": 560
           }
         },
         {
@@ -1298,6 +1298,11 @@
       "module": "core",
       "packageId": "core",
       "packageName": "@sorrell/docs-core",
+      "packageExports": [
+        "."
+      ],
+      "packageDescription": "Effect schemas and normalized domain models for Sorrell documentation tooling.",
+      "packagePrivate": false,
       "version": "1.0.1",
       "summary": "Effect schemas and normalized domain models for Sorrell documentation tooling.",
       "source": {
@@ -1307,7 +1312,7 @@
       },
       "link": {
         "external": false,
-        "href": "/docs/api/core",
+        "href": "/docs/api/core/Core",
         "label": "@sorrell/docs-core"
       }
     },
@@ -1371,7 +1376,7 @@
             "file": "Ui/Source/ApiReference.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 179
+            "line": 219
           }
         },
         {
@@ -1380,7 +1385,7 @@
           "id": "ApiReferencePageProps",
           "kind": "interface",
           "name": "ApiReferencePageProps",
-          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageId: string; packageName: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string };\n}",
+          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string };\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1562,7 +1567,7 @@
           "id": "docsUiCss",
           "kind": "variable",
           "name": "docsUiCss",
-          "signature": "export declare const docsUiCss: \"\\n:root {\\n    font-family: Inter,\\nui-sans-serif,\\nsystem-ui,\\n-apple-system,\\nBlinkMacSystemFont,\\n\\\"Segoe UI\\\",\\nsans-serif;\\n    color: var(--docs-foreground,\\n#111111);\\n    background: var(--docs-background,\\n#ffffff);\\n    font-synthesis: none;\\n    text-rendering: optimizeLegibility;\\n}\\n\\n* { box-sizing: border-box;\\n}\\nbody { margin: 0;\\nmin-width: 320px;\\nbackground: var(--docs-background,\\n#ffffff);\\ncolor: var(--docs-foreground,\\n#111111);\\n}\\na { color: inherit;\\ntext-decoration: none;\\n}\\nbutton,\\na { -webkit-tap-highlight-color: transparent;\\n}\\nbutton { font: inherit;\\n}\\n\\n.docs-site { min-height: 100vh;\\nbackground: var(--docs-background);\\ncolor: var(--docs-foreground);\\n}\\n.docs-header { align-items: center;\\nbackground: color-mix(in srgb,\\nvar(--docs-background) 92%,\\ntransparent);\\nborder-bottom: 1px solid var(--docs-border);\\ndisplay: flex;\\ngap: 28px;\\nheight: 72px;\\npadding: 0 28px;\\nposition: sticky;\\ntop: 0;\\nz-index: 10;\\nbackdrop-filter: blur(16px);\\n}\\n.docs-brand { align-items: center;\\ndisplay: inline-flex;\\nfont-size: 18px;\\nfont-weight: 750;\\ngap: 10px;\\nletter-spacing: -0.03em;\\nwhite-space: nowrap;\\n}\\n.docs-brand-mark { align-items: center;\\nbackground: var(--docs-foreground);\\ncolor: var(--docs-background);\\ndisplay: inline-flex;\\nheight: 24px;\\njustify-content: center;\\ntransform: rotate(45deg);\\nwidth: 24px;\\n}\\n.docs-brand-mark::first-letter { transform: rotate(-45deg);\\n}\\n.docs-header-nav { align-items: center;\\ndisplay: flex;\\ngap: 24px;\\nmargin-right: auto;\\n}\\n.docs-header-nav a { color: var(--docs-muted);\\nfont-size: 14px;\\nfont-weight: 600;\\n}\\n.docs-header-nav a:hover,\\n.docs-header-nav a.is-active { color: var(--docs-foreground);\\n}\\n.docs-header-actions { align-items: center;\\ndisplay: flex;\\ngap: 10px;\\n}\\n.docs-search-button,\\n.docs-icon-button,\\n.docs-copy-button,\\n.docs-install-command { align-items: center;\\nbackground: transparent;\\nborder: 1px solid var(--docs-border);\\nborder-radius: 8px;\\ncolor: var(--docs-muted);\\ncursor: pointer;\\ndisplay: inline-flex;\\ngap: 9px;\\njustify-content: center;\\n}\\n.docs-search-button { height: 38px;\\nmin-width: 132px;\\npadding: 0 11px;\\n}\\n.docs-search-button kbd { border: 1px solid var(--docs-border);\\nborder-radius: 4px;\\nfont-size: 11px;\\npadding: 2px 5px;\\n}\\n.docs-icon-button { height: 38px;\\nwidth: 38px;\\n}\\n.docs-icon-button:hover,\\n.docs-search-button:hover,\\n.docs-copy-button:hover { border-color: var(--docs-accent);\\ncolor: var(--docs-foreground);\\n}\\n.docs-menu-button { display: none;\\n}\\n\\n.docs-layout { display: grid;\\ngrid-template-columns: 250px minmax(0,\\n1fr) 230px;\\nmin-height: calc(100vh - 72px);\\n}\\n.docs-sidebar { border-right: 1px solid var(--docs-border);\\npadding: 40px 22px;\\n}\\n.docs-sidebar-label,\\n.docs-toc-title { color: var(--docs-muted);\\nfont-size: 11px;\\nfont-weight: 800;\\nletter-spacing: 0.16em;\\ntext-transform: uppercase;\\n}\\n.docs-api-page > .docs-sidebar .docs-sidebar-label { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\n}\\n.docs-sidebar-group { margin-top: 30px;\\n}\\n.docs-sidebar-group h2 { font-size: 13px;\\nmargin: 0 0 9px;\\n}\\n.docs-nav-items { list-style: none;\\nmargin: 0;\\npadding: 0;\\n}\\n.docs-nav-items .docs-nav-items { padding-left: 12px;\\n}\\n.docs-nav-items li { margin: 2px 0;\\n}\\n.docs-nav-items a { border-radius: 6px;\\ncolor: var(--docs-muted);\\ndisplay: block;\\nfont-size: 14px;\\nline-height: 1.45;\\npadding: 7px 9px;\\n}\\n.docs-nav-items a:hover,\\n.docs-nav-items a.is-active { background: color-mix(in srgb,\\nvar(--docs-accent) 12%,\\ntransparent);\\ncolor: var(--docs-foreground);\\n}\\n.docs-toc { border-left: 1px solid var(--docs-border);\\npadding: 42px 22px;\\n}\\n.docs-toc .docs-nav-items { margin-top: 17px;\\n}\\n.docs-toc .docs-nav-items a { font-size: 13px;\\npadding-left: 0;\\n}\\n.docs-main { min-width: 0;\\npadding: 48px clamp(24px,\\n6vw,\\n88px);\\n}\\n\\n.docs-breadcrumbs { color: var(--docs-muted);\\ndisplay: flex;\\nflex-wrap: wrap;\\nfont-size: 12px;\\nfont-weight: 700;\\ngap: 8px;\\nletter-spacing: 0.12em;\\ntext-transform: uppercase;\\n}\\n.docs-breadcrumbs a:hover { color: var(--docs-foreground);\\n}\\n.docs-breadcrumb-separator { color: var(--docs-accent);\\nmargin-right: 8px;\\n}\\n.docs-article { margin: 0 auto;\\nmax-width: 920px;\\n}\\n.docs-article-topline,\\n.docs-api-heading-row { align-items: flex-start;\\ndisplay: flex;\\ngap: 28px;\\njustify-content: space-between;\\nmargin: 48px 0 32px;\\n}\\n.docs-article h1,\\n.docs-api-heading-row h1 { font-size: clamp(38px,\\n5vw,\\n66px);\\nfont-weight: 700;\\nletter-spacing: -0.065em;\\nline-height: 0.98;\\nmargin: 0;\\n}\\n.docs-article-description,\\n.docs-api-heading-row p { color: var(--docs-muted);\\nfont-size: 19px;\\nline-height: 1.6;\\nmargin: 22px 0 0;\\nmax-width: 760px;\\n}\\n.docs-copy-button { flex-shrink: 0;\\nfont-size: 13px;\\nfont-weight: 700;\\nmin-height: 38px;\\npadding: 0 12px;\\n}\\n.docs-prose { font-size: 17px;\\nline-height: 1.75;\\nmax-width: 780px;\\n}\\n.docs-prose p { margin: 1.2em 0;\\n}\\n.docs-prose a { color: var(--docs-accent);\\ntext-decoration: underline;\\ntext-underline-offset: 3px;\\n}\\n.docs-heading { letter-spacing: -0.035em;\\nline-height: 1.15;\\nmargin: 2em 0 0.65em;\\nposition: relative;\\n}\\n.docs-heading-link { color: var(--docs-accent);\\nfont-size: 0.55em;\\nmargin-left: 9px;\\nopacity: 0;\\nvertical-align: middle;\\n}\\n.docs-heading:hover .docs-heading-link,\\n.docs-heading-link:focus { opacity: 1;\\n}\\n\\n.docs-code-block { background: var(--docs-code-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 10px;\\nmargin: 22px 0;\\noverflow: auto;\\nposition: relative;\\n}\\n.docs-code-language { color: var(--docs-muted);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 11px;\\npadding: 12px 16px 0;\\ntext-transform: uppercase;\\n}\\n.docs-code-block pre { margin: 0;\\npadding: 14px 16px 18px;\\n}\\n.docs-code-block code { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 14px;\\nline-height: 1.7;\\nwhite-space: pre;\\n}\\n.docs-callout { border-left: 3px solid var(--docs-accent);\\nbackground: color-mix(in srgb,\\nvar(--docs-accent) 8%,\\ntransparent);\\nborder-radius: 0 8px 8px 0;\\nmargin: 26px 0;\\npadding: 16px 18px;\\n}\\n.docs-callout strong { display: block;\\nmargin-bottom: 5px;\\n}\\n.docs-callout-warning { border-color: #d97706;\\n}\\n.docs-callout-tip { border-color: #059669;\\n}\\n.docs-tabs { border: 1px solid var(--docs-border);\\nborder-radius: 10px;\\nmargin: 24px 0;\\noverflow: hidden;\\n}\\n.docs-tab-list { border-bottom: 1px solid var(--docs-border);\\ndisplay: flex;\\ngap: 4px;\\noverflow-x: auto;\\npadding: 6px;\\n}\\n.docs-tab-list button { background: transparent;\\nborder: 0;\\nborder-radius: 6px;\\ncolor: var(--docs-muted);\\ncursor: pointer;\\nfont-size: 13px;\\npadding: 8px 12px;\\n}\\n.docs-tab-list button.is-active { background: var(--docs-code-background);\\ncolor: var(--docs-foreground);\\n}\\n.docs-tab-panel { padding: 2px 16px;\\n}\\n\\n.docs-api-page { display: grid;\\ngrid-template-columns: 250px minmax(0,\\n1fr) 230px;\\nmin-height: calc(100vh - 72px);\\n}\\n.docs-api-page > .docs-sidebar { padding-top: 44px;\\n}\\n.docs-api-main { min-width: 0;\\npadding: 48px clamp(24px,\\n5vw,\\n72px);\\n}\\n.docs-api-heading-row { margin-top: 44px;\\n}\\n.docs-api-heading-row h1 { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: clamp(34px,\\n5vw,\\n58px);\\noverflow-wrap: anywhere;\\n}\\n.docs-api-heading-row p { font-size: 18px;\\n}\\n.docs-api-meta { align-items: center;\\ncolor: var(--docs-muted);\\ndisplay: flex;\\nflex-wrap: wrap;\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 13px;\\ngap: 24px;\\nmargin: 28px 0 62px;\\n}\\n.docs-api-meta a,\\n.docs-declaration-links a { color: var(--docs-accent);\\n}\\n.docs-api-meta .docs-source-link { align-items: center;\\ncolor: var(--docs-muted);\\ndisplay: inline-flex;\\ngap: 7px;\\ntext-decoration: none;\\n}\\n.docs-source-link svg { flex: none;\\nheight: 14px;\\nwidth: 14px;\\n}\\n.docs-api-meta .docs-source-link:hover,\\n.docs-declaration-links .docs-source-link:hover { color: var(--docs-foreground);\\n}\\n.docs-api-category { scroll-margin-top: 96px;\\n}\\n.docs-api-category > h2 { font-size: clamp(28px,\\n4vw,\\n42px);\\nletter-spacing: -0.05em;\\nmargin: 1.4em 0 0.75em;\\n}\\n.docs-api-declaration { border-top: 1px solid var(--docs-border);\\npadding: 30px 0 45px;\\nscroll-margin-top: 96px;\\n}\\n.docs-declaration-heading { align-items: baseline;\\ndisplay: flex;\\ngap: 16px;\\njustify-content: space-between;\\n}\\n.docs-declaration-heading h3 { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: clamp(22px,\\n3vw,\\n32px);\\nletter-spacing: -0.04em;\\nmargin: 0;\\noverflow-wrap: anywhere;\\n}\\n.docs-declaration-anchor { color: var(--docs-accent);\\nfont-size: .55em;\\nmargin-right: 9px;\\nopacity: 0;\\ntext-decoration: none;\\nvertical-align: middle;\\n}\\n.docs-declaration-heading h3:hover .docs-declaration-anchor,\\n.docs-declaration-anchor:focus { opacity: 1;\\n}\\n.docs-declaration-heading p,\\n.docs-api-declaration > p { color: var(--docs-muted);\\nfont-size: 16px;\\nline-height: 1.65;\\n}\\n.docs-kind-badge { border: 1px solid var(--docs-border);\\nborder-radius: 999px;\\ncolor: var(--docs-accent);\\ndisplay: inline-block;\\nflex-shrink: 0;\\nfont-family: inherit;\\nfont-size: 10px;\\nletter-spacing: 0.1em;\\nmargin-left: 10px;\\npadding: 4px 8px;\\nvertical-align: middle;\\nwhite-space: nowrap;\\n}\\n.docs-declaration-links { display: flex;\\nflex-wrap: wrap;\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\ngap: 14px;\\nwhite-space: nowrap;\\n}\\n.docs-declaration-links .docs-source-link { align-items: center;\\ndisplay: inline-flex;\\ngap: 4px;\\ntext-decoration: none;\\nwhite-space: nowrap;\\n}\\n.docs-api-declaration h4 { font-size: 14px;\\nmargin: 25px 0 8px;\\n}\\n\\n.docs-landing { margin: 0 auto;\\nmax-width: 1180px;\\npadding: 72px 28px 0;\\n}\\n.docs-landing-hero { max-width: 780px;\\npadding: 50px 0 80px;\\n}\\n.docs-eyebrow { color: var(--docs-accent);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\nfont-weight: 700;\\nletter-spacing: 0.14em;\\ntext-transform: uppercase;\\n}\\n.docs-landing h1 { font-size: clamp(48px,\\n9vw,\\n112px);\\nletter-spacing: -0.08em;\\nline-height: 0.9;\\nmargin: 18px 0 28px;\\n}\\n.docs-landing-hero p { color: var(--docs-muted);\\nfont-size: 20px;\\nline-height: 1.55;\\nmax-width: 600px;\\n}\\n.docs-landing-grid { display: grid;\\ngap: 14px;\\ngrid-template-columns: repeat(3,\\nminmax(0,\\n1fr));\\n}\\n.docs-landing-card { border: 1px solid var(--docs-border);\\nborder-radius: 12px;\\nmin-height: 250px;\\npadding: 25px;\\nposition: relative;\\ntransition: border-color 150ms ease,\\ntransform 150ms ease;\\n}\\n.docs-landing-card:hover { border-color: var(--docs-accent);\\ntransform: translateY(-3px);\\n}\\n.docs-card-index { color: var(--docs-accent);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\n}\\n.docs-landing-card h2 { font-size: 25px;\\nletter-spacing: -0.04em;\\nmargin: 62px 0 10px;\\n}\\n.docs-landing-card p { color: var(--docs-muted);\\nline-height: 1.55;\\nmargin: 0;\\n}\\n.docs-card-arrow { bottom: 23px;\\ncolor: var(--docs-accent);\\nposition: absolute;\\nright: 24px;\\n}\\n.docs-landing-section { border-top: 1px solid var(--docs-border);\\nmargin-top: 96px;\\npadding: 72px 0;\\n}\\n.docs-landing-section h2 { font-size: clamp(32px,\\n5vw,\\n58px);\\nletter-spacing: -0.06em;\\nmargin: 14px 0 22px;\\n}\\n.docs-install-command { background: var(--docs-code-background);\\ncolor: var(--docs-foreground);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\njustify-content: space-between;\\nmargin-top: 30px;\\nmax-width: 440px;\\npadding: 13px 15px;\\nwidth: 100%;\\n}\\n.docs-install-command span { color: var(--docs-accent);\\nfont-family: inherit;\\nfont-size: 11px;\\n}\\n.docs-quote-rail { border-left: 3px solid var(--docs-accent);\\nmargin: 0;\\nmax-width: 700px;\\npadding: 4px 0 4px 24px;\\n}\\n.docs-quote-rail blockquote { font-size: 26px;\\nletter-spacing: -0.035em;\\nline-height: 1.35;\\nmargin: 0 0 16px;\\n}\\n.docs-quote-rail figcaption { color: var(--docs-muted);\\n}\\n.docs-faq { border-top: 1px solid var(--docs-border);\\n}\\n.docs-faq details { border-bottom: 1px solid var(--docs-border);\\npadding: 20px 0;\\n}\\n.docs-faq summary { cursor: pointer;\\ndisplay: flex;\\nfont-size: 17px;\\nfont-weight: 700;\\njustify-content: space-between;\\nlist-style: none;\\n}\\n.docs-faq summary::-webkit-details-marker { display: none;\\n}\\n.docs-faq details > div { color: var(--docs-muted);\\nline-height: 1.6;\\npadding: 14px 30px 0 0;\\n}\\n.docs-cta { align-items: center;\\nbackground: var(--docs-foreground);\\nborder-radius: 14px;\\ncolor: var(--docs-background);\\ndisplay: flex;\\ngap: 24px;\\njustify-content: space-between;\\nmargin: 80px 0;\\npadding: 30px;\\n}\\n.docs-cta h2 { margin: 0;\\n}\\n.docs-cta a { border: 1px solid color-mix(in srgb,\\nvar(--docs-background) 40%,\\ntransparent);\\nborder-radius: 7px;\\nflex-shrink: 0;\\npadding: 11px 14px;\\n}\\n.docs-footer { border-top: 1px solid var(--docs-border);\\ncolor: var(--docs-muted);\\ndisplay: flex;\\nfont-size: 13px;\\njustify-content: space-between;\\nmargin-top: 90px;\\npadding: 24px 0;\\n}\\n\\n@media (max-width: 1120px) {\\n    .docs-layout,\\n.docs-api-page { grid-template-columns: 220px minmax(0,\\n1fr);\\n}\\n    .docs-layout > .docs-toc,\\n.docs-api-page > .docs-toc { display: none;\\n}\\n}\\n@media (max-width: 780px) {\\n    .docs-header { gap: 12px;\\nheight: 62px;\\npadding: 0 16px;\\n}\\n    .docs-menu-button { background: transparent;\\nborder: 1px solid var(--docs-border);\\nborder-radius: 6px;\\ncolor: var(--docs-muted);\\ndisplay: block;\\nfont-size: 12px;\\nmargin-left: auto;\\npadding: 7px 9px;\\n}\\n    .docs-header-nav { background: var(--docs-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 8px;\\ndisplay: none;\\nleft: 16px;\\npadding: 8px;\\nposition: absolute;\\nright: 16px;\\ntop: 54px;\\n}\\n    .docs-header-nav.is-open { display: grid;\\n}\\n    .docs-header-actions { margin-left: 0;\\n}\\n    .docs-search-button { min-width: 38px;\\npadding: 0;\\n}\\n    .docs-search-button span:nth-child(2),\\n.docs-search-button kbd,\\n.docs-repository-link { display: none;\\n}\\n    .docs-layout,\\n.docs-api-page { display: block;\\n}\\n    .docs-layout > .docs-sidebar,\\n.docs-api-page > .docs-sidebar { border-bottom: 1px solid var(--docs-border);\\nborder-right: 0;\\npadding: 18px 16px;\\n}\\n    .docs-sidebar-group { margin-top: 15px;\\n}\\n    .docs-sidebar-group:not(:first-of-type) { display: none;\\n}\\n    .docs-sidebar .docs-nav-items { display: flex;\\ngap: 4px;\\noverflow-x: auto;\\n}\\n    .docs-sidebar .docs-nav-items li { flex: 0 0 auto;\\n}\\n    .docs-sidebar .docs-nav-items .docs-nav-items { display: none;\\n}\\n    .docs-main,\\n.docs-api-main { padding: 30px 18px 50px;\\n}\\n    .docs-article-topline,\\n.docs-api-heading-row { display: block;\\nmargin: 34px 0 26px;\\n}\\n    .docs-copy-button { margin-top: 22px;\\n}\\n    .docs-landing { padding: 22px 18px 0;\\n}\\n    .docs-landing-hero { padding: 35px 0 50px;\\n}\\n    .docs-landing-grid { grid-template-columns: 1fr;\\n}\\n    .docs-landing-card { min-height: 190px;\\n}\\n    .docs-landing-card h2 { margin-top: 36px;\\n}\\n    .docs-declaration-heading { align-items: flex-start;\\ndisplay: block;\\n}\\n    .docs-declaration-links { margin-top: 12px;\\nwhite-space: normal;\\n}\\n    .docs-cta { align-items: flex-start;\\ndisplay: block;\\n}\\n    .docs-cta a { display: inline-block;\\nmargin-top: 20px;\\n}\\n}\\n@media (prefers-reduced-motion: reduce) {\\n    *,\\n*::before,\\n*::after { scroll-behavior: auto !important;\\ntransition: none !important;\\n}\\n}\\n\";",
+          "signature": "export declare const docsUiCss: \"\\n:root {\\n    font-family: Inter,\\nui-sans-serif,\\nsystem-ui,\\n-apple-system,\\nBlinkMacSystemFont,\\n\\\"Segoe UI\\\",\\nsans-serif;\\n    color: var(--docs-foreground,\\n#111111);\\n    background: var(--docs-background,\\n#ffffff);\\n    font-synthesis: none;\\n    text-rendering: optimizeLegibility;\\n}\\n\\n* { box-sizing: border-box;\\n}\\nbody { margin: 0;\\nmin-width: 320px;\\nbackground: var(--docs-background,\\n#ffffff);\\ncolor: var(--docs-foreground,\\n#111111);\\n}\\na { color: inherit;\\ntext-decoration: none;\\n}\\nbutton,\\na { -webkit-tap-highlight-color: transparent;\\n}\\nbutton { font: inherit;\\n}\\n\\n.docs-site { min-height: 100vh;\\nbackground: var(--docs-background);\\ncolor: var(--docs-foreground);\\n}\\n.docs-header { align-items: center;\\nbackground: color-mix(in srgb,\\nvar(--docs-background) 92%,\\ntransparent);\\nborder-bottom: 1px solid var(--docs-border);\\ndisplay: flex;\\ngap: 28px;\\nheight: 72px;\\npadding: 0 28px;\\nposition: sticky;\\ntop: 0;\\nz-index: 10;\\nbackdrop-filter: blur(16px);\\n}\\n.docs-brand { align-items: center;\\ndisplay: inline-flex;\\nfont-size: 18px;\\nfont-weight: 750;\\ngap: 10px;\\nletter-spacing: -0.03em;\\nwhite-space: nowrap;\\n}\\n.docs-brand-mark { align-items: center;\\nbackground: var(--docs-foreground);\\ncolor: var(--docs-background);\\ndisplay: inline-flex;\\nheight: 24px;\\njustify-content: center;\\ntransform: rotate(45deg);\\nwidth: 24px;\\n}\\n.docs-brand-mark::first-letter { transform: rotate(-45deg);\\n}\\n.docs-header-nav { align-items: center;\\ndisplay: flex;\\ngap: 24px;\\nmargin-right: auto;\\n}\\n.docs-header-nav a { color: var(--docs-muted);\\nfont-size: 14px;\\nfont-weight: 600;\\n}\\n.docs-header-nav a:hover,\\n.docs-header-nav a.is-active { color: var(--docs-foreground);\\n}\\n.docs-header-actions { align-items: center;\\ndisplay: flex;\\ngap: 10px;\\n}\\n.docs-search-button,\\n.docs-icon-button,\\n.docs-copy-button,\\n.docs-install-command { align-items: center;\\nbackground: transparent;\\nborder: 1px solid var(--docs-border);\\nborder-radius: 8px;\\ncolor: var(--docs-muted);\\ncursor: pointer;\\ndisplay: inline-flex;\\ngap: 9px;\\njustify-content: center;\\n}\\n.docs-search-button { height: 38px;\\nmin-width: 132px;\\npadding: 0 11px;\\n}\\n.docs-search-button kbd { border: 1px solid var(--docs-border);\\nborder-radius: 4px;\\nfont-size: 11px;\\npadding: 2px 5px;\\n}\\n.docs-icon-button { height: 38px;\\nwidth: 38px;\\n}\\n.docs-icon-button:hover,\\n.docs-search-button:hover,\\n.docs-copy-button:hover { border-color: var(--docs-accent);\\ncolor: var(--docs-foreground);\\n}\\n.docs-menu-button { display: none;\\n}\\n\\n.docs-layout { display: grid;\\ngrid-template-columns: 250px minmax(0,\\n1fr) 230px;\\nmin-height: calc(100vh - 72px);\\n}\\n.docs-sidebar { border-right: 1px solid var(--docs-border);\\npadding: 40px 22px;\\n}\\n.docs-sidebar-label,\\n.docs-toc-title { color: var(--docs-muted);\\nfont-size: 11px;\\nfont-weight: 800;\\nletter-spacing: 0.16em;\\ntext-transform: uppercase;\\n}\\n.docs-api-page > .docs-sidebar .docs-sidebar-label { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\n}\\n.docs-sidebar-group { margin-top: 30px;\\n}\\n.docs-sidebar-group h2 { font-size: 13px;\\nmargin: 0 0 9px;\\n}\\n.docs-nav-items { list-style: none;\\nmargin: 0;\\npadding: 0;\\n}\\n.docs-nav-items .docs-nav-items { padding-left: 12px;\\n}\\n.docs-nav-items li { margin: 2px 0;\\n}\\n.docs-nav-items a { border-radius: 6px;\\ncolor: var(--docs-muted);\\ndisplay: block;\\nfont-size: 14px;\\nline-height: 1.45;\\npadding: 7px 9px;\\n}\\n.docs-nav-items a:hover,\\n.docs-nav-items a.is-active { background: color-mix(in srgb,\\nvar(--docs-accent) 12%,\\ntransparent);\\ncolor: var(--docs-foreground);\\n}\\n.docs-toc { border-left: 1px solid var(--docs-border);\\npadding: 42px 22px;\\n}\\n.docs-toc .docs-nav-items { margin-top: 17px;\\n}\\n.docs-toc .docs-nav-items a { font-size: 13px;\\npadding-left: 0;\\n}\\n.docs-main { min-width: 0;\\npadding: 48px clamp(24px,\\n6vw,\\n88px);\\n}\\n\\n.docs-breadcrumbs { color: var(--docs-muted);\\ndisplay: flex;\\nflex-wrap: wrap;\\nfont-size: 12px;\\nfont-weight: 700;\\ngap: 8px;\\nletter-spacing: 0.12em;\\ntext-transform: uppercase;\\n}\\n.docs-breadcrumbs a:hover { color: var(--docs-foreground);\\n}\\n.docs-breadcrumb-separator { color: var(--docs-accent);\\nmargin-right: 8px;\\n}\\n.docs-article { margin: 0 auto;\\nmax-width: 920px;\\n}\\n.docs-article-topline,\\n.docs-api-heading-row { align-items: flex-start;\\ndisplay: flex;\\ngap: 28px;\\njustify-content: space-between;\\nmargin: 48px 0 32px;\\n}\\n.docs-article h1,\\n.docs-api-heading-row h1 { font-size: clamp(38px,\\n5vw,\\n66px);\\nfont-weight: 700;\\nletter-spacing: -0.065em;\\nline-height: 0.98;\\nmargin: 0;\\n}\\n.docs-article-description,\\n.docs-api-heading-row p { color: var(--docs-muted);\\nfont-size: 19px;\\nline-height: 1.6;\\nmargin: 22px 0 0;\\nmax-width: 760px;\\n}\\n.docs-copy-button { flex-shrink: 0;\\nfont-size: 13px;\\nfont-weight: 700;\\nmin-height: 38px;\\npadding: 0 12px;\\n}\\n.docs-prose { font-size: 17px;\\nline-height: 1.75;\\nmax-width: 780px;\\n}\\n.docs-prose p { margin: 1.2em 0;\\n}\\n.docs-prose a { color: var(--docs-accent);\\ntext-decoration: underline;\\ntext-underline-offset: 3px;\\n}\\n.docs-heading { letter-spacing: -0.035em;\\nline-height: 1.15;\\nmargin: 2em 0 0.65em;\\nposition: relative;\\n}\\n.docs-heading-link { color: var(--docs-accent);\\nfont-size: 0.55em;\\nmargin-left: 9px;\\nopacity: 0;\\nvertical-align: middle;\\n}\\n.docs-heading:hover .docs-heading-link,\\n.docs-heading-link:focus { opacity: 1;\\n}\\n\\n.docs-code-block { background: var(--docs-code-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 10px;\\nmargin: 22px 0;\\noverflow: auto;\\nposition: relative;\\n}\\n.docs-code-language { color: var(--docs-muted);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 11px;\\npadding: 12px 16px 0;\\ntext-transform: uppercase;\\n}\\n.docs-code-block pre { margin: 0;\\npadding: 14px 16px 18px;\\n}\\n.docs-code-block code { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 14px;\\nline-height: 1.7;\\nwhite-space: pre;\\n}\\n.docs-callout { border-left: 3px solid var(--docs-accent);\\nbackground: color-mix(in srgb,\\nvar(--docs-accent) 8%,\\ntransparent);\\nborder-radius: 0 8px 8px 0;\\nmargin: 26px 0;\\npadding: 16px 18px;\\n}\\n.docs-callout strong { display: block;\\nmargin-bottom: 5px;\\n}\\n.docs-callout-warning { border-color: #d97706;\\n}\\n.docs-callout-tip { border-color: #059669;\\n}\\n.docs-tabs { border: 1px solid var(--docs-border);\\nborder-radius: 10px;\\nmargin: 24px 0;\\noverflow: hidden;\\n}\\n.docs-tab-list { border-bottom: 1px solid var(--docs-border);\\ndisplay: flex;\\ngap: 4px;\\noverflow-x: auto;\\npadding: 6px;\\n}\\n.docs-tab-list button { background: transparent;\\nborder: 0;\\nborder-radius: 6px;\\ncolor: var(--docs-muted);\\ncursor: pointer;\\nfont-size: 13px;\\npadding: 8px 12px;\\n}\\n.docs-tab-list button.is-active { background: var(--docs-code-background);\\ncolor: var(--docs-foreground);\\n}\\n.docs-tab-panel { padding: 2px 16px;\\n}\\n\\n.docs-api-page { display: grid;\\ngrid-template-columns: 250px minmax(0,\\n1fr) 230px;\\nmin-height: calc(100vh - 72px);\\n}\\n.docs-api-page > .docs-sidebar { padding-top: 44px;\\n}\\n.docs-api-main { min-width: 0;\\npadding: 48px clamp(24px,\\n5vw,\\n72px);\\n}\\n.docs-api-heading-row { margin-top: 44px;\\n}\\n.docs-api-heading-row h1 { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: clamp(34px,\\n5vw,\\n58px);\\noverflow-wrap: anywhere;\\n}\\n.docs-api-heading-row p { font-size: 18px;\\n}\\n.docs-api-meta { align-items: center;\\ncolor: var(--docs-muted);\\ndisplay: flex;\\nflex-wrap: wrap;\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 13px;\\ngap: 24px;\\nmargin: 28px 0 62px;\\n}\\n.docs-api-meta a,\\n.docs-declaration-links a { color: var(--docs-accent);\\n}\\n.docs-api-meta .docs-source-link { align-items: center;\\ncolor: var(--docs-muted);\\ndisplay: inline-flex;\\ngap: 7px;\\ntext-decoration: none;\\n}\\n.docs-package-link { align-items: center;\\ncolor: var(--docs-muted) !important;\\ndisplay: inline-flex;\\ngap: 7px;\\ntext-decoration: none;\\n}\\n.docs-package-link:hover { color: var(--docs-foreground) !important;\\n}\\n.docs-npm-logo { flex: none;\\nheight: 14px;\\nwidth: 32px;\\n}\\n.docs-package-modules { margin: -30px 0 62px;\\n}\\n.docs-package-search-label { display: block;\\nfont-size: 13px;\\nfont-weight: 600;\\nmargin-bottom: 10px;\\n}\\n.docs-package-search { background: var(--docs-card-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 9px;\\nbox-sizing: border-box;\\ncolor: var(--docs-foreground);\\nfont: inherit;\\nmargin-bottom: 28px;\\nmax-width: 100%;\\npadding: 12px 14px;\\nwidth: min(100%, 560px);\\n}\\n.docs-package-search:focus-visible { border-color: var(--docs-accent);\\noutline: 2px solid color-mix(in srgb, var(--docs-accent) 30%, transparent);\\noutline-offset: 2px;\\n}\\n.docs-package-module-group { margin: 0 0 30px;\\n}\\n.docs-package-module-group h2 { font-size: 1.25rem;\\nmargin: 0 0 12px;\\n}\\n.docs-package-module-grid { display: grid;\\ngap: 12px;\\ngrid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));\\n}\\n.docs-package-module-card { align-items: center;\\nbackground: var(--docs-card-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 10px;\\ncolor: var(--docs-foreground);\\ndisplay: flex;\\nfont-family: ui-monospace, SFMono-Regular, Menlo, monospace;\\ngap: 12px;\\njustify-content: space-between;\\nmin-width: 0;\\npadding: 15px 16px;\\ntext-decoration: none;\\ntransition: border-color 120ms ease, background 120ms ease;\\n}\\n.docs-package-module-card:hover,\\n.docs-package-module-card:focus-visible { background: var(--docs-muted);\\nborder-color: var(--docs-accent);\\n}\\n.docs-package-module-card span:first-child { overflow-wrap: anywhere;\\n}\\n.docs-package-module-card span:last-child { color: var(--docs-muted);\\nflex: none;\\n}\\n.docs-package-no-results { color: var(--docs-muted);\\n}\\n.docs-source-link svg { flex: none;\\nheight: 14px;\\nwidth: 14px;\\n}\\n.docs-api-meta .docs-source-link:hover,\\n.docs-declaration-links .docs-source-link:hover { color: var(--docs-foreground);\\n}\\n.docs-api-category { scroll-margin-top: 96px;\\n}\\n.docs-api-category > h2 { font-size: clamp(28px,\\n4vw,\\n42px);\\nletter-spacing: -0.05em;\\nmargin: 1.4em 0 0.75em;\\n}\\n.docs-api-declaration { border-top: 1px solid var(--docs-border);\\npadding: 30px 0 45px;\\nscroll-margin-top: 96px;\\n}\\n.docs-declaration-heading { align-items: baseline;\\ndisplay: flex;\\ngap: 16px;\\njustify-content: space-between;\\n}\\n.docs-declaration-heading h3 { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: clamp(22px,\\n3vw,\\n32px);\\nletter-spacing: -0.04em;\\nmargin: 0;\\noverflow-wrap: anywhere;\\n}\\n.docs-declaration-anchor { color: var(--docs-accent);\\nfont-size: .55em;\\nmargin-right: 9px;\\nopacity: 0;\\ntext-decoration: none;\\nvertical-align: middle;\\n}\\n.docs-declaration-heading h3:hover .docs-declaration-anchor,\\n.docs-declaration-anchor:focus { opacity: 1;\\n}\\n.docs-declaration-heading p,\\n.docs-api-declaration > p { color: var(--docs-muted);\\nfont-size: 16px;\\nline-height: 1.65;\\n}\\n.docs-kind-badge { border: 1px solid var(--docs-border);\\nborder-radius: 999px;\\ncolor: var(--docs-accent);\\ndisplay: inline-block;\\nflex-shrink: 0;\\nfont-family: inherit;\\nfont-size: 10px;\\nletter-spacing: 0.1em;\\nmargin-left: 10px;\\npadding: 4px 8px;\\nvertical-align: middle;\\nwhite-space: nowrap;\\n}\\n.docs-declaration-links { display: flex;\\nflex-wrap: wrap;\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\ngap: 14px;\\nwhite-space: nowrap;\\n}\\n.docs-declaration-links .docs-source-link { align-items: center;\\ndisplay: inline-flex;\\ngap: 4px;\\ntext-decoration: none;\\nwhite-space: nowrap;\\n}\\n.docs-api-declaration h4 { font-size: 14px;\\nmargin: 25px 0 8px;\\n}\\n\\n.docs-landing { margin: 0 auto;\\nmax-width: 1180px;\\npadding: 72px 28px 0;\\n}\\n.docs-landing-hero { max-width: 780px;\\npadding: 50px 0 80px;\\n}\\n.docs-eyebrow { color: var(--docs-accent);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\nfont-weight: 700;\\nletter-spacing: 0.14em;\\ntext-transform: uppercase;\\n}\\n.docs-landing h1 { font-size: clamp(48px,\\n9vw,\\n112px);\\nletter-spacing: -0.08em;\\nline-height: 0.9;\\nmargin: 18px 0 28px;\\n}\\n.docs-landing-hero p { color: var(--docs-muted);\\nfont-size: 20px;\\nline-height: 1.55;\\nmax-width: 600px;\\n}\\n.docs-landing-grid { display: grid;\\ngap: 14px;\\ngrid-template-columns: repeat(3,\\nminmax(0,\\n1fr));\\n}\\n.docs-landing-card { border: 1px solid var(--docs-border);\\nborder-radius: 12px;\\nmin-height: 250px;\\npadding: 25px;\\nposition: relative;\\ntransition: border-color 150ms ease,\\ntransform 150ms ease;\\n}\\n.docs-landing-card:hover { border-color: var(--docs-accent);\\ntransform: translateY(-3px);\\n}\\n.docs-card-index { color: var(--docs-accent);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\n}\\n.docs-landing-card h2 { font-size: 25px;\\nletter-spacing: -0.04em;\\nmargin: 62px 0 10px;\\n}\\n.docs-landing-card p { color: var(--docs-muted);\\nline-height: 1.55;\\nmargin: 0;\\n}\\n.docs-card-arrow { bottom: 23px;\\ncolor: var(--docs-accent);\\nposition: absolute;\\nright: 24px;\\n}\\n.docs-landing-section { border-top: 1px solid var(--docs-border);\\nmargin-top: 96px;\\npadding: 72px 0;\\n}\\n.docs-landing-section h2 { font-size: clamp(32px,\\n5vw,\\n58px);\\nletter-spacing: -0.06em;\\nmargin: 14px 0 22px;\\n}\\n.docs-install-command { background: var(--docs-code-background);\\ncolor: var(--docs-foreground);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\njustify-content: space-between;\\nmargin-top: 30px;\\nmax-width: 440px;\\npadding: 13px 15px;\\nwidth: 100%;\\n}\\n.docs-install-command span { color: var(--docs-accent);\\nfont-family: inherit;\\nfont-size: 11px;\\n}\\n.docs-quote-rail { border-left: 3px solid var(--docs-accent);\\nmargin: 0;\\nmax-width: 700px;\\npadding: 4px 0 4px 24px;\\n}\\n.docs-quote-rail blockquote { font-size: 26px;\\nletter-spacing: -0.035em;\\nline-height: 1.35;\\nmargin: 0 0 16px;\\n}\\n.docs-quote-rail figcaption { color: var(--docs-muted);\\n}\\n.docs-faq { border-top: 1px solid var(--docs-border);\\n}\\n.docs-faq details { border-bottom: 1px solid var(--docs-border);\\npadding: 20px 0;\\n}\\n.docs-faq summary { cursor: pointer;\\ndisplay: flex;\\nfont-size: 17px;\\nfont-weight: 700;\\njustify-content: space-between;\\nlist-style: none;\\n}\\n.docs-faq summary::-webkit-details-marker { display: none;\\n}\\n.docs-faq details > div { color: var(--docs-muted);\\nline-height: 1.6;\\npadding: 14px 30px 0 0;\\n}\\n.docs-cta { align-items: center;\\nbackground: var(--docs-foreground);\\nborder-radius: 14px;\\ncolor: var(--docs-background);\\ndisplay: flex;\\ngap: 24px;\\njustify-content: space-between;\\nmargin: 80px 0;\\npadding: 30px;\\n}\\n.docs-cta h2 { margin: 0;\\n}\\n.docs-cta a { border: 1px solid color-mix(in srgb,\\nvar(--docs-background) 40%,\\ntransparent);\\nborder-radius: 7px;\\nflex-shrink: 0;\\npadding: 11px 14px;\\n}\\n.docs-footer { border-top: 1px solid var(--docs-border);\\ncolor: var(--docs-muted);\\ndisplay: flex;\\nfont-size: 13px;\\njustify-content: space-between;\\nmargin-top: 90px;\\npadding: 24px 0;\\n}\\n\\n@media (max-width: 1120px) {\\n    .docs-layout,\\n.docs-api-page { grid-template-columns: 220px minmax(0,\\n1fr);\\n}\\n    .docs-layout > .docs-toc,\\n.docs-api-page > .docs-toc { display: none;\\n}\\n}\\n@media (max-width: 780px) {\\n    .docs-header { gap: 12px;\\nheight: 62px;\\npadding: 0 16px;\\n}\\n    .docs-menu-button { background: transparent;\\nborder: 1px solid var(--docs-border);\\nborder-radius: 6px;\\ncolor: var(--docs-muted);\\ndisplay: block;\\nfont-size: 12px;\\nmargin-left: auto;\\npadding: 7px 9px;\\n}\\n    .docs-header-nav { background: var(--docs-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 8px;\\ndisplay: none;\\nleft: 16px;\\npadding: 8px;\\nposition: absolute;\\nright: 16px;\\ntop: 54px;\\n}\\n    .docs-header-nav.is-open { display: grid;\\n}\\n    .docs-header-actions { margin-left: 0;\\n}\\n    .docs-search-button { min-width: 38px;\\npadding: 0;\\n}\\n    .docs-search-button span:nth-child(2),\\n.docs-search-button kbd,\\n.docs-repository-link { display: none;\\n}\\n    .docs-layout,\\n.docs-api-page { display: block;\\n}\\n    .docs-layout > .docs-sidebar,\\n.docs-api-page > .docs-sidebar { border-bottom: 1px solid var(--docs-border);\\nborder-right: 0;\\npadding: 18px 16px;\\n}\\n    .docs-sidebar-group { margin-top: 15px;\\n}\\n    .docs-sidebar-group:not(:first-of-type) { display: none;\\n}\\n    .docs-sidebar .docs-nav-items { display: flex;\\ngap: 4px;\\noverflow-x: auto;\\n}\\n    .docs-sidebar .docs-nav-items li { flex: 0 0 auto;\\n}\\n    .docs-sidebar .docs-nav-items .docs-nav-items { display: none;\\n}\\n    .docs-main,\\n.docs-api-main { padding: 30px 18px 50px;\\n}\\n    .docs-article-topline,\\n.docs-api-heading-row { display: block;\\nmargin: 34px 0 26px;\\n}\\n    .docs-copy-button { margin-top: 22px;\\n}\\n    .docs-landing { padding: 22px 18px 0;\\n}\\n    .docs-landing-hero { padding: 35px 0 50px;\\n}\\n    .docs-landing-grid { grid-template-columns: 1fr;\\n}\\n    .docs-landing-card { min-height: 190px;\\n}\\n    .docs-landing-card h2 { margin-top: 36px;\\n}\\n    .docs-declaration-heading { align-items: flex-start;\\ndisplay: block;\\n}\\n    .docs-declaration-links { margin-top: 12px;\\nwhite-space: normal;\\n}\\n    .docs-cta { align-items: flex-start;\\ndisplay: block;\\n}\\n    .docs-cta a { display: inline-block;\\nmargin-top: 20px;\\n}\\n}\\n@media (prefers-reduced-motion: reduce) {\\n    *,\\n*::before,\\n*::after { scroll-behavior: auto !important;\\ntransition: none !important;\\n}\\n}\\n\";",
           "source": {
             "file": "Ui/Source/index.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1857,6 +1862,11 @@
       "module": "ui",
       "packageId": "ui",
       "packageName": "@sorrell/docs-ui",
+      "packageExports": [
+        "."
+      ],
+      "packageDescription": "Responsive React UI primitives and documentation shells for Sorrell documentation sites.",
+      "packagePrivate": false,
       "version": "1.0.1",
       "source": {
         "file": "Package/Ui/Source/index.ts",
@@ -1865,7 +1875,7 @@
       },
       "link": {
         "external": false,
-        "href": "/docs/api/ui",
+        "href": "/docs/api/ui/Core",
         "label": "@sorrell/docs-ui"
       }
     }

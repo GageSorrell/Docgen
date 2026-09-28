@@ -17,6 +17,7 @@ import type {
 import { Breadcrumbs, DocsSidebar, OnThisPage } from "./Navigation.js";
 import { CopyForLlmButton } from "./CopyForLlm.js";
 import { DocCode } from "./Mdx.js";
+import { useState } from "react";
 import { apiReferenceRecordToAgentDocument, type ApiReferenceCategory, type ApiReferenceDeclaration } from "@sorrell/docs-core";
 const declarationHref = (id: string): string => `#${id}`;
 type SourceLink = {
@@ -32,6 +33,45 @@ const sourceHref = (source: SourceLink): string =>
         source.file,
         source.line === undefined ? "" : `#L${source.line}`
     ].join("");
+const packageModules = (record: ApiReferencePageProps["record"]) =>
+{
+    const exports = record.packageExports ?? [ "." ];
+    const packageHref = record.breadcrumbs.find((breadcrumb) => breadcrumb.label === record.packageName)?.href
+        ?? `/docs/api/${record.packageId}`;
+    return exports.map((exportPath) => {
+        const path = exportPath === "." ? "" : exportPath.replace(/^\.\//u, "");
+        const segments = path.split("/").filter(Boolean);
+        const firstPart = segments[0];
+        const group = firstPart === undefined
+            ? "Core"
+            : `${firstPart[0]?.toUpperCase() ?? ""}${firstPart.slice(1)}`;
+        const label = segments.at(-1) ?? "Core";
+        return {
+            exportPath,
+            group,
+            href: exportPath === "."
+                ? record.link?.href ?? packageHref
+                : `${packageHref}/${path}`,
+            label
+        };
+    });
+};
+const NpmLogo = () => (
+    <svg aria-hidden="true"
+        className="docs-npm-logo"
+        viewBox="0 0 36 16">
+        <rect fill="currentColor"
+            height="16"
+            rx="2"
+            width="36" />
+        <text fill="var(--docs-background)"
+            fontFamily="Arial, sans-serif"
+            fontSize="11"
+            fontWeight="700"
+            x="3"
+            y="12">npm</text>
+    </svg>
+);
 const GitHubIcon = () => (
     <svg aria-hidden="true"
         viewBox="0 0 24 24">
@@ -183,6 +223,15 @@ const ApiReferencePage = ({
 {
     const groups = navigation.length === 0 ? apiNavigation(record) : navigation;
     const document = apiReferenceRecordToAgentDocument(record);
+    const modules = packageModules(record);
+    const [ moduleQuery, setModuleQuery ] = useState("");
+    const filteredModules = modules.filter((module) =>
+        `${module.group} ${module.label} ${module.exportPath}`
+            .toLocaleLowerCase()
+            .includes(moduleQuery.trim().toLocaleLowerCase())
+    );
+    const moduleGroups = [ ...new Set([ "Core", ...filteredModules.map((module) => module.group) ]) ];
+    const packageSourceUrl = record.packageSourceUrl ?? record.source?.repositoryUrl;
     return (
         <div className="docs-api-page">
             <DocsSidebar groups={ groups }
@@ -196,27 +245,61 @@ const ApiReferencePage = ({
                 <div className="docs-api-heading-row">
                     <div>
                         <h1>{record.displayName}</h1>
-                        {record.summary === undefined ? null : (
-                            <p>{record.summary}</p>
+                        {record.packageDescription === undefined ? null : (
+                            <p>{record.packageDescription}</p>
                         )}
                     </div>
                     <CopyForLlmButton document={ document } />
                 </div>
                 <div className="docs-api-meta">
-                    <span>{record.exportCount} exports</span>
-                    {record.introductionVersion === undefined ? null : (
-                        <span>Added in v{record.introductionVersion}</span>
+                    <span>{modules.length} {modules.length === 1 ? "module" : "modules"}</span>
+                    {record.packagePrivate === true ? null : (
+                        <a className="docs-package-link"
+                            href={ `https://www.npmjs.com/package/${record.packageName}` }
+                            rel="noreferrer">
+                            <NpmLogo />npm
+                        </a>
                     )}
-                    {record.source === undefined ? null : (
+                    {packageSourceUrl === undefined ? null : (
                         <a
                             className="docs-source-link"
-                            href={ sourceHref(record.source) }
+                            href={ packageSourceUrl }
                         >
                             <GitHubIcon />
                             Source
                         </a>
                     )}
                 </div>
+                <section aria-label={ `${record.packageName} modules` }
+                    className="docs-package-modules">
+                    <label className="docs-package-search-label"
+                        htmlFor="docs-package-module-search">Search {record.packageName} modules</label>
+                    <input
+                        className="docs-package-search"
+                        id="docs-package-module-search"
+                        onChange={ (event) => setModuleQuery(event.currentTarget.value) }
+                        placeholder="Search modules…"
+                        type="search"
+                        value={ moduleQuery }
+                    />
+                    {moduleGroups.map((group) => (
+                        <section className="docs-package-module-group"
+                            key={ group }>
+                            <h2>{group}</h2>
+                            <div className="docs-package-module-grid">
+                                {filteredModules.filter((module) => module.group === group).map((module) => (
+                                    <a className="docs-package-module-card"
+                                        href={ module.href }
+                                        key={ module.exportPath }>
+                                        <span>{module.label}</span>
+                                        <span aria-hidden="true">↗</span>
+                                    </a>
+                                ))}
+                            </div>
+                        </section>
+                    ))}
+                    {filteredModules.length === 0 ? <p className="docs-package-no-results">No modules match “{moduleQuery}”.</p> : null}
+                </section>
                 {record.categories.map(
                     (category: {
                         readonly id: string;
