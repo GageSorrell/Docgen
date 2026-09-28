@@ -240,20 +240,24 @@ line-height: 1.6;
 margin: 22px 0 0;
 max-width: 760px;
 }
-.docs-copy-button { flex-shrink: 0;
-font-size: 13px;
-font-weight: 700;
-min-height: 38px;
-padding: 0 12px;
+.docs-copy-button { align-items: center;
+flex-shrink: 0;
+font-size: 12px;
+font-weight: 400;
+gap: 7px;
+justify-content: flex-start;
+min-height: 34px;
+padding: 0 10px;
+text-align: left;
 }
 .docs-copy-button-icon { display: inline-grid;
-flex: 0 0 16px;
-height: 16px;
-width: 16px;
+flex: 0 0 14px;
+height: 14px;
+width: 14px;
 }
 .docs-copy-button-icon svg { grid-area: 1 / 1;
-height: 16px;
-width: 16px;
+height: 14px;
+width: 14px;
 }
 .docs-copy-button-icon .docs-copy-success-icon { color: #16a34a;
 display: none;
@@ -263,6 +267,7 @@ display: none;
 .docs-copy-button[data-copied="true"] .docs-copy-success-icon { display: block;
 }
 .docs-copy-button-label { display: grid;
+text-align: left;
 white-space: nowrap;
 }
 .docs-copy-button-label > span { grid-area: 1 / 1;
@@ -581,11 +586,14 @@ width: 14px;
 4vw,
 42px);
 letter-spacing: -0.05em;
-margin: 1.4em 0 0.75em;
+margin: 1.4em 0 0.35em;
 }
 .docs-api-declaration { border-top: 1px solid var(--docs-border);
 padding: 30px 0 45px;
 scroll-margin-top: 96px;
+}
+.docs-api-category > .docs-api-declaration:first-of-type { border-top: 0;
+padding-top: 12px;
 }
 .docs-declaration-heading { align-items: baseline;
 display: flex;
@@ -601,15 +609,22 @@ letter-spacing: -0.04em;
 margin: 0;
 overflow-wrap: anywhere;
 }
-.docs-declaration-anchor { color: var(--docs-accent);
-font-size: .55em;
-margin-right: 9px;
-opacity: 0;
+.docs-declaration-name { align-items: center;
+color: inherit;
+cursor: pointer;
+display: inline-flex;
+gap: 8px;
 text-decoration: none;
-vertical-align: middle;
 }
-.docs-declaration-heading h3:hover .docs-declaration-anchor,
-.docs-declaration-anchor:focus { opacity: 1;
+.docs-declaration-link-icon { color: var(--docs-accent);
+flex: none;
+height: 18px;
+opacity: 0;
+transition: opacity 120ms ease;
+width: 18px;
+}
+.docs-declaration-name:hover .docs-declaration-link-icon,
+.docs-declaration-name:focus-visible .docs-declaration-link-icon { opacity: 1;
 }
 .docs-declaration-heading p,
 .docs-api-declaration > p { color: var(--docs-muted);

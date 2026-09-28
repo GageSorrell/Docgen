@@ -85,12 +85,29 @@
       "description": "Site-wide identity and metadata. Values here provide defaults for page metadata and landing content.",
       "properties": {
         "description": { "type": "string", "description": "Default site description used in metadata and when landing.description is omitted." },
-        "logo": { "type": "string", "description": "Logo URL or site-relative path displayed in the site header." },
+        "logo": {
+          "description": "An image URL or site-relative path, or a DiceBear avatar displayed in the landing and documentation headers.",
+          "oneOf": [
+            { "type": "string", "description": "An image URL or site-relative path displayed in the site header." },
+            { "$ref": "#/$defs/dicebearLogo" }
+          ]
+        },
         "name": { "type": "string", "description": "Stable site or product name used by generated tooling and metadata." },
         "repository": { "$ref": "#/$defs/repository", "description": "Repository associated with the site." },
         "title": { "type": "string", "description": "Human-readable site title used in the header and document titles." },
         "url": { "type": "string", "description": "Canonical base URL for the published site. An empty string is allowed for local or preview-only sites." }
       },
+      "additionalProperties": false
+    },
+    "dicebearLogo": {
+      "type": "object",
+      "description": "A DiceBear avatar used as the site logo. The style name may be any style offered by DiceBear. Header avatars may animate; generated favicons disable animation when the style supports it.",
+      "properties": {
+        "type": { "const": "dicebear", "description": "Selects DiceBear avatar rendering." },
+        "style": { "type": "string", "default": "pixelbot", "description": "Any DiceBear avatar style name, for example pixelbot. Defaults to pixelbot." },
+        "props": { "type": "object", "default": {}, "description": "Optional DiceBear style options. Option names and values are intentionally unrestricted in the schema. Color options accept a color string or an object with optional light and dark string values; the active site theme selects the corresponding color." }
+      },
+      "required": [ "type" ],
       "additionalProperties": false
     },
     "colorTokens": {

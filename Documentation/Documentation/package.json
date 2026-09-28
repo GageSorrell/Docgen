@@ -20,7 +20,7 @@
   "description": "The published dogfood documentation site.",
   "scripts": {
     "api:generate": "node GenerateApi.mjs",
-    "build": "npm run api:generate && astro build && pagefind --site dist --output-path dist/pagefind",
+    "build": "npm run api:generate && node scripts/generate-favicons.mjs && astro build && pagefind --site dist --output-path dist/pagefind",
     "dev": "npm run api:generate && astro dev",
     "preview": "astro preview",
     "typecheck": "npm run api:generate && astro check",

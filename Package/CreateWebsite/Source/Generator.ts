@@ -52,7 +52,7 @@ const packageManifest = (
         scripts: name === "@sorrell/documentation"
             ? {
                 ...scripts,
-                build: "astro build && pagefind --site dist --output-path dist/pagefind",
+                build: "node scripts/generate-favicons.mjs && astro build && pagefind --site dist --output-path dist/pagefind",
                 verify: "astro check"
             }
             : scripts,
@@ -129,7 +129,7 @@ const documentationFiles = (
         content: packageManifest(
             "@sorrell/documentation",
             {
-                build: "astro build",
+                build: "node scripts/generate-favicons.mjs && astro build",
                 dev: "astro dev",
                 verify: "astro check"
             },

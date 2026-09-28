@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "astro build",
+    "build": "node scripts/generate-favicons.mjs && astro build",
     "check": "astro check",
     "dev": "astro dev --host 127.0.0.1 --port 4173",
     "verify": "astro check"

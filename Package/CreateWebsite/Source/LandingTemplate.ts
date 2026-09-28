@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 
 import type { DocsConfig } from "@sorrell/docs-core";
 import type { GeneratedWebsiteFile } from "./Types.js";
+import { faviconGeneratorSource } from "./FaviconTemplate.js";
 
 const templateRoot = join(
     dirname(fileURLToPath(import.meta.url)),
@@ -83,7 +84,7 @@ export const landingTemplateFiles = (
     const storyPrefix = config.routing.storybookPrefix;
     const repositoryHref = config.metadata.repository?.url ?? "";
     const tokens = config.tokens;
-    return readTemplates(templateRoot).map((template) =>
+    return [ ...readTemplates(templateRoot).map((template) =>
     {
         const outputPath = template.path.endsWith(".template")
             ? template.path.slice(0, -".template".length)
@@ -164,5 +165,8 @@ export const landingTemplateFiles = (
                 TOKENS: JSON.stringify(tokens, null, 2)
             })
         };
-    });
+    }), {
+        path: "Landing/scripts/generate-favicons.mjs",
+        content: faviconGeneratorSource(config.metadata.logo, config.metadata.name)
+    } ];
 };

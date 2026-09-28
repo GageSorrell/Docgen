@@ -14,6 +14,16 @@ import { Schema } from "effect";
 const optionalString = Schema.optionalKey(Schema.String);
 const optionalNumber = Schema.optionalKey(Schema.Number);
 const optionalBoolean = Schema.optionalKey(Schema.Boolean);
+/** @internal */
+export const DicebearLogoSchema = Schema.Struct({
+    props: Schema.optionalKey(Schema.Record(Schema.String, Schema.Unknown)),
+    style: Schema.optionalKey(Schema.String),
+    type: Schema.Literal("dicebear")
+});
+const LogoSchema = Schema.Union([ Schema.String, DicebearLogoSchema ]);
+/** DiceBear options are intentionally open-ended; color options may be strings or theme maps. */
+export type DicebearLogo = Schema.Schema.Type<typeof DicebearLogoSchema>;
+export type SiteLogo = Schema.Schema.Type<typeof LogoSchema>;
 export/** @internal */
 const RepositorySchema = Schema.Struct({
     branch: Schema.optionalKey(Schema.String),
@@ -23,7 +33,7 @@ const RepositorySchema = Schema.Struct({
 export/** @internal */
 const SiteMetadataSchema = Schema.Struct({
     description: Schema.String,
-    logo: optionalString,
+    logo: Schema.optionalKey(LogoSchema),
     name: Schema.String,
     repository: Schema.optionalKey(RepositorySchema),
     title: Schema.String,
@@ -381,7 +391,7 @@ const AgentConfigSchema = Schema.Struct({
 });
 const OptionalSiteMetadataSchema = Schema.Struct({
     description: optionalString,
-    logo: optionalString,
+    logo: Schema.optionalKey(LogoSchema),
     name: Schema.optionalKey(Schema.String),
     repository: Schema.optionalKey(RepositorySchema),
     title: optionalString,

@@ -7,6 +7,7 @@ import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import { createHighlighter } from "shiki";
 import ApiReferenceDescription from "../components/ApiReferenceDescription.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import type { SiteLogo } from "../lib/dicebear.js";
 import "../styles/docs.css";
 
 interface Props
@@ -19,7 +20,10 @@ const { record, packageModules } = Astro.props as Props;
 const document = recordToAgentDocument(record);
 const copyText = formatAgentDocument({ ...document, url: new URL(Astro.url.pathname, "https://docs.sorrell.sh").toString() });
 const canonicalPath = Astro.url.pathname;
+const docsPrefix = "{{DOCS_PREFIX}}";
 const canonical = canonicalUrl(Astro.site?.toString() ?? "https://docs.sorrell.sh", canonicalPath);
+const configuredLogo = {{LOGO}} as SiteLogo | undefined;
+const hasDicebearLogo = typeof configuredLogo === "object" && configuredLogo?.type === "dicebear";
 const sourceHref = (source: ApiReferenceRecord["source"]): string | undefined => source === undefined ? undefined : `${source.repositoryUrl}/blob/${source.revision}/${source.file}${source.line === undefined ? "" : `#L${source.line}`}`;
 const declarationsFor = (categoryId: string) => record.declarations.filter((declaration) => declaration.categoryId === categoryId);
 const uncategorizedDeclarations = record.declarations
@@ -94,6 +98,7 @@ highlighter.dispose();
         {record.summary === undefined ? null : <meta property="og:description" content={record.summary} />}
         <meta property="og:title" content={`${record.displayName} · API Reference`} />
         <link rel="canonical" href={canonical} />
+        {hasDicebearLogo ? <><link rel="icon" href={`${docsPrefix}/favicon-light.svg`} data-theme-favicon="light" media="all" /><link rel="icon" href={`${docsPrefix}/favicon-dark.svg`} data-theme-favicon="dark" media="not all" /></> : null}
         <link rel="alternate" type="text/markdown" href={`${canonicalPath}.md`} />
         <title>{record.displayName} · API Reference</title>
     </head>
@@ -212,8 +217,8 @@ highlighter.dispose();
     .docs-api-page .docs-sidebar .docs-nav-items a:hover, .docs-api-page .docs-sidebar .docs-nav-items a.is-active, .docs-api-page .docs-toc .docs-nav-items a:hover { background: var(--docs-code-background); }
     .docs-api-page > .docs-toc { align-self: start; max-height: calc(100vh - var(--docs-header-height, 72px)); overflow-y: auto; position: sticky; top: var(--docs-header-height, 72px); }
     .docs-api-page .docs-declaration-heading h3 { font-size: 25px; }
-    .docs-declaration-name { align-items: center; color: inherit; cursor: pointer; display: inline-flex; gap: 8px; text-decoration: none; }
-    .docs-declaration-link-icon { color: var(--docs-accent); flex: none; height: 18px; opacity: 0; transition: opacity 120ms ease; width: 18px; }
+    .docs-declaration-name { align-items: center; color: inherit; cursor: pointer; display: inline-flex; gap: 0; position: relative; text-decoration: none; }
+    .docs-declaration-link-icon { color: var(--docs-accent); height: 18px; left: -26px; opacity: 0; position: absolute; transition: opacity 120ms ease; width: 18px; }
     .docs-declaration-name:hover .docs-declaration-link-icon, .docs-declaration-name:focus-visible .docs-declaration-link-icon { opacity: 1; }
     .docs-api-meta { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; gap: 24px; margin: 28px 0 62px; }
     .docs-api-meta a, .docs-declaration-links a { color: var(--docs-accent); }

@@ -9,6 +9,7 @@
  * @license   MIT
  */
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { docsUiCss } from "@sorrell/docs-ui";
 import { createGeneratedWebsite } from "../Source/Generator.js";
@@ -71,20 +72,31 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("font-size: 11.2px; font-weight: 400");
         expect(apiReferenceLayout).toContain(".docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; }");
         expect(apiReferenceLayout).toContain(".docs-api-page > .docs-toc { align-self: start; max-height: calc(100vh - var(--docs-header-height, 72px)); overflow-y: auto; position: sticky; top: var(--docs-header-height, 72px); }");
+        expect(apiReferenceLayout).toContain("class=\"docs-declaration-name\" href={`#${declaration.id}`} aria-label={`Link to ${declaration.name}`}");
+        expect(apiReferenceLayout).toContain("class=\"docs-declaration-link-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"");
+        expect(apiReferenceLayout).not.toContain("<a href={`#${declaration.id}`}>#</a>");
         expect(docsUiCss).toContain("html { scroll-behavior: smooth;");
         expect(docsUiCss).toContain("scroll-behavior: auto !important;");
+        expect(docsUiCss).toContain("font-size: 12px;\nfont-weight: 400;\ngap: 7px;\njustify-content: flex-start;");
+        expect(docsUiCss).toContain("flex: 0 0 14px;\nheight: 14px;\nwidth: 14px;");
+        expect(docsUiCss).toContain("margin: 1.4em 0 0.35em;");
+        expect(docsUiCss).toContain(".docs-api-category > .docs-api-declaration:first-of-type { border-top: 0;\npadding-top: 12px;");
+        expect(docsLayout).toContain("font-size: 12px; font-weight: 400; justify-content: flex-start; min-height: 34px; padding: 0 10px; text-align: left;");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-eyebrow { color: var(--docs-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiReferenceLayout).toContain("font-size: 25px");
         expect(apiReferenceLayout).toContain("background: var(--docs-code-background)");
         expect(siteHeader).toContain("const configuredRepositoryUrl = \"https://github.com/example/widget\" as string;");
         expect(siteHeader).toContain("aria-label=\"GitHub\"");
+        expect(siteHeader).toContain(".landing-header-social-link svg { display: block; flex: none; height: 20px; width: 20px; }");
+        expect(siteHeader).toContain("M12 .9a11.1 11.1 0 0 0-3.51 21.63");
         expect(siteHeader).toContain("landing-header-divider");
         expect(siteHeader).not.toContain("label: \"GitHub\"");
         expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro"))
             .toContain(".docs-api-module-card:hover, .docs-api-module-card:focus-visible { background: var(--docs-code-background)");
-        expect(contents.get("Documentation/Source/pages/api/index.astro"))
-            .toContain("docs-api-package-card");
+        const apiIndex = contents.get("Documentation/Source/pages/api/index.astro") ?? "";
+        expect(apiIndex).toContain(".docs-api-package-card p { color: var(--docs-muted); font-size: 11.2px; font-weight: 400;");
+        expect(apiIndex).toContain(".docs-api-package-card, .docs-api-package-card * { text-decoration: none; }");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
     });
     it("generates the ported Astro landing composition and interactive components", () =>
@@ -98,7 +110,7 @@ describe("three-package website generation", () =>
         const landingTsconfig = JSON.parse(contents.get("Landing/tsconfig.json") ?? "{}");
         expect(landingTsconfig.compilerOptions.moduleResolution).toBe("Bundler");
         expect(landingPackage.scripts).toEqual({
-            build: "astro build",
+            build: "node scripts/generate-favicons.mjs && astro build",
             check: "astro check",
             dev: "astro dev --host 127.0.0.1 --port 4173",
             verify: "astro check"
@@ -158,6 +170,10 @@ describe("three-package website generation", () =>
         expect(generatedDocsCss).not.toContain("{{DARK_");
         expect(contents.get("Documentation/package.json")).toContain("pagefind --site dist --output-path dist/pagefind");
         expect(contents.get("Documentation/Source/layouts/DocsLayout.astro")).toContain("class=\"docs-prose prose prose-effect\"");
+        expect(contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro"))
+            .toContain("data-theme-favicon=\"light\"");
+        expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro"))
+            .toContain("data-theme-favicon=\"dark\"");
         expect(contents.get("Documentation/Source/layouts/DocsLayout.astro")).toContain("<SiteHeader");
         expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<SearchPalette />");
         expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<SiteThemeToggle />");
@@ -218,6 +234,44 @@ describe("three-package website generation", () =>
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/stories\"");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/reference\":");
         expect(contents.get("Landing/astro.config.mjs")).not.toContain("\"\"/reference\"\"");
+    });
+    it("generates DiceBear logos, theme-aware favicons, and permissive logo props", () =>
+    {
+        const website = createGeneratedWebsite({
+            config: {
+                metadata: {
+                    logo: {
+                        props: { backgroundColor: { dark: "#111111", light: "#ffffff" } },
+                        type: "dicebear"
+                    },
+                    name: "Example",
+                    title: "Example",
+                    description: "Example site",
+                    url: "https://example.test"
+                }
+            },
+            target: "generated"
+        });
+        const contents = new Map(website.files.map((file: GeneratedWebsiteFile) => [ file.path, file.content ]));
+        expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
+            .toContain("data-avatar-theme=\"dark\"");
+        const generatedDocsHeader = contents.get("Documentation/Source/components/SiteHeader.astro") ?? "";
+        expect(generatedDocsHeader).toContain("\"style\":\"pixelbot\"");
+        expect(generatedDocsHeader).toContain("\"backgroundColor\":{\"dark\":\"#111111\",\"light\":\"#ffffff\"}");
+        expect(contents.get("Landing/scripts/generate-favicons.mjs"))
+            .toContain("query.set(\"tags\", \"!animation\")");
+        expect(contents.get("Documentation/scripts/generate-favicons.mjs"))
+            .toContain("favicon-${theme}.svg");
+        expect(contents.get("Landing/package.json")).toContain("generate-favicons.mjs && astro build");
+        expect(contents.get("Documentation/package.json")).toContain("generate-favicons.mjs && astro build");
+        expect(contents.get("Documentation/Source/layouts/DocsLayout.astro"))
+            .toContain("data-theme-favicon=\"light\"");
+        const schema = JSON.parse(readFileSync(
+            new URL("../../../Documentation/Landing/public/docs.config.schema.json", import.meta.url),
+            "utf8"
+        )) as { $defs: { dicebearLogo: { properties: { props: { type: string } } } } };
+        expect(schema.$defs.dicebearLogo.properties.props.type).toBe("object");
+        expect(schema.$defs.dicebearLogo.properties.props).not.toHaveProperty("properties");
     });
     it("generates Landing and Documentation without Storybook by default", () =>
     {

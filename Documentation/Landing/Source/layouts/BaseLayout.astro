@@ -1,14 +1,17 @@
 ---
 import "../styles/global.css"
+import type { SiteLogo } from "../lib/dicebear.js"
 interface Props {
   readonly title: string
   readonly description: string
+  readonly logo?: SiteLogo | undefined
   readonly tokens: {
     readonly light: { readonly background: string; readonly foreground: string; readonly muted: string; readonly border: string; readonly accent: string; readonly codeBackground: string }
     readonly dark: { readonly background: string; readonly foreground: string; readonly muted: string; readonly border: string; readonly accent: string; readonly codeBackground: string }
   }
 }
-const { title, description } = Astro.props
+const { title, description, logo } = Astro.props
+const hasDicebearLogo = typeof logo === "object" && logo?.type === "dicebear"
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -17,6 +20,7 @@ const { title, description } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
+    {hasDicebearLogo ? <><link rel="icon" href="/favicon-light.svg" data-theme-favicon="light" media="all" /><link rel="icon" href="/favicon-dark.svg" data-theme-favicon="dark" media="not all" /></> : null}
     <title>{title}</title>
     <script is:inline>
       (() => {
@@ -25,6 +29,7 @@ const { title, description } = Astro.props
         const dark = stored === "dark" || (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches)
         document.documentElement.classList.toggle("dark", dark)
         document.documentElement.dataset.theme = dark ? "dark" : "light"
+        document.querySelectorAll('link[data-theme-favicon]').forEach((link) => { link.media = link.dataset.themeFavicon === (dark ? "dark" : "light") ? "all" : "not all" })
       })()
     </script>
   </head>

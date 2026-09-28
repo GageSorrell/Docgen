@@ -4,12 +4,16 @@ import { DefaultDesignTokens } from "@sorrell/docs-core";
 import { canonicalUrl } from "@sorrell/docs-astro";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
+import type { SiteLogo } from "../lib/dicebear.js";
+import siteConfig from "../../../docs.config.json";
 import "../styles/docs.css";
 
 interface Props { readonly record: ApiReferenceRecord; }
 const { record } = Astro.props as Props;
 const canonicalPath = Astro.url.pathname;
 const canonical = canonicalUrl(Astro.site?.toString() ?? "https://docs.sorrell.sh", canonicalPath);
+const configuredLogo = (siteConfig.metadata as typeof siteConfig.metadata & { readonly logo?: SiteLogo }).logo;
+const hasDicebearLogo = typeof configuredLogo === "object" && configuredLogo?.type === "dicebear";
 const packageHref = record.breadcrumbs.find((breadcrumb) => breadcrumb.label === record.packageName)?.href ?? `/docs/api/${record.packageId}`;
 const packageSourceUrl = record.packageSourceUrl ?? record.source?.repositoryUrl;
 const modules = (record.packageExports ?? [ "." ]).map((exportPath) => {
@@ -35,6 +39,7 @@ const groups = [ ...new Set([ "Core", ...modules.map((module) => module.group) ]
         <meta property="og:title" content={`${record.packageName} · API Reference`} />
         {record.packageDescription === undefined ? null : <meta property="og:description" content={record.packageDescription} />}
         <link rel="canonical" href={canonical} />
+        {hasDicebearLogo ? <><link rel="icon" href="/docs/favicon-light.svg" data-theme-favicon="light" media="all" /><link rel="icon" href="/docs/favicon-dark.svg" data-theme-favicon="dark" media="not all" /></> : null}
         <title>{record.packageName} · API Reference</title>
     </head>
     <body>

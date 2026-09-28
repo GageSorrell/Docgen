@@ -2,6 +2,7 @@
 import SearchPalette from "./SearchPalette.astro";
 import SiteThemeToggle from "./SiteThemeToggle.astro";
 import VersionDropdown from "./VersionDropdown.astro";
+import { dicebearAvatarUrl, type DicebearLogo, type SiteLogo } from "../lib/dicebear.js";
 
 interface VersionOption {
     readonly current?: boolean | undefined;
@@ -19,7 +20,10 @@ interface Props {
 }
 
 const configuredRepositoryUrl = {{REPOSITORY_URL}} as string;
+const configuredLogo = {{LOGO}} as SiteLogo | undefined;
 const { docsPrefix, name, repositoryUrl = configuredRepositoryUrl, storybookPrefix, versions } = Astro.props;
+const logo = configuredLogo;
+const isDicebearLogo = typeof logo === "object" && logo?.type === "dicebear";
 const currentVersion = versions.find((version) => version.current)?.id ?? versions[0]?.id;
 const navigation = [
     { label: "Docs", href: `${docsPrefix}/` },
@@ -30,7 +34,7 @@ const navigation = [
 <header class="landing-header">
     <div class="landing-container landing-header-inner">
         <a href={`${docsPrefix}/`} class="landing-brand" aria-label={`${name} documentation home`}>
-            <span>{name}</span>
+            {typeof logo === "string" && logo !== "" ? <img src={logo} alt={name} /> : isDicebearLogo ? <><img class="landing-brand-avatar" data-avatar-theme="light" src={dicebearAvatarUrl(logo as DicebearLogo, name, "light")} alt={name} /><img class="landing-brand-avatar" data-avatar-theme="dark" src={dicebearAvatarUrl(logo as DicebearLogo, name, "dark")} alt={name} /></> : <span>{name}</span>}
         </a>
         <nav class="landing-header-nav" aria-label="Primary navigation">
             {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -41,7 +45,7 @@ const navigation = [
             {repositoryUrl ? <>
                 <span class="landing-header-divider" aria-hidden="true"></span>
                 <a class="landing-header-social-link" href={repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-                    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 .1.8-1.34 2.97-1.8.1-.72.4-1.2.7-1.48-2.5-.29-5.13-1.25-5.13-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.99 0 0 .95-.3 3.1 1.16a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.56.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.34-2.63 5.29-5.14 5.57.4.35.75 1.03.75 2.08v3.09c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z" /></svg>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.07c-3.09.67-3.74-1.31-3.74-1.31-.5-1.28-1.23-1.62-1.23-1.62-1-.68.08-.67.08-.67 1.11.08 1.7 1.14 1.7 1.14 1 1.69 2.59 1.2 3.22.92.1-.72.39-1.2.7-1.48-2.46-.28-5.04-1.23-5.04-5.47 0-1.21.43-2.2 1.14-2.97-.12-.28-.5-1.4.1-2.93 0 0 .93-.3 3.05 1.14a10.6 10.6 0 0 1 5.54 0c2.12-1.44 3.04-1.14 3.04-1.14.61 1.53.23 2.65.11 2.93.71.77 1.14 1.76 1.14 2.97 0 4.25-2.59 5.19-5.06 5.46.4.34.75 1.02.75 2.05v3.05c0 .3.2.64.76.53A11.1 11.1 0 0 0 12 .9Z" /></svg>
                 </a>
                 <span class="landing-header-divider" aria-hidden="true"></span>
             </> : null}
@@ -94,6 +98,7 @@ const navigation = [
             document.documentElement.dataset.theme = dark ? "dark" : "light";
             document.documentElement.classList.toggle("dark", dark);
             document.documentElement.style.colorScheme = dark ? "dark" : "light";
+            document.querySelectorAll("link[data-theme-favicon]").forEach((link) => { link.media = link.dataset.themeFavicon === (dark ? "dark" : "light") ? "all" : "not all"; });
             if (persist) {
                 try { localStorage.setItem(themeKey, mode); } catch { /* Storage can be unavailable in restricted contexts. */ }
             }
@@ -119,12 +124,16 @@ const navigation = [
     .landing-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--docs-border); background: color-mix(in oklch, var(--docs-background) 92%, transparent); backdrop-filter: blur(14px); }
     .landing-header-inner { display: flex; min-height: 4rem; align-items: center; gap: 2rem; }
     .landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; color: var(--docs-foreground); font-size: 1rem; font-weight: 650; text-decoration: none; }
+    .landing-brand > img:not(.landing-brand-avatar) { height: 2rem; width: auto; }
+    .landing-brand-avatar { display: block; height: 2rem; width: 2rem; }
+    html[data-theme="dark"] .landing-brand-avatar[data-avatar-theme="light"], html:not([data-theme="dark"]) .landing-brand-avatar[data-avatar-theme="dark"] { display: none; }
     .landing-header-nav { display: flex; align-items: center; gap: 1.35rem; font-size: .875rem; }
     .landing-header-nav a { color: var(--docs-muted); text-decoration: none; }
     .landing-header-nav a:hover, .landing-header-nav a:focus-visible { color: var(--docs-foreground); }
     .landing-header-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
     .landing-header-divider { width: 1px; height: 1.5rem; background: var(--docs-border); opacity: .75; }
     .landing-header-social-link { display: inline-flex; width: 2.25rem; height: 2.25rem; align-items: center; justify-content: center; border-radius: .375rem; color: var(--docs-muted); text-decoration: none; transition: color .15s ease, background-color .15s ease; }
+    .landing-header-social-link svg { display: block; flex: none; height: 20px; width: 20px; }
     .landing-header-social-link:hover, .landing-header-social-link:focus-visible { background: var(--docs-code-background); color: var(--docs-foreground); }
     .site-theme-toggle { display: inline-flex; height: 2.25rem; width: 2.25rem; align-items: center; justify-content: center; border: 0; border-radius: .375rem; background: transparent; color: var(--docs-foreground); cursor: pointer; }
     .site-theme-toggle:hover, .site-theme-toggle:focus-visible { background: var(--docs-code-background); }

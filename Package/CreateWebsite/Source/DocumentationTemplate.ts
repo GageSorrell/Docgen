@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 
 import type { DocsConfig } from "@sorrell/docs-core";
 import type { GeneratedWebsiteFile } from "./Types.js";
+import { faviconGeneratorSource } from "./FaviconTemplate.js";
 
 const templateRoot = join(
     dirname(fileURLToPath(import.meta.url)),
@@ -91,15 +92,20 @@ export const documentationTemplateFiles = (
             LIGHT_PROSE_FOREGROUND: config.tokens.light.proseForeground ?? config.tokens.light.foreground,
             LIGHT_SUBTLE_FOREGROUND: config.tokens.light.subtleForeground ?? config.tokens.light.muted,
             REPOSITORY_URL: JSON.stringify(config.metadata.repository?.url ?? ""),
+            LOGO: JSON.stringify(config.metadata.logo ?? null),
             SITE_NAME: JSON.stringify(config.metadata.name || config.metadata.title),
             STORYBOOK_PREFIX: JSON.stringify(config.storybook.enabled ? config.routing.storybookPrefix : ""),
             TITLE: JSON.stringify(config.metadata.title),
             VERSIONS_ESCAPED: JSON.stringify(JSON.stringify(versions)).slice(1, -1)
         })
     }));
-    return config.api.enabled
-        ? [
-            ...files,
+    return [
+        ...files,
+        {
+            path: "Documentation/scripts/generate-favicons.mjs",
+            content: faviconGeneratorSource(config.metadata.logo, config.metadata.name)
+        },
+        ...(config.api.enabled ? [
             {
                 path: "Documentation/Source/data/ApiReference.json",
                 content: `${JSON.stringify({
@@ -109,6 +115,6 @@ export const documentationTemplateFiles = (
                     version: 1
                 }, null, 2)}\n`
             }
-        ]
-        : files;
+        ] : [])
+    ];
 };

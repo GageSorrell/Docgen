@@ -54,6 +54,29 @@ describe("docs-core configuration", () =>
         expect(config.vercel.projects.documentation.routePrefix).toBe("/docs");
         expect(config.vercel.projects.storybook).toBeUndefined();
     });
+    it("accepts open-ended DiceBear logo props and defaults its style to pixelbot", () =>
+    {
+        const config = decodeDocsConfigSync({
+            metadata: {
+                logo: {
+                    props: {
+                        backgroundColor: { dark: "#111111", light: "#ffffff" },
+                        seed: "example"
+                    },
+                    type: "dicebear"
+                },
+                name: "Example"
+            }
+        });
+        expect(config.metadata.logo).toEqual({
+            props: {
+                backgroundColor: { dark: "#111111", light: "#ffffff" },
+                seed: "example"
+            },
+            style: "pixelbot",
+            type: "dicebear"
+        });
+    });
     it("normalizes custom routes and Vercel project metadata", () =>
     {
         const config = decodeDocsConfigSync({

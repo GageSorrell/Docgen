@@ -53,6 +53,7 @@ const { className = "" } = Astro.props
     const dark = mode === "dark" || (mode === "system" && systemPreference.matches)
     document.documentElement.classList.toggle("dark", dark)
     document.documentElement.dataset.theme = dark ? "dark" : "light"
+    document.querySelectorAll<HTMLLinkElement>("link[data-theme-favicon]").forEach((link) => { link.media = link.dataset.themeFavicon === (dark ? "dark" : "light") ? "all" : "not all" })
     if (persist) {
       try { localStorage.setItem(themeKey, mode) } catch { /* Storage can be unavailable in privacy-restricted contexts. */ }
     }

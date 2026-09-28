@@ -383,7 +383,14 @@ export /** @internal */ const normalizeDocsConfig = (
             description:
                 metadataInput.description ??
                 "Documentation generated with Sorrell documentation tooling.",
-            logo: metadataInput.logo,
+            logo: metadataInput.logo === undefined
+                ? undefined
+                : typeof metadataInput.logo === "string"
+                    ? metadataInput.logo
+                    : {
+                        ...metadataInput.logo,
+                        style: metadataInput.logo.style ?? "pixelbot"
+                    },
             name: metadataInput.name ?? "Sorrell Documentation",
             repository: metadataInput.repository,
             title:

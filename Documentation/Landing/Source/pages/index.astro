@@ -3,12 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import Footer from "../components/Footer.astro"
 import LandingPage from "../components/landing/LandingPage.astro"
 import type { LandingPageConfig } from "../lib/landing.js"
+import type { SiteLogo } from "../lib/dicebear.js"
+import siteConfig from "../../../docs.config.json"
 import "../styles/landing.css"
 import "../styles/tokens.css"
 
 const config: LandingPageConfig = {
   name: "sorrell-documentation",
-  logo: "",
+  logo: (siteConfig.metadata as typeof siteConfig.metadata & { readonly logo?: SiteLogo }).logo,
   eyebrow: "Documentation for products with more to explain",
   title: "Sorrell Documentation",
   description: "Build readable documentation sites with a shared content, theme, and publishing system.",
@@ -198,7 +200,7 @@ const tokens = {
   }
 }
 ---
-<BaseLayout title={config.title} description={config.description} tokens={tokens}>
+<BaseLayout title={config.title} description={config.description} tokens={tokens} logo={config.logo}>
   <LandingPage config={config} />
   <Footer name={config.name} repositoryHref={config.navItems.find((item) => item.external)?.href ?? ""} />
 </BaseLayout>
