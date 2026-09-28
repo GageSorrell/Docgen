@@ -41,6 +41,11 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("declarationCategoryNames");
         expect(apiReferenceLayout).toContain("docs-toc-category");
         expect(apiReferenceLayout).toContain(".docs-toc-category > span");
+        expect(apiReferenceLayout).toContain("font-size: 10px; font-weight: 400");
+        expect(apiReferenceLayout).toContain("font-size: 25px");
+        expect(apiReferenceLayout).toContain("background: var(--docs-code-background)");
+        expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro"))
+            .toContain(".docs-api-module-card:hover, .docs-api-module-card:focus-visible { background: var(--docs-code-background)");
         expect(contents.get("Documentation/Source/pages/api/index.astro"))
             .toContain("docs-api-package-card");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
