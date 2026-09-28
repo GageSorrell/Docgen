@@ -344,7 +344,7 @@ describe("website deployment orchestration", () =>
             join(target, "Landing/vercel.json"),
             "utf8"
         );
-        expect(landingConfig).toContain("https://storybook.vercel.app/storybook");
+        expect(landingConfig).toContain("https://storybook.vercel.app/:path*");
         expect(landingConfig).not.toContain("https://documentation.vercel.app");
     });
     it("deploys the MCP child before Landing without adding a public Landing rewrite", async () =>

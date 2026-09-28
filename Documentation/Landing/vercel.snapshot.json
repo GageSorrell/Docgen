@@ -49,11 +49,11 @@
   ],
   "rewrites": [
     {
-      "destination": "https://storybook-snapshot.invalid/storybook",
+      "destination": "https://storybook-snapshot.invalid",
       "source": "/storybook"
     },
     {
-      "destination": "https://storybook-snapshot.invalid/storybook/:path*",
+      "destination": "https://storybook-snapshot.invalid/:path*",
       "source": "/storybook/:path*"
     }
   ],

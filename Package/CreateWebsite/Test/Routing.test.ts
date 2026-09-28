@@ -16,7 +16,7 @@ import {
 import { describe, expect, it } from "vitest";
 describe("generated website routing", () =>
 {
-    it("keeps documentation local and preserves the Storybook base path", () =>
+    it("keeps documentation local and maps the Storybook base path to its deployment root", () =>
     {
         const result = createLandingRewrites(
             { documentationPrefix: "/docs", storybookPrefix: "/storybook" },
@@ -37,11 +37,11 @@ describe("generated website routing", () =>
         );
         expect(result.rewrites).toEqual([
             {
-                destination: "https://storybook.vercel.app/storybook",
+                destination: "https://storybook.vercel.app",
                 source: "/storybook"
             },
             {
-                destination: "https://storybook.vercel.app/storybook/:path*",
+                destination: "https://storybook.vercel.app/:path*",
                 source: "/storybook/:path*"
             }
         ]);

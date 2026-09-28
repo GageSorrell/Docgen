@@ -52,7 +52,10 @@ const rewriteFor = (
     deployment: DeploymentTarget
 ): ReadonlyArray<VercelRewrite> =>
 {
-    const destination = `${normalizedUrl(deployment.url)}${prefix}`;
+    // Storybook is built with its public base path (for asset URLs), but its
+    // files are deployed at the child project's root. Strip the public prefix
+    // while proxying requests to that deployment.
+    const destination = normalizedUrl(deployment.url);
     return [
         { destination, source: prefix },
         { destination: `${destination}/:path*`, source: `${prefix}/:path*` }
