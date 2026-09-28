@@ -16,6 +16,7 @@ import type {
 import type {
     ApiReferenceDeclaration,
     ApiReferenceDescriptionPart,
+    ApiReferenceExample,
     ApiReferenceRecord,
     ApiReferenceSource
 } from "@sorrell/docs-core";
@@ -44,6 +45,7 @@ interface ReflectionCommentPart {
 }
 interface ReflectionCommentTag {
     readonly tag: string;
+    readonly name?: string;
     readonly content?: ReadonlyArray<ReflectionCommentPart>;
 }
 interface ReflectionComment {
@@ -674,6 +676,40 @@ const summaryPartsOf = (
     descriptionCommentsOf(reflection)
         .map((comment) => comment.summary ?? [])
         .find((parts) => parts.some((part) => (part.text ?? "").trim() !== ""));
+const exampleFrom = (tag: ReflectionCommentTag): ApiReferenceExample | undefined =>
+{
+    const parts = tag.content ?? [];
+    const content = parts.map((part) => part.text ?? "").join("");
+    const fence = content.match(/^\s*(`{3,}|~{3,})([^\r\n]*)\r?\n([\s\S]*?)\r?\n\1\s*$/mu);
+    const codePart = parts.find((part) => part.kind === "code");
+    const code = (fence?.[3] ?? codePart?.text ?? content).trim();
+    if (code === "")
+    {
+        return undefined;
+    }
+    const rawLanguage = fence?.[2]?.trim().split(/\s+/u)[0]?.toLowerCase();
+    const language = rawLanguage === undefined || rawLanguage === ""
+        ? undefined
+        : ({
+            js: "javascript",
+            jsx: "javascript",
+            sh: "bash",
+            shell: "bash",
+            ts: "typescript",
+            tsx: "typescript"
+        } as Record<string, string>)[rawLanguage] ?? rawLanguage;
+    return {
+        code,
+        ...(language === undefined ? {} : { language }),
+        ...(tag.name === undefined || tag.name.trim() === "" ? {} : { name: tag.name.trim() })
+    };
+};
+const examplesOf = (reflection: ReflectionLike | undefined): ReadonlyArray<ApiReferenceExample> =>
+    descriptionCommentsOf(reflection)
+        .flatMap((comment) => comment.blockTags ?? [])
+        .filter((tag) => tag.tag === "@example")
+        .map(exampleFrom)
+        .filter((example): example is ApiReferenceExample => example !== undefined);
 const displayTextOf = (part: ReflectionCommentPart): string =>
     (part.tsLinkText ?? part.text ?? "").trim();
 const normalizedSourceFile = (value: string): string =>
@@ -904,11 +940,13 @@ const declarationFrom = (
         options.sourceRoot
     );
     const description = textOf(reflection);
+    const examples = examplesOf(reflection);
     return {
         ...(category === undefined ? {} : { category }),
         categoryId,
         ...(description === "" ? {} : { description }),
         ...(descriptionParts === undefined ? {} : { descriptionParts }),
+        ...(examples.length === 0 ? {} : { examples }),
         id: declarationId(name),
         kind: declarationKind(reflection),
         name,

@@ -269,12 +269,18 @@ const ApiReferenceDescriptionPartSchema = Schema.Struct({
     kind: Schema.Literals([ "text", "link" ]),
     text: Schema.String
 });
+const ApiReferenceExampleSchema = Schema.Struct({
+    code: Schema.String,
+    language: optionalString,
+    name: optionalString
+});
 export/** @internal */
 const ApiReferenceDeclarationSchema = Schema.Struct({
     category: Schema.optionalKey(Schema.String),
     categoryId: Schema.String,
     description: optionalString,
     descriptionParts: Schema.optionalKey(Schema.Array(ApiReferenceDescriptionPartSchema)),
+    examples: Schema.optionalKey(Schema.Array(ApiReferenceExampleSchema)),
     id: Schema.String,
     introductionVersion: optionalString,
     kind: Schema.Literals([
@@ -598,6 +604,9 @@ export type ApiReferenceDeclaration = Schema.Schema.Type<
 >;
 export type ApiReferenceDescriptionPart = Schema.Schema.Type<
     typeof ApiReferenceDescriptionPartSchema
+>;
+export type ApiReferenceExample = Schema.Schema.Type<
+    typeof ApiReferenceExampleSchema
 >;
 /** @internal */
 export type ApiReferenceRecord = Schema.Schema.Type<

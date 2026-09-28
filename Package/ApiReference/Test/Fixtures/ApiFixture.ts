@@ -26,6 +26,8 @@ export const hello = (): Greeting => ({ message: "hello" });
 /**
  * Links to {@link hello | the greeting function}, {@link https://example.com | the external site}, and {@link Effect.gen}.
  */
-export const linkedReferences = true;
+export const linkedReferences = Effect.gen(function*() {
+    return true;
+});
 
 export const undocumented = true;

@@ -63,6 +63,25 @@ const signatures = new Map(record.declarations.map((declaration) => [
         defaultColor: false
     })
 ]));
+const exampleHtml = new Map<string, string>();
+for (const declaration of record.declarations)
+{
+    declaration.examples?.forEach((example, index) => {
+    {
+        const supportedLanguages = ["typescript", "javascript", "bash", "json"];
+        const language = supportedLanguages.includes(example.language ?? "")
+            ? example.language!
+            : "typescript";
+        exampleHtml.set(
+            `${declaration.id}:${index}`,
+            highlighter.codeToHtml(example.code, {
+                lang: language,
+                themes: { dark: "github-dark", light: "github-light" },
+                defaultColor: false
+            })
+        );
+    });
+}
 highlighter.dispose();
 ---
 
