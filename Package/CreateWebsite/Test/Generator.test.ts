@@ -77,12 +77,14 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).not.toContain("<a href={`#${declaration.id}`}>#</a>");
         expect(docsUiCss).toContain("html { scroll-behavior: smooth;");
         expect(docsUiCss).toContain("margin-inline: auto;\nmax-width: 1480px;");
+        expect(docsUiCss).toContain(".docs-api-title-row { align-items: baseline;\ndisplay: flex;\ngap: 24px;\njustify-content: space-around;");
         expect(docsUiCss).toContain("scroll-behavior: auto !important;");
         expect(docsUiCss).toContain("font-size: 12px;\nfont-weight: 400;\ngap: 7px;\njustify-content: flex-start;");
         expect(docsUiCss).toContain("flex: 0 0 14px;\nheight: 14px;\nwidth: 14px;");
         expect(docsUiCss).toContain("margin: 1.4em 0 0.35em;");
         expect(docsUiCss).toContain(".docs-api-category > .docs-api-declaration:first-of-type { border-top: 0;\npadding-top: 12px;");
         expect(docsLayout).toContain("font-size: 12px; font-weight: 400; justify-content: flex-start; min-height: 34px; padding: 0 10px; text-align: left;");
+        expect(docsLayout).toContain(".docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-around; }");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-eyebrow { color: var(--docs-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiReferenceLayout).toContain("font-size: 25px");

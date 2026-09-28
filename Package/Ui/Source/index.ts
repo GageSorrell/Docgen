@@ -473,9 +473,7 @@ padding: 48px clamp(24px,
 .docs-api-title-row { align-items: baseline;
 display: flex;
 gap: 24px;
-justify-content: space-between;
-}
-.docs-api-title-row .docs-copy-button { margin-left: auto;
+justify-content: space-around;
 }
 .docs-api-heading-row h1 { font-family: ui-monospace,
 SFMono-Regular,
