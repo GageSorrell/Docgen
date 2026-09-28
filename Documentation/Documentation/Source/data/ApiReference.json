@@ -1,5 +1,5 @@
 {
-  "checksum": "d7eeb2c789e3ba520495a3d24cdc2d77e5f9a30fbc7e7001608bcd69c84241bb",
+  "checksum": "bf9c7d50ebb7210e23eb71917d4aadae2b6ef156725667aadeb2317fda665545",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -65,7 +65,7 @@
           "id": "AgentConfig",
           "kind": "type",
           "name": "AgentConfig",
-          "signature": "export declare type AgentConfig",
+          "signature": "export declare type AgentConfig = Schema.Schema.Type<typeof AgentConfigSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -79,7 +79,7 @@
           "id": "AgentConfigSchema",
           "kind": "variable",
           "name": "AgentConfigSchema",
-          "signature": "export declare variable AgentConfigSchema",
+          "signature": "export declare const AgentConfigSchema: Struct<{ description: optionalKey<String>; enabled: Boolean; essentials: $Array<String>; mcp: Struct<{ enabled: Boolean }>; skill: Struct<{ enabled: Boolean; name: String }> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -93,7 +93,7 @@
           "id": "AgentCorpus",
           "kind": "type",
           "name": "AgentCorpus",
-          "signature": "export declare type AgentCorpus",
+          "signature": "export declare type AgentCorpus = Schema.Schema.Type<typeof AgentCorpusSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -107,7 +107,7 @@
           "id": "AgentCorpusSchema",
           "kind": "variable",
           "name": "AgentCorpusSchema",
-          "signature": "export declare variable AgentCorpusSchema",
+          "signature": "export declare const AgentCorpusSchema: Struct<{ checksum: String; documents: $Array<Struct<{ content: String; context: optionalKey<String>; description: optionalKey<String>; id: String; kind: Literals<readonly [\"article\", \"api-module\", \"component\"]>; metadata: optionalKey<$Record<String, Unknown>>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; title: String; url: String; version: optionalKey<String> }>>; generatedAt: String; sourceRevision: optionalKey<String>; version: Literals<readonly [1]> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -121,7 +121,7 @@
           "id": "AgentDocument",
           "kind": "type",
           "name": "AgentDocument",
-          "signature": "export declare type AgentDocument",
+          "signature": "export declare type AgentDocument = Schema.Schema.Type<typeof AgentDocumentSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -135,7 +135,7 @@
           "id": "AgentDocumentSchema",
           "kind": "variable",
           "name": "AgentDocumentSchema",
-          "signature": "export declare variable AgentDocumentSchema",
+          "signature": "export declare const AgentDocumentSchema: Struct<{ content: String; context: optionalKey<String>; description: optionalKey<String>; id: String; kind: Literals<readonly [\"article\", \"api-module\", \"component\"]>; metadata: optionalKey<$Record<String, Unknown>>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; title: String; url: String; version: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -149,7 +149,7 @@
           "id": "AgentManifest",
           "kind": "type",
           "name": "AgentManifest",
-          "signature": "export declare type AgentManifest",
+          "signature": "export declare type AgentManifest = Schema.Schema.Type<typeof AgentManifestSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -163,7 +163,7 @@
           "id": "AgentManifestEntry",
           "kind": "type",
           "name": "AgentManifestEntry",
-          "signature": "export declare type AgentManifestEntry",
+          "signature": "export declare type AgentManifestEntry = Schema.Schema.Type<typeof AgentManifestEntrySchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -177,7 +177,7 @@
           "id": "AgentManifestEntrySchema",
           "kind": "variable",
           "name": "AgentManifestEntrySchema",
-          "signature": "export declare variable AgentManifestEntrySchema",
+          "signature": "export declare const AgentManifestEntrySchema: Struct<{ checksum: String; id: String; kind: Literals<readonly [\"article\", \"api-module\", \"component\"]>; markdownUrl: String; title: String; url: String; version: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -191,7 +191,7 @@
           "id": "AgentManifestSchema",
           "kind": "variable",
           "name": "AgentManifestSchema",
-          "signature": "export declare variable AgentManifestSchema",
+          "signature": "export declare const AgentManifestSchema: Struct<{ checksum: String; documents: $Array<Struct<{ checksum: String; id: String; kind: Literals<readonly [\"article\", \"api-module\", \"component\"]>; markdownUrl: String; title: String; url: String; version: optionalKey<String> }>>; generatedAt: String; mcpEndpoint: optionalKey<String>; skills: optionalKey<$Array<Struct<{ archive: String; checksum: String; directory: String; name: String }>>>; version: Literals<readonly [1]>; versions: $Array<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -205,7 +205,7 @@
           "id": "AgentMarkdownDiagnostic",
           "kind": "interface",
           "name": "AgentMarkdownDiagnostic",
-          "signature": "export declare interface AgentMarkdownDiagnostic",
+          "signature": "export declare interface AgentMarkdownDiagnostic {\n    readonly code: \"unresolved-mdx-component\" | \"unsupported-html\";\n    readonly line: number;\n    readonly message: string;\n}",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -219,7 +219,7 @@
           "id": "AgentMarkdownResult",
           "kind": "interface",
           "name": "AgentMarkdownResult",
-          "signature": "export declare interface AgentMarkdownResult",
+          "signature": "export declare interface AgentMarkdownResult {\n    readonly diagnostics: readonly AgentMarkdownDiagnostic[];\n    readonly markdown: string;\n}",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -233,7 +233,7 @@
           "id": "AgentSearchIndex",
           "kind": "type",
           "name": "AgentSearchIndex",
-          "signature": "export declare type AgentSearchIndex",
+          "signature": "export declare type AgentSearchIndex = Schema.Schema.Type<typeof AgentSearchIndexSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -247,7 +247,7 @@
           "id": "AgentSearchIndexEntrySchema",
           "kind": "variable",
           "name": "AgentSearchIndexEntrySchema",
-          "signature": "export declare variable AgentSearchIndexEntrySchema",
+          "signature": "export declare const AgentSearchIndexEntrySchema: Struct<{ id: String; terms: $Array<String>; version: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -261,7 +261,7 @@
           "id": "AgentSearchIndexSchema",
           "kind": "variable",
           "name": "AgentSearchIndexSchema",
-          "signature": "export declare variable AgentSearchIndexSchema",
+          "signature": "export declare const AgentSearchIndexSchema: Struct<{ checksum: String; entries: $Array<Struct<{ id: String; terms: $Array<String>; version: optionalKey<String> }>>; version: Literals<readonly [1]> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -275,7 +275,7 @@
           "id": "AgentSkillArtifact",
           "kind": "type",
           "name": "AgentSkillArtifact",
-          "signature": "export declare type AgentSkillArtifact",
+          "signature": "export declare type AgentSkillArtifact = Schema.Schema.Type<typeof AgentSkillArtifactSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -289,7 +289,7 @@
           "id": "AgentSkillArtifactSchema",
           "kind": "variable",
           "name": "AgentSkillArtifactSchema",
-          "signature": "export declare variable AgentSkillArtifactSchema",
+          "signature": "export declare const AgentSkillArtifactSchema: Struct<{ archive: String; checksum: String; directory: String; name: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -303,7 +303,7 @@
           "id": "AgentSkillConfig",
           "kind": "type",
           "name": "AgentSkillConfig",
-          "signature": "export declare type AgentSkillConfig",
+          "signature": "export declare type AgentSkillConfig = Schema.Schema.Type<typeof AgentSkillConfigSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -317,7 +317,7 @@
           "id": "AgentSkillConfigSchema",
           "kind": "variable",
           "name": "AgentSkillConfigSchema",
-          "signature": "export declare variable AgentSkillConfigSchema",
+          "signature": "export declare const AgentSkillConfigSchema: Struct<{ enabled: Boolean; name: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -331,7 +331,7 @@
           "id": "ApiGenerationConfig",
           "kind": "type",
           "name": "ApiGenerationConfig",
-          "signature": "export declare type ApiGenerationConfig",
+          "signature": "export declare type ApiGenerationConfig = Schema.Schema.Type<typeof ApiGenerationConfigSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -345,7 +345,7 @@
           "id": "ApiGenerationConfigSchema",
           "kind": "variable",
           "name": "ApiGenerationConfigSchema",
-          "signature": "export declare variable ApiGenerationConfigSchema",
+          "signature": "export declare const ApiGenerationConfigSchema: Struct<{ enabled: Boolean; entryPoints: $Array<String>; outputDirectory: String; packages: $Array<String>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: $Record<String, Unknown> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -359,7 +359,7 @@
           "id": "ApiReferenceBreadcrumb",
           "kind": "type",
           "name": "ApiReferenceBreadcrumb",
-          "signature": "export declare type ApiReferenceBreadcrumb",
+          "signature": "export declare type ApiReferenceBreadcrumb = Schema.Schema.Type<typeof ApiReferenceBreadcrumbSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -373,7 +373,7 @@
           "id": "ApiReferenceBreadcrumbSchema",
           "kind": "variable",
           "name": "ApiReferenceBreadcrumbSchema",
-          "signature": "export declare variable ApiReferenceBreadcrumbSchema",
+          "signature": "export declare const ApiReferenceBreadcrumbSchema: Struct<{ current: Boolean; href: optionalKey<String>; label: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -387,7 +387,7 @@
           "id": "ApiReferenceCategory",
           "kind": "type",
           "name": "ApiReferenceCategory",
-          "signature": "export declare type ApiReferenceCategory",
+          "signature": "export declare type ApiReferenceCategory = Schema.Schema.Type<typeof ApiReferenceCategorySchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -401,7 +401,7 @@
           "id": "ApiReferenceCategorySchema",
           "kind": "variable",
           "name": "ApiReferenceCategorySchema",
-          "signature": "export declare variable ApiReferenceCategorySchema",
+          "signature": "export declare const ApiReferenceCategorySchema: Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -415,7 +415,7 @@
           "id": "ApiReferenceDeclaration",
           "kind": "type",
           "name": "ApiReferenceDeclaration",
-          "signature": "export declare type ApiReferenceDeclaration",
+          "signature": "export declare type ApiReferenceDeclaration = Schema.Schema.Type<typeof ApiReferenceDeclarationSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -429,7 +429,7 @@
           "id": "ApiReferenceDeclarationSchema",
           "kind": "variable",
           "name": "ApiReferenceDeclarationSchema",
-          "signature": "export declare variable ApiReferenceDeclarationSchema",
+          "signature": "export declare const ApiReferenceDeclarationSchema: Struct<{ categoryId: String; description: String; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -443,7 +443,7 @@
           "id": "ApiReferenceRecord",
           "kind": "type",
           "name": "ApiReferenceRecord",
-          "signature": "export declare type ApiReferenceRecord",
+          "signature": "export declare type ApiReferenceRecord = Schema.Schema.Type<typeof ApiReferenceRecordSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -457,7 +457,7 @@
           "id": "ApiReferenceRecordSchema",
           "kind": "variable",
           "name": "ApiReferenceRecordSchema",
-          "signature": "export declare variable ApiReferenceRecordSchema",
+          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ categoryId: String; description: String; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageId: String; packageName: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: String; version: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -471,7 +471,7 @@
           "id": "apiReferenceRecordToAgentDocument",
           "kind": "function",
           "name": "apiReferenceRecordToAgentDocument",
-          "signature": "{ content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string }",
+          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageId: string; packageName: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary: string; version: string }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -485,7 +485,7 @@
           "id": "ApiReferenceSource",
           "kind": "type",
           "name": "ApiReferenceSource",
-          "signature": "export declare type ApiReferenceSource",
+          "signature": "export declare type ApiReferenceSource = Schema.Schema.Type<typeof ApiReferenceSourceSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -499,7 +499,7 @@
           "id": "ApiReferenceSourceSchema",
           "kind": "variable",
           "name": "ApiReferenceSourceSchema",
-          "signature": "export declare variable ApiReferenceSourceSchema",
+          "signature": "export declare const ApiReferenceSourceSchema: Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -513,7 +513,7 @@
           "id": "ColorTokensSchema",
           "kind": "variable",
           "name": "ColorTokensSchema",
-          "signature": "export declare variable ColorTokensSchema",
+          "signature": "export declare const ColorTokensSchema: Struct<{ accent: String; background: String; border: String; cardBackground: optionalKey<String>; codeBackground: String; foreground: String; muted: String; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -527,7 +527,7 @@
           "id": "ConfigPathSegment",
           "kind": "type",
           "name": "ConfigPathSegment",
-          "signature": "export declare type ConfigPathSegment",
+          "signature": "export declare type ConfigPathSegment = string | number;",
           "source": {
             "file": "Package/Core/Source/Errors.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -541,7 +541,7 @@
           "id": "decodeDocsConfig",
           "kind": "function",
           "name": "decodeDocsConfig",
-          "signature": "Result<DocsConfig, DocsConfigError>",
+          "signature": "export declare function decodeDocsConfig(\n    input: unknown\n): Result<DocsConfig, DocsConfigError>;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -555,7 +555,7 @@
           "id": "decodeDocsConfigEffect",
           "kind": "function",
           "name": "decodeDocsConfigEffect",
-          "signature": "Effect<DocsConfig, DocsConfigError>",
+          "signature": "export declare function decodeDocsConfigEffect(\n    input: unknown\n): Effect<DocsConfig, DocsConfigError>;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -569,7 +569,7 @@
           "id": "decodeDocsConfigSync",
           "kind": "function",
           "name": "decodeDocsConfigSync",
-          "signature": "DocsConfig",
+          "signature": "export declare function decodeDocsConfigSync(\n    input: unknown\n): DocsConfig;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -583,7 +583,7 @@
           "id": "DefaultDesignTokens",
           "kind": "variable",
           "name": "DefaultDesignTokens",
-          "signature": "export declare variable DefaultDesignTokens",
+          "signature": "export declare const DefaultDesignTokens: DesignTokens;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -597,7 +597,7 @@
           "id": "DesignTokens",
           "kind": "type",
           "name": "DesignTokens",
-          "signature": "export declare type DesignTokens",
+          "signature": "export declare type DesignTokens = Schema.Schema.Type<typeof DesignTokensSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -611,7 +611,7 @@
           "id": "DesignTokensSchema",
           "kind": "variable",
           "name": "DesignTokensSchema",
-          "signature": "export declare variable DesignTokensSchema",
+          "signature": "export declare const DesignTokensSchema: Struct<{ dark: Struct<{ accent: String; background: String; border: String; cardBackground: optionalKey<String>; codeBackground: String; foreground: String; muted: String; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>; light: Struct<{ accent: String; background: String; border: String; cardBackground: optionalKey<String>; codeBackground: String; foreground: String; muted: String; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -625,7 +625,7 @@
           "id": "DocsConfig",
           "kind": "interface",
           "name": "DocsConfig",
-          "signature": "export declare interface DocsConfig",
+          "signature": "export declare interface DocsConfig {\n    readonly agent: { description?: string; enabled: boolean; essentials: readonly string[]; mcp: { enabled: boolean }; skill: { enabled: boolean; name: string } };\n    readonly api: { enabled: boolean; entryPoints: readonly string[]; outputDirectory: string; packages: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc: { [key: string]: unknown } };\n    readonly landing: { description: string; primaryAction?: { href: string; label: string }; sections: readonly { body: string; href?: string; id: string; title: string }[]; title: string };\n    readonly manifests: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[];\n    readonly mcpEndpoint: string;\n    readonly metadata: { description: string; logo?: string; name: string; repository?: { branch?: string; directory?: string; url: string }; title: string; url: string };\n    readonly navigation: Navigation;\n    readonly packages: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[];\n    readonly redirects: readonly { from: string; status: 301 | 302; to: string }[];\n    readonly routing: { documentationPrefix: string; storybookPrefix: string };\n    readonly storybook: { command?: string; directory?: string; enabled: boolean; stories: readonly string[]; url?: string };\n    readonly tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } };\n    readonly vercel: { domains: readonly string[]; enabled: boolean; outputDirectory: string; productionBranch: string; project?: string; projects: { documentation: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; landing: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; mcp?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; storybook?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string } }; team?: string };\n    readonly versions: readonly { current: boolean; directory: string; href?: string; id: string; label: string; order: number; version?: string }[];\n}",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -639,7 +639,7 @@
           "id": "DocsConfigDiagnostic",
           "kind": "interface",
           "name": "DocsConfigDiagnostic",
-          "signature": "export declare interface DocsConfigDiagnostic",
+          "signature": "export declare interface DocsConfigDiagnostic {\n    readonly actual?: unknown;\n    readonly expected?: string;\n    readonly message: string;\n    readonly path: readonly ConfigPathSegment[];\n}",
           "source": {
             "file": "Package/Core/Source/Errors.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -653,7 +653,7 @@
           "id": "DocsConfigError",
           "kind": "class",
           "name": "DocsConfigError",
-          "signature": "export declare class DocsConfigError",
+          "signature": "export declare class DocsConfigError extends YieldableError<this> & { _tag: \"DocsConfigError\" } & Readonly<{ diagnostics: readonly DocsConfigDiagnostic[] }> {\n    constructor(\n    args: { diagnostics: readonly DocsConfigDiagnostic[] }\n): DocsConfigError;\n    readonly _tag: \"DocsConfigError\";\n    readonly ~effect/Effect: Variance<never, DocsConfigError, never>;\n    readonly ~effect/ErrorReporter/attributes?: ReadonlyRecord<string, unknown>;\n    readonly ~effect/ErrorReporter/ignore?: boolean;\n    readonly ~effect/ErrorReporter/severity?: Severity;\n    readonly ~effect/Runtime/errorExitCode?: number;\n    readonly ~effect/Runtime/errorReported?: boolean;\n    cause?: unknown;\n    readonly diagnostics: readonly DocsConfigDiagnostic[];\n    name: string;\n    stack?: string;\n    [iterator](): EffectIterator<Effect<never, DocsConfigError, never>>;\n    [NodeInspectSymbol](): unknown;\n    pipe<A>(\n    this: A\n): A;\n    toJSON(): unknown;\n    toString(): string;\n}",
           "source": {
             "file": "Package/Core/Source/Errors.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -667,7 +667,7 @@
           "id": "DocsConfigInput",
           "kind": "type",
           "name": "DocsConfigInput",
-          "signature": "export declare type DocsConfigInput",
+          "signature": "export declare type DocsConfigInput = Schema.Schema.Type<typeof DocsConfigInputSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -681,7 +681,7 @@
           "id": "DocsConfigInputSchema",
           "kind": "variable",
           "name": "DocsConfigInputSchema",
-          "signature": "export declare variable DocsConfigInputSchema",
+          "signature": "export declare const DocsConfigInputSchema: Struct<{ agent: optionalKey<Struct<{ description: optionalKey<String>; enabled: optionalKey<Boolean>; essentials: optionalKey<$Array<String>>; mcp: optionalKey<Struct<{ enabled: optionalKey<Boolean> }>>; skill: optionalKey<Struct<{ enabled: optionalKey<Boolean>; name: optionalKey<String> }>> }>>; api: optionalKey<Struct<{ enabled: optionalKey<Boolean>; entryPoints: optionalKey<$Array<String>>; outputDirectory: optionalKey<String>; packages: optionalKey<$Array<String>>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: optionalKey<$Record<String, Unknown>> }>>; landing: optionalKey<Struct<{ description: optionalKey<String>; primaryAction: optionalKey<Struct<{ href: String; label: String }>>; sections: optionalKey<$Array<Struct<{ body: optionalKey<String>; href: optionalKey<String>; id: String; title: String }>>>; title: optionalKey<String> }>>; manifests: optionalKey<$Array<Struct<{ checksum: optionalKey<String>; generatedAt: optionalKey<String>; kind: Literals<readonly [\"site\", \"api-reference\", \"storybook\", \"project\"]>; path: String; revision: optionalKey<String> }>>>; metadata: optionalKey<Struct<{ description: optionalKey<String>; logo: optionalKey<String>; name: optionalKey<String>; repository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; title: optionalKey<String>; url: optionalKey<String> }>>; navigation: optionalKey<Struct<{ groups: optionalKey<$Array<Struct<{ id: String; items: $Array<Schema<(...)>>; label: String }>>> }>>; packages: optionalKey<$Array<Struct<{ description: optionalKey<String>; directory: optionalKey<String>; id: String; name: String; source: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; version: optionalKey<String> }>>>; redirects: optionalKey<$Array<Struct<{ from: String; status: optionalKey<Literals<readonly [301, 302]>>; to: String }>>>; routing: optionalKey<Struct<{ documentationPrefix: optionalKey<String>; storybookPrefix: optionalKey<String> }>>; storybook: optionalKey<Struct<{ command: optionalKey<String>; directory: optionalKey<String>; enabled: optionalKey<Boolean>; stories: optionalKey<$Array<String>>; url: optionalKey<String> }>>; tokens: optionalKey<Struct<{ dark: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>>; light: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>> }>>; vercel: optionalKey<Struct<{ domains: optionalKey<$Array<String>>; enabled: optionalKey<Boolean>; outputDirectory: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; projects: optionalKey<Struct<{ documentation: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; landing: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; mcp: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; storybook: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>> }>>; team: optionalKey<String> }>>; versions: optionalKey<$Array<Struct<{ current: optionalKey<Boolean>; directory: optionalKey<String>; href: optionalKey<String>; id: String; label: optionalKey<String>; order: optionalKey<Number>; version: optionalKey<String> }>>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -695,7 +695,7 @@
           "id": "DocumentationVersion",
           "kind": "type",
           "name": "DocumentationVersion",
-          "signature": "export declare type DocumentationVersion",
+          "signature": "export declare type DocumentationVersion = Schema.Schema.Type<typeof DocumentationVersionSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -709,7 +709,7 @@
           "id": "DocumentationVersionSchema",
           "kind": "variable",
           "name": "DocumentationVersionSchema",
-          "signature": "export declare variable DocumentationVersionSchema",
+          "signature": "export declare const DocumentationVersionSchema: Struct<{ current: Boolean; directory: String; href: optionalKey<String>; id: String; label: String; order: Number; version: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -723,7 +723,7 @@
           "id": "formatAgentDocument",
           "kind": "function",
           "name": "formatAgentDocument",
-          "signature": "string",
+          "signature": "export declare function formatAgentDocument(\n    document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string }\n): string;",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -737,7 +737,7 @@
           "id": "formatConfigPath",
           "kind": "function",
           "name": "formatConfigPath",
-          "signature": "string",
+          "signature": "export declare function formatConfigPath(\n    path: readonly ConfigPathSegment[]\n): string;",
           "source": {
             "file": "Package/Core/Source/Errors.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -751,7 +751,7 @@
           "id": "formatDiagnostic",
           "kind": "function",
           "name": "formatDiagnostic",
-          "signature": "string",
+          "signature": "export declare function formatDiagnostic(\n    diagnostic: DocsConfigDiagnostic\n): string;",
           "source": {
             "file": "Package/Core/Source/Errors.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -765,7 +765,7 @@
           "id": "GeneratedManifest",
           "kind": "type",
           "name": "GeneratedManifest",
-          "signature": "export declare type GeneratedManifest",
+          "signature": "export declare type GeneratedManifest = Schema.Schema.Type<typeof GeneratedManifestSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -779,7 +779,7 @@
           "id": "GeneratedManifestSchema",
           "kind": "variable",
           "name": "GeneratedManifestSchema",
-          "signature": "export declare variable GeneratedManifestSchema",
+          "signature": "export declare const GeneratedManifestSchema: Struct<{ checksum: optionalKey<String>; generatedAt: optionalKey<String>; kind: Literals<readonly [\"site\", \"api-reference\", \"storybook\", \"project\"]>; path: String; revision: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -793,7 +793,7 @@
           "id": "LandingContent",
           "kind": "type",
           "name": "LandingContent",
-          "signature": "export declare type LandingContent",
+          "signature": "export declare type LandingContent = Schema.Schema.Type<typeof LandingContentSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -807,7 +807,7 @@
           "id": "LandingContentSchema",
           "kind": "variable",
           "name": "LandingContentSchema",
-          "signature": "export declare variable LandingContentSchema",
+          "signature": "export declare const LandingContentSchema: Struct<{ description: String; primaryAction: optionalKey<Struct<{ href: String; label: String }>>; sections: $Array<Struct<{ body: String; href: optionalKey<String>; id: String; title: String }>>; title: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -821,7 +821,7 @@
           "id": "LandingSectionSchema",
           "kind": "variable",
           "name": "LandingSectionSchema",
-          "signature": "export declare variable LandingSectionSchema",
+          "signature": "export declare const LandingSectionSchema: Struct<{ body: String; href: optionalKey<String>; id: String; title: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -835,7 +835,7 @@
           "id": "Navigation",
           "kind": "interface",
           "name": "Navigation",
-          "signature": "export declare interface Navigation",
+          "signature": "export declare interface Navigation {\n    readonly groups: readonly NavigationGroup[];\n}",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -849,7 +849,7 @@
           "id": "NavigationGroup",
           "kind": "interface",
           "name": "NavigationGroup",
-          "signature": "export declare interface NavigationGroup",
+          "signature": "export declare interface NavigationGroup {\n    readonly id: string;\n    readonly items: readonly NavigationItem[];\n    readonly label: string;\n}",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -863,7 +863,7 @@
           "id": "NavigationGroupSchema",
           "kind": "variable",
           "name": "NavigationGroupSchema",
-          "signature": "export declare variable NavigationGroupSchema",
+          "signature": "export declare const NavigationGroupSchema: Struct<{ id: String; items: $Array<Schema<NavigationItem>>; label: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -877,7 +877,7 @@
           "id": "NavigationItem",
           "kind": "interface",
           "name": "NavigationItem",
-          "signature": "export declare interface NavigationItem",
+          "signature": "export declare interface NavigationItem {\n    readonly children?: readonly NavigationItem[];\n    readonly href: string;\n    readonly id: string;\n    readonly kind: \"external\" | \"page\" | \"section\";\n    readonly label: string;\n}",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -891,7 +891,7 @@
           "id": "NavigationItemInput",
           "kind": "interface",
           "name": "NavigationItemInput",
-          "signature": "export declare interface NavigationItemInput",
+          "signature": "export declare interface NavigationItemInput {\n    readonly children?: readonly NavigationItemInput[];\n    readonly href: string;\n    readonly id: string;\n    readonly kind?: \"external\" | \"page\" | \"section\";\n    readonly label: string;\n}",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -905,7 +905,7 @@
           "id": "NavigationItemSchema",
           "kind": "variable",
           "name": "NavigationItemSchema",
-          "signature": "export declare variable NavigationItemSchema",
+          "signature": "export declare const NavigationItemSchema: Schema<NavigationItem>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -919,7 +919,7 @@
           "id": "NavigationSchema",
           "kind": "variable",
           "name": "NavigationSchema",
-          "signature": "export declare variable NavigationSchema",
+          "signature": "export declare const NavigationSchema: Schema<Navigation>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -933,7 +933,7 @@
           "id": "normalizeAgentMarkdown",
           "kind": "function",
           "name": "normalizeAgentMarkdown",
-          "signature": "AgentMarkdownResult",
+          "signature": "export declare function normalizeAgentMarkdown(\n    value: string\n): AgentMarkdownResult;",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -947,7 +947,7 @@
           "id": "normalizeDocsConfig",
           "kind": "function",
           "name": "normalizeDocsConfig",
-          "signature": "DocsConfig",
+          "signature": "export declare function normalizeDocsConfig(\n    input: { agent?: { description?: string; enabled?: boolean; essentials?: readonly string[]; mcp?: { enabled?: boolean }; skill?: { enabled?: boolean; name?: string } }; api?: { enabled?: boolean; entryPoints?: readonly string[]; outputDirectory?: string; packages?: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc?: { [key: string]: unknown } }; landing?: { description?: string; primaryAction?: { href: string; label: string }; sections?: readonly { body?: string; href?: string; id: string; title: string }[]; title?: string }; manifests?: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[]; metadata?: { description?: string; logo?: string; name?: string; repository?: { branch?: string; directory?: string; url: string }; title?: string; url?: string }; navigation?: { groups?: readonly { id: string; items: readonly NavigationItemInput[]; label: string }[] }; packages?: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[]; redirects?: readonly { from: string; status?: 301 | 302; to: string }[]; routing?: { documentationPrefix?: string; storybookPrefix?: string }; storybook?: { command?: string; directory?: string; enabled?: boolean; stories?: readonly string[]; url?: string }; tokens?: { dark?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string }; light?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string } }; vercel?: { domains?: readonly string[]; enabled?: boolean; outputDirectory?: string; productionBranch?: string; project?: string; projects?: { documentation?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; landing?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; mcp?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; storybook?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string } }; team?: string }; versions?: readonly { current?: boolean; directory?: string; href?: string; id: string; label?: string; order?: number; version?: string }[] }\n): DocsConfig;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -961,7 +961,7 @@
           "id": "PackageReference",
           "kind": "type",
           "name": "PackageReference",
-          "signature": "export declare type PackageReference",
+          "signature": "export declare type PackageReference = Schema.Schema.Type<typeof PackageReferenceSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -975,7 +975,7 @@
           "id": "PackageReferenceSchema",
           "kind": "variable",
           "name": "PackageReferenceSchema",
-          "signature": "export declare variable PackageReferenceSchema",
+          "signature": "export declare const PackageReferenceSchema: Struct<{ description: optionalKey<String>; directory: optionalKey<String>; id: String; name: String; source: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; version: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -989,7 +989,7 @@
           "id": "Redirect",
           "kind": "type",
           "name": "Redirect",
-          "signature": "export declare type Redirect",
+          "signature": "export declare type Redirect = Schema.Schema.Type<typeof RedirectSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1003,7 +1003,7 @@
           "id": "RedirectSchema",
           "kind": "variable",
           "name": "RedirectSchema",
-          "signature": "export declare variable RedirectSchema",
+          "signature": "export declare const RedirectSchema: Struct<{ from: String; status: Literals<readonly [301, 302]>; to: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1017,7 +1017,7 @@
           "id": "RepositorySchema",
           "kind": "variable",
           "name": "RepositorySchema",
-          "signature": "export declare variable RepositorySchema",
+          "signature": "export declare const RepositorySchema: Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1031,7 +1031,7 @@
           "id": "SiteMetadata",
           "kind": "type",
           "name": "SiteMetadata",
-          "signature": "export declare type SiteMetadata",
+          "signature": "export declare type SiteMetadata = Schema.Schema.Type<typeof SiteMetadataSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1045,7 +1045,7 @@
           "id": "SiteMetadataSchema",
           "kind": "variable",
           "name": "SiteMetadataSchema",
-          "signature": "export declare variable SiteMetadataSchema",
+          "signature": "export declare const SiteMetadataSchema: Struct<{ description: String; logo: optionalKey<String>; name: String; repository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; title: String; url: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1059,7 +1059,7 @@
           "id": "SiteRouting",
           "kind": "type",
           "name": "SiteRouting",
-          "signature": "export declare type SiteRouting",
+          "signature": "export declare type SiteRouting = Schema.Schema.Type<typeof SiteRoutingSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1073,7 +1073,7 @@
           "id": "SiteRoutingSchema",
           "kind": "variable",
           "name": "SiteRoutingSchema",
-          "signature": "export declare variable SiteRoutingSchema",
+          "signature": "export declare const SiteRoutingSchema: Struct<{ documentationPrefix: String; storybookPrefix: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1087,7 +1087,7 @@
           "id": "StableLink",
           "kind": "type",
           "name": "StableLink",
-          "signature": "export declare type StableLink",
+          "signature": "export declare type StableLink = Schema.Schema.Type<typeof StableLinkSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1101,7 +1101,7 @@
           "id": "StableLinkSchema",
           "kind": "variable",
           "name": "StableLinkSchema",
-          "signature": "export declare variable StableLinkSchema",
+          "signature": "export declare const StableLinkSchema: Struct<{ external: Boolean; href: String; label: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1115,7 +1115,7 @@
           "id": "StorybookConfig",
           "kind": "type",
           "name": "StorybookConfig",
-          "signature": "export declare type StorybookConfig",
+          "signature": "export declare type StorybookConfig = Schema.Schema.Type<typeof StorybookConfigSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1129,7 +1129,7 @@
           "id": "StorybookConfigSchema",
           "kind": "variable",
           "name": "StorybookConfigSchema",
-          "signature": "export declare variable StorybookConfigSchema",
+          "signature": "export declare const StorybookConfigSchema: Struct<{ command: optionalKey<String>; directory: optionalKey<String>; enabled: Boolean; stories: $Array<String>; url: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1143,7 +1143,7 @@
           "id": "VercelConfig",
           "kind": "type",
           "name": "VercelConfig",
-          "signature": "export declare type VercelConfig",
+          "signature": "export declare type VercelConfig = Schema.Schema.Type<typeof VercelConfigSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1157,7 +1157,7 @@
           "id": "VercelConfigSchema",
           "kind": "variable",
           "name": "VercelConfigSchema",
-          "signature": "export declare variable VercelConfigSchema",
+          "signature": "export declare const VercelConfigSchema: Struct<{ domains: $Array<String>; enabled: Boolean; outputDirectory: String; productionBranch: String; project: optionalKey<String>; projects: Struct<{ documentation: Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>; landing: Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>; mcp: optionalKey<Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>>; storybook: optionalKey<Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>> }>; team: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1171,7 +1171,7 @@
           "id": "VercelDeployment",
           "kind": "type",
           "name": "VercelDeployment",
-          "signature": "export declare type VercelDeployment",
+          "signature": "export declare type VercelDeployment = Schema.Schema.Type<typeof VercelDeploymentSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1185,7 +1185,7 @@
           "id": "VercelDeploymentSchema",
           "kind": "variable",
           "name": "VercelDeploymentSchema",
-          "signature": "export declare variable VercelDeploymentSchema",
+          "signature": "export declare const VercelDeploymentSchema: Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1199,7 +1199,7 @@
           "id": "VercelDeploymentsSchema",
           "kind": "variable",
           "name": "VercelDeploymentsSchema",
-          "signature": "export declare variable VercelDeploymentsSchema",
+          "signature": "export declare const VercelDeploymentsSchema: Struct<{ documentation: Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>; landing: Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>; mcp: optionalKey<Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>>; storybook: optionalKey<Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1213,7 +1213,7 @@
           "id": "VercelProject",
           "kind": "type",
           "name": "VercelProject",
-          "signature": "export declare type VercelProject",
+          "signature": "export declare type VercelProject = Schema.Schema.Type<typeof VercelProjectSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1227,7 +1227,7 @@
           "id": "VercelProjects",
           "kind": "type",
           "name": "VercelProjects",
-          "signature": "export declare type VercelProjects",
+          "signature": "export declare type VercelProjects = Schema.Schema.Type<typeof VercelProjectsSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1241,7 +1241,7 @@
           "id": "VercelProjectSchema",
           "kind": "variable",
           "name": "VercelProjectSchema",
-          "signature": "export declare variable VercelProjectSchema",
+          "signature": "export declare const VercelProjectSchema: Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1255,7 +1255,7 @@
           "id": "VercelProjectsSchema",
           "kind": "variable",
           "name": "VercelProjectsSchema",
-          "signature": "export declare variable VercelProjectsSchema",
+          "signature": "export declare const VercelProjectsSchema: Struct<{ documentation: Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>; landing: Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>; mcp: optionalKey<Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>>; storybook: optionalKey<Struct<{ directory: String; id: optionalKey<String>; origin: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; routePrefix: String; team: optionalKey<String> }>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1269,7 +1269,7 @@
           "id": "VercelReleaseManifest",
           "kind": "type",
           "name": "VercelReleaseManifest",
-          "signature": "export declare type VercelReleaseManifest",
+          "signature": "export declare type VercelReleaseManifest = Schema.Schema.Type<typeof VercelReleaseManifestSchema>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1283,7 +1283,7 @@
           "id": "VercelReleaseManifestSchema",
           "kind": "variable",
           "name": "VercelReleaseManifestSchema",
-          "signature": "export declare variable VercelReleaseManifestSchema",
+          "signature": "export declare const VercelReleaseManifestSchema: Struct<{ apiSnapshot: optionalKey<String>; deployments: Struct<{ documentation: Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>; landing: Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>; mcp: optionalKey<Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>>; storybook: optionalKey<Struct<{ deploymentId: String; project: String; revision: optionalKey<String>; url: String }>> }>; generatedAt: String; landingConfig: Unknown; mcpEndpoint: optionalKey<String>; mode: Literals<readonly [\"preview\", \"production\"]>; previousReleaseId: optionalKey<String>; publicUrl: String; releaseId: String; revision: String; routes: Struct<{ documentationPrefix: String; storybookPrefix: String }>; version: Literals<readonly [2]> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1361,7 +1361,7 @@
           "id": "ApiReferencePage",
           "kind": "function",
           "name": "ApiReferencePage",
-          "signature": "Element",
+          "signature": "export declare function ApiReferencePage(\n    __namedParameters: ApiReferencePageProps\n): Element;",
           "source": {
             "file": "Ui/Source/ApiReference.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1375,7 +1375,7 @@
           "id": "ApiReferencePageProps",
           "kind": "interface",
           "name": "ApiReferencePageProps",
-          "signature": "export declare interface ApiReferencePageProps",
+          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageId: string; packageName: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary: string; version: string };\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1389,7 +1389,7 @@
           "id": "ArticlePage",
           "kind": "function",
           "name": "ArticlePage",
-          "signature": "Element",
+          "signature": "export declare function ArticlePage(\n    __namedParameters: { breadcrumbs?: ReactNode; children: ReactNode; description?: string; document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string }; title: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1403,7 +1403,7 @@
           "id": "ArticlePageProps",
           "kind": "interface",
           "name": "ArticlePageProps",
-          "signature": "export declare interface ArticlePageProps",
+          "signature": "export declare interface ArticlePageProps {\n    readonly breadcrumbs?: readonly BreadcrumbItem[];\n    readonly children: ReactNode;\n    readonly description?: string;\n    readonly document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };\n    readonly title: string;\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1417,7 +1417,7 @@
           "id": "BreadcrumbItem",
           "kind": "interface",
           "name": "BreadcrumbItem",
-          "signature": "export declare interface BreadcrumbItem",
+          "signature": "export declare interface BreadcrumbItem {\n    readonly current?: boolean;\n    readonly href?: string;\n    readonly label: string;\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1431,7 +1431,7 @@
           "id": "Breadcrumbs",
           "kind": "function",
           "name": "Breadcrumbs",
-          "signature": "Element",
+          "signature": "export declare function Breadcrumbs(\n    __namedParameters: { items: readonly BreadcrumbItem[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1445,7 +1445,7 @@
           "id": "Callout",
           "kind": "function",
           "name": "Callout",
-          "signature": "Element",
+          "signature": "export declare function Callout(\n    __namedParameters: { children: ReactNode; title?: string; tone?: \"note\" | \"warning\" | \"tip\" }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1459,7 +1459,7 @@
           "id": "CopyForLlmButton",
           "kind": "function",
           "name": "CopyForLlmButton",
-          "signature": "Element",
+          "signature": "export declare function CopyForLlmButton(\n    __namedParameters: { document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string } }\n): Element;",
           "source": {
             "file": "Ui/Source/CopyForLlm.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1473,7 +1473,7 @@
           "id": "createThemeCss",
           "kind": "function",
           "name": "createThemeCss",
-          "signature": "string",
+          "signature": "export declare function createThemeCss(\n    tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } }\n): string;",
           "source": {
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1487,7 +1487,7 @@
           "id": "Cta",
           "kind": "function",
           "name": "Cta",
-          "signature": "Element",
+          "signature": "export declare function Cta(\n    __namedParameters: { children?: ReactNode; href: string; label: string; title: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1501,7 +1501,7 @@
           "id": "DocCode",
           "kind": "function",
           "name": "DocCode",
-          "signature": "Element",
+          "signature": "export declare function DocCode(\n    __namedParameters: { children: ReactNode; language?: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1515,7 +1515,7 @@
           "id": "DocsFooter",
           "kind": "function",
           "name": "DocsFooter",
-          "signature": "Element",
+          "signature": "export declare function DocsFooter(\n    __namedParameters: { children?: ReactNode }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1529,7 +1529,7 @@
           "id": "DocsHeader",
           "kind": "function",
           "name": "DocsHeader",
-          "signature": "Element",
+          "signature": "export declare function DocsHeader(\n    __namedParameters: { links?: readonly DocumentationNavItem[]; repositoryHref?: string; title?: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1543,7 +1543,7 @@
           "id": "DocsSidebar",
           "kind": "function",
           "name": "DocsSidebar",
-          "signature": "Element",
+          "signature": "export declare function DocsSidebar(\n    __namedParameters: { groups: readonly DocumentationNavGroup[]; label?: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1557,7 +1557,7 @@
           "id": "docsUiCss",
           "kind": "variable",
           "name": "docsUiCss",
-          "signature": "export declare variable docsUiCss",
+          "signature": "export declare const docsUiCss: \"\\n:root {\\n    font-family: Inter,\\nui-sans-serif,\\nsystem-ui,\\n-apple-system,\\nBlinkMacSystemFont,\\n\\\"Segoe UI\\\",\\nsans-serif;\\n    color: var(--docs-foreground,\\n#111111);\\n    background: var(--docs-background,\\n#ffffff);\\n    font-synthesis: none;\\n    text-rendering: optimizeLegibility;\\n}\\n\\n* { box-sizing: border-box;\\n}\\nbody { margin: 0;\\nmin-width: 320px;\\nbackground: var(--docs-background,\\n#ffffff);\\ncolor: var(--docs-foreground,\\n#111111);\\n}\\na { color: inherit;\\ntext-decoration: none;\\n}\\nbutton,\\na { -webkit-tap-highlight-color: transparent;\\n}\\nbutton { font: inherit;\\n}\\n\\n.docs-site { min-height: 100vh;\\nbackground: var(--docs-background);\\ncolor: var(--docs-foreground);\\n}\\n.docs-header { align-items: center;\\nbackground: color-mix(in srgb,\\nvar(--docs-background) 92%,\\ntransparent);\\nborder-bottom: 1px solid var(--docs-border);\\ndisplay: flex;\\ngap: 28px;\\nheight: 72px;\\npadding: 0 28px;\\nposition: sticky;\\ntop: 0;\\nz-index: 10;\\nbackdrop-filter: blur(16px);\\n}\\n.docs-brand { align-items: center;\\ndisplay: inline-flex;\\nfont-size: 18px;\\nfont-weight: 750;\\ngap: 10px;\\nletter-spacing: -0.03em;\\nwhite-space: nowrap;\\n}\\n.docs-brand-mark { align-items: center;\\nbackground: var(--docs-foreground);\\ncolor: var(--docs-background);\\ndisplay: inline-flex;\\nheight: 24px;\\njustify-content: center;\\ntransform: rotate(45deg);\\nwidth: 24px;\\n}\\n.docs-brand-mark::first-letter { transform: rotate(-45deg);\\n}\\n.docs-header-nav { align-items: center;\\ndisplay: flex;\\ngap: 24px;\\nmargin-right: auto;\\n}\\n.docs-header-nav a { color: var(--docs-muted);\\nfont-size: 14px;\\nfont-weight: 600;\\n}\\n.docs-header-nav a:hover,\\n.docs-header-nav a.is-active { color: var(--docs-foreground);\\n}\\n.docs-header-actions { align-items: center;\\ndisplay: flex;\\ngap: 10px;\\n}\\n.docs-search-button,\\n.docs-icon-button,\\n.docs-copy-button,\\n.docs-install-command { align-items: center;\\nbackground: transparent;\\nborder: 1px solid var(--docs-border);\\nborder-radius: 8px;\\ncolor: var(--docs-muted);\\ncursor: pointer;\\ndisplay: inline-flex;\\ngap: 9px;\\njustify-content: center;\\n}\\n.docs-search-button { height: 38px;\\nmin-width: 132px;\\npadding: 0 11px;\\n}\\n.docs-search-button kbd { border: 1px solid var(--docs-border);\\nborder-radius: 4px;\\nfont-size: 11px;\\npadding: 2px 5px;\\n}\\n.docs-icon-button { height: 38px;\\nwidth: 38px;\\n}\\n.docs-icon-button:hover,\\n.docs-search-button:hover,\\n.docs-copy-button:hover { border-color: var(--docs-accent);\\ncolor: var(--docs-foreground);\\n}\\n.docs-menu-button { display: none;\\n}\\n\\n.docs-layout { display: grid;\\ngrid-template-columns: 250px minmax(0,\\n1fr) 230px;\\nmin-height: calc(100vh - 72px);\\n}\\n.docs-sidebar { border-right: 1px solid var(--docs-border);\\npadding: 40px 22px;\\n}\\n.docs-sidebar-label,\\n.docs-toc-title { color: var(--docs-muted);\\nfont-size: 11px;\\nfont-weight: 800;\\nletter-spacing: 0.16em;\\ntext-transform: uppercase;\\n}\\n.docs-sidebar-group { margin-top: 30px;\\n}\\n.docs-sidebar-group h2 { font-size: 13px;\\nmargin: 0 0 9px;\\n}\\n.docs-nav-items { list-style: none;\\nmargin: 0;\\npadding: 0;\\n}\\n.docs-nav-items .docs-nav-items { padding-left: 12px;\\n}\\n.docs-nav-items li { margin: 2px 0;\\n}\\n.docs-nav-items a { border-radius: 6px;\\ncolor: var(--docs-muted);\\ndisplay: block;\\nfont-size: 14px;\\nline-height: 1.45;\\npadding: 7px 9px;\\n}\\n.docs-nav-items a:hover,\\n.docs-nav-items a.is-active { background: color-mix(in srgb,\\nvar(--docs-accent) 12%,\\ntransparent);\\ncolor: var(--docs-foreground);\\n}\\n.docs-toc { border-left: 1px solid var(--docs-border);\\npadding: 42px 22px;\\n}\\n.docs-toc .docs-nav-items { margin-top: 17px;\\n}\\n.docs-toc .docs-nav-items a { font-size: 13px;\\npadding-left: 0;\\n}\\n.docs-main { min-width: 0;\\npadding: 48px clamp(24px,\\n6vw,\\n88px);\\n}\\n\\n.docs-breadcrumbs { color: var(--docs-muted);\\ndisplay: flex;\\nflex-wrap: wrap;\\nfont-size: 12px;\\nfont-weight: 700;\\ngap: 8px;\\nletter-spacing: 0.12em;\\ntext-transform: uppercase;\\n}\\n.docs-breadcrumbs a:hover { color: var(--docs-foreground);\\n}\\n.docs-breadcrumb-separator { color: var(--docs-accent);\\nmargin-right: 8px;\\n}\\n.docs-article { margin: 0 auto;\\nmax-width: 920px;\\n}\\n.docs-article-topline,\\n.docs-api-heading-row { align-items: flex-start;\\ndisplay: flex;\\ngap: 28px;\\njustify-content: space-between;\\nmargin: 48px 0 32px;\\n}\\n.docs-article h1,\\n.docs-api-heading-row h1 { font-size: clamp(38px,\\n5vw,\\n66px);\\nletter-spacing: -0.065em;\\nline-height: 0.98;\\nmargin: 0;\\n}\\n.docs-article-description,\\n.docs-api-heading-row p { color: var(--docs-muted);\\nfont-size: 19px;\\nline-height: 1.6;\\nmargin: 22px 0 0;\\nmax-width: 760px;\\n}\\n.docs-copy-button { flex-shrink: 0;\\nfont-size: 13px;\\nfont-weight: 700;\\nmin-height: 38px;\\npadding: 0 12px;\\n}\\n.docs-prose { font-size: 17px;\\nline-height: 1.75;\\nmax-width: 780px;\\n}\\n.docs-prose p { margin: 1.2em 0;\\n}\\n.docs-prose a { color: var(--docs-accent);\\ntext-decoration: underline;\\ntext-underline-offset: 3px;\\n}\\n.docs-heading { letter-spacing: -0.035em;\\nline-height: 1.15;\\nmargin: 2em 0 0.65em;\\nposition: relative;\\n}\\n.docs-heading-link { color: var(--docs-accent);\\nfont-size: 0.55em;\\nmargin-left: 9px;\\nopacity: 0;\\nvertical-align: middle;\\n}\\n.docs-heading:hover .docs-heading-link,\\n.docs-heading-link:focus { opacity: 1;\\n}\\n\\n.docs-code-block { background: var(--docs-code-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 10px;\\nmargin: 22px 0;\\noverflow: auto;\\nposition: relative;\\n}\\n.docs-code-language { color: var(--docs-muted);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 11px;\\npadding: 12px 16px 0;\\ntext-transform: uppercase;\\n}\\n.docs-code-block pre { margin: 0;\\npadding: 14px 16px 18px;\\n}\\n.docs-code-block code { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 14px;\\nline-height: 1.7;\\nwhite-space: pre;\\n}\\n.docs-callout { border-left: 3px solid var(--docs-accent);\\nbackground: color-mix(in srgb,\\nvar(--docs-accent) 8%,\\ntransparent);\\nborder-radius: 0 8px 8px 0;\\nmargin: 26px 0;\\npadding: 16px 18px;\\n}\\n.docs-callout strong { display: block;\\nmargin-bottom: 5px;\\n}\\n.docs-callout-warning { border-color: #d97706;\\n}\\n.docs-callout-tip { border-color: #059669;\\n}\\n.docs-tabs { border: 1px solid var(--docs-border);\\nborder-radius: 10px;\\nmargin: 24px 0;\\noverflow: hidden;\\n}\\n.docs-tab-list { border-bottom: 1px solid var(--docs-border);\\ndisplay: flex;\\ngap: 4px;\\noverflow-x: auto;\\npadding: 6px;\\n}\\n.docs-tab-list button { background: transparent;\\nborder: 0;\\nborder-radius: 6px;\\ncolor: var(--docs-muted);\\ncursor: pointer;\\nfont-size: 13px;\\npadding: 8px 12px;\\n}\\n.docs-tab-list button.is-active { background: var(--docs-code-background);\\ncolor: var(--docs-foreground);\\n}\\n.docs-tab-panel { padding: 2px 16px;\\n}\\n\\n.docs-api-page { display: grid;\\ngrid-template-columns: 250px minmax(0,\\n1fr) 230px;\\nmin-height: calc(100vh - 72px);\\n}\\n.docs-api-page > .docs-sidebar { padding-top: 44px;\\n}\\n.docs-api-main { min-width: 0;\\npadding: 48px clamp(24px,\\n5vw,\\n72px);\\n}\\n.docs-api-heading-row { margin-top: 44px;\\n}\\n.docs-api-heading-row h1 { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: clamp(34px,\\n5vw,\\n58px);\\noverflow-wrap: anywhere;\\n}\\n.docs-api-heading-row p { font-size: 18px;\\n}\\n.docs-api-meta { align-items: center;\\ncolor: var(--docs-muted);\\ndisplay: flex;\\nflex-wrap: wrap;\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 13px;\\ngap: 24px;\\nmargin: 28px 0 62px;\\n}\\n.docs-api-meta a,\\n.docs-declaration-links a { color: var(--docs-accent);\\n}\\n.docs-api-category { scroll-margin-top: 96px;\\n}\\n.docs-api-category > h2 { font-size: clamp(28px,\\n4vw,\\n42px);\\nletter-spacing: -0.05em;\\nmargin: 1.4em 0 0.75em;\\n}\\n.docs-api-declaration { border-top: 1px solid var(--docs-border);\\npadding: 30px 0 45px;\\nscroll-margin-top: 96px;\\n}\\n.docs-declaration-heading { align-items: baseline;\\ndisplay: flex;\\ngap: 16px;\\njustify-content: space-between;\\n}\\n.docs-declaration-heading h3 { font-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: clamp(22px,\\n3vw,\\n32px);\\nletter-spacing: -0.04em;\\nmargin: 0;\\noverflow-wrap: anywhere;\\n}\\n.docs-declaration-anchor { color: var(--docs-accent);\\nfont-size: .55em;\\nmargin-right: 9px;\\nopacity: 0;\\ntext-decoration: none;\\nvertical-align: middle;\\n}\\n.docs-declaration-heading h3:hover .docs-declaration-anchor,\\n.docs-declaration-anchor:focus { opacity: 1;\\n}\\n.docs-declaration-heading p,\\n.docs-api-declaration > p { color: var(--docs-muted);\\nfont-size: 16px;\\nline-height: 1.65;\\n}\\n.docs-kind-badge { border: 1px solid var(--docs-border);\\nborder-radius: 999px;\\ncolor: var(--docs-accent);\\nfont-family: inherit;\\nfont-size: 10px;\\nletter-spacing: 0.1em;\\nmargin-left: 10px;\\npadding: 4px 8px;\\nvertical-align: middle;\\n}\\n.docs-declaration-links { display: flex;\\nflex-wrap: wrap;\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\ngap: 14px;\\nwhite-space: nowrap;\\n}\\n.docs-api-declaration h4 { font-size: 14px;\\nmargin: 25px 0 8px;\\n}\\n\\n.docs-landing { margin: 0 auto;\\nmax-width: 1180px;\\npadding: 72px 28px 0;\\n}\\n.docs-landing-hero { max-width: 780px;\\npadding: 50px 0 80px;\\n}\\n.docs-eyebrow { color: var(--docs-accent);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\nfont-weight: 700;\\nletter-spacing: 0.14em;\\ntext-transform: uppercase;\\n}\\n.docs-landing h1 { font-size: clamp(48px,\\n9vw,\\n112px);\\nletter-spacing: -0.08em;\\nline-height: 0.9;\\nmargin: 18px 0 28px;\\n}\\n.docs-landing-hero p { color: var(--docs-muted);\\nfont-size: 20px;\\nline-height: 1.55;\\nmax-width: 600px;\\n}\\n.docs-landing-grid { display: grid;\\ngap: 14px;\\ngrid-template-columns: repeat(3,\\nminmax(0,\\n1fr));\\n}\\n.docs-landing-card { border: 1px solid var(--docs-border);\\nborder-radius: 12px;\\nmin-height: 250px;\\npadding: 25px;\\nposition: relative;\\ntransition: border-color 150ms ease,\\ntransform 150ms ease;\\n}\\n.docs-landing-card:hover { border-color: var(--docs-accent);\\ntransform: translateY(-3px);\\n}\\n.docs-card-index { color: var(--docs-accent);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\nfont-size: 12px;\\n}\\n.docs-landing-card h2 { font-size: 25px;\\nletter-spacing: -0.04em;\\nmargin: 62px 0 10px;\\n}\\n.docs-landing-card p { color: var(--docs-muted);\\nline-height: 1.55;\\nmargin: 0;\\n}\\n.docs-card-arrow { bottom: 23px;\\ncolor: var(--docs-accent);\\nposition: absolute;\\nright: 24px;\\n}\\n.docs-landing-section { border-top: 1px solid var(--docs-border);\\nmargin-top: 96px;\\npadding: 72px 0;\\n}\\n.docs-landing-section h2 { font-size: clamp(32px,\\n5vw,\\n58px);\\nletter-spacing: -0.06em;\\nmargin: 14px 0 22px;\\n}\\n.docs-install-command { background: var(--docs-code-background);\\ncolor: var(--docs-foreground);\\nfont-family: ui-monospace,\\nSFMono-Regular,\\nMenlo,\\nmonospace;\\njustify-content: space-between;\\nmargin-top: 30px;\\nmax-width: 440px;\\npadding: 13px 15px;\\nwidth: 100%;\\n}\\n.docs-install-command span { color: var(--docs-accent);\\nfont-family: inherit;\\nfont-size: 11px;\\n}\\n.docs-quote-rail { border-left: 3px solid var(--docs-accent);\\nmargin: 0;\\nmax-width: 700px;\\npadding: 4px 0 4px 24px;\\n}\\n.docs-quote-rail blockquote { font-size: 26px;\\nletter-spacing: -0.035em;\\nline-height: 1.35;\\nmargin: 0 0 16px;\\n}\\n.docs-quote-rail figcaption { color: var(--docs-muted);\\n}\\n.docs-faq { border-top: 1px solid var(--docs-border);\\n}\\n.docs-faq details { border-bottom: 1px solid var(--docs-border);\\npadding: 20px 0;\\n}\\n.docs-faq summary { cursor: pointer;\\ndisplay: flex;\\nfont-size: 17px;\\nfont-weight: 700;\\njustify-content: space-between;\\nlist-style: none;\\n}\\n.docs-faq summary::-webkit-details-marker { display: none;\\n}\\n.docs-faq details > div { color: var(--docs-muted);\\nline-height: 1.6;\\npadding: 14px 30px 0 0;\\n}\\n.docs-cta { align-items: center;\\nbackground: var(--docs-foreground);\\nborder-radius: 14px;\\ncolor: var(--docs-background);\\ndisplay: flex;\\ngap: 24px;\\njustify-content: space-between;\\nmargin: 80px 0;\\npadding: 30px;\\n}\\n.docs-cta h2 { margin: 0;\\n}\\n.docs-cta a { border: 1px solid color-mix(in srgb,\\nvar(--docs-background) 40%,\\ntransparent);\\nborder-radius: 7px;\\nflex-shrink: 0;\\npadding: 11px 14px;\\n}\\n.docs-footer { border-top: 1px solid var(--docs-border);\\ncolor: var(--docs-muted);\\ndisplay: flex;\\nfont-size: 13px;\\njustify-content: space-between;\\nmargin-top: 90px;\\npadding: 24px 0;\\n}\\n\\n@media (max-width: 1120px) {\\n    .docs-layout,\\n.docs-api-page { grid-template-columns: 220px minmax(0,\\n1fr);\\n}\\n    .docs-layout > .docs-toc,\\n.docs-api-page > .docs-toc { display: none;\\n}\\n}\\n@media (max-width: 780px) {\\n    .docs-header { gap: 12px;\\nheight: 62px;\\npadding: 0 16px;\\n}\\n    .docs-menu-button { background: transparent;\\nborder: 1px solid var(--docs-border);\\nborder-radius: 6px;\\ncolor: var(--docs-muted);\\ndisplay: block;\\nfont-size: 12px;\\nmargin-left: auto;\\npadding: 7px 9px;\\n}\\n    .docs-header-nav { background: var(--docs-background);\\nborder: 1px solid var(--docs-border);\\nborder-radius: 8px;\\ndisplay: none;\\nleft: 16px;\\npadding: 8px;\\nposition: absolute;\\nright: 16px;\\ntop: 54px;\\n}\\n    .docs-header-nav.is-open { display: grid;\\n}\\n    .docs-header-actions { margin-left: 0;\\n}\\n    .docs-search-button { min-width: 38px;\\npadding: 0;\\n}\\n    .docs-search-button span:nth-child(2),\\n.docs-search-button kbd,\\n.docs-repository-link { display: none;\\n}\\n    .docs-layout,\\n.docs-api-page { display: block;\\n}\\n    .docs-layout > .docs-sidebar,\\n.docs-api-page > .docs-sidebar { border-bottom: 1px solid var(--docs-border);\\nborder-right: 0;\\npadding: 18px 16px;\\n}\\n    .docs-sidebar-group { margin-top: 15px;\\n}\\n    .docs-sidebar-group:not(:first-of-type) { display: none;\\n}\\n    .docs-sidebar .docs-nav-items { display: flex;\\ngap: 4px;\\noverflow-x: auto;\\n}\\n    .docs-sidebar .docs-nav-items li { flex: 0 0 auto;\\n}\\n    .docs-sidebar .docs-nav-items .docs-nav-items { display: none;\\n}\\n    .docs-main,\\n.docs-api-main { padding: 30px 18px 50px;\\n}\\n    .docs-article-topline,\\n.docs-api-heading-row { display: block;\\nmargin: 34px 0 26px;\\n}\\n    .docs-copy-button { margin-top: 22px;\\n}\\n    .docs-landing { padding: 22px 18px 0;\\n}\\n    .docs-landing-hero { padding: 35px 0 50px;\\n}\\n    .docs-landing-grid { grid-template-columns: 1fr;\\n}\\n    .docs-landing-card { min-height: 190px;\\n}\\n    .docs-landing-card h2 { margin-top: 36px;\\n}\\n    .docs-declaration-heading { align-items: flex-start;\\ndisplay: block;\\n}\\n    .docs-declaration-links { margin-top: 12px;\\nwhite-space: normal;\\n}\\n    .docs-cta { align-items: flex-start;\\ndisplay: block;\\n}\\n    .docs-cta a { display: inline-block;\\nmargin-top: 20px;\\n}\\n}\\n@media (prefers-reduced-motion: reduce) {\\n    *,\\n*::before,\\n*::after { scroll-behavior: auto !important;\\ntransition: none !important;\\n}\\n}\\n\";",
           "source": {
             "file": "Ui/Source/index.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1571,7 +1571,7 @@
           "id": "DocumentationNavGroup",
           "kind": "interface",
           "name": "DocumentationNavGroup",
-          "signature": "export declare interface DocumentationNavGroup",
+          "signature": "export declare interface DocumentationNavGroup {\n    readonly items: readonly DocumentationNavItem[];\n    readonly label: string;\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1585,7 +1585,7 @@
           "id": "DocumentationNavItem",
           "kind": "interface",
           "name": "DocumentationNavItem",
-          "signature": "export declare interface DocumentationNavItem",
+          "signature": "export declare interface DocumentationNavItem {\n    readonly active?: boolean;\n    readonly children?: readonly DocumentationNavItem[];\n    readonly href: string;\n    readonly label: string;\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1599,7 +1599,7 @@
           "id": "DocumentationShell",
           "kind": "function",
           "name": "DocumentationShell",
-          "signature": "Element",
+          "signature": "export declare function DocumentationShell(\n    __namedParameters: { children: ReactNode; headerLinks?: readonly DocumentationNavItem[]; navigation?: readonly DocumentationNavGroup[]; repositoryHref?: string; title?: string; toc?: readonly DocumentationNavItem[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1613,7 +1613,7 @@
           "id": "DocumentationShellProps",
           "kind": "interface",
           "name": "DocumentationShellProps",
-          "signature": "export declare interface DocumentationShellProps",
+          "signature": "export declare interface DocumentationShellProps {\n    readonly activeHref?: string;\n    readonly children: ReactNode;\n    readonly headerLinks?: readonly DocumentationNavItem[];\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly repositoryHref?: string;\n    readonly title?: string;\n    readonly toc?: readonly DocumentationNavItem[];\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1627,7 +1627,7 @@
           "id": "Faq",
           "kind": "function",
           "name": "Faq",
-          "signature": "Element",
+          "signature": "export declare function Faq(\n    __namedParameters: { items: readonly { answer: ReactNode; question: string }[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1641,7 +1641,7 @@
           "id": "formatLlmDocument",
           "kind": "variable",
           "name": "formatLlmDocument",
-          "signature": "export declare variable formatLlmDocument",
+          "signature": "export declare const formatLlmDocument: (document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string }) => string;",
           "source": {
             "file": "Ui/Source/CopyForLlm.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1655,7 +1655,7 @@
           "id": "Heading",
           "kind": "function",
           "name": "Heading",
-          "signature": "Element",
+          "signature": "export declare function Heading(\n    __namedParameters: { children: ReactNode; id?: string; level?: 3 | 2 | 4 }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1669,7 +1669,7 @@
           "id": "InstallCommand",
           "kind": "function",
           "name": "InstallCommand",
-          "signature": "Element",
+          "signature": "export declare function InstallCommand(\n    __namedParameters: InstallCommandProps\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1683,7 +1683,7 @@
           "id": "InstallCommandProps",
           "kind": "interface",
           "name": "InstallCommandProps",
-          "signature": "export declare interface InstallCommandProps",
+          "signature": "export declare interface InstallCommandProps {\n    readonly command: string;\n    readonly packageName?: string;\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1697,7 +1697,7 @@
           "id": "LandingPage",
           "kind": "function",
           "name": "LandingPage",
-          "signature": "Element",
+          "signature": "export declare function LandingPage(\n    __namedParameters: LandingPageProps\n): Element;",
           "source": {
             "file": "Ui/Source/Landing.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1711,7 +1711,7 @@
           "id": "LandingPageProps",
           "kind": "interface",
           "name": "LandingPageProps",
-          "signature": "export declare interface LandingPageProps",
+          "signature": "export declare interface LandingPageProps {\n    readonly children?: ReactNode;\n    readonly content: { description: string; primaryAction?: { href: string; label: string }; sections: readonly { body: string; href?: string; id: string; title: string }[]; title: string };\n    readonly installCommand?: string;\n    readonly tokens?: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } };\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1725,7 +1725,7 @@
           "id": "LandingSection",
           "kind": "function",
           "name": "LandingSection",
-          "signature": "Element",
+          "signature": "export declare function LandingSection(\n    __namedParameters: { children: ReactNode; eyebrow?: string; title: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Landing.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1739,7 +1739,7 @@
           "id": "LlmDocument",
           "kind": "type",
           "name": "LlmDocument",
-          "signature": "export declare type LlmDocument",
+          "signature": "export declare type LlmDocument = AgentDocument;",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1753,7 +1753,7 @@
           "id": "OnThisPage",
           "kind": "function",
           "name": "OnThisPage",
-          "signature": "Element",
+          "signature": "export declare function OnThisPage(\n    __namedParameters: { items: readonly DocumentationNavItem[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1767,7 +1767,7 @@
           "id": "QuoteRail",
           "kind": "function",
           "name": "QuoteRail",
-          "signature": "Element",
+          "signature": "export declare function QuoteRail(\n    __namedParameters: { author: string; quote: string }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1781,7 +1781,7 @@
           "id": "Tabs",
           "kind": "function",
           "name": "Tabs",
-          "signature": "Element",
+          "signature": "export declare function Tabs(\n    __namedParameters: { tabs: readonly { content: ReactNode; label: string }[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1795,7 +1795,7 @@
           "id": "ThemeMode",
           "kind": "type",
           "name": "ThemeMode",
-          "signature": "export declare type ThemeMode",
+          "signature": "export declare type ThemeMode = \"light\" | \"dark\" | \"system\";",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1809,7 +1809,7 @@
           "id": "ThemeProvider",
           "kind": "function",
           "name": "ThemeProvider",
-          "signature": "Element",
+          "signature": "export declare function ThemeProvider(\n    __namedParameters: { children: ReactNode; initialMode?: ThemeMode }\n): Element;",
           "source": {
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1823,7 +1823,7 @@
           "id": "ThemeToggle",
           "kind": "function",
           "name": "ThemeToggle",
-          "signature": "Element",
+          "signature": "export declare function ThemeToggle(): Element;",
           "source": {
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1837,7 +1837,7 @@
           "id": "useTheme",
           "kind": "function",
           "name": "useTheme",
-          "signature": "ThemeContextValue",
+          "signature": "export declare function useTheme(): ThemeContextValue;",
           "source": {
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",

@@ -37,14 +37,29 @@ interface ReflectionCommentPart {
 interface ReflectionComment {
     readonly summary?: ReadonlyArray<ReflectionCommentPart>;
 }
+interface ReflectionFlagsLike {
+    readonly isAbstract?: boolean;
+    readonly isConst?: boolean;
+    readonly isOptional?: boolean;
+    readonly isPrivate?: boolean;
+    readonly isProtected?: boolean;
+    readonly isReadonly?: boolean;
+    readonly isRest?: boolean;
+    readonly isStatic?: boolean;
+}
 interface ReflectionLike {
     readonly id?: number;
     readonly name?: string;
     readonly kind?: number;
     readonly children?: ReadonlyArray<ReflectionLike>;
     readonly signatures?: ReadonlyArray<ReflectionLike>;
+    readonly parameters?: ReadonlyArray<ReflectionLike>;
+    readonly typeParameters?: ReadonlyArray<ReflectionLike>;
+    readonly extendedTypes?: ReadonlyArray<{ readonly toString?: () => string }>;
     readonly comment?: ReflectionComment;
     readonly sources?: ReadonlyArray<ReflectionSource>;
+    readonly flags?: ReflectionFlagsLike;
+    readonly defaultValue?: string;
     readonly type?: {
         readonly toString?: () => string;
     };
@@ -170,16 +185,116 @@ const declarationKind = (
     }
     return "variable";
 };
-const signatureFor = (reflection: ReflectionLike): string =>
+const typeText = (reflection: ReflectionLike | undefined): string =>
+    reflection?.type?.toString?.() ?? "unknown";
+const typeParametersText = (
+    parameters: ReadonlyArray<ReflectionLike> | undefined
+): string =>
+{
+    if (parameters === undefined || parameters.length === 0)
+    {
+        return "";
+    }
+    return `<${parameters.map((parameter) =>
+    {
+        const constraint = parameter.type?.toString?.();
+        const defaultValue = parameter.defaultValue;
+        return `${parameter.name ?? "T"}${constraint === undefined ? "" : ` extends ${constraint}`}${defaultValue === undefined ? "" : ` = ${defaultValue}`}`;
+    }).join(", ")}>`;
+};
+const parameterText = (parameter: ReflectionLike): string =>
+    `${parameter.flags?.isRest === true ? "..." : ""}${parameter.name ?? "value"}${parameter.flags?.isOptional === true || parameter.defaultValue !== undefined ? "?" : ""}: ${typeText(parameter)}`;
+const parametersText = (
+    parameters: ReadonlyArray<ReflectionLike> | undefined
+): string => parameters === undefined || parameters.length === 0
+    ? "()"
+    : `(\n${parameters.map((parameter) => `    ${parameterText(parameter)}`).join(",\n")}\n)`;
+const methodText = (reflection: ReflectionLike): string =>
 {
     const signature = reflection.signatures?.[0];
-    const signatureText = signature?.type?.toString?.() ?? signature?.name;
-    if (signatureText !== undefined && signatureText !== "")
+    if (signature === undefined)
     {
-        return signatureText;
+        return `${reflection.name ?? "unknown"}: ${typeText(reflection)};`;
+    }
+    const name = reflection.name ?? signature.name ?? "unknown";
+    const modifiers = [
+        signature.flags?.isStatic === true ? "static " : "",
+        signature.flags?.isAbstract === true ? "abstract " : ""
+    ].join("");
+    return `${modifiers}${name}${typeParametersText(signature.typeParameters)}${parametersText(signature.parameters)}: ${typeText(signature)};`;
+};
+const memberText = (reflection: ReflectionLike): string | undefined =>
+{
+    if (reflection.flags?.isPrivate === true)
+    {
+        return undefined;
+    }
+    const accessibility = reflection.flags?.isProtected === true
+        ? "protected "
+        : "";
+    if (reflection.kind === ReflectionKind.Method)
+    {
+        return `${accessibility}${methodText(reflection)}`;
+    }
+    if (reflection.kind === ReflectionKind.Constructor)
+    {
+        return `${accessibility}${methodText({ ...reflection, name: "constructor" })}`;
+    }
+    if (reflection.kind === ReflectionKind.Accessor)
+    {
+        const accessor = reflection.signatures?.[0];
+        return accessor === undefined
+            ? undefined
+            : `${accessibility}get ${reflection.name ?? "value"}(): ${typeText(accessor)};`;
+    }
+    if (reflection.kind !== ReflectionKind.Property)
+    {
+        return undefined;
+    }
+    return `${accessibility}${reflection.flags?.isStatic === true ? "static " : ""}${reflection.flags?.isReadonly === true ? "readonly " : ""}${reflection.name ?? "value"}${reflection.flags?.isOptional === true ? "?" : ""}: ${typeText(reflection)};`;
+};
+const signatureFor = (reflection: ReflectionLike): string =>
+{
+    const name = reflection.name ?? "unknown";
+    if (reflection.kind === ReflectionKind.Function)
+    {
+        const signature = reflection.signatures?.[0];
+        if (signature !== undefined)
+        {
+            return `export declare function ${name}${typeParametersText(signature.typeParameters)}${parametersText(signature.parameters)}: ${typeText(signature)};`;
+        }
+    }
+    if (reflection.kind === ReflectionKind.Interface || reflection.kind === ReflectionKind.Class)
+    {
+        const keyword = reflection.kind === ReflectionKind.Interface
+            ? "interface"
+            : "class";
+        const inherited = reflection.extendedTypes
+            ?.map((type) => type.toString?.())
+            .filter((type): type is string => type !== undefined) ?? [];
+        const members = reflection.children
+            ?.map(memberText)
+            .filter((member): member is string => member !== undefined) ?? [];
+        return `export declare ${keyword} ${name}${typeParametersText(reflection.typeParameters)}${inherited.length === 0 ? "" : ` extends ${inherited.join(", ")}`} {\n${members.map((member) => `    ${member}`).join("\n")}\n}`;
+    }
+    if (reflection.kind === ReflectionKind.TypeAlias)
+    {
+        return `export declare type ${name}${typeParametersText(reflection.typeParameters)} = ${typeText(reflection)};`;
+    }
+    if (reflection.kind === ReflectionKind.Variable)
+    {
+        const variableKind = reflection.flags?.isConst === true ? "const" : "let";
+        return `export declare ${variableKind} ${name}: ${typeText(reflection)};`;
+    }
+    if (reflection.kind === ReflectionKind.Enum)
+    {
+        const members = reflection.children?.map((member) =>
+            `${member.name ?? "value"}${member.defaultValue === undefined ? "" : ` = ${member.defaultValue}`}`
+        ) ?? [];
+        return `export declare enum ${name} {\n${members.map((member) => `    ${member}`).join(",\n")}\n}`;
     }
     const kind = declarationKind(reflection);
-    return `export declare ${kind} ${reflection.name ?? "unknown"}`;
+    return `export declare ${kind} ${name}`;
 };
 const declarationId = (name: string): string =>
 {

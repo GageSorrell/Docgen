@@ -4,6 +4,7 @@ import { recordToAgentDocument } from "@sorrell/docs-api-reference";
 import { DefaultDesignTokens, formatAgentDocument } from "@sorrell/docs-core";
 import { canonicalUrl } from "@sorrell/docs-astro";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
+import { createHighlighter } from "shiki";
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/docs.css";
 
@@ -19,6 +20,19 @@ const canonicalPath = Astro.url.pathname;
 const canonical = canonicalUrl("https://docs.sorrell.sh", canonicalPath);
 const sourceHref = (source: ApiReferenceRecord["source"]): string | undefined => source === undefined ? undefined : `${source.repositoryUrl}/blob/${source.revision}/${source.file}${source.line === undefined ? "" : `#L${source.line}`}`;
 const declarationsFor = (categoryId: string) => record.declarations.filter((declaration) => declaration.categoryId === categoryId);
+const highlighter = await createHighlighter({
+    langs: ["typescript"],
+    themes: ["github-light", "github-dark"]
+});
+const signatures = new Map(record.declarations.map((declaration) => [
+    declaration.id,
+    highlighter.codeToHtml(declaration.signature, {
+        lang: "typescript",
+        themes: { dark: "github-dark", light: "github-light" },
+        defaultColor: false
+    })
+]));
+highlighter.dispose();
 ---
 
 <!doctype html>
@@ -83,7 +97,7 @@ const declarationsFor = (categoryId: string) => record.declarations.filter((decl
                                 <p>{declaration.description}</p>
                                 <h4>Signature</h4>
                                 <div class="docs-signature-row">
-                                    <pre><code>{declaration.signature}</code></pre>
+                                    <div class="docs-signature-output" set:html={signatures.get(declaration.id)}></div>
                                     <button class="docs-signature-copy" type="button" data-copy-signature={declaration.signature}>Copy</button>
                                 </div>
                             </article>)}
@@ -121,7 +135,12 @@ const declarationsFor = (categoryId: string) => record.declarations.filter((decl
     .docs-api-meta { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; gap: 24px; margin: 28px 0 62px; }
     .docs-api-meta a, .docs-declaration-links a { color: var(--docs-accent); }
     .docs-signature-row { align-items: start; display: flex; gap: 10px; }
-    .docs-signature-row pre { flex: 1; min-width: 0; }
+    .docs-signature-output { flex: 1; min-width: 0; }
+    .docs-signature-output pre.shiki { background: var(--docs-code-background) !important; border: 1px solid var(--docs-border); border-radius: 8px; box-sizing: border-box; color: var(--docs-foreground); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.65; margin: 0; max-width: 100%; overflow: auto; padding: 16px; white-space: pre; }
+    .docs-signature-output pre.shiki code { display: block; white-space: inherit; }
+    .docs-signature-output pre.shiki .line { min-height: 1em; }
+    .docs-signature-output pre.shiki span { color: var(--shiki-light); }
+    [data-theme="dark"] .docs-signature-output pre.shiki span { color: var(--shiki-dark); }
     .docs-signature-copy { background: transparent; border: 1px solid var(--docs-border); border-radius: 6px; color: var(--docs-muted); cursor: pointer; padding: 7px 9px; }
     .docs-signature-copy:hover, .docs-signature-copy:focus-visible { border-color: var(--docs-accent); color: var(--docs-foreground); }
     .docs-toc .docs-nav-items ul { list-style: none; margin: .5rem 0 0; padding-left: 1rem; }
