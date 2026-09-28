@@ -84,6 +84,7 @@ describe("TypeDoc generation", () =>
         expect(rootModule?.packageSourceUrl).toBe("https://github.com/Sorrell/fixture");
         expect(rootModule?.packageExports).toEqual([ ".", "./Extra" ]);
         expect(rootModule?.introductionVersion).toBeUndefined();
+        expect(rootModule?.link?.href).toBe("/docs/api/fixture/Core");
         expect(extraModule?.displayName).toBe("Extra");
         expect(extraModule?.breadcrumbs.map((breadcrumb) => breadcrumb.label)).toEqual([
             "API Reference",
