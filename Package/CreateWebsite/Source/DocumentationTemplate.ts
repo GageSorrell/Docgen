@@ -51,7 +51,20 @@ const replace = (
 export const documentationTemplateFiles = (
     config: DocsConfig
 ): ReadonlyArray<GeneratedWebsiteFile> =>
-    readTemplates(templateRoot).map((template) => ({
+{
+    const versions = config.versions.map((version) => {
+        const versionNumber = version.version
+            ?? (version.current ? "1" : version.id.replace(/^v/u, ""));
+        return {
+            current: version.current,
+            id: version.id,
+            label: version.current
+                ? `v${versionNumber} (Latest)`
+                : version.label ?? `v${versionNumber}`,
+            version: versionNumber
+        };
+    });
+    return readTemplates(templateRoot).map((template) => ({
         path: `Documentation/${template.path}`,
         content: replace(template.content, {
             DARK_ACCENT: config.tokens.dark.accent,
@@ -64,6 +77,7 @@ export const documentationTemplateFiles = (
             DARK_PROSE_FOREGROUND: config.tokens.dark.proseForeground ?? config.tokens.dark.foreground,
             DARK_SUBTLE_FOREGROUND: config.tokens.dark.subtleForeground ?? config.tokens.dark.muted,
             DESCRIPTION: JSON.stringify(config.metadata.description),
+            DOCS_PREFIX: config.routing.documentationPrefix,
             LIGHT_ACCENT: config.tokens.light.accent,
             LIGHT_BACKGROUND: config.tokens.light.background,
             LIGHT_BORDER: config.tokens.light.border,
@@ -73,6 +87,11 @@ export const documentationTemplateFiles = (
             LIGHT_MUTED: config.tokens.light.muted,
             LIGHT_PROSE_FOREGROUND: config.tokens.light.proseForeground ?? config.tokens.light.foreground,
             LIGHT_SUBTLE_FOREGROUND: config.tokens.light.subtleForeground ?? config.tokens.light.muted,
-            TITLE: JSON.stringify(config.metadata.title)
+            REPOSITORY_URL: JSON.stringify(config.metadata.repository?.url ?? ""),
+            SITE_NAME: JSON.stringify(config.metadata.name || config.metadata.title),
+            STORYBOOK_PREFIX: JSON.stringify(config.storybook.enabled ? config.routing.storybookPrefix : ""),
+            TITLE: JSON.stringify(config.metadata.title),
+            VERSIONS: JSON.stringify(versions)
         })
     }));
+};

@@ -50,7 +50,11 @@ const packageManifest = (
         name,
         private: true,
         scripts: name === "@sorrell/documentation"
-            ? { ...scripts, build: "astro build", verify: "astro check" }
+            ? {
+                ...scripts,
+                build: "astro build && pagefind --site dist --output-path dist/pagefind",
+                verify: "astro check"
+            }
             : scripts,
         type: "module",
         version: "1.0.1"
@@ -130,6 +134,7 @@ const documentationFiles = (
                 verify: "astro check"
             },
             {
+                "@pagefind/default-ui": "1.5.2",
                 "@astrojs/mdx": "8.0.2",
                 "@tailwindcss/typography": "0.5.20",
                 "@tailwindcss/vite": "4.3.3",
@@ -144,6 +149,7 @@ const documentationFiles = (
             {
                 "@astrojs/check": "0.9.10",
                 "@sorrell/tsconfig": "2.1.0",
+                pagefind: "1.5.2",
                 typescript: "6.0.2"
             }
         ),

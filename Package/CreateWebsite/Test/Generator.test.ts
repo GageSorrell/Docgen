@@ -71,7 +71,7 @@ describe("three-package website generation", () =>
         expect(contents.get("Documentation/astro.config.mjs"))
             .toContain("vite: { plugins: [ tailwindcss() ] }");
         expect(contents.get("Documentation/Source/layouts/DocsLayout.astro"))
-            .toContain("class=\"prose prose-effect\"");
+            .toContain("class=\"docs-prose prose prose-effect\"");
         expect(contents.get("Documentation/Source/pages/index.astro"))
             .toContain("<h1>{title}</h1>");
         const generatedDocsCss = contents.get("Documentation/Source/styles/docs.css") ?? "";
@@ -82,6 +82,17 @@ describe("three-package website generation", () =>
         expect(generatedDocsCss).toContain("--docs-prose-foreground: oklch(0.871 0.006 286.286)");
         expect(generatedDocsCss).not.toContain("{{LIGHT_");
         expect(generatedDocsCss).not.toContain("{{DARK_");
+        expect(contents.get("Documentation/package.json")).toContain("pagefind --site dist --output-path dist/pagefind");
+        expect(contents.get("Documentation/Source/layouts/DocsLayout.astro")).toContain("class=\"docs-prose prose prose-effect\"");
+        expect(contents.get("Documentation/Source/layouts/DocsLayout.astro")).toContain("<SiteHeader");
+        expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<SearchPalette />");
+        expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<SiteThemeToggle />");
+        expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<VersionDropdown");
+        expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("<span class=\"search-shortcut-plus\">+</span>");
+        expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("background: var(--docs-card-background)");
+        expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("v${item.version ?? item.id.replace(/^v/u, \"\")} (Latest)");
+        expect(contents.get("Documentation/Source/Versions.ts")).not.toContain("{{VERSIONS}}");
+        expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("bundlePath: \"/docs/pagefind/\"");
     });
     it("interpolates site identity, routes, actions, and theme tokens into the Astro landing source", () =>
     {
@@ -123,6 +134,12 @@ describe("three-package website generation", () =>
             .toContain("--docs-accent: #f00;");
         expect(contents.get("Documentation/Source/styles/docs.css"))
             .toContain("--docs-prose-foreground: #222;");
+        expect(contents.get("Documentation/Source/components/SearchPalette.astro"))
+            .toContain("bundlePath: \"/reference/pagefind/\"");
+        expect(contents.get("Documentation/Source/layouts/DocsLayout.astro"))
+            .toContain("const docsPrefix = \"/reference\";");
+        expect(contents.get("Landing/Source/components/SearchPalette.astro"))
+            .toContain("bundlePath: \"/reference\" + \"/pagefind/\"");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/reference\"");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/stories\"");
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/reference\":");

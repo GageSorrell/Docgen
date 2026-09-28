@@ -1,4 +1,6 @@
 ---
+import { documentationVersions } from "../Versions.js";
+import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/docs.css";
 
 interface Props {
@@ -7,6 +9,13 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const siteName = {{SITE_NAME}};
+const docsPrefix = "{{DOCS_PREFIX}}";
+const repositoryUrl = {{REPOSITORY_URL}} || undefined;
+const storybookPrefix = {{STORYBOOK_PREFIX}} || undefined;
+const currentVersion = documentationVersions.find((version) => version.current)?.id
+    ?? documentationVersions[0]?.id;
+const copyText = `${title}\n\n${description}`;
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -14,12 +23,109 @@ const { title, description } = Astro.props;
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+        <meta property="og:title" content={`${title} · ${siteName}`} />
+        <meta property="og:type" content="article" />
         <meta name="color-scheme" content="light dark" />
-        <title>{title}</title>
+        <title>{title} · {siteName}</title>
+        <script is:inline>
+            (() => {
+                let mode = "system";
+                try {
+                    const stored = localStorage.getItem("sorrell-docs-theme");
+                    if (stored === "light" || stored === "dark" || stored === "system") mode = stored;
+                } catch { /* Storage can be unavailable in restricted contexts. */ }
+                const dark = mode === "dark" || (mode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                document.documentElement.dataset.theme = dark ? "dark" : "light";
+                document.documentElement.style.colorScheme = dark ? "dark" : "light";
+            })();
+        </script>
     </head>
     <body>
-        <main class="prose prose-effect">
-            <slot />
-        </main>
+        <div class="docs-site">
+            <SiteHeader docsPrefix={docsPrefix} name={siteName} repositoryUrl={repositoryUrl} storybookPrefix={storybookPrefix} versions={documentationVersions} />
+            <div class="docs-layout">
+                <aside class="docs-sidebar" aria-label="Documentation contents">
+                    <div class="docs-sidebar-label">CONTENTS</div>
+                    <nav aria-label="Documentation navigation">
+                        <a href={`${docsPrefix}/`}>{title}</a>
+                    </nav>
+                </aside>
+                <main class="docs-main" id="main-content">
+                    <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
+                        <a href={`${docsPrefix}/`}>DOCS</a>
+                        <span aria-hidden="true">/</span>
+                        <span aria-current="page">{title}</span>
+                    </nav>
+                    <div class="docs-heading-row">
+                        <div>
+                            <p class="docs-eyebrow">{siteName}</p>
+                            <h1>{title}</h1>
+                        </div>
+                        <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
+                    </div>
+                    <p class="docs-lede">{description}</p>
+                    <article class="docs-prose prose prose-effect" data-pagefind-body>
+                        <slot />
+                    </article>
+                </main>
+                <aside class="docs-toc" aria-label="On this page">
+                    <strong>On this page</strong>
+                    <ul><li><a href="#main-content">{title}</a></li></ul>
+                </aside>
+            </div>
+            <footer class="docs-footer">{siteName}</footer>
+        </div>
     </body>
 </html>
+
+<style is:global>
+    :root { color-scheme: light; }
+    [data-theme="dark"] { color-scheme: dark; }
+    body { margin: 0; min-width: 320px; }
+    .docs-site { min-height: 100vh; background: var(--docs-background); color: var(--docs-foreground); }
+    .docs-layout { display: grid; grid-template-columns: minmax(190px, 220px) minmax(0, 1fr) minmax(190px, 220px); margin: 0 auto; max-width: 1480px; min-height: calc(100vh - 4rem); }
+    .docs-sidebar, .docs-toc { padding: 2.5rem 1.25rem; }
+    .docs-sidebar { border-right: 1px solid var(--docs-border); }
+    .docs-sidebar-label { color: var(--docs-muted); font-size: .75rem; font-weight: 700; letter-spacing: .16em; line-height: 1.5; text-transform: uppercase; }
+    .docs-sidebar nav { margin-top: 1.25rem; }
+    .docs-sidebar nav a { color: var(--docs-foreground); display: block; font-size: .9rem; line-height: 1.5; padding: .5rem .6rem; text-decoration: none; }
+    .docs-toc { border-left: 1px solid var(--docs-border); }
+    .docs-toc strong { color: var(--docs-foreground); display: block; font-size: .9rem; font-weight: 600; line-height: 1.5; }
+    .docs-toc ul { border-top: 1px solid var(--docs-border); list-style: none; margin: 1rem 0 0; padding: 1rem 0 0; }
+    .docs-toc a { color: var(--docs-muted); font-size: .875rem; line-height: 1.4; text-decoration: none; }
+    .docs-toc a:hover { color: var(--docs-foreground); }
+    .docs-main { min-width: 0; padding: 2.5rem clamp(1.5rem, 5vw, 4.5rem); }
+    .docs-breadcrumbs { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-size: .72rem; font-weight: 700; gap: .65rem; letter-spacing: .13em; margin-bottom: 2rem; text-transform: uppercase; }
+    .docs-breadcrumbs a { color: var(--docs-accent); text-decoration: none; }
+    .docs-heading-row { align-items: flex-start; display: flex; gap: 2rem; justify-content: space-between; margin-top: 2rem; }
+    .docs-eyebrow { color: var(--docs-accent); font-size: .72rem; font-weight: 700; letter-spacing: .14em; margin: 0 0 .75rem; text-transform: uppercase; }
+    .docs-heading-row h1 { color: var(--docs-foreground); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; margin: 0; }
+    .docs-copy-button { background: var(--docs-foreground); border: 0; border-radius: .45rem; color: var(--docs-background); cursor: pointer; flex: 0 0 auto; font-size: .8rem; font-weight: 650; padding: .65rem .8rem; white-space: nowrap; }
+    .docs-copy-button:hover, .docs-copy-button:focus-visible { background: var(--docs-accent); outline: 2px solid var(--docs-accent); outline-offset: 2px; }
+    .docs-lede { color: var(--docs-muted); font-size: 1.125rem; line-height: 1.65; margin: 1.25rem 0 2.5rem; max-width: 48rem; }
+    .docs-prose { max-width: 52rem; }
+    .docs-footer { border-top: 1px solid var(--docs-border); color: var(--docs-muted); font-size: .85rem; padding: 1.5rem 2rem; text-align: center; }
+    @media (max-width: 1120px) { .docs-layout { grid-template-columns: 200px minmax(0, 1fr); } .docs-toc { display: none; } }
+    @media (max-width: 800px) { .docs-layout { display: block; } .docs-sidebar { border-bottom: 1px solid var(--docs-border); border-right: 0; padding: 1rem 1.25rem; } .docs-sidebar nav { margin-top: .5rem; } .docs-sidebar nav a { padding: .35rem .5rem; } .docs-main { padding: 2rem 1.25rem 3rem; } .docs-heading-row { display: block; margin-top: 1.5rem; } .docs-copy-button { margin-top: 1.25rem; } .docs-lede { margin-bottom: 2rem; } }
+</style>
+
+<script is:inline>
+    document.querySelectorAll("[data-copy-llm]").forEach((button) => {
+        button.addEventListener("click", async () => {
+            const text = button.dataset.copyText ?? "";
+            try { await navigator.clipboard.writeText(text); }
+            catch {
+                const area = document.createElement("textarea");
+                area.value = text;
+                document.body.appendChild(area);
+                area.select();
+                document.execCommand("copy");
+                area.remove();
+            }
+            button.dataset.copied = "true";
+            button.textContent = "Copied";
+            window.setTimeout(() => { button.dataset.copied = "false"; button.textContent = "Copy for LLM"; }, 1600);
+        });
+    });
+</script>

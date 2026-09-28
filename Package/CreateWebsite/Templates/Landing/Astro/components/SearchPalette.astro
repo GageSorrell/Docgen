@@ -33,7 +33,7 @@ import "@pagefind/default-ui/css/ui.css";
     if (dialog === null) return;
     if (!pagefind) {
       pagefind = new PagefindUI({
-        bundlePath: "/docs/pagefind/",
+        bundlePath: {{DOCUMENTATION_PREFIX}} + "/pagefind/",
         element: "#docs-pagefind-search",
         showImages: false
       });

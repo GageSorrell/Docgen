@@ -1,0 +1,130 @@
+import SearchPalette from "./SearchPalette.astro";
+import SiteThemeToggle from "./SiteThemeToggle.astro";
+import VersionDropdown from "./VersionDropdown.astro";
+
+interface VersionOption {
+    readonly current?: boolean | undefined;
+    readonly id: string;
+    readonly label?: string | undefined;
+    readonly version?: string | undefined;
+}
+
+interface Props {
+    readonly docsPrefix: string;
+    readonly name: string;
+    readonly repositoryUrl?: string | undefined;
+    readonly storybookPrefix?: string | undefined;
+    readonly versions: ReadonlyArray<VersionOption>;
+}
+
+const { docsPrefix, name, repositoryUrl, storybookPrefix, versions } = Astro.props;
+const currentVersion = versions.find((version) => version.current)?.id ?? versions[0]?.id;
+const navigation = [
+    { label: "Docs", href: `${docsPrefix}/` },
+    ...(storybookPrefix ? [ { label: "Storybook", href: `${storybookPrefix}/` } ] : []),
+    ...(repositoryUrl ? [ { external: true, label: "GitHub", href: repositoryUrl } ] : [])
+];
+---
+
+<header class="landing-header">
+    <div class="landing-container landing-header-inner">
+        <a href={`${docsPrefix}/`} class="landing-brand" aria-label={`${name} documentation home`}>
+            <span>{name}</span>
+        </a>
+        <nav class="landing-header-nav" aria-label="Primary navigation">
+            {navigation.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}
+        </nav>
+        <div class="landing-header-actions">
+            {currentVersion === undefined ? null : <VersionDropdown currentVersion={currentVersion} prefix={docsPrefix} versions={versions} />}
+            <SearchPalette />
+            <SiteThemeToggle />
+        </div>
+        <details class="landing-mobile-menu">
+            <summary aria-label="Open navigation"><span>Menu</span><span aria-hidden="true">+</span></summary>
+            <nav aria-label="Mobile navigation">
+                <button class="site-search-trigger" type="button" aria-label="Search" aria-keyshortcuts="Control+K Meta+K" data-search-open>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
+                    <span>Search</span><kbd aria-hidden="true"><span>Ctrl</span><span class="search-shortcut-plus">+</span><span>K</span></kbd>
+                </button>
+                {navigation.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}
+                {currentVersion === undefined ? null : <VersionDropdown currentVersion={currentVersion} prefix={docsPrefix} versions={versions} placement="mobile" />}
+                <div class="landing-mobile-theme"><span>Theme</span><SiteThemeToggle /></div>
+            </nav>
+        </details>
+    </div>
+</header>
+
+<script is:inline>
+    (() => {
+        const themeKey = "sorrell-docs-theme";
+        const themeModes = ["system", "light", "dark"];
+        const systemPreference = window.matchMedia("(prefers-color-scheme: dark)");
+        const readThemeMode = () => {
+            try {
+                const stored = localStorage.getItem(themeKey);
+                if (themeModes.includes(stored)) return stored;
+            } catch { /* Storage can be unavailable in restricted contexts. */ }
+            return "system";
+        };
+        let selectedMode = readThemeMode();
+        const updateThemeToggles = () => {
+            const nextMode = themeModes[(themeModes.indexOf(selectedMode) + 1) % themeModes.length];
+            const modeLabel = selectedMode[0].toUpperCase() + selectedMode.slice(1);
+            document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+                button.setAttribute("aria-label", `Theme: ${modeLabel}. Activate to switch to ${nextMode}.`);
+                button.setAttribute("title", `Theme: ${modeLabel}`);
+                button.dataset.themeMode = selectedMode;
+                button.querySelectorAll("[data-theme-icon]").forEach((icon) => {
+                    icon.classList.toggle("hidden", icon.dataset.themeIcon !== selectedMode);
+                });
+            });
+        };
+        const applyTheme = (mode, persist = false) => {
+            selectedMode = mode;
+            const dark = mode === "dark" || (mode === "system" && systemPreference.matches);
+            document.documentElement.dataset.theme = dark ? "dark" : "light";
+            document.documentElement.classList.toggle("dark", dark);
+            document.documentElement.style.colorScheme = dark ? "dark" : "light";
+            if (persist) {
+                try { localStorage.setItem(themeKey, mode); } catch { /* Storage can be unavailable in restricted contexts. */ }
+            }
+            updateThemeToggles();
+        };
+        applyTheme(selectedMode);
+        document.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Element) || target.closest("[data-theme-toggle]") === null) return;
+            const nextMode = themeModes[(themeModes.indexOf(selectedMode) + 1) % themeModes.length];
+            applyTheme(nextMode, true);
+        });
+        systemPreference.addEventListener("change", () => { if (selectedMode === "system") applyTheme("system"); });
+        window.addEventListener("storage", (event) => {
+            if (event.key !== themeKey) return;
+            applyTheme(themeModes.includes(event.newValue) ? event.newValue : "system");
+        });
+    })();
+</script>
+
+<style is:global>
+    .landing-container { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+    .landing-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--docs-border); background: color-mix(in oklch, var(--docs-background) 92%, transparent); backdrop-filter: blur(14px); }
+    .landing-header-inner { display: flex; min-height: 4rem; align-items: center; gap: 2rem; }
+    .landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; color: var(--docs-foreground); font-size: 1rem; font-weight: 650; text-decoration: none; }
+    .landing-header-nav { display: flex; align-items: center; gap: 1.35rem; font-size: .875rem; }
+    .landing-header-nav a { color: var(--docs-muted); text-decoration: none; }
+    .landing-header-nav a:hover, .landing-header-nav a:focus-visible { color: var(--docs-foreground); }
+    .landing-header-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+    .site-theme-toggle { display: inline-flex; height: 2.25rem; width: 2.25rem; align-items: center; justify-content: center; border: 0; border-radius: .375rem; background: transparent; color: var(--docs-foreground); cursor: pointer; }
+    .site-theme-toggle:hover, .site-theme-toggle:focus-visible { background: var(--docs-code-background); }
+    .landing-mobile-menu { display: none; margin-left: auto; position: relative; }
+    .landing-mobile-menu summary { display: flex; align-items: center; gap: .5rem; cursor: pointer; list-style: none; border: 1px solid var(--docs-border); border-radius: .45rem; padding: .5rem .7rem; font-size: .875rem; color: var(--docs-foreground); }
+    .landing-mobile-menu summary::-webkit-details-marker { display: none; }
+    .landing-mobile-menu nav { position: absolute; right: 0; top: 3rem; display: grid; min-width: 13rem; gap: .25rem; padding: .5rem; border: 1px solid var(--docs-border); border-radius: .65rem; background: var(--docs-background); box-shadow: 0 1rem 2rem color-mix(in oklch, var(--docs-foreground) 14%, transparent); }
+    .landing-mobile-menu nav > a { border-radius: .4rem; padding: .65rem .75rem; color: var(--docs-foreground); text-decoration: none; }
+    .landing-mobile-menu nav > a:hover, .landing-mobile-menu nav > a:focus-visible { background: var(--docs-code-background); }
+    .landing-mobile-theme { display: flex; align-items: center; justify-content: space-between; margin-top: .35rem; border-top: 1px solid var(--docs-border); padding: .4rem .25rem 0 .75rem; color: var(--docs-muted); font-size: .875rem; }
+    .landing-mobile-theme .site-theme-toggle { margin: -.3rem; }
+    .hidden { display: none; }
+    @media (max-width: 800px) { .landing-header-nav, .landing-header-actions { display: none; } .landing-mobile-menu { display: block; } }
+    @media (max-width: 560px) { .landing-container { width: min(100% - 1.25rem, 72rem); } }
+</style>
