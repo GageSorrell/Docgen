@@ -27,7 +27,8 @@ import {
     writeReleaseManifest
 } from "../Source/Deployment.js";
 import { describe, expect, it, vi } from "vitest";
-import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { createGeneratedWebsite } from "../Source/Generator.js";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
@@ -58,6 +59,89 @@ const manifest = (
 });
 describe("website deployment orchestration", () =>
 {
+    it("stages the Documentation config inside its Vercel project root", async () =>
+    {
+        const workspace = await mkdtemp(join(tmpdir(), "sorrell-deploy-config-"));
+        const target = join(workspace, "generated");
+        await mkdir(join(workspace, "Package/Core"), { recursive: true });
+        await writeFile(join(workspace, "Package/Core/package.json"), "{}\n");
+        await mkdir(join(target, "Documentation/Source"), { recursive: true });
+        await mkdir(join(target, "Documentation/dist"), { recursive: true });
+        await mkdir(join(target, "Landing"), { recursive: true });
+        await writeFile(
+            join(target, "Documentation/Source/Versions.ts"),
+            "import config from \"../../docs.config.json\";\n"
+        );
+        await writeFile(join(target, "Documentation/package.json"), "{}\n");
+        await writeFile(join(target, "Landing/package.json"), "{}\n");
+
+        const website = createGeneratedWebsite({
+            config: {
+                vercel: {
+                    projects: {
+                        documentation: {
+                            directory: "Documentation",
+                            project: "documentation"
+                        },
+                        landing: { directory: "Landing", project: "landing" }
+                    }
+                }
+            },
+            target
+        });
+        const generatedConfig = website.files.find(
+            (file) => file.path === "docs.config.json"
+        )?.content ?? "{}\n";
+        await writeFile(join(target, "docs.config.json"), generatedConfig);
+
+        let stagedConfig = "";
+        let stagedVersions = "";
+        const layer = Layer.succeed(
+            VercelService,
+            VercelService.of({
+                alias: () => Effect.void,
+                deploy: (directory: string, options?: { readonly name?: string }) =>
+                    Effect.sync(() =>
+                    {
+                        if (options?.name === "documentation")
+                        {
+                            stagedConfig = readFileSync(
+                                join(directory, "docs.config.json"),
+                                "utf8"
+                            );
+                            stagedVersions = readFileSync(
+                                join(directory, "Source/Versions.ts"),
+                                "utf8"
+                            );
+                        }
+                        const url = `https://${options?.name ?? "site"}.vercel.app`;
+                        return { deploymentId: url, raw: url, url };
+                    }),
+                inspect: (deployment: string) =>
+                    Effect.succeed({
+                        deploymentId: deployment,
+                        raw: "ready",
+                        state: "READY" as const,
+                        url: deployment
+                    }),
+                promote: () => Effect.void,
+                remove: () => Effect.void,
+                rollback: () => Effect.void
+            })
+        );
+
+        try
+        {
+            await Effect.runPromise(deployWebsite(website).pipe(Effect.provide(layer)));
+            expect(stagedConfig).toContain("\"versions\"");
+            expect(stagedVersions).toContain("\"../docs.config.json\"");
+            expect(stagedVersions).not.toContain("\"../../docs.config.json\"");
+        }
+        finally
+        {
+            await rm(workspace, { force: true, recursive: true });
+        }
+    });
     it("promotes every child deployment before Landing", async () =>
     {
         const base = manifest("release-1", "https://landing.vercel.app");

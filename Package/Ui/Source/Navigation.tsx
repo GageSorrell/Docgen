@@ -1,6 +1,4 @@
 /**
- *
- *
  * @module @sorrell/docs-ui/Navigation
  *
  * @file      Navigation.tsx

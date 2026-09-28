@@ -143,15 +143,20 @@ const rewriteStagedTsconfig = (text: string): string =>
     text
         .replaceAll("../../Configuration/", "./Configuration/")
         .replaceAll("../../Package/", "./Package/");
+interface VercelDirectoryOptions
+{
+    readonly staticContent?: {
+        readonly source: string;
+        readonly destination: string;
+    };
+    readonly documentationConfig?: string;
+}
 const prepareVercelDirectory = (
     website: GeneratedWebsite,
     directory: string,
     fileSystem: typeof DocsFileSystem.Service,
     path: typeof DocsPath.Service,
-    staticContent?: {
-        readonly source: string;
-        readonly destination: string;
-    }
+    options: VercelDirectoryOptions = {}
 ): Effect.Effect<string, DocsFileSystemError, import("effect").Scope.Scope> =>
     Effect.gen(function* ()
     {
@@ -170,15 +175,41 @@ const prepareVercelDirectory = (
             prefix: "sorrell-vercel-"
         });
         yield* fileSystem.copy(source, staging, { overwrite: true });
-        if (staticContent !== undefined)
+        if (options.staticContent !== undefined)
         {
-            const destination = path.join(staging, staticContent.destination);
+            const destination = path.join(
+                staging,
+                options.staticContent.destination
+            );
             yield* fileSystem.makeDirectory(destination);
             yield* fileSystem.copy(
-                staticContent.source,
+                options.staticContent.source,
                 destination,
                 { overwrite: true }
             );
+        }
+        if (options.documentationConfig !== undefined)
+        {
+            yield* fileSystem.writeText(
+                path.join(staging, "docs.config.json"),
+                options.documentationConfig
+            );
+            const versionsSource = path.join(
+                staging,
+                "Source",
+                "Versions.ts"
+            );
+            if (yield* fileSystem.exists(versionsSource))
+            {
+                const source = yield* fileSystem.readText(versionsSource);
+                yield* fileSystem.writeText(
+                    versionsSource,
+                    source.replace(
+                        "\"../../docs.config.json\"",
+                        "\"../docs.config.json\""
+                    )
+                );
+            }
         }
         const stagedPackages = path.join(staging, "Package");
         yield* fileSystem.copy(packageSource, stagedPackages, {
@@ -252,11 +283,17 @@ const deployWebsite = (
             const deployOptions = { production: false } as const;
             const documentationProject =
                 website.config.vercel.projects.documentation;
+            const documentationConfig = website.files.find(
+                (file) => file.path === "docs.config.json"
+            )?.content;
             const documentationDirectory = yield* prepareVercelDirectory(
                 website,
                 path.join(website.target, documentationProject.directory),
                 fileSystem,
-                path
+                path,
+                documentationConfig === undefined
+                    ? {}
+                    : { documentationConfig }
             );
             const documentationOutput = yield* vercel.deploy(
                 documentationDirectory,
@@ -395,13 +432,15 @@ const deployWebsite = (
                 fileSystem,
                 path,
                 {
-                    destination: path.join(
-                        "public",
-                        website.config.routing.documentationPrefix.replace(
-                            /^\/+/, ""
-                        )
-                    ),
-                    source: documentationDistribution
+                    staticContent: {
+                        destination: path.join(
+                            "public",
+                            website.config.routing.documentationPrefix.replace(
+                                /^\/+/, ""
+                            )
+                        ),
+                        source: documentationDistribution
+                    }
                 }
             );
             const landingResult = yield* vercel
