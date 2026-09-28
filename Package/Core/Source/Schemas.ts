@@ -262,10 +262,19 @@ const StableLinkSchema = Schema.Struct({
     label: optionalString
 });
 export/** @internal */
+const ApiReferenceDescriptionPartSchema = Schema.Struct({
+    code: Schema.optionalKey(Schema.Boolean),
+    external: Schema.optionalKey(Schema.Boolean),
+    href: optionalString,
+    kind: Schema.Literals([ "text", "link" ]),
+    text: Schema.String
+});
+export/** @internal */
 const ApiReferenceDeclarationSchema = Schema.Struct({
     category: Schema.optionalKey(Schema.String),
     categoryId: Schema.String,
-    description: Schema.String,
+    description: optionalString,
+    descriptionParts: Schema.optionalKey(Schema.Array(ApiReferenceDescriptionPartSchema)),
     id: Schema.String,
     introductionVersion: optionalString,
     kind: Schema.Literals([
@@ -300,6 +309,7 @@ const ApiReferenceRecordSchema = Schema.Struct({
     packageSourceUrl: Schema.optionalKey(Schema.String),
     source: Schema.optionalKey(ApiReferenceSourceSchema),
     summary: Schema.optionalKey(Schema.String),
+    summaryParts: Schema.optionalKey(Schema.Array(ApiReferenceDescriptionPartSchema)),
     version: Schema.String
 });
 export/** @internal */
@@ -585,6 +595,9 @@ export type StableLink = Schema.Schema.Type<typeof StableLinkSchema>;
 /** @internal */
 export type ApiReferenceDeclaration = Schema.Schema.Type<
     typeof ApiReferenceDeclarationSchema
+>;
+export type ApiReferenceDescriptionPart = Schema.Schema.Type<
+    typeof ApiReferenceDescriptionPartSchema
 >;
 /** @internal */
 export type ApiReferenceRecord = Schema.Schema.Type<

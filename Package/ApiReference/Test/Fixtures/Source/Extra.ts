@@ -9,5 +9,10 @@
  * @license   MIT
  */
 
+import { hello } from "../ApiFixture.js";
+
 /** An additional exported module fixture. */
 export const extra = "extra";
+
+/** Links to the root module's {@link hello | greeting function}. */
+export const rootGreeting = hello;

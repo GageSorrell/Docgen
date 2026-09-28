@@ -1,0 +1,13 @@
+---
+import type { ApiReferenceDescriptionPart } from "@sorrell/docs-core";
+
+interface Props
+{
+    readonly description?: string | undefined;
+    readonly parts?: ReadonlyArray<ApiReferenceDescriptionPart> | undefined;
+}
+
+const { description, parts } = Astro.props;
+---
+
+{description === undefined ? null : <p>{parts === undefined ? description : parts.map((part) => part.kind === "link" && part.href !== undefined ? <a class="docs-api-comment-link" href={part.href}>{part.code === true ? <code>{part.text}</code> : part.text}{part.external === true ? <svg class="docs-description-external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M14 3h7v7M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" /></svg> : null}</a> : part.text)}</p>}

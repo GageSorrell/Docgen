@@ -49,8 +49,45 @@ describe("TypeDoc generation", () =>
         expect(extraModule?.introductionVersion).toBe("1.0.1");
         expect(rootModule?.declarations.find((declaration) => declaration.name === "hello")?.category)
             .toBe("Greetings");
+        expect(rootModule?.declarations.find((declaration) => declaration.name === "hello")?.description)
+            .toBe("Returns a greeting.");
+        expect(rootModule?.declarations.find((declaration) => declaration.name === "undocumented")?.description)
+            .toBeUndefined();
         expect(rootModule?.declarations.find((declaration) => declaration.name === "Greeting")?.category)
             .toBeUndefined();
+        const linkedReferences = rootModule?.declarations.find(
+            (declaration) => declaration.name === "linkedReferences"
+        );
+        expect(linkedReferences?.descriptionParts).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    external: false,
+                    href: "/docs/api/fixture/Core#hello",
+                    kind: "link",
+                    text: "the greeting function"
+                }),
+                expect.objectContaining({
+                    external: true,
+                    href: "https://example.com",
+                    kind: "link",
+                    text: "the external site"
+                }),
+                expect.objectContaining({
+                    external: false,
+                    href: "https://www.npmjs.com/package/effect",
+                    kind: "link",
+                    text: "Effect.gen"
+                })
+            ])
+        );
+        const extraRootLink = extraModule?.declarations.find(
+            (declaration) => declaration.name === "rootGreeting"
+        )?.descriptionParts?.find((part) => part.kind === "link");
+        expect(extraRootLink).toMatchObject({
+            external: false,
+            href: "/docs/api/fixture/Core#hello",
+            text: "greeting function"
+        });
         expect(
             dataset.records[0]?.declarations.some(
                 (declaration: {
@@ -65,7 +102,7 @@ describe("TypeDoc generation", () =>
                         | "variable"
                         | "namespace";
                     readonly categoryId: string;
-                    readonly description: string;
+                    readonly description?: string;
                     readonly signature: string;
                     readonly introductionVersion?: string;
                     readonly source?: {

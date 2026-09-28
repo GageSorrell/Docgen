@@ -65,12 +65,16 @@ describe("website deployment orchestration", () =>
         const target = join(workspace, "generated");
         await mkdir(join(workspace, "Package/Core"), { recursive: true });
         await writeFile(join(workspace, "Package/Core/package.json"), "{}\n");
-        await mkdir(join(target, "Documentation/Source"), { recursive: true });
+        await mkdir(join(target, "Documentation/Source/components"), { recursive: true });
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
         await mkdir(join(target, "Landing"), { recursive: true });
         await writeFile(
             join(target, "Documentation/Source/Versions.ts"),
             "import config from \"../../docs.config.json\";\n"
+        );
+        await writeFile(
+            join(target, "Documentation/Source/components/SiteHeader.astro"),
+            "import config from \"../../../docs.config.json\";\n"
         );
         await writeFile(join(target, "Documentation/package.json"), "{}\n");
         await writeFile(join(target, "Landing/package.json"), "{}\n");
@@ -96,6 +100,7 @@ describe("website deployment orchestration", () =>
 
         let stagedConfig = "";
         let stagedVersions = "";
+        let stagedSiteHeader = "";
         const layer = Layer.succeed(
             VercelService,
             VercelService.of({
@@ -111,6 +116,10 @@ describe("website deployment orchestration", () =>
                             );
                             stagedVersions = readFileSync(
                                 join(directory, "Source/Versions.ts"),
+                                "utf8"
+                            );
+                            stagedSiteHeader = readFileSync(
+                                join(directory, "Source/components/SiteHeader.astro"),
                                 "utf8"
                             );
                         }
@@ -136,6 +145,8 @@ describe("website deployment orchestration", () =>
             expect(stagedConfig).toContain("\"versions\"");
             expect(stagedVersions).toContain("\"../docs.config.json\"");
             expect(stagedVersions).not.toContain("\"../../docs.config.json\"");
+            expect(stagedSiteHeader).toContain("\"../../docs.config.json\"");
+            expect(stagedSiteHeader).not.toContain("\"../../../docs.config.json\"");
         }
         finally
         {

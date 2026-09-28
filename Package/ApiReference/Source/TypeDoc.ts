@@ -15,6 +15,7 @@ import type {
 } from "./Types.js";
 import type {
     ApiReferenceDeclaration,
+    ApiReferenceDescriptionPart,
     ApiReferenceRecord,
     ApiReferenceSource
 } from "@sorrell/docs-core";
@@ -25,6 +26,7 @@ import {
     TypeDocReader
 } from "typedoc";
 import { readFile } from "node:fs/promises";
+import { createRequire } from "node:module";
 import { basename, dirname, join, parse, relative, resolve, sep } from "node:path";
 import { createApiDataset, validateApiRecords } from "./Serialization.js";
 import { ApiReferenceError } from "./Errors.js";
@@ -34,7 +36,11 @@ interface ReflectionSource {
     readonly character?: number;
 }
 interface ReflectionCommentPart {
+    readonly kind?: string;
+    readonly tag?: string;
     readonly text?: string;
+    readonly target?: unknown;
+    readonly tsLinkText?: string;
 }
 interface ReflectionCommentTag {
     readonly tag: string;
@@ -80,11 +86,23 @@ interface ReflectionLike {
     };
     readonly parent?: ReflectionLike;
 }
+interface ReflectionSymbolIdLike {
+    readonly fileName?: string;
+    readonly packageName?: string;
+    readonly packagePath?: string;
+    readonly qualifiedName?: string;
+}
 const textOf = (reflection: ReflectionLike | undefined): string =>
-    reflection?.comment?.summary
-        ?.map((part: { readonly text?: string }) => part.text ?? "")
-        .join("")
-        .trim() ?? "";
+    [
+        ...(reflection?.comment === undefined ? [] : [ reflection.comment ]),
+        ...(reflection?.signatures ?? [])
+            .flatMap((signature) => signature.comment === undefined ? [] : [ signature.comment ])
+    ]
+        .map((comment) => comment.summary
+            ?.map((part: { readonly text?: string }) => part.text ?? "")
+            .join("")
+            .trim() ?? "")
+        .find((description) => description !== "") ?? "";
 const tsdocCategoryOf = (reflection: ReflectionLike): string | undefined =>
 {
     const comments = [
@@ -211,6 +229,7 @@ const packageMetadataFor = async (
     packageInput: ApiReferenceGenerationOptions["packages"][number]
 ): Promise<{
     readonly description?: string;
+    readonly directory?: string;
     readonly exports: ReadonlyArray<string>;
     readonly private?: boolean;
     readonly repositoryUrl?: string;
@@ -240,6 +259,7 @@ const packageMetadataFor = async (
         .replace(/\/$/u, "");
     return {
         exports,
+        directory: located.directory,
         ...(located.manifest.description === undefined
             ? {}
             : { description: located.manifest.description }),
@@ -641,11 +661,238 @@ const declarationId = (name: string): string =>
         .replace(/^-+|-+$/g, "");
     return normalized === "" ? "declaration" : normalized;
 };
-const declarationFrom = (
+const descriptionCommentsOf = (
+    reflection: ReflectionLike | undefined
+): ReadonlyArray<ReflectionComment> => [
+    ...(reflection?.comment === undefined ? [] : [ reflection.comment ]),
+    ...(reflection?.signatures ?? [])
+        .flatMap((signature) => signature.comment === undefined ? [] : [ signature.comment ])
+];
+const summaryPartsOf = (
+    reflection: ReflectionLike | undefined
+): ReadonlyArray<ReflectionCommentPart> | undefined =>
+    descriptionCommentsOf(reflection)
+        .map((comment) => comment.summary ?? [])
+        .find((parts) => parts.some((part) => (part.text ?? "").trim() !== ""));
+const displayTextOf = (part: ReflectionCommentPart): string =>
+    (part.tsLinkText ?? part.text ?? "").trim();
+const normalizedSourceFile = (value: string): string =>
+    value
+        .replaceAll("\\", "/")
+        .replace(/^\.\//u, "")
+        .replace(/\.(?:d\.)?[cm]?[jt]sx?$/iu, "")
+        .toLocaleLowerCase();
+const moduleEntryForTarget = (
+    target: ReflectionSymbolIdLike,
+    packageDirectory: string | undefined,
+    moduleEntries: ReadonlyArray<PackageExportEntryPoint>
+): PackageExportEntryPoint | undefined =>
+{
+    const targetPaths = [
+        ...(target.fileName === undefined ? [] : [ target.fileName ]),
+        ...(target.packagePath === undefined ? [] : [ target.packagePath ]),
+        ...(target.packagePath === undefined || packageDirectory === undefined
+            ? []
+            : [ resolve(packageDirectory, target.packagePath) ])
+    ].map(normalizedSourceFile);
+    const matches = moduleEntries.filter((entry) =>
+    {
+        const entryPath = normalizedSourceFile(entry.entryPoint);
+        const relativePath = packageDirectory === undefined
+            ? ""
+            : normalizedSourceFile(relative(packageDirectory, entry.entryPoint));
+        return targetPaths.some((targetPath) =>
+            targetPath === entryPath ||
+            targetPath === relativePath ||
+            (relativePath !== "" && targetPath.endsWith(`/${relativePath}`)) ||
+            (relativePath !== "" && relativePath.endsWith(`/${targetPath}`))
+        );
+    });
+    return matches.length === 1 ? matches[0] : undefined;
+};
+const moduleHrefFor = (
+    packageId: string,
+    exportPath: string,
+    options: ApiReferenceGenerationOptions
+): string =>
+{
+    const modulePath = exportPath === "." ? "Core" : exportPath.replace(/^\.\//u, "");
+    return `${options.referencePrefix ?? "/docs/api"}/${packageId}/${modulePath}`;
+};
+const publicPackageCache = new Map<string, Promise<boolean>>();
+const isPublicNpmPackage = (
+    packageName: string,
+    target: ReflectionSymbolIdLike,
+    packageInput: ApiReferenceGenerationOptions["packages"][number]
+): Promise<boolean> =>
+{
+    const cached = publicPackageCache.get(packageName);
+    if (cached !== undefined)
+    {
+        return cached;
+    }
+    const result = (async () =>
+    {
+        let located = target.fileName === undefined
+            ? undefined
+            : await manifestFor([ target.fileName ], packageName);
+        if (located === undefined)
+        {
+            try
+            {
+                const reference = resolve(packageInput.entryPoints[0] ?? process.cwd(), "__sorrell_docs_resolver__.js");
+                const require = createRequire(reference);
+                const packageEntry = require.resolve(packageName);
+                located = await manifestFor([ packageEntry ], packageName);
+            }
+            catch
+            {
+                // If no local manifest can be inspected, retain the external package link.
+            }
+        }
+        return located?.manifest.private !== true;
+    })();
+    publicPackageCache.set(packageName, result);
+    return result;
+};
+const linkPartFor = async (
+    part: ReflectionCommentPart,
+    moduleReflection: ReflectionLike,
+    packageInput: ApiReferenceGenerationOptions["packages"][number],
+    packageDirectory: string | undefined,
+    moduleEntries: ReadonlyArray<PackageExportEntryPoint>,
+    exportPath: string,
+    options: ApiReferenceGenerationOptions
+): Promise<ApiReferenceDescriptionPart> =>
+{
+    const text = displayTextOf(part);
+    const target = part.target;
+    if (part.kind !== "inline-tag" || !part.tag?.startsWith("@link") || text === "")
+    {
+        return { kind: "text", text: part.text ?? "" };
+    }
+    const makeLink = (
+        href: string,
+        external: boolean,
+        code = part.tag === "@linkcode"
+    ): ApiReferenceDescriptionPart => ({
+        code,
+        external,
+        href,
+        kind: "link",
+        text
+    });
+    if (typeof target === "string")
+    {
+        const urlTarget = target.split("|")[0]?.trim() ?? target.trim();
+        try
+        {
+            const url = new URL(urlTarget);
+            if (url.protocol === "http:" || url.protocol === "https:")
+            {
+                return makeLink(urlTarget, true);
+            }
+        }
+        catch
+        {
+            // A string target that is not a URL may be a TypeDoc symbol identifier.
+        }
+    }
+    const targetRecord = recordLike(target);
+    if (targetRecord !== undefined)
+    {
+        const targetReflection = targetRecord as ReflectionLike;
+        if (typeof targetRecord.id === "number" && typeof targetRecord.kind === "number")
+        {
+            let childOnModule = targetReflection;
+            let ancestor = targetReflection.parent;
+            while (ancestor !== undefined && ancestor.id !== moduleReflection.id)
+            {
+                childOnModule = ancestor;
+                ancestor = ancestor.parent;
+            }
+            if (targetReflection.id === moduleReflection.id || ancestor?.id === moduleReflection.id)
+            {
+                const href = moduleHrefFor(packageInput.id, exportPath, options);
+                const targetIsModule = targetReflection.id === moduleReflection.id ||
+                    targetReflection.kind === ReflectionKind.Module ||
+                    targetReflection.kind === ReflectionKind.Project;
+                return makeLink(
+                    targetIsModule ? href : `${href}#${declarationId(childOnModule.name ?? text)}`,
+                    false
+                );
+            }
+        }
+        const symbol = targetRecord as ReflectionSymbolIdLike;
+        if (typeof symbol.packageName === "string" && symbol.packageName !== "<unknown>")
+        {
+            if (symbol.packageName === packageInput.name)
+            {
+                const entry = moduleEntryForTarget(symbol, packageDirectory, moduleEntries);
+                if (entry !== undefined)
+                {
+                    const href = moduleHrefFor(packageInput.id, entry.exportPath, options);
+                    const targetName = symbol.qualifiedName?.split(".")[0];
+                    return makeLink(
+                        targetName === undefined || targetName === ""
+                            ? href
+                            : `${href}#${declarationId(targetName)}`,
+                        false
+                    );
+                }
+            }
+            else if (await isPublicNpmPackage(symbol.packageName, symbol, packageInput))
+            {
+                const npmPath = symbol.packageName
+                    .split("/")
+                    .map((part) => encodeURIComponent(part))
+                    .join("/");
+                return makeLink(`https://www.npmjs.com/package/${npmPath}`, false);
+            }
+        }
+    }
+    if (typeof target === "string")
+    {
+        const packageTarget = target.match(/^(@[^/]+\/[^!#]+|[^/!#]+)[!#].+$/u)?.[1];
+        if (
+            packageTarget !== undefined &&
+            packageTarget !== packageInput.name &&
+            await isPublicNpmPackage(packageTarget, { packageName: packageTarget }, packageInput)
+        )
+        {
+            return makeLink(
+                `https://www.npmjs.com/package/${packageTarget.split("/").map((part) => encodeURIComponent(part)).join("/")}`,
+                false
+            );
+        }
+    }
+    return { kind: "text", text: part.text ?? "" };
+};
+const descriptionPartsFor = async (
+    moduleReflection: ReflectionLike,
     reflection: ReflectionLike,
     packageInput: ApiReferenceGenerationOptions["packages"][number],
-    categoryId: string,
+    packageDirectory: string | undefined,
+    moduleEntries: ReadonlyArray<PackageExportEntryPoint>,
+    exportPath: string,
     options: ApiReferenceGenerationOptions
+): Promise<ReadonlyArray<ApiReferenceDescriptionPart> | undefined> =>
+{
+    const summary = summaryPartsOf(reflection);
+    if (summary === undefined)
+    {
+        return undefined;
+    }
+    const parts = await Promise.all(summary.map((part) =>
+        linkPartFor(part, moduleReflection, packageInput, packageDirectory, moduleEntries, exportPath, options)
+    ));
+    return parts.some((part) => part.kind === "link") ? parts : undefined;
+};
+const declarationFrom = (
+    reflection: ReflectionLike,
+    categoryId: string,
+    options: ApiReferenceGenerationOptions,
+    descriptionParts: ReadonlyArray<ApiReferenceDescriptionPart> | undefined
 ): ApiReferenceDeclaration =>
 {
     const name = reflection.name ?? "unknown";
@@ -656,11 +903,12 @@ const declarationFrom = (
         options.revision,
         options.sourceRoot
     );
+    const description = textOf(reflection);
     return {
         ...(category === undefined ? {} : { category }),
         categoryId,
-        description:
-            textOf(reflection) || `${name} exported by ${packageInput.name}.`,
+        ...(description === "" ? {} : { description }),
+        ...(descriptionParts === undefined ? {} : { descriptionParts }),
         id: declarationId(name),
         kind: declarationKind(reflection),
         name,
@@ -668,15 +916,16 @@ const declarationFrom = (
         ...(source === undefined ? {} : { source })
     };
 };
-const recordFrom = (
+const recordFrom = async (
     reflection: ReflectionLike,
     packageInput: ApiReferenceGenerationOptions["packages"][number],
     options: ApiReferenceGenerationOptions,
     summary: string | undefined,
     selectedModuleSource: ApiReferenceSource | undefined,
     packageMetadata: Awaited<ReturnType<typeof packageMetadataFor>>,
+    moduleEntries: ReadonlyArray<PackageExportEntryPoint>,
     exportPath: string
-): ApiReferenceRecord =>
+): Promise<ApiReferenceRecord> =>
 {
     const packageOptions = options.repositoryUrl === undefined && packageMetadata.repositoryUrl !== undefined
         ? { ...options, repositoryUrl: packageMetadata.repositoryUrl }
@@ -695,8 +944,31 @@ const recordFrom = (
             })
         ).values()
     ].sort((left: Category, right: Category) => left.order - right.order);
-    const declarations = children.map((child: ReflectionLike) =>
-        declarationFrom(child, packageInput, categoryFor(child).id, packageOptions)
+    const declarations = await Promise.all(children.map(async (child: ReflectionLike) =>
+        declarationFrom(
+            child,
+            categoryFor(child).id,
+            packageOptions,
+            await descriptionPartsFor(
+                reflection,
+                child,
+                packageInput,
+                packageMetadata.directory,
+                moduleEntries,
+                exportPath,
+                packageOptions
+            )
+        )
+    ));
+    const moduleSummary = textOf(reflection) || summary;
+    const summaryParts = await descriptionPartsFor(
+        reflection,
+        reflection,
+        packageInput,
+        packageMetadata.directory,
+        moduleEntries,
+        exportPath,
+        packageOptions
     );
     const modulePath = exportPath === "." ? "Core" : exportPath.replace(/^\.\//u, "");
     const moduleName = exportPath === "."
@@ -752,7 +1024,8 @@ const recordFrom = (
             ? {}
             : { packagePrivate: packageMetadata.private }),
         version: packageInput.version,
-        ...(summary === undefined ? {} : { summary }),
+        ...(moduleSummary === undefined ? {} : { summary: moduleSummary }),
+        ...(summaryParts === undefined ? {} : { summaryParts }),
         ...(moduleSource === undefined ? {} : { source: moduleSource }),
         link: {
             external: false,
@@ -817,7 +1090,7 @@ const generateApiDataset = async (
                 );
             }
             records.push(
-                recordFrom(
+                await recordFrom(
                     moduleReflection(project as unknown as ReflectionLike),
                     packageInput,
                     options,
@@ -829,6 +1102,7 @@ const generateApiDataset = async (
                         options.sourceRoot
                     ),
                     packageMetadata,
+                    moduleEntries,
                     exportPath
                 )
             );

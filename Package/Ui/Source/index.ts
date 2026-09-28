@@ -269,12 +269,94 @@ vertical-align: middle;
 .docs-heading-link:focus { opacity: 1;
 }
 
-.docs-code-block { background: var(--docs-code-background);
+.docs-code-frame { background: var(--docs-card-background,
+var(--docs-code-background));
 border: 1px solid var(--docs-border);
-border-radius: 10px;
-margin: 22px 0;
-overflow: auto;
+border-radius: 12px;
+box-shadow: 0 2px 5px color-mix(in srgb,
+var(--docs-foreground) 14%,
+transparent);
+margin: 1.5rem 0;
+overflow: hidden;
 position: relative;
+}
+.docs-code-frame pre { background: transparent !important;
+border: 0 !important;
+border-radius: 0 !important;
+box-shadow: none !important;
+box-sizing: border-box;
+color: var(--docs-foreground) !important;
+font-family: "JetBrains Mono",
+ui-monospace,
+SFMono-Regular,
+Menlo,
+monospace !important;
+font-size: 13px;
+line-height: 1.65;
+margin: 0 !important;
+max-width: none !important;
+overflow: auto;
+padding: 18px 60px 24px 20px !important;
+scrollbar-color: color-mix(in srgb,
+var(--docs-muted) 35%,
+var(--docs-code-background)) transparent;
+scrollbar-width: thin;
+white-space: pre;
+}
+.docs-code-frame pre::-webkit-scrollbar { height: 10px;
+width: 10px;
+}
+.docs-code-frame pre::-webkit-scrollbar-track { background: var(--docs-code-background);
+}
+.docs-code-frame pre::-webkit-scrollbar-thumb { background: color-mix(in srgb,
+var(--docs-muted) 35%,
+var(--docs-code-background));
+border: 2px solid var(--docs-code-background);
+border-radius: 999px;
+}
+.docs-code-frame pre::-webkit-scrollbar-thumb:hover { background: var(--docs-muted);
+}
+.docs-code-frame pre code { background: transparent !important;
+font-family: inherit !important;
+font-size: inherit !important;
+padding: 0 !important;
+white-space: inherit;
+}
+.docs-code-copy { align-items: center;
+background: var(--docs-code-background);
+border: 1px solid var(--docs-border);
+border-radius: 5px;
+color: var(--docs-muted);
+cursor: pointer;
+display: inline-flex;
+height: 40px;
+justify-content: center;
+position: absolute;
+right: 10px;
+top: 8px;
+transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+width: 40px;
+z-index: 1;
+}
+.docs-code-copy:hover,
+.docs-code-copy:focus-visible { background: var(--docs-background);
+border-color: var(--docs-muted);
+color: var(--docs-foreground);
+outline: none;
+}
+.docs-code-copy:focus-visible { box-shadow: 0 0 0 2px var(--docs-accent);
+}
+.docs-code-copy svg { height: 20px;
+width: 20px;
+}
+.docs-code-copy[data-copied="true"] { color: var(--docs-accent);
+}
+.docs-description-external-icon { height: .8em;
+margin-left: .2em;
+vertical-align: -0.08em;
+width: .8em;
+}
+.docs-code-block { margin: 22px 0;
 }
 .docs-code-language { color: var(--docs-muted);
 font-family: ui-monospace,

@@ -5,6 +5,7 @@ import { DefaultDesignTokens, formatAgentDocument } from "@sorrell/docs-core";
 import { canonicalUrl } from "@sorrell/docs-astro";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import { createHighlighter } from "shiki";
+import ApiReferenceDescription from "../components/ApiReferenceDescription.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/docs.css";
 
@@ -103,7 +104,7 @@ highlighter.dispose();
                         <div>
                             <p class="docs-eyebrow">API REFERENCE</p>
                             <h1>{record.displayName}</h1>
-                            {record.summary === undefined ? null : <div class="prose prose-effect"><p>{record.summary}</p></div>}
+                            {record.summary === undefined ? null : <div class="prose prose-effect"><ApiReferenceDescription description={record.summary} parts={record.summaryParts} /></div>}
                         </div>
                         <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
                     </div>
@@ -127,11 +128,13 @@ highlighter.dispose();
                                         <a href={`#${declaration.id}`}>#</a>
                                     </div>
                                 </div>
-                                <p>{declaration.description}</p>
+                                <ApiReferenceDescription description={declaration.description} parts={declaration.descriptionParts} />
                                 <h4>Signature</h4>
-                                <div class="docs-signature-row">
+                                <div class="docs-code-frame docs-signature-frame">
                                     <div class="docs-signature-output" set:html={signatures.get(declaration.id)}></div>
-                                    <button class="docs-signature-copy" type="button" data-copy-signature={declaration.signature}>Copy</button>
+                                    <button class="docs-code-copy" type="button" data-copy-code={declaration.signature} title="Copy to clipboard" aria-label="Copy signature to clipboard">
+                                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="8" y="7" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 4.5V4a1.5 1.5 0 0 0-1.5-1.5h-9A1.5 1.5 0 0 0 4 4v12A1.5 1.5 0 0 0 5.5 17.5H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                                    </button>
                                 </div>
                             </article>)}
                         </section>)}
@@ -175,18 +178,15 @@ highlighter.dispose();
     .docs-api-meta a, .docs-declaration-links a { color: var(--docs-accent); }
     .docs-declaration-links .docs-source-link { align-items: center; display: inline-flex; gap: 4px; text-decoration: none; white-space: nowrap; }
     .docs-kind-badge { display: inline-block; flex-shrink: 0; white-space: nowrap; }
-    .docs-signature-row { align-items: start; display: flex; gap: 10px; }
     .docs-signature-output { flex: 1; min-width: 0; }
-    .docs-signature-output pre.shiki { background: var(--docs-code-background) !important; border: 1px solid var(--docs-border); border-radius: 8px; box-sizing: border-box; color: var(--docs-foreground); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.65; margin: 0; max-width: 100%; overflow: auto; padding: 16px; white-space: pre; }
+    .docs-signature-frame { margin: 1rem 0 0; }
+    .docs-signature-output pre.shiki { background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; box-sizing: border-box; color: var(--docs-foreground); font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.65; margin: 0 !important; max-width: none; overflow: auto; padding: 18px 60px 24px 20px; white-space: pre; }
     .docs-signature-output pre.shiki code { display: block; white-space: inherit; }
     .docs-signature-output pre.shiki .line { min-height: 1em; }
     .docs-signature-output pre.shiki span { color: var(--shiki-light); }
     [data-theme="dark"] .docs-signature-output pre.shiki span { color: var(--shiki-dark); }
-    .docs-signature-copy { background: transparent; border: 1px solid var(--docs-border); border-radius: 6px; color: var(--docs-muted); cursor: pointer; padding: 7px 9px; }
-    .docs-signature-copy:hover, .docs-signature-copy:focus-visible { border-color: var(--docs-accent); color: var(--docs-foreground); }
     .docs-toc .docs-nav-items ul { list-style: none; margin: .5rem 0 0; padding-left: 1rem; }
     .docs-toc-category > span { color: var(--docs-foreground); display: block; font-size: 13px; font-weight: 650; margin: 12px 0 4px; }
-    @media (max-width: 780px) { .docs-signature-row { display: block; } .docs-signature-copy { margin-top: 6px; } }
 </style>
 
 <script is:inline>
@@ -194,5 +194,41 @@ highlighter.dispose();
         try { await navigator.clipboard.writeText(text); } catch { const area = document.createElement("textarea"); area.value = text; document.body.appendChild(area); area.select(); document.execCommand("copy"); area.remove(); }
     };
     document.querySelectorAll("[data-copy-llm]").forEach((button) => button.addEventListener("click", async () => { await copy(button.dataset.copyText ?? ""); button.dataset.copied = "true"; button.textContent = "Copied"; window.setTimeout(() => { button.dataset.copied = "false"; button.textContent = "Copy for LLM"; }, 1600); }));
-    document.querySelectorAll("[data-copy-signature]").forEach((button) => button.addEventListener("click", async () => { await copy(button.dataset.copySignature ?? ""); button.textContent = "Copied"; window.setTimeout(() => { button.textContent = "Copy"; }, 1600); }));
+    const copyIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="8" y="7" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 4.5V4a1.5 1.5 0 0 0-1.5-1.5h-9A1.5 1.5 0 0 0 4 4v12A1.5 1.5 0 0 0 5.5 17.5H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    const copiedIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const addCopyButton = (frame, code) => {
+        if (frame.querySelector("[data-copy-code]")) return;
+        const button = document.createElement("button");
+        button.className = "docs-code-copy";
+        button.type = "button";
+        button.title = "Copy to clipboard";
+        button.setAttribute("aria-label", "Copy code to clipboard");
+        button.innerHTML = copyIcon;
+        frame.appendChild(button);
+        button.addEventListener("click", async () => {
+            await copy(code);
+            button.dataset.copied = "true";
+            button.innerHTML = copiedIcon;
+            button.setAttribute("aria-label", "Copied to clipboard");
+            window.setTimeout(() => {
+                button.dataset.copied = "false";
+                button.innerHTML = copyIcon;
+                button.setAttribute("aria-label", "Copy code to clipboard");
+            }, 1600);
+        });
+    };
+    document.querySelectorAll("[data-copy-code]").forEach((button) => button.addEventListener("click", async () => {
+        await copy(button.dataset.copyCode ?? "");
+        button.dataset.copied = "true";
+        button.innerHTML = copiedIcon;
+        button.setAttribute("aria-label", "Copied to clipboard");
+        window.setTimeout(() => { button.dataset.copied = "false"; button.innerHTML = copyIcon; button.setAttribute("aria-label", "Copy signature to clipboard"); }, 1600);
+    }));
+    document.querySelectorAll(".docs-prose pre").forEach((pre) => {
+        const frame = document.createElement("div");
+        frame.className = "docs-code-frame";
+        pre.parentNode.insertBefore(frame, pre);
+        frame.appendChild(pre);
+        addCopyButton(frame, pre.innerText);
+    });
 </script>

@@ -16,7 +16,7 @@ import type {
 } from "./Types.js";
 import { Breadcrumbs, DocsSidebar, OnThisPage } from "./Navigation.js";
 import { CopyForLlmButton } from "./CopyForLlm.js";
-import { DocCode } from "./Mdx.js";
+import { ApiReferenceDescription, DocCode } from "./Mdx.js";
 import { useState } from "react";
 import { apiReferenceRecordToAgentDocument, type ApiReferenceCategory, type ApiReferenceDeclaration } from "@sorrell/docs-core";
 const declarationHref = (id: string): string => `#${id}`;
@@ -81,9 +81,10 @@ const GitHubIcon = () => (
         />
     </svg>
 );
-const ExternalLinkIcon = () => (
+const ExternalLinkIcon = ({ className }: { readonly className?: string }) => (
     <svg
         aria-hidden="true"
+        className={ className }
         viewBox="0 0 16 16"
     >
         <path
@@ -119,7 +120,7 @@ const apiNavigation = (
                             | "variable"
                             | "namespace";
                         readonly categoryId: string;
-                        readonly description: string;
+                        readonly description?: string;
                         readonly signature: string;
                         readonly introductionVersion?: string;
                         readonly source?: {
@@ -170,12 +171,12 @@ const tocItems = (
 const declarationDocument = (
     record: ApiReferencePageProps["record"],
     name: string,
-    description: string,
+    description: string | undefined,
     signature: string
 ) => ({
-    content: `${description}\n\n${signature}`,
+    content: description === undefined ? signature : `${description}\n\n${signature}`,
     context: `${record.packageName} ${record.version}`,
-    description,
+    ...(description === undefined ? {} : { description }),
     id: `${record.packageId}:${record.module}:${name}`,
     kind: "api-module" as const,
     metadata: {
@@ -193,7 +194,7 @@ const declarationDocument = (
                         | "variable"
                         | "namespace";
                     readonly categoryId: string;
-                    readonly description: string;
+                    readonly description?: string;
                     readonly signature: string;
                     readonly introductionVersion?: string;
                     readonly source?: {
@@ -248,6 +249,10 @@ const ApiReferencePage = ({
                         {record.packageDescription === undefined ? null : (
                             <p>{record.packageDescription}</p>
                         )}
+                        <ApiReferenceDescription
+                            parts={ record.summaryParts }
+                            text={ record.summary }
+                        />
                     </div>
                     <CopyForLlmButton document={ document } />
                 </div>
@@ -327,7 +332,14 @@ const ApiReferencePage = ({
                                             | "variable"
                                             | "namespace";
                                         readonly categoryId: string;
-                                        readonly description: string;
+                                        readonly description?: string;
+                                        readonly descriptionParts?: ReadonlyArray<{
+                                            readonly code?: boolean;
+                                            readonly external?: boolean;
+                                            readonly href?: string;
+                                            readonly kind: "text" | "link";
+                                            readonly text: string;
+                                        }>;
                                         readonly signature: string;
                                         readonly introductionVersion?: string;
                                         readonly source?: {
@@ -358,7 +370,14 @@ const ApiReferencePage = ({
                                             | "variable"
                                             | "namespace";
                                         readonly categoryId: string;
-                                        readonly description: string;
+                                        readonly description?: string;
+                                        readonly descriptionParts?: ReadonlyArray<{
+                                            readonly code?: boolean;
+                                            readonly external?: boolean;
+                                            readonly href?: string;
+                                            readonly kind: "text" | "link";
+                                            readonly text: string;
+                                        }>;
                                         readonly signature: string;
                                         readonly introductionVersion?: string;
                                         readonly source?: {
@@ -421,7 +440,10 @@ const ApiReferencePage = ({
                                                     />
                                                 </div>
                                             </div>
-                                            <p>{declaration.description}</p>
+                                            <ApiReferenceDescription
+                                                parts={ declaration.descriptionParts }
+                                                text={ declaration.description }
+                                            />
                                             <h4>Signature</h4>
                                             <DocCode language="typescript">
                                                 {declaration.signature}

@@ -240,7 +240,7 @@ const apiDocuments = (
                         | "variable"
                         | "namespace";
                     readonly categoryId: string;
-                    readonly description: string;
+                    readonly description?: string;
                     readonly signature: string;
                     readonly introductionVersion?: string;
                     readonly source?: {

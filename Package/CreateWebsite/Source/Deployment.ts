@@ -210,6 +210,23 @@ const prepareVercelDirectory = (
                     )
                 );
             }
+            const siteHeaderSource = path.join(
+                staging,
+                "Source",
+                "components",
+                "SiteHeader.astro"
+            );
+            if (yield* fileSystem.exists(siteHeaderSource))
+            {
+                const source = yield* fileSystem.readText(siteHeaderSource);
+                yield* fileSystem.writeText(
+                    siteHeaderSource,
+                    source.replace(
+                        "../../../docs.config.json",
+                        "../../docs.config.json"
+                    )
+                );
+            }
         }
         const stagedPackages = path.join(staging, "Package");
         yield* fileSystem.copy(packageSource, stagedPackages, {

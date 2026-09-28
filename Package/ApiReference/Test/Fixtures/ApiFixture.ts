@@ -9,6 +9,8 @@
  * @license   MIT
  */
 
+import { Effect } from "effect";
+
 /** A small TypeDoc fixture. */
 export interface Greeting {
     readonly message: string;
@@ -20,3 +22,10 @@ export interface Greeting {
  * @category Greetings
  */
 export const hello = (): Greeting => ({ message: "hello" });
+
+/**
+ * Links to {@link hello | the greeting function}, {@link https://example.com | the external site}, and {@link Effect.gen}.
+ */
+export const linkedReferences = true;
+
+export const undocumented = true;

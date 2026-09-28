@@ -43,6 +43,11 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("declarationCategoryNames");
         expect(apiReferenceLayout).toContain("docs-toc-category");
         expect(apiReferenceLayout).toContain(".docs-toc-category > span");
+        expect(apiReferenceLayout).toContain("ApiReferenceDescription description={declaration.description} parts={declaration.descriptionParts}");
+        expect(apiReferenceLayout).toContain("ApiReferenceDescription description={record.summary} parts={record.summaryParts}");
+        const generatedApiDescription = contents.get("Documentation/Source/components/ApiReferenceDescription.astro") ?? "";
+        expect(generatedApiDescription).toContain("part.external === true");
+        expect(generatedApiDescription).toContain("docs-description-external-icon");
         expect(apiReferenceLayout).toContain("font-size: 10px; font-weight: 400");
         expect(apiReferenceLayout).toContain("font-size: 25px");
         expect(apiReferenceLayout).toContain("background: var(--docs-code-background)");
