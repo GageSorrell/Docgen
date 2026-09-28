@@ -4,6 +4,19 @@
     "name": "sorrell-documentation",
     "title": "Sorrell Documentation",
     "description": "Build readable documentation sites with a shared content, theme, and publishing system.",
+    "logo": {
+        "type": "dicebear",
+        "style": "pixelbot",
+        "props": {
+             "tags": [
+    "animation"
+  ],
+  "glowColor": [
+    "86efac"
+  ],
+  "seed": "Felix"
+        }
+    },
     "url": "https://docs.sorrell.sh",
     "repository": {
       "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",

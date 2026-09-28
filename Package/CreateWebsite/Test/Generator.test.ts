@@ -96,8 +96,12 @@ describe("three-package website generation", () =>
         expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro"))
             .toContain(".docs-api-module-card:hover, .docs-api-module-card:focus-visible { background: var(--docs-code-background)");
         const apiIndex = contents.get("Documentation/Source/pages/api/index.astro") ?? "";
-        expect(apiIndex).toContain(".docs-api-package-card p { color: var(--docs-muted); font-size: 11.2px; font-weight: 400;");
-        expect(apiIndex).toContain(".docs-api-package-card, .docs-api-package-card * { text-decoration: none; }");
+        expect(apiIndex).not.toContain("record.packageDescription === undefined ? null : <p>{record.packageDescription}</p>");
+        expect(apiIndex).toContain(".docs-api-package-card, .docs-api-package-card * { text-decoration: none !important; }");
+        expect(apiIndex).toContain(".docs-api-package-card h2 { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; margin: 0; }");
+        expect(apiReferenceLayout).toContain("{packageModules.length > 1 ? moduleGroups.map((group) => <section class=\"docs-sidebar-group\">");
+        expect(apiReferenceLayout).toContain(".docs-api-title-row { align-items: baseline; display: flex; gap: 24px; justify-content: space-around; }");
+        expect(apiReferenceLayout).toContain(".docs-api-title-row h1 { font-weight: 700; }");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
     });
     it("generates the ported Astro landing composition and interactive components", () =>
