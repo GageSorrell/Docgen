@@ -1,0 +1,312 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.sorrell.sh/docs.config.schema.json",
+  "title": "Sorrell Documentation configuration",
+  "description": "Configuration for a Sorrell documentation website. Save this file as docs.config.json and reference this schema with the $schema property for editor completion and validation.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://docs.sorrell.sh/docs.config.schema.json",
+      "description": "URL of this schema. Add this property to docs.config.json to enable validation and completion in VS Code and other JSON Schema-aware editors."
+    },
+    "agent": {
+      "$ref": "#/$defs/agent",
+      "description": "Settings for generated agent-readable documentation artifacts and the optional MCP endpoint."
+    },
+    "api": {
+      "$ref": "#/$defs/api",
+      "description": "Settings for generating API reference pages from TypeScript source with TypeDoc."
+    },
+    "landing": {
+      "$ref": "#/$defs/landing",
+      "description": "Landing page content, including its title, summary, primary action, and content sections."
+    },
+    "manifests": {
+      "type": "array",
+      "description": "Generated artifact manifest entries used to track site, API reference, Storybook, or project outputs.",
+      "items": { "$ref": "#/$defs/manifest" }
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata",
+      "description": "Basic site identity used for page titles, descriptions, branding, and repository links."
+    },
+    "navigation": {
+      "$ref": "#/$defs/navigation",
+      "description": "Optional grouped navigation tree for documentation pages."
+    },
+    "packages": {
+      "type": "array",
+      "description": "Packages represented by the documentation site, including their names, versions, and source directories.",
+      "items": { "$ref": "#/$defs/package" }
+    },
+    "redirects": {
+      "type": "array",
+      "description": "Permanent or temporary path redirects emitted for the generated site.",
+      "items": { "$ref": "#/$defs/redirect" }
+    },
+    "routing": {
+      "$ref": "#/$defs/routing",
+      "description": "URL prefixes used to mount documentation and Storybook alongside the landing page."
+    },
+    "storybook": {
+      "$ref": "#/$defs/storybook",
+      "description": "Settings for including a Storybook application and its stories in the site."
+    },
+    "tokens": {
+      "$ref": "#/$defs/tokens",
+      "description": "Light and dark theme color overrides. Unspecified values use the built-in theme defaults."
+    },
+    "vercel": {
+      "$ref": "#/$defs/vercel",
+      "description": "Vercel deployment settings for the site and its separately deployed documentation, landing, Storybook, or MCP projects."
+    },
+    "versions": {
+      "type": "array",
+      "description": "Documentation versions available in the version selector. Mark one entry as current to identify the default version.",
+      "items": { "$ref": "#/$defs/version" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "repository": {
+      "type": "object",
+      "description": "A source repository location and optional source-relative directory and branch.",
+      "properties": {
+        "branch": { "type": "string", "description": "Branch or ref containing the source files." },
+        "directory": { "type": "string", "description": "Repository-relative directory containing the relevant project or package." },
+        "url": { "type": "string", "description": "Repository URL. A GitHub URL may include a branch or directory fragment." }
+      },
+      "required": [ "url" ],
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Site-wide identity and metadata. Values here provide defaults for page metadata and landing content.",
+      "properties": {
+        "description": { "type": "string", "description": "Default site description used in metadata and when landing.description is omitted." },
+        "logo": { "type": "string", "description": "Logo URL or site-relative path displayed in the site header." },
+        "name": { "type": "string", "description": "Stable site or product name used by generated tooling and metadata." },
+        "repository": { "$ref": "#/$defs/repository", "description": "Repository associated with the site." },
+        "title": { "type": "string", "description": "Human-readable site title used in the header and document titles." },
+        "url": { "type": "string", "description": "Canonical base URL for the published site. An empty string is allowed for local or preview-only sites." }
+      },
+      "additionalProperties": false
+    },
+    "colorTokens": {
+      "type": "object",
+      "description": "Partial color overrides for one theme. Values are CSS color strings, such as hex, rgb(), or color().",
+      "properties": {
+        "accent": { "type": "string", "description": "Primary accent color for links, highlights, and interactive states." },
+        "background": { "type": "string", "description": "Main page background color." },
+        "border": { "type": "string", "description": "Default border and divider color." },
+        "cardBackground": { "type": "string", "description": "Background color for raised cards and panels." },
+        "codeBackground": { "type": "string", "description": "Background color for inline and block code." },
+        "foreground": { "type": "string", "description": "Main text and foreground color." },
+        "muted": { "type": "string", "description": "Muted background or surface color." },
+        "proseForeground": { "type": "string", "description": "Default text color for authored prose and API descriptions." },
+        "subtleForeground": { "type": "string", "description": "Secondary text color for captions, metadata, and subdued labels." }
+      },
+      "additionalProperties": false
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Theme-specific color overrides. Each theme is optional and may specify only the colors that differ from defaults.",
+      "properties": {
+        "dark": { "$ref": "#/$defs/colorTokens", "description": "Color overrides used when the dark theme is active." },
+        "light": { "$ref": "#/$defs/colorTokens", "description": "Color overrides used when the light theme is active." }
+      },
+      "additionalProperties": false
+    },
+    "navigationItem": {
+      "type": "object",
+      "description": "A page, section, or external destination in the documentation navigation. Items may contain nested children.",
+      "properties": {
+        "children": { "type": "array", "description": "Nested navigation items displayed beneath this item.", "items": { "$ref": "#/$defs/navigationItem" } },
+        "href": { "type": "string", "description": "Destination URL or path for this item." },
+        "id": { "type": "string", "description": "Stable unique identifier for this item." },
+        "kind": { "type": "string", "enum": [ "page", "section", "external" ], "description": "Destination kind: a documentation page, an in-page section, or an external link. Defaults are selected by the site when omitted." },
+        "label": { "type": "string", "description": "Text shown for this navigation item." }
+      },
+      "required": [ "id", "label", "href" ],
+      "additionalProperties": false
+    },
+    "navigationGroup": {
+      "type": "object",
+      "description": "A labeled group of navigation items, such as Guides or API Reference.",
+      "properties": {
+        "id": { "type": "string", "description": "Stable unique identifier for this group." },
+        "items": { "type": "array", "description": "Navigation entries in this group.", "items": { "$ref": "#/$defs/navigationItem" } },
+        "label": { "type": "string", "description": "Group heading shown in the navigation." }
+      },
+      "required": [ "id", "label", "items" ],
+      "additionalProperties": false
+    },
+    "navigation": {
+      "type": "object",
+      "description": "Grouped documentation navigation. Omit groups to use the navigation derived from authored content.",
+      "properties": {
+        "groups": { "type": "array", "description": "Top-level navigation groups.", "items": { "$ref": "#/$defs/navigationGroup" } }
+      },
+      "additionalProperties": false
+    },
+    "version": {
+      "type": "object",
+      "description": "A documentation version and the location from which its pages are served.",
+      "properties": {
+        "current": { "type": "boolean", "description": "Whether this is the default version selected when a reader opens the site." },
+        "directory": { "type": "string", "description": "Content directory for this version, relative to the configured documentation content root." },
+        "href": { "type": "string", "description": "Optional URL or path override for this version." },
+        "id": { "type": "string", "description": "Stable identifier used in routes and generated version metadata." },
+        "label": { "type": "string", "description": "Text displayed in the version selector. When omitted, a label is derived from the version metadata." },
+        "order": { "type": "number", "description": "Sort order for this version in the selector; lower values appear first." },
+        "version": { "type": "string", "description": "Version number shown in version metadata, for example 1.2.3." }
+      },
+      "required": [ "id" ],
+      "additionalProperties": false
+    },
+    "package": {
+      "type": "object",
+      "description": "A documented package or product represented by the site.",
+      "properties": {
+        "description": { "type": "string", "description": "Short summary of the package." },
+        "directory": { "type": "string", "description": "Package source or documentation directory, relative to the repository or configured root." },
+        "id": { "type": "string", "description": "Stable identifier for this package entry." },
+        "name": { "type": "string", "description": "Package name, commonly its npm package name." },
+        "source": { "$ref": "#/$defs/repository", "description": "Repository location for this package, when it differs from the site repository." },
+        "version": { "type": "string", "description": "Package version displayed in generated documentation metadata." }
+      },
+      "required": [ "id", "name" ],
+      "additionalProperties": false
+    },
+    "landingSection": {
+      "type": "object",
+      "description": "An editable content section on the generated landing page.",
+      "properties": {
+        "body": { "type": "string", "description": "Section summary or body text." },
+        "href": { "type": "string", "description": "Optional destination linked from this section." },
+        "id": { "type": "string", "description": "Stable section identifier." },
+        "title": { "type": "string", "description": "Section heading." }
+      },
+      "required": [ "id", "title" ],
+      "additionalProperties": false
+    },
+    "landing": {
+      "type": "object",
+      "description": "Landing page text and actions. Detailed composition and component layout are edited in the generated Astro source files.",
+      "properties": {
+        "description": { "type": "string", "description": "Landing page summary. Defaults to metadata.description when omitted." },
+        "primaryAction": {
+          "type": "object",
+          "description": "Main call-to-action link displayed on the landing page.",
+          "properties": {
+            "href": { "type": "string", "description": "Destination path or URL for the action." },
+            "label": { "type": "string", "description": "Action button text." }
+          },
+          "required": [ "label", "href" ],
+          "additionalProperties": false
+        },
+        "sections": { "type": "array", "description": "Landing page content sections. The generated page may provide default sections when this is omitted.", "items": { "$ref": "#/$defs/landingSection" } },
+        "title": { "type": "string", "description": "Landing page heading. Defaults to metadata.title when omitted." }
+      },
+      "additionalProperties": false
+    },
+    "redirect": {
+      "type": "object",
+      "description": "A path redirect emitted for the generated site.",
+      "properties": {
+        "from": { "type": "string", "description": "Incoming path to redirect from." },
+        "status": { "type": "integer", "enum": [ 301, 302 ], "description": "HTTP redirect status code: 301 for permanent or 302 for temporary. Defaults are selected by the target platform when omitted." },
+        "to": { "type": "string", "description": "Destination path or URL." }
+      },
+      "required": [ "from", "to" ],
+      "additionalProperties": false
+    },
+    "storybook": {
+      "type": "object",
+      "description": "Storybook application integration settings.",
+      "properties": {
+        "command": { "type": "string", "description": "Command used to build or run the Storybook application, when configured." },
+        "directory": { "type": "string", "description": "Storybook project directory, relative to the repository root." },
+        "enabled": { "type": "boolean", "description": "Whether Storybook integration is enabled." },
+        "stories": { "type": "array", "description": "Glob patterns identifying Storybook story and documentation files.", "items": { "type": "string", "description": "A story file glob pattern." } },
+        "url": { "type": "string", "description": "Published Storybook URL, if Storybook is hosted separately." }
+      },
+      "additionalProperties": false
+    },
+    "api": {
+      "type": "object",
+      "description": "API reference generation settings.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether API reference generation is enabled." },
+        "entryPoints": { "type": "array", "description": "TypeScript files passed to TypeDoc as API entry points.", "items": { "type": "string", "description": "A source file path relative to the repository root." } },
+        "outputDirectory": { "type": "string", "description": "Directory in which generated API reference data is written." },
+        "packages": { "type": "array", "description": "Workspace package names included in API reference generation.", "items": { "type": "string", "description": "A package name, such as @scope/package." } },
+        "sourceRepository": { "$ref": "#/$defs/repository", "description": "Repository metadata used to create API source links." },
+        "typedoc": { "type": "object", "description": "Additional TypeDoc options passed through to TypeDoc. TypeDoc option names and values are intentionally unrestricted.", "additionalProperties": true }
+      },
+      "additionalProperties": false
+    },
+    "routing": {
+      "type": "object",
+      "description": "Path prefixes for applications hosted alongside the landing site.",
+      "properties": {
+        "documentationPrefix": { "type": "string", "description": "Path prefix where the documentation site is served, commonly /docs." },
+        "storybookPrefix": { "type": "string", "description": "Path prefix where Storybook is served, commonly /storybook." }
+      },
+      "additionalProperties": false
+    },
+    "vercelProject": {
+      "type": "object",
+      "description": "Deployment and routing settings for one Vercel project.",
+      "properties": {
+        "directory": { "type": "string", "description": "Project root directory relative to the repository." },
+        "id": { "type": "string", "description": "Vercel project identifier, when configured directly." },
+        "origin": { "type": "string", "description": "Origin URL for the deployed project." },
+        "productionBranch": { "type": "string", "description": "Git branch deployed to production." },
+        "project": { "type": "string", "description": "Vercel project name." },
+        "routePrefix": { "type": "string", "description": "Path prefix associated with this project in the combined site." },
+        "team": { "type": "string", "description": "Vercel team or scope name that owns the project." }
+      },
+      "additionalProperties": false
+    },
+    "vercelProjects": {
+      "type": "object",
+      "description": "Per-project Vercel deployment settings. Each project entry can override shared deployment values.",
+      "properties": {
+        "documentation": { "$ref": "#/$defs/vercelProject", "description": "Vercel project serving the documentation site." },
+        "landing": { "$ref": "#/$defs/vercelProject", "description": "Vercel project serving the landing page." },
+        "mcp": { "$ref": "#/$defs/vercelProject", "description": "Optional Vercel project serving the MCP endpoint." },
+        "storybook": { "$ref": "#/$defs/vercelProject", "description": "Optional Vercel project serving Storybook." }
+      },
+      "additionalProperties": false
+    },
+    "vercel": {
+      "type": "object",
+      "description": "Vercel deployment configuration shared by the site's deployment tooling.",
+      "properties": {
+        "domains": { "type": "array", "description": "Custom domains associated with the deployment.", "items": { "type": "string", "description": "A domain name, such as docs.example.com." } },
+        "enabled": { "type": "boolean", "description": "Whether Vercel deployment integration is enabled." },
+        "outputDirectory": { "type": "string", "description": "Build output directory deployed by Vercel." },
+        "productionBranch": { "type": "string", "description": "Git branch associated with production deployments." },
+        "project": { "type": "string", "description": "Default Vercel project name when a per-surface project is not specified." },
+        "projects": { "$ref": "#/$defs/vercelProjects", "description": "Project-specific Vercel settings for site surfaces." },
+        "team": { "type": "string", "description": "Default Vercel team or scope that owns the project." }
+      },
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "description": "Metadata describing one generated artifact and its source revision.",
+      "properties": {
+        "checksum": { "type": "string", "description": "Checksum of the generated artifact, when available." },
+        "generatedAt": { "type": "string", "description": "Timestamp when the artifact was generated." },
+        "kind": { "type": "string", "enum": [ "site", "api-reference", "storybook", "project" ], "description": "Kind of generated artifact." },
+        "path": { "type": "string", "description": "Path or URL identifying the generated artifact." },
+        "revision": { "type": "string", "description": "Source control revision used to generate this artifact." }
+      },
+      "required": [ "kind", "path" ],
+      "additionalProperties": false
+    }
+  }
+}
