@@ -34,12 +34,12 @@ interface Props
 }
 
 const { canonicalPath, copyText, description, headings, pages, slug, title, version } = Astro.props;
-const prefix = "/docs";
+const docsPrefix = "{{DOCS_PREFIX}}";
 const groups = [ ...new Set(pages.map((page) => page.group)) ];
 const canonical = canonicalUrl("https://docs.sorrell.sh", canonicalPath);
 const pageHref = (page: PageSummary): string => {
     const pageSlug = page.id === "index" ? "" : page.slug;
-    return version === undefined ? docsPath(prefix, pageSlug) : docsVersionPath(prefix, version, pageSlug);
+    return version === undefined ? docsPath(docsPrefix, pageSlug) : docsVersionPath(docsPrefix, version, pageSlug);
 };
 ---
 

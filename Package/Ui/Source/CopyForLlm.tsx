@@ -57,13 +57,37 @@ const CopyForLlmButton = ({
             data-copied={ copied }
             onClick={ onCopy }
             type="button">
-            <span aria-hidden="true" className="docs-copy-button-icon">
-                <svg className="docs-copy-icon" fill="none" viewBox="0 0 24 24">
-                    <rect height="14" rx="2" stroke="currentColor" strokeWidth="1.7" width="14" x="8" y="8" />
-                    <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
+            <span
+                aria-hidden="true"
+                className="docs-copy-button-icon">
+                <svg
+                    className="docs-copy-icon"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                    <rect
+                        height="14"
+                        rx="2"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        width="14"
+                        x="8"
+                        y="8" />
+                    <path
+                        d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeWidth="1.7" />
                 </svg>
-                <svg className="docs-copy-success-icon" fill="none" viewBox="0 0 24 24">
-                    <path d="m20 6-11 11-5-5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                <svg
+                    className="docs-copy-success-icon"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                    <path
+                        d="m20 6-11 11-5-5"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2" />
                 </svg>
             </span>
             <span className="docs-copy-button-label">
