@@ -35,7 +35,7 @@ describe("TypeDoc generation", () =>
             ]
         });
         expect(dataset.records).toHaveLength(1);
-        expect(dataset.records[0]?.breadcrumbs[1]?.label).toBe("v1.0.1");
+        expect(dataset.records[0]?.breadcrumbs[1]?.label).toBe("V1.0.1");
         expect(
             dataset.records[0]?.declarations.some(
                 (declaration: {

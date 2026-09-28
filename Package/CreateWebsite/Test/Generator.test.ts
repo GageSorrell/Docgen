@@ -91,7 +91,7 @@ describe("three-package website generation", () =>
         expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("<span class=\"search-shortcut-plus\">+</span>");
         expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("background: var(--docs-card-background)");
         expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("v${item.version ?? item.id.replace(/^v/u, \"\")} (Latest)");
-        expect(contents.get("Documentation/Source/Versions.ts")).not.toContain("{{VERSIONS}}");
+        expect(contents.get("Documentation/Source/Versions.ts")).not.toContain("{{VERSIONS_ESCAPED}}");
         expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("bundlePath: \"/docs/pagefind/\"");
     });
     it("interpolates site identity, routes, actions, and theme tokens into the Astro landing source", () =>

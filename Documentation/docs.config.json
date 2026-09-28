@@ -1,4 +1,5 @@
 {
+    "$schema": "https://docs.sorrell.sh/docs.config.schema.json",
   "metadata": {
     "name": "sorrell-documentation",
     "title": "Sorrell Documentation",

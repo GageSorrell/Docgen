@@ -550,7 +550,7 @@ const recordFrom = (
             {
                 current: false,
                 href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.version}`,
-                label: `v${packageInput.version.replace(/^v/u, "")}`
+                label: `V${packageInput.version.replace(/^[vV]/u, "")}`
             },
             {
                 current: false,

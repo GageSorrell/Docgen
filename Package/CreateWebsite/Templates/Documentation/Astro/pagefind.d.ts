@@ -1,7 +1,7 @@
 /**
  *
  *
- * @module generated-documentation-landing/Astro/pagefind.d
+ * @module @sorrell/docs-create-website/Templates/Documentation/Astro/pagefind
  *
  * @file      pagefind.d.ts
  * @author    Gage Sorrell <gage@sorrell.sh>

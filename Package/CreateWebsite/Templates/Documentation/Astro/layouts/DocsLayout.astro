@@ -11,10 +11,8 @@ interface Props {
 const { title, description } = Astro.props;
 const siteName = {{SITE_NAME}};
 const docsPrefix = "{{DOCS_PREFIX}}";
-const repositoryUrl = {{REPOSITORY_URL}} || undefined;
-const storybookPrefix = {{STORYBOOK_PREFIX}} || undefined;
-const currentVersion = documentationVersions.find((version) => version.current)?.id
-    ?? documentationVersions[0]?.id;
+const repositoryUrl = {{REPOSITORY_URL}} as string;
+const storybookPrefix = {{STORYBOOK_PREFIX}} as string;
 const copyText = `${title}\n\n${description}`;
 ---
 <!doctype html>

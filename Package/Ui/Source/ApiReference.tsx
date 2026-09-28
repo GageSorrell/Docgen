@@ -189,8 +189,8 @@ const ApiReferencePage = ({
                 label="API Reference" />
             <main className="docs-api-main">
                 <Breadcrumbs items={ record.breadcrumbs.map(
-                    (breadcrumb, index) => index === 1 && !breadcrumb.label.startsWith("v")
-                        ? { ...breadcrumb, label: `v${breadcrumb.label}` }
+                    (breadcrumb, index) => index === 1 && !/^[vV]/u.test(breadcrumb.label)
+                        ? { ...breadcrumb, label: `V${breadcrumb.label}` }
                         : breadcrumb
                 ) } />
                 <div className="docs-api-heading-row">

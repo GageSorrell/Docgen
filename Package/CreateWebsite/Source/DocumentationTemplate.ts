@@ -91,7 +91,7 @@ export const documentationTemplateFiles = (
             SITE_NAME: JSON.stringify(config.metadata.name || config.metadata.title),
             STORYBOOK_PREFIX: JSON.stringify(config.storybook.enabled ? config.routing.storybookPrefix : ""),
             TITLE: JSON.stringify(config.metadata.title),
-            VERSIONS: JSON.stringify(versions)
+            VERSIONS_ESCAPED: JSON.stringify(JSON.stringify(versions)).slice(1, -1)
         })
     }));
 };
