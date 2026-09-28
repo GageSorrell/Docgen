@@ -52,7 +52,7 @@ const moduleNavigation = packageModules.map((moduleRecord) => {
     : left.group === "Core" ? -1 : right.group === "Core" ? 1 : left.group.localeCompare(right.group));
 const moduleGroups = [ ...new Set([ "Core", ...moduleNavigation.map((module) => module.group) ]) ];
 const highlighter = await createHighlighter({
-    langs: ["typescript"],
+    langs: ["typescript", "javascript", "bash", "json"],
     themes: ["github-light", "github-dark"]
 });
 const signatures = new Map(record.declarations.map((declaration) => [
@@ -66,7 +66,7 @@ const signatures = new Map(record.declarations.map((declaration) => [
 const exampleHtml = new Map<string, string>();
 for (const declaration of record.declarations)
 {
-    declaration.examples?.forEach((example, index) => {
+    declaration.examples?.forEach((example, index) =>
     {
         const supportedLanguages = ["typescript", "javascript", "bash", "json"];
         const language = supportedLanguages.includes(example.language ?? "")
@@ -148,10 +148,19 @@ highlighter.dispose();
                                     </div>
                                 </div>
                                 <ApiReferenceDescription description={declaration.description} parts={declaration.descriptionParts} />
+                                {declaration.examples?.map((example, index) => <section class="docs-api-example">
+                                    <h4 class="docs-api-example-heading">Example{example.name === undefined ? null : <span>({example.name})</span>}</h4>
+                                    <div class="docs-code-frame docs-signature-frame">
+                                        <div class="docs-signature-output" set:html={exampleHtml.get(`${declaration.id}:${index}`)}></div>
+                                        <button class="docs-code-copy" type="button" data-copy-code={example.code} data-copy-label="Copy example to clipboard" title="Copy to clipboard" aria-label="Copy example to clipboard">
+                                            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="8" y="7" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 4.5V4a1.5 1.5 0 0 0-1.5-1.5h-9A1.5 1.5 0 0 0 4 4v12A1.5 1.5 0 0 0 5.5 17.5H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                                        </button>
+                                    </div>
+                                </section>)}
                                 <h4>Signature</h4>
                                 <div class="docs-code-frame docs-signature-frame">
                                     <div class="docs-signature-output" set:html={signatures.get(declaration.id)}></div>
-                                    <button class="docs-code-copy" type="button" data-copy-code={declaration.signature} title="Copy to clipboard" aria-label="Copy signature to clipboard">
+                                    <button class="docs-code-copy" type="button" data-copy-code={declaration.signature} data-copy-label="Copy signature to clipboard" title="Copy to clipboard" aria-label="Copy signature to clipboard">
                                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="8" y="7" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 4.5V4a1.5 1.5 0 0 0-1.5-1.5h-9A1.5 1.5 0 0 0 4 4v12A1.5 1.5 0 0 0 5.5 17.5H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                                     </button>
                                 </div>
@@ -181,7 +190,7 @@ highlighter.dispose();
     [data-theme="light"] { color-scheme: light; }
     body { margin: 0; }
     .docs-api-site { min-height: 100vh; }
-    .docs-api-package { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.1rem; margin: 1.8rem 0 .3rem; overflow-wrap: anywhere; }
+    .docs-api-package { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.1rem; font-weight: 700; margin: 1.8rem 0 .3rem; overflow-wrap: anywhere; }
     .docs-api-version { color: var(--docs-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; margin: 0; }
     .docs-sidebar-group { margin-top: 2rem; }
     .docs-sidebar-group h3 { align-items: center; display: flex; font-size: .95rem; justify-content: space-between; margin: 0 0 .6rem; }
@@ -199,6 +208,9 @@ highlighter.dispose();
     .docs-kind-badge { display: inline-block; flex-shrink: 0; white-space: nowrap; }
     .docs-signature-output { flex: 1; min-width: 0; }
     .docs-signature-frame { margin: 1rem 0 0; }
+    .docs-api-example { margin-top: 1.5rem; }
+    .docs-api-example-heading { align-items: baseline; display: flex; gap: .45rem; margin: 0; }
+    .docs-api-example-heading span { color: var(--docs-muted); font-weight: 400; }
     .docs-signature-output pre.shiki { background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; box-sizing: border-box; color: var(--docs-foreground); font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.65; margin: 0 !important; max-width: none; overflow: auto; padding: 18px 60px 24px 20px; white-space: pre; }
     .docs-signature-output pre.shiki code { display: block; white-space: inherit; }
     .docs-signature-output pre.shiki .line { min-height: 1em; }
@@ -241,7 +253,7 @@ highlighter.dispose();
         button.dataset.copied = "true";
         button.innerHTML = copiedIcon;
         button.setAttribute("aria-label", "Copied to clipboard");
-        window.setTimeout(() => { button.dataset.copied = "false"; button.innerHTML = copyIcon; button.setAttribute("aria-label", "Copy signature to clipboard"); }, 1600);
+        window.setTimeout(() => { button.dataset.copied = "false"; button.innerHTML = copyIcon; button.setAttribute("aria-label", button.dataset.copyLabel ?? "Copy code to clipboard"); }, 1600);
     }));
     document.querySelectorAll(".docs-prose pre").forEach((pre) => {
         const frame = document.createElement("div");

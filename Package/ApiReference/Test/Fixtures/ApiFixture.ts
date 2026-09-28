@@ -19,6 +19,15 @@ export interface Greeting {
 /**
  * Returns a greeting.
  *
+ * @example Selecting the data-first style
+ * ```ts
+ * const greeting = hello();
+ * ```
+ * @example
+ * ```ts
+ * hello();
+ * ```
+ *
  * @category Greetings
  */
 export const hello = (): Greeting => ({ message: "hello" });

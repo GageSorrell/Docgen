@@ -612,6 +612,15 @@ white-space: nowrap;
 .docs-api-declaration h4 { font-size: 14px;
 margin: 25px 0 8px;
 }
+.docs-api-example { margin-top: 1.5rem;
+}
+.docs-api-declaration .docs-api-example-heading { align-items: baseline;
+display: flex;
+gap: .45rem;
+}
+.docs-api-example-heading span { color: var(--docs-muted);
+font-weight: 400;
+}
 
 .docs-landing { margin: 0 auto;
 max-width: 1180px;

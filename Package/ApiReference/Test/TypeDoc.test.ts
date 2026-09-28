@@ -51,6 +51,18 @@ describe("TypeDoc generation", () =>
             .toBe("Greetings");
         expect(rootModule?.declarations.find((declaration) => declaration.name === "hello")?.description)
             .toBe("Returns a greeting.");
+        expect(rootModule?.declarations.find((declaration) => declaration.name === "hello")?.examples)
+            .toEqual([
+                {
+                    code: "const greeting = hello();",
+                    language: "typescript",
+                    name: "Selecting the data-first style"
+                },
+                {
+                    code: "hello();",
+                    language: "typescript"
+                }
+            ]);
         expect(rootModule?.declarations.find((declaration) => declaration.name === "undocumented")?.description)
             .toBeUndefined();
         expect(rootModule?.declarations.find((declaration) => declaration.name === "Greeting")?.category)

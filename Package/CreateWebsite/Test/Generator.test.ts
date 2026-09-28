@@ -45,6 +45,10 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain(".docs-toc-category > span");
         expect(apiReferenceLayout).toContain("ApiReferenceDescription description={declaration.description} parts={declaration.descriptionParts}");
         expect(apiReferenceLayout).toContain("ApiReferenceDescription description={record.summary} parts={record.summaryParts}");
+        expect(apiReferenceLayout).toContain("declaration.examples?.map((example, index)");
+        expect(apiReferenceLayout).toContain("docs-api-example-heading");
+        expect(apiReferenceLayout).toContain("data-copy-label=\"Copy example to clipboard\"");
+        expect(apiReferenceLayout).toContain(".docs-api-package { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.1rem; font-weight: 700;");
         const generatedApiDescription = contents.get("Documentation/Source/components/ApiReferenceDescription.astro") ?? "";
         expect(generatedApiDescription).toContain("part.external === true");
         expect(generatedApiDescription).toContain("docs-description-external-icon");

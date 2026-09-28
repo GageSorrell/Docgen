@@ -18,7 +18,7 @@ import { Breadcrumbs, DocsSidebar, OnThisPage } from "./Navigation.js";
 import { CopyForLlmButton } from "./CopyForLlm.js";
 import { ApiReferenceDescription, DocCode } from "./Mdx.js";
 import { useState } from "react";
-import { apiReferenceRecordToAgentDocument, type ApiReferenceCategory, type ApiReferenceDeclaration } from "@sorrell/docs-core";
+import { apiReferenceRecordToAgentDocument, type ApiReferenceCategory, type ApiReferenceDeclaration, type ApiReferenceExample } from "@sorrell/docs-core";
 const declarationHref = (id: string): string => `#${id}`;
 type SourceLink = {
     readonly repositoryUrl: string;
@@ -340,6 +340,7 @@ const ApiReferencePage = ({
                                             readonly kind: "text" | "link";
                                             readonly text: string;
                                         }>;
+                                        readonly examples?: ReadonlyArray<ApiReferenceExample>;
                                         readonly signature: string;
                                         readonly introductionVersion?: string;
                                         readonly source?: {
@@ -378,6 +379,7 @@ const ApiReferencePage = ({
                                             readonly kind: "text" | "link";
                                             readonly text: string;
                                         }>;
+                                        readonly examples?: ReadonlyArray<ApiReferenceExample>;
                                         readonly signature: string;
                                         readonly introductionVersion?: string;
                                         readonly source?: {
@@ -444,6 +446,20 @@ const ApiReferencePage = ({
                                                 parts={ declaration.descriptionParts }
                                                 text={ declaration.description }
                                             />
+                                            {declaration.examples?.map((example, index) => (
+                                                <section className="docs-api-example"
+                                                    key={ `${declaration.id}:example:${index}` }>
+                                                    <h4 className="docs-api-example-heading">
+                                                        Example
+                                                        {example.name === undefined
+                                                            ? null
+                                                            : <span>({example.name})</span>}
+                                                    </h4>
+                                                    <DocCode language={ example.language ?? "typescript" }>
+                                                        {example.code}
+                                                    </DocCode>
+                                                </section>
+                                            ))}
                                             <h4>Signature</h4>
                                             <DocCode language="typescript">
                                                 {declaration.signature}
