@@ -66,6 +66,7 @@ describe("website deployment orchestration", () =>
         await mkdir(join(workspace, "Package/Core"), { recursive: true });
         await writeFile(join(workspace, "Package/Core/package.json"), "{}\n");
         await mkdir(join(target, "Documentation/Source/components"), { recursive: true });
+        await mkdir(join(target, "Documentation/Source/layouts"), { recursive: true });
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
         await mkdir(join(target, "Landing"), { recursive: true });
         await writeFile(
@@ -76,6 +77,13 @@ describe("website deployment orchestration", () =>
             join(target, "Documentation/Source/components/SiteHeader.astro"),
             "import config from \"../../../docs.config.json\";\n"
         );
+        for (const layout of [ "ApiPackageLayout.astro", "ApiReferenceLayout.astro", "DocsLayout.astro" ])
+        {
+            await writeFile(
+                join(target, "Documentation/Source/layouts", layout),
+                "import config from \"../../../docs.config.json\";\n"
+            );
+        }
         await writeFile(join(target, "Documentation/package.json"), "{}\n");
         await writeFile(join(target, "Landing/package.json"), "{}\n");
 
@@ -101,6 +109,7 @@ describe("website deployment orchestration", () =>
         let stagedConfig = "";
         let stagedVersions = "";
         let stagedSiteHeader = "";
+        const stagedLayoutImports = new Map<string, string>();
         const layer = Layer.succeed(
             VercelService,
             VercelService.of({
@@ -122,6 +131,13 @@ describe("website deployment orchestration", () =>
                                 join(directory, "Source/components/SiteHeader.astro"),
                                 "utf8"
                             );
+                            for (const layout of [ "ApiPackageLayout.astro", "ApiReferenceLayout.astro", "DocsLayout.astro" ])
+                            {
+                                stagedLayoutImports.set(
+                                    layout,
+                                    readFileSync(join(directory, "Source/layouts", layout), "utf8")
+                                );
+                            }
                         }
                         const url = `https://${options?.name ?? "site"}.vercel.app`;
                         return { deploymentId: url, raw: url, url };
@@ -147,6 +163,11 @@ describe("website deployment orchestration", () =>
             expect(stagedVersions).not.toContain("\"../../docs.config.json\"");
             expect(stagedSiteHeader).toContain("\"../../docs.config.json\"");
             expect(stagedSiteHeader).not.toContain("\"../../../docs.config.json\"");
+            for (const source of stagedLayoutImports.values())
+            {
+                expect(source).toContain("\"../../docs.config.json\"");
+                expect(source).not.toContain("\"../../../docs.config.json\"");
+            }
         }
         finally
         {

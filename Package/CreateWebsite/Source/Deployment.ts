@@ -210,22 +210,24 @@ const prepareVercelDirectory = (
                     )
                 );
             }
-            const siteHeaderSource = path.join(
-                staging,
-                "Source",
-                "components",
-                "SiteHeader.astro"
-            );
-            if (yield* fileSystem.exists(siteHeaderSource))
+            for (const configImportFile of [
+                path.join(staging, "Source", "components", "SiteHeader.astro"),
+                path.join(staging, "Source", "layouts", "ApiPackageLayout.astro"),
+                path.join(staging, "Source", "layouts", "ApiReferenceLayout.astro"),
+                path.join(staging, "Source", "layouts", "DocsLayout.astro")
+            ])
             {
-                const source = yield* fileSystem.readText(siteHeaderSource);
-                yield* fileSystem.writeText(
-                    siteHeaderSource,
-                    source.replace(
-                        "../../../docs.config.json",
-                        "../../docs.config.json"
-                    )
-                );
+                if (yield* fileSystem.exists(configImportFile))
+                {
+                    const source = yield* fileSystem.readText(configImportFile);
+                    yield* fileSystem.writeText(
+                        configImportFile,
+                        source.replaceAll(
+                            "../../../docs.config.json",
+                            "../../docs.config.json"
+                        )
+                    );
+                }
             }
         }
         const stagedPackages = path.join(staging, "Package");

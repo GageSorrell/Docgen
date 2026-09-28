@@ -5,12 +5,20 @@
  */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
-const readConfig = async () => {
-    for (const file of [ "docs.config.json", "../docs.config.json" ]) {
-        try {
+const readConfig = async () =>
+{
+    for (const file of [ "docs.config.json", "../docs.config.json" ])
+    {
+        try
+        {
             return JSON.parse(await readFile(file, "utf8"));
-        } catch (error) {
-            if (error?.code !== "ENOENT") {throw error;}
+        }
+        catch (error)
+        {
+            if (error?.code !== "ENOENT")
+            {
+                throw error;
+            }
         }
     }
     throw new Error("Could not find docs.config.json beside the site package or in its parent directory.");
