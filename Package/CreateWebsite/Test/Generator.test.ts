@@ -36,7 +36,11 @@ describe("three-package website generation", () =>
         expect(apiPackageLayout).toContain("record.packageDescription");
         expect(apiPackageLayout).toContain("record.packagePrivate === true");
         expect(apiPackageLayout).toContain("record.packageSourceUrl");
+        expect(apiPackageLayout).toContain("viewBox=\"0 0 640 640\" fill=\"currentColor\"><path fill=\"currentColor\" d=\"M320 352h-32v-64h32zm288-128v192H320v32H192v-32H32V224");
+        expect(apiPackageLayout).toContain(".docs-npm-logo { flex: none; height: 16px; width: 16px; }");
         expect(apiPackageLayout).toContain("docs-api-module-card");
+        expect(apiPackageLayout).toContain("font-size: 14px");
+        expect(apiPackageLayout).toContain("padding: 12px 16px");
         expect(apiPackageLayout).toContain("docs-package-module-search");
         expect(contents.get("Documentation/Source/pages/api/[...slug].astro"))
             .toContain("ApiPackageLayout record={record}");
