@@ -547,6 +547,112 @@ const declarationKind = (
 };
 const typeText = (reflection: ReflectionLike | undefined): string =>
     reflection?.type?.toString?.() ?? "unknown";
+const objectTypeMembers = (body: string): ReadonlyArray<string> =>
+{
+    const members: Array<string> = [];
+    let start = 0;
+    let braces = 0;
+    let brackets = 0;
+    let parentheses = 0;
+    let angles = 0;
+    let quote: "\"" | "'" | "`" | undefined;
+    let escaped = false;
+    for (let index = 0; index < body.length; index += 1)
+    {
+        const character = body[index];
+        if (quote !== undefined)
+        {
+            if (escaped) { escaped = false; continue; }
+            if (character === "\\") { escaped = true; continue; }
+            if (character === quote) { quote = undefined; }
+            continue;
+        }
+        if (character === "\"" || character === "'" || character === "`")
+        {
+            quote = character;
+            continue;
+        }
+        if (character === "{") { braces += 1; }
+        else if (character === "}") { braces -= 1; }
+        else if (character === "[") { brackets += 1; }
+        else if (character === "]") { brackets -= 1; }
+        else if (character === "(") { parentheses += 1; }
+        else if (character === ")") { parentheses -= 1; }
+        else if (character === "<") { angles += 1; }
+        else if (character === ">" && angles > 0) { angles -= 1; }
+        else if (
+            character === ";" &&
+            braces === 0 &&
+            brackets === 0 &&
+            parentheses === 0 &&
+            angles === 0
+        )
+        {
+            const member = body.slice(start, index).trim();
+            if (member !== "") { members.push(member); }
+            start = index + 1;
+        }
+    }
+    const finalMember = body.slice(start).trim();
+    if (finalMember !== "") { members.push(finalMember); }
+    return members;
+};
+const matchingObjectEnd = (text: string, start: number): number | undefined =>
+{
+    let depth = 0;
+    let quote: "\"" | "'" | "`" | undefined;
+    let escaped = false;
+    for (let index = start; index < text.length; index += 1)
+    {
+        const character = text[index];
+        if (quote !== undefined)
+        {
+            if (escaped) { escaped = false; continue; }
+            if (character === "\\") { escaped = true; continue; }
+            if (character === quote) { quote = undefined; }
+            continue;
+        }
+        if (character === "\"" || character === "'" || character === "`")
+        {
+            quote = character;
+            continue;
+        }
+        if (character === "{") { depth += 1; }
+        else if (character === "}" && --depth === 0) { return index; }
+    }
+    return undefined;
+};
+const formatInlineObjectType = (type: string, indentation = "    "): string =>
+{
+    let result = "";
+    for (let index = 0; index < type.length; index += 1)
+    {
+        if (type[index] !== "{")
+        {
+            result += type[index];
+            continue;
+        }
+        const end = matchingObjectEnd(type, index);
+        if (end === undefined)
+        {
+            result += type.slice(index);
+            break;
+        }
+        const body = type.slice(index + 1, end);
+        const members = objectTypeMembers(body);
+        if (members.length < 2)
+        {
+            result += `{${formatInlineObjectType(body, indentation)}}`;
+        }
+        else
+        {
+            const memberIndentation = `${indentation}    `;
+            result += `{\n${members.map((member) => `${memberIndentation}${formatInlineObjectType(member, memberIndentation)}`).join(";\n")}\n${indentation}}`;
+        }
+        index = end;
+    }
+    return result;
+};
 const typeParametersText = (
     parameters: ReadonlyArray<ReflectionLike> | undefined
 ): string =>
@@ -563,7 +669,7 @@ const typeParametersText = (
     }).join(", ")}>`;
 };
 const parameterText = (parameter: ReflectionLike): string =>
-    `${parameter.flags?.isRest === true ? "..." : ""}${parameter.name ?? "value"}${parameter.flags?.isOptional === true || parameter.defaultValue !== undefined ? "?" : ""}: ${typeText(parameter)}`;
+    `${parameter.flags?.isRest === true ? "..." : ""}${parameter.name ?? "value"}${parameter.flags?.isOptional === true || parameter.defaultValue !== undefined ? "?" : ""}: ${formatInlineObjectType(typeText(parameter))}`;
 const parametersText = (
     parameters: ReadonlyArray<ReflectionLike> | undefined
 ): string => parameters === undefined || parameters.length === 0

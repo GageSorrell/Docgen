@@ -1,5 +1,5 @@
 {
-  "checksum": "ad96a611c6db101b8f189f73589ecf298a4a608d1fa8cf1452f0f9c2252fcce2",
+  "checksum": "2417f4413f36bdee447d047ecb7a1a19fcede420340ea943e3906febddecc3e5",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -475,7 +475,7 @@
           "id": "apiReferenceRecordToAgentDocument",
           "kind": "function",
           "name": "apiReferenceRecordToAgentDocument",
-          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { category?: string; categoryId: string; description?: string; descriptionParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"text\" | \"link\"; text: string }[]; examples?: readonly { code: string; language?: string; name?: string }[]; id: string; introductionVersion?: string; kind: \"function\" | \"type\" | \"const\" | \"class\" | \"interface\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; summaryParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"text\" | \"link\"; text: string }[]; version: string }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
+          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"text\" | \"link\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"type\" | \"const\" | \"class\" | \"interface\" | \"variable\" | \"namespace\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"text\" | \"link\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -736,7 +736,7 @@
           "id": "formatAgentDocument",
           "kind": "function",
           "name": "formatAgentDocument",
-          "signature": "export declare function formatAgentDocument(\n    document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string }\n): string;",
+          "signature": "export declare function formatAgentDocument(\n    document: {\n        content: string;\n        context?: string;\n        description?: string;\n        id: string;\n        kind: \"article\" | \"api-module\" | \"component\";\n        metadata?: { [key: string]: unknown };\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        title: string;\n        url: string;\n        version?: string\n    }\n): string;",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -944,7 +944,7 @@
           "id": "normalizeDocsConfig",
           "kind": "function",
           "name": "normalizeDocsConfig",
-          "signature": "export declare function normalizeDocsConfig(\n    input: { agent?: { description?: string; enabled?: boolean; essentials?: readonly string[]; mcp?: { enabled?: boolean }; skill?: { enabled?: boolean; name?: string } }; api?: { enabled?: boolean; entryPoints?: readonly string[]; outputDirectory?: string; packages?: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc?: { [key: string]: unknown } }; landing?: { description?: string; primaryAction?: { href: string; label: string }; sections?: readonly { body?: string; href?: string; id: string; title: string }[]; title?: string }; manifests?: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[]; metadata?: { description?: string; logo?: string | { props?: { [key: string]: unknown }; style?: string; type: \"dicebear\" }; name?: string; repository?: { branch?: string; directory?: string; url: string }; title?: string; url?: string }; navigation?: { groups?: readonly { id: string; items: readonly NavigationItemInput[]; label: string }[] }; packages?: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[]; redirects?: readonly { from: string; status?: 301 | 302; to: string }[]; routing?: { documentationPrefix?: string; storybookPrefix?: string }; storybook?: { command?: string; directory?: string; enabled?: boolean; stories?: readonly string[]; url?: string }; tokens?: { dark?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string }; light?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string } }; vercel?: { domains?: readonly string[]; enabled?: boolean; outputDirectory?: string; productionBranch?: string; project?: string; projects?: { documentation?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; landing?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; mcp?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; storybook?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string } }; team?: string }; versions?: readonly { current?: boolean; directory?: string; href?: string; id: string; label?: string; order?: number; version?: string }[] }\n): DocsConfig;",
+          "signature": "export declare function normalizeDocsConfig(\n    input: {\n        agent?: {\n            description?: string;\n            enabled?: boolean;\n            essentials?: readonly string[];\n            mcp?: { enabled?: boolean };\n            skill?: {\n                enabled?: boolean;\n                name?: string\n            }\n        };\n        api?: {\n            enabled?: boolean;\n            entryPoints?: readonly string[];\n            outputDirectory?: string;\n            packages?: readonly string[];\n            sourceRepository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            typedoc?: { [key: string]: unknown }\n        };\n        landing?: {\n            description?: string;\n            primaryAction?: {\n                href: string;\n                label: string\n            };\n            sections?: readonly {\n                body?: string;\n                href?: string;\n                id: string;\n                title: string\n            }[];\n            title?: string\n        };\n        manifests?: readonly {\n            checksum?: string;\n            generatedAt?: string;\n            kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\";\n            path: string;\n            revision?: string\n        }[];\n        metadata?: {\n            description?: string;\n            logo?: string | {\n                props?: { [key: string]: unknown };\n                style?: string;\n                type: \"dicebear\"\n            };\n            name?: string;\n            repository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            title?: string;\n            url?: string\n        };\n        navigation?: { groups?: readonly {\n            id: string;\n            items: readonly NavigationItemInput[];\n            label: string\n        }[] };\n        packages?: readonly {\n            description?: string;\n            directory?: string;\n            id: string;\n            name: string;\n            source?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            version?: string\n        }[];\n        redirects?: readonly {\n            from: string;\n            status?: 301 | 302;\n            to: string\n        }[];\n        routing?: {\n            documentationPrefix?: string;\n            storybookPrefix?: string\n        };\n        storybook?: {\n            command?: string;\n            directory?: string;\n            enabled?: boolean;\n            stories?: readonly string[];\n            url?: string\n        };\n        tokens?: {\n            dark?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            };\n            light?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            }\n        };\n        vercel?: {\n            domains?: readonly string[];\n            enabled?: boolean;\n            outputDirectory?: string;\n            productionBranch?: string;\n            project?: string;\n            projects?: {\n                documentation?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                landing?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                mcp?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                storybook?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                }\n            };\n            team?: string\n        };\n        versions?: readonly {\n            current?: boolean;\n            directory?: string;\n            href?: string;\n            id: string;\n            label?: string;\n            order?: number;\n            version?: string\n        }[]\n    }\n): DocsConfig;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1351,7 +1351,7 @@
           "id": "ApiReferenceDescription",
           "kind": "function",
           "name": "ApiReferenceDescription",
-          "signature": "export declare function ApiReferenceDescription(\n    __namedParameters: { parts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; text?: string }\n): Element | null;",
+          "signature": "export declare function ApiReferenceDescription(\n    __namedParameters: {\n        parts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        text?: string\n    }\n): Element | null;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1390,7 +1390,7 @@
           "id": "ArticlePage",
           "kind": "function",
           "name": "ArticlePage",
-          "signature": "export declare function ArticlePage(\n    __namedParameters: { breadcrumbs?: ReactNode; children: ReactNode; description?: string; document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string }; title: string }\n): Element;",
+          "signature": "export declare function ArticlePage(\n    __namedParameters: {\n        breadcrumbs?: ReactNode;\n        children: ReactNode;\n        description?: string;\n        document: {\n            content: string;\n            context?: string;\n            description?: string;\n            id: string;\n            kind: \"article\" | \"api-module\" | \"component\";\n            metadata?: { [key: string]: unknown };\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            };\n            title: string;\n            url: string;\n            version?: string\n        };\n        title: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1442,7 +1442,7 @@
           "id": "Callout",
           "kind": "function",
           "name": "Callout",
-          "signature": "export declare function Callout(\n    __namedParameters: { children: ReactNode; title?: string; tone?: \"note\" | \"warning\" | \"tip\" }\n): Element;",
+          "signature": "export declare function Callout(\n    __namedParameters: {\n        children: ReactNode;\n        title?: string;\n        tone?: \"note\" | \"warning\" | \"tip\"\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1455,7 +1455,7 @@
           "id": "CopyForLlmButton",
           "kind": "function",
           "name": "CopyForLlmButton",
-          "signature": "export declare function CopyForLlmButton(\n    __namedParameters: { document: { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string } }\n): Element;",
+          "signature": "export declare function CopyForLlmButton(\n    __namedParameters: { document: {\n        content: string;\n        context?: string;\n        description?: string;\n        id: string;\n        kind: \"article\" | \"api-module\" | \"component\";\n        metadata?: { [key: string]: unknown };\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        title: string;\n        url: string;\n        version?: string\n    } }\n): Element;",
           "source": {
             "file": "Ui/Source/CopyForLlm.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1468,7 +1468,7 @@
           "id": "createThemeCss",
           "kind": "function",
           "name": "createThemeCss",
-          "signature": "export declare function createThemeCss(\n    tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } }\n): string;",
+          "signature": "export declare function createThemeCss(\n    tokens: {\n        dark: {\n            accent: string;\n            background: string;\n            border: string;\n            cardBackground?: string;\n            codeBackground: string;\n            foreground: string;\n            muted: string;\n            proseForeground?: string;\n            subtleForeground?: string\n        };\n        light: {\n            accent: string;\n            background: string;\n            border: string;\n            cardBackground?: string;\n            codeBackground: string;\n            foreground: string;\n            muted: string;\n            proseForeground?: string;\n            subtleForeground?: string\n        }\n    }\n): string;",
           "source": {
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1481,7 +1481,7 @@
           "id": "Cta",
           "kind": "function",
           "name": "Cta",
-          "signature": "export declare function Cta(\n    __namedParameters: { children?: ReactNode; href: string; label: string; title: string }\n): Element;",
+          "signature": "export declare function Cta(\n    __namedParameters: {\n        children?: ReactNode;\n        href: string;\n        label: string;\n        title: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1494,7 +1494,7 @@
           "id": "DocCode",
           "kind": "function",
           "name": "DocCode",
-          "signature": "export declare function DocCode(\n    __namedParameters: { children: ReactNode; language?: string }\n): Element;",
+          "signature": "export declare function DocCode(\n    __namedParameters: {\n        children: ReactNode;\n        language?: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1520,7 +1520,7 @@
           "id": "DocsHeader",
           "kind": "function",
           "name": "DocsHeader",
-          "signature": "export declare function DocsHeader(\n    __namedParameters: { links?: readonly DocumentationNavItem[]; repositoryHref?: string; title?: string }\n): Element;",
+          "signature": "export declare function DocsHeader(\n    __namedParameters: {\n        links?: readonly DocumentationNavItem[];\n        repositoryHref?: string;\n        title?: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1533,7 +1533,7 @@
           "id": "DocsSidebar",
           "kind": "function",
           "name": "DocsSidebar",
-          "signature": "export declare function DocsSidebar(\n    __namedParameters: { groups: readonly DocumentationNavGroup[]; label?: string }\n): Element;",
+          "signature": "export declare function DocsSidebar(\n    __namedParameters: {\n        groups: readonly DocumentationNavGroup[];\n        label?: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1585,7 +1585,7 @@
           "id": "DocumentationShell",
           "kind": "function",
           "name": "DocumentationShell",
-          "signature": "export declare function DocumentationShell(\n    __namedParameters: { children: ReactNode; headerLinks?: readonly DocumentationNavItem[]; navigation?: readonly DocumentationNavGroup[]; repositoryHref?: string; title?: string; toc?: readonly DocumentationNavItem[] }\n): Element;",
+          "signature": "export declare function DocumentationShell(\n    __namedParameters: {\n        children: ReactNode;\n        headerLinks?: readonly DocumentationNavItem[];\n        navigation?: readonly DocumentationNavGroup[];\n        repositoryHref?: string;\n        title?: string;\n        toc?: readonly DocumentationNavItem[]\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Navigation.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1611,7 +1611,7 @@
           "id": "Faq",
           "kind": "function",
           "name": "Faq",
-          "signature": "export declare function Faq(\n    __namedParameters: { items: readonly { answer: ReactNode; question: string }[] }\n): Element;",
+          "signature": "export declare function Faq(\n    __namedParameters: { items: readonly {\n        answer: ReactNode;\n        question: string\n    }[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1637,7 +1637,7 @@
           "id": "Heading",
           "kind": "function",
           "name": "Heading",
-          "signature": "export declare function Heading(\n    __namedParameters: { children: ReactNode; id?: string; level?: 3 | 2 | 4 }\n): Element;",
+          "signature": "export declare function Heading(\n    __namedParameters: {\n        children: ReactNode;\n        id?: string;\n        level?: 3 | 2 | 4\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1702,7 +1702,7 @@
           "id": "LandingSection",
           "kind": "function",
           "name": "LandingSection",
-          "signature": "export declare function LandingSection(\n    __namedParameters: { children: ReactNode; eyebrow?: string; title: string }\n): Element;",
+          "signature": "export declare function LandingSection(\n    __namedParameters: {\n        children: ReactNode;\n        eyebrow?: string;\n        title: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Landing.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1741,7 +1741,7 @@
           "id": "QuoteRail",
           "kind": "function",
           "name": "QuoteRail",
-          "signature": "export declare function QuoteRail(\n    __namedParameters: { author: string; quote: string }\n): Element;",
+          "signature": "export declare function QuoteRail(\n    __namedParameters: {\n        author: string;\n        quote: string\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Sections.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1754,7 +1754,7 @@
           "id": "Tabs",
           "kind": "function",
           "name": "Tabs",
-          "signature": "export declare function Tabs(\n    __namedParameters: { tabs: readonly { content: ReactNode; label: string }[] }\n): Element;",
+          "signature": "export declare function Tabs(\n    __namedParameters: { tabs: readonly {\n        content: ReactNode;\n        label: string\n    }[] }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1780,7 +1780,7 @@
           "id": "ThemeProvider",
           "kind": "function",
           "name": "ThemeProvider",
-          "signature": "export declare function ThemeProvider(\n    __namedParameters: { children: ReactNode; initialMode?: ThemeMode }\n): Element;",
+          "signature": "export declare function ThemeProvider(\n    __namedParameters: {\n        children: ReactNode;\n        initialMode?: ThemeMode\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Theme.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
