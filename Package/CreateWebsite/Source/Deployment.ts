@@ -149,7 +149,7 @@ interface VercelDirectoryOptions
         readonly source: string;
         readonly destination: string;
     };
-    readonly documentationConfig?: string;
+    readonly siteConfig?: string;
 }
 const prepareVercelDirectory = (
     website: GeneratedWebsite,
@@ -188,11 +188,11 @@ const prepareVercelDirectory = (
                 { overwrite: true }
             );
         }
-        if (options.documentationConfig !== undefined)
+        if (options.siteConfig !== undefined)
         {
             yield* fileSystem.writeText(
                 path.join(staging, "docs.config.json"),
-                options.documentationConfig
+                options.siteConfig
             );
             const versionsSource = path.join(
                 staging,
@@ -214,7 +214,8 @@ const prepareVercelDirectory = (
                 path.join(staging, "Source", "components", "SiteHeader.astro"),
                 path.join(staging, "Source", "layouts", "ApiPackageLayout.astro"),
                 path.join(staging, "Source", "layouts", "ApiReferenceLayout.astro"),
-                path.join(staging, "Source", "layouts", "DocsLayout.astro")
+                path.join(staging, "Source", "layouts", "DocsLayout.astro"),
+                path.join(staging, "Source", "pages", "index.astro")
             ])
             {
                 if (yield* fileSystem.exists(configImportFile))
@@ -302,7 +303,7 @@ const deployWebsite = (
             const deployOptions = { production: false } as const;
             const documentationProject =
                 website.config.vercel.projects.documentation;
-            const documentationConfig = website.files.find(
+            const siteConfig = website.files.find(
                 (file) => file.path === "docs.config.json"
             )?.content;
             const documentationDirectory = yield* prepareVercelDirectory(
@@ -310,9 +311,9 @@ const deployWebsite = (
                 path.join(website.target, documentationProject.directory),
                 fileSystem,
                 path,
-                documentationConfig === undefined
+                siteConfig === undefined
                     ? {}
-                    : { documentationConfig }
+                    : { siteConfig }
             );
             const documentationOutput = yield* vercel.deploy(
                 documentationDirectory,
@@ -459,7 +460,8 @@ const deployWebsite = (
                             )
                         ),
                         source: documentationDistribution
-                    }
+                    },
+                    ...(siteConfig === undefined ? {} : { siteConfig })
                 }
             );
             const landingResult = yield* vercel

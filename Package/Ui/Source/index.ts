@@ -143,6 +143,8 @@ color: var(--docs-foreground);
 .docs-layout { display: grid;
 grid-template-columns: 250px minmax(0,
 1fr) 230px;
+margin-inline: auto;
+max-width: 1480px;
 min-height: calc(100vh - 72px);
 }
 .docs-sidebar { border-right: 1px solid var(--docs-border);
@@ -455,6 +457,8 @@ color: var(--docs-foreground);
 .docs-api-page { display: grid;
 grid-template-columns: 250px minmax(0,
 1fr) 230px;
+margin-inline: auto;
+max-width: 1480px;
 min-height: calc(100vh - 72px);
 }
 .docs-api-page > .docs-sidebar { padding-top: 44px;

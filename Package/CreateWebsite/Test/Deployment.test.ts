@@ -68,7 +68,7 @@ describe("website deployment orchestration", () =>
         await mkdir(join(target, "Documentation/Source/components"), { recursive: true });
         await mkdir(join(target, "Documentation/Source/layouts"), { recursive: true });
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
-        await mkdir(join(target, "Landing"), { recursive: true });
+        await mkdir(join(target, "Landing/Source/pages"), { recursive: true });
         await writeFile(
             join(target, "Documentation/Source/Versions.ts"),
             "import config from \"../../docs.config.json\";\n"
@@ -85,6 +85,10 @@ describe("website deployment orchestration", () =>
             );
         }
         await writeFile(join(target, "Documentation/package.json"), "{}\n");
+        await writeFile(
+            join(target, "Landing/Source/pages/index.astro"),
+            "import config from \"../../../docs.config.json\";\n"
+        );
         await writeFile(join(target, "Landing/package.json"), "{}\n");
 
         const website = createGeneratedWebsite({
@@ -109,6 +113,8 @@ describe("website deployment orchestration", () =>
         let stagedConfig = "";
         let stagedVersions = "";
         let stagedSiteHeader = "";
+        let stagedLandingConfig = "";
+        let stagedLandingIndex = "";
         const stagedLayoutImports = new Map<string, string>();
         const layer = Layer.succeed(
             VercelService,
@@ -139,6 +145,17 @@ describe("website deployment orchestration", () =>
                                 );
                             }
                         }
+                        if (options?.name === "landing")
+                        {
+                            stagedLandingConfig = readFileSync(
+                                join(directory, "docs.config.json"),
+                                "utf8"
+                            );
+                            stagedLandingIndex = readFileSync(
+                                join(directory, "Source/pages/index.astro"),
+                                "utf8"
+                            );
+                        }
                         const url = `https://${options?.name ?? "site"}.vercel.app`;
                         return { deploymentId: url, raw: url, url };
                     }),
@@ -168,6 +185,9 @@ describe("website deployment orchestration", () =>
                 expect(source).toContain("\"../../docs.config.json\"");
                 expect(source).not.toContain("\"../../../docs.config.json\"");
             }
+            expect(stagedLandingConfig).toContain("\"metadata\"");
+            expect(stagedLandingIndex).toContain("\"../../docs.config.json\"");
+            expect(stagedLandingIndex).not.toContain("\"../../../docs.config.json\"");
         }
         finally
         {

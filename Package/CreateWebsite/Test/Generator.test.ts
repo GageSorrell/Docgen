@@ -76,6 +76,7 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("class=\"docs-declaration-link-icon\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"");
         expect(apiReferenceLayout).not.toContain("<a href={`#${declaration.id}`}>#</a>");
         expect(docsUiCss).toContain("html { scroll-behavior: smooth;");
+        expect(docsUiCss).toContain("margin-inline: auto;\nmax-width: 1480px;");
         expect(docsUiCss).toContain("scroll-behavior: auto !important;");
         expect(docsUiCss).toContain("font-size: 12px;\nfont-weight: 400;\ngap: 7px;\njustify-content: flex-start;");
         expect(docsUiCss).toContain("flex: 0 0 14px;\nheight: 14px;\nwidth: 14px;");
