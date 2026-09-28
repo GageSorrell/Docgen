@@ -153,6 +153,11 @@ font-weight: 800;
 letter-spacing: 0.16em;
 text-transform: uppercase;
 }
+.docs-api-page > .docs-sidebar .docs-sidebar-label { font-family: ui-monospace,
+SFMono-Regular,
+Menlo,
+monospace;
+}
 .docs-sidebar-group { margin-top: 30px;
 }
 .docs-sidebar-group h2 { font-size: 13px;
@@ -221,6 +226,7 @@ margin: 48px 0 32px;
 .docs-api-heading-row h1 { font-size: clamp(38px,
 5vw,
 66px);
+font-weight: 700;
 letter-spacing: -0.065em;
 line-height: 0.98;
 margin: 0;
@@ -370,6 +376,19 @@ margin: 28px 0 62px;
 .docs-api-meta a,
 .docs-declaration-links a { color: var(--docs-accent);
 }
+.docs-api-meta .docs-source-link { align-items: center;
+color: var(--docs-muted);
+display: inline-flex;
+gap: 7px;
+text-decoration: none;
+}
+.docs-source-link svg { flex: none;
+height: 14px;
+width: 14px;
+}
+.docs-api-meta .docs-source-link:hover,
+.docs-declaration-links .docs-source-link:hover { color: var(--docs-foreground);
+}
 .docs-api-category { scroll-margin-top: 96px;
 }
 .docs-api-category > h2 { font-size: clamp(28px,
@@ -416,12 +435,15 @@ line-height: 1.65;
 .docs-kind-badge { border: 1px solid var(--docs-border);
 border-radius: 999px;
 color: var(--docs-accent);
+display: inline-block;
+flex-shrink: 0;
 font-family: inherit;
 font-size: 10px;
 letter-spacing: 0.1em;
 margin-left: 10px;
 padding: 4px 8px;
 vertical-align: middle;
+white-space: nowrap;
 }
 .docs-declaration-links { display: flex;
 flex-wrap: wrap;
@@ -431,6 +453,12 @@ Menlo,
 monospace;
 font-size: 12px;
 gap: 14px;
+white-space: nowrap;
+}
+.docs-declaration-links .docs-source-link { align-items: center;
+display: inline-flex;
+gap: 4px;
+text-decoration: none;
 white-space: nowrap;
 }
 .docs-api-declaration h4 { font-size: 14px;

@@ -24,6 +24,8 @@ import {
     TSConfigReader,
     TypeDocReader
 } from "typedoc";
+import { readFile } from "node:fs/promises";
+import { basename, dirname, join, parse, relative, resolve, sep } from "node:path";
 import { createApiDataset, validateApiRecords } from "./Serialization.js";
 import { ApiReferenceError } from "./Errors.js";
 interface ReflectionSource {
@@ -36,6 +38,11 @@ interface ReflectionCommentPart {
 }
 interface ReflectionComment {
     readonly summary?: ReadonlyArray<ReflectionCommentPart>;
+}
+interface PackageManifestLike {
+    readonly name?: string;
+    readonly main?: string;
+    readonly exports?: unknown;
 }
 interface ReflectionFlagsLike {
     readonly isAbstract?: boolean;
@@ -98,6 +105,178 @@ const sourceOf = (
         revision,
         ...(source.line === undefined ? {} : { line: source.line })
     };
+};
+const sourceFromPath = (
+    fileName: string | undefined,
+    repositoryUrl: string | undefined,
+    revision: string | undefined,
+    sourceRoot: string | undefined
+): ApiReferenceSource | undefined =>
+{
+    if (fileName === undefined || repositoryUrl === undefined || revision === undefined || sourceRoot === undefined)
+    {
+        return undefined;
+    }
+    const file = relative(resolve(sourceRoot), resolve(fileName));
+    if (file === "" || file === ".." || file.startsWith(`..${sep}`) || file.startsWith("../"))
+    {
+        return undefined;
+    }
+    return {
+        file: file.replaceAll("\\", "/"),
+        repositoryUrl,
+        revision
+    };
+};
+const recordLike = (value: unknown): Readonly<Record<string, unknown>> | undefined =>
+    value !== null && typeof value === "object" && !Array.isArray(value)
+        ? value as Readonly<Record<string, unknown>>
+        : undefined;
+const exportTarget = (value: unknown): string | undefined =>
+{
+    if (typeof value === "string")
+    {
+        return value;
+    }
+    const conditions = recordLike(value);
+    if (conditions === undefined)
+    {
+        return undefined;
+    }
+    for (const condition of [ "types", "import", "node", "default", "require" ])
+    {
+        const target = exportTarget(conditions[condition]);
+        if (target !== undefined)
+        {
+            return target;
+        }
+    }
+    return undefined;
+};
+const manifestFor = async (
+    entryPoints: ReadonlyArray<string>,
+    packageName: string
+): Promise<{ readonly directory: string; readonly manifest: PackageManifestLike } | undefined> =>
+{
+    for (const entryPoint of entryPoints)
+    {
+        let directory = dirname(resolve(entryPoint));
+        while (true)
+        {
+            try
+            {
+                const content = await readFile(join(directory, "package.json"), "utf8");
+                const manifest = JSON.parse(content) as PackageManifestLike;
+                if (manifest.name === undefined || manifest.name === packageName)
+                {
+                    return { directory, manifest };
+                }
+            }
+            catch
+            {
+                // Continue toward the workspace root when no package manifest exists here.
+            }
+            const parent = dirname(directory);
+            if (parent === directory)
+            {
+                break;
+            }
+            directory = parent;
+        }
+    }
+    return undefined;
+};
+const packageModuleEntryPoint = async (
+    packageInput: ApiReferenceGenerationOptions["packages"][number]
+): Promise<string | undefined> =>
+{
+    const located = await manifestFor(packageInput.entryPoints, packageInput.name);
+    if (located === undefined)
+    {
+        return undefined;
+    }
+    const { directory, manifest } = located;
+    const exportsMap = recordLike(manifest.exports);
+    const target = exportsMap !== undefined && Object.hasOwn(exportsMap, ".")
+        ? exportTarget(exportsMap["."])
+        : typeof manifest.exports === "string"
+            ? manifest.exports
+            : manifest.main;
+    if (target === undefined)
+    {
+        return undefined;
+    }
+    const targetPath = resolve(directory, target);
+    const normalizedTarget = targetPath.replaceAll("\\", "/");
+    const normalizedEntries = packageInput.entryPoints.map((entryPoint) =>
+    {
+        const absolute = resolve(entryPoint);
+        const relative = absolute.startsWith(`${directory}${sep}`)
+            ? absolute.slice(directory.length + 1)
+            : basename(absolute);
+        return { absolute, relative: relative.replaceAll("\\", "/") };
+    });
+    const exact = normalizedEntries.find(({ absolute }) => absolute === targetPath);
+    if (exact !== undefined)
+    {
+        return exact.absolute;
+    }
+    const targetName = parse(normalizedTarget).name.replace(/\.d$/u, "");
+    const sameName = normalizedEntries.filter(({ relative }) =>
+        parse(relative).name.replace(/\.d$/u, "") === targetName
+    );
+    if (sameName.length === 1)
+    {
+        return sameName[0]?.absolute;
+    }
+    const normalizedTargetStem = normalizedTarget
+        .replace(/\.(?:d\.)?[cm]?[jt]sx?$/iu, "")
+        .replace(/\/(?:distribution|dist|build|lib)\//giu, "/");
+    const matchingSuffix = normalizedEntries.filter(({ relative }) =>
+        normalizedTargetStem.endsWith(
+            `/${relative.replace(/\.(?:d\.)?[cm]?[jt]sx?$/iu, "").replace(/\/(?:source|src|lib)\//giu, "/")}`
+        )
+    );
+    if (matchingSuffix.length === 1)
+    {
+        return matchingSuffix[0]?.absolute;
+    }
+    return packageInput.entryPoints.length === 1
+        ? resolve(packageInput.entryPoints[0] ?? "")
+        : undefined;
+};
+const moduleDescriptionFrom = async (
+    entryPoint: string | undefined
+): Promise<string | undefined> =>
+{
+    if (entryPoint === undefined)
+    {
+        return undefined;
+    }
+    let source: string;
+    try
+    {
+        source = await readFile(entryPoint, "utf8");
+    }
+    catch
+    {
+        return undefined;
+    }
+    const comment = source.match(/^\uFEFF?\s*\/\*\*([\s\S]*?)\*\//u)?.[1];
+    if (comment === undefined)
+    {
+        return undefined;
+    }
+    const lines = comment
+        .split(/\r?\n/u)
+        .map((line) => line.replace(/^\s*\* ?/u, ""));
+    const moduleTag = lines.findIndex((line) => /^\s*@module\b/u.test(line));
+    if (moduleTag < 0 || lines.slice(0, moduleTag).some((line) => /^\s*@\w+/u.test(line)))
+    {
+        return undefined;
+    }
+    const description = lines.slice(0, moduleTag).join("\n").trim();
+    return description === "" ? undefined : description;
 };
 interface Category {
     readonly id: string;
@@ -331,7 +510,9 @@ const declarationFrom = (
 const recordFrom = (
     reflection: ReflectionLike,
     packageInput: ApiReferenceGenerationOptions["packages"][number],
-    options: ApiReferenceGenerationOptions
+    options: ApiReferenceGenerationOptions,
+    summary: string | undefined,
+    selectedModuleSource: ApiReferenceSource | undefined
 ): ApiReferenceRecord =>
 {
     const children = [ ...(reflection.children ?? []) ]
@@ -358,7 +539,7 @@ const recordFrom = (
         options.repositoryUrl,
         options.revision,
         options.sourceRoot
-    );
+    ) ?? selectedModuleSource;
     return {
         breadcrumbs: [
             {
@@ -369,7 +550,7 @@ const recordFrom = (
             {
                 current: false,
                 href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.version}`,
-                label: packageInput.version
+                label: `v${packageInput.version.replace(/^v/u, "")}`
             },
             {
                 current: false,
@@ -389,9 +570,8 @@ const recordFrom = (
         module: moduleName,
         packageId: packageInput.id,
         packageName: packageInput.name,
-        summary:
-            textOf(reflection) || `API reference for ${packageInput.name}.`,
         version: packageInput.version,
+        ...(summary === undefined ? {} : { summary }),
         ...(moduleSource === undefined ? {} : { source: moduleSource }),
         link: {
             external: false,
@@ -453,11 +633,19 @@ const generateApiDataset = async (
                 `TypeDoc could not convert ${packageInput.name}`
             );
         }
+        const moduleEntryPoint = await packageModuleEntryPoint(packageInput);
         records.push(
             recordFrom(
                 moduleReflection(project as unknown as ReflectionLike),
                 packageInput,
-                options
+                options,
+                await moduleDescriptionFrom(moduleEntryPoint),
+                sourceFromPath(
+                    moduleEntryPoint,
+                    options.repositoryUrl,
+                    options.revision,
+                    options.sourceRoot
+                )
             )
         );
     }

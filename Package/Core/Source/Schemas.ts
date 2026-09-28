@@ -294,7 +294,7 @@ const ApiReferenceRecordSchema = Schema.Struct({
     packageId: Schema.String,
     packageName: Schema.String,
     source: Schema.optionalKey(ApiReferenceSourceSchema),
-    summary: Schema.String,
+    summary: Schema.optionalKey(Schema.String),
     version: Schema.String
 });
 export/** @internal */

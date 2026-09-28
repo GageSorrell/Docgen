@@ -216,7 +216,7 @@ const apiDocuments = (
                 readonly module: string;
                 readonly displayName: string;
                 readonly version: string;
-                readonly summary: string;
+                readonly summary?: string;
                 readonly breadcrumbs: ReadonlyArray<{
                     readonly label: string;
                     readonly current: boolean;

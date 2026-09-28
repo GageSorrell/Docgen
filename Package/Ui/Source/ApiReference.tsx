@@ -32,6 +32,30 @@ const sourceHref = (source: SourceLink): string =>
         source.file,
         source.line === undefined ? "" : `#L${source.line}`
     ].join("");
+const GitHubIcon = () => (
+    <svg aria-hidden="true"
+        viewBox="0 0 24 24">
+        <path
+            d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.07c-3.09.67-3.74-1.31-3.74-1.31-.5-1.28-1.23-1.62-1.23-1.62-1-.68.08-.67.08-.67 1.11.08 1.7 1.14 1.7 1.14 1 1.69 2.59 1.2 3.22.92.1-.72.39-1.2.7-1.48-2.46-.28-5.04-1.23-5.04-5.47 0-1.21.43-2.2 1.14-2.97-.12-.28-.5-1.4.1-2.93 0 0 .93-.3 3.05 1.14a10.6 10.6 0 0 1 5.54 0c2.12-1.44 3.04-1.14 3.04-1.14.61 1.53.23 2.65.11 2.93.71.77 1.14 1.76 1.14 2.97 0 4.25-2.59 5.19-5.06 5.46.4.34.75 1.02.75 2.05v3.05c0 .3.2.64.76.53A11.1 11.1 0 0 0 12 .9Z"
+            fill="currentColor"
+        />
+    </svg>
+);
+const ExternalLinkIcon = () => (
+    <svg
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+    >
+        <path
+            d="M9.5 2.5h4v4M13.25 2.75 7 9m1-5H4.5A1.5 1.5 0 0 0 3 5.5v6A1.5 1.5 0 0 0 4.5 13h6a1.5 1.5 0 0 0 1.5-1.5V9"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+        />
+    </svg>
+);
 const apiNavigation = (
     record: ApiReferencePageProps["record"]
 ): ReadonlyArray<DocumentationNavGroup> =>
@@ -164,24 +188,32 @@ const ApiReferencePage = ({
             <DocsSidebar groups={ groups }
                 label="API Reference" />
             <main className="docs-api-main">
-                <Breadcrumbs items={ record.breadcrumbs } />
+                <Breadcrumbs items={ record.breadcrumbs.map(
+                    (breadcrumb, index) => index === 1 && !breadcrumb.label.startsWith("v")
+                        ? { ...breadcrumb, label: `v${breadcrumb.label}` }
+                        : breadcrumb
+                ) } />
                 <div className="docs-api-heading-row">
                     <div>
                         <h1>{record.displayName}</h1>
-                        <p>{record.summary}</p>
+                        {record.summary === undefined ? null : (
+                            <p>{record.summary}</p>
+                        )}
                     </div>
                     <CopyForLlmButton document={ document } />
                 </div>
                 <div className="docs-api-meta">
                     <span>{record.exportCount} exports</span>
                     {record.introductionVersion === undefined ? null : (
-                        <span>Added in {record.introductionVersion}</span>
+                        <span>Added in v{record.introductionVersion}</span>
                     )}
                     {record.source === undefined ? null : (
                         <a
+                            className="docs-source-link"
                             href={ sourceHref(record.source) }
                         >
-                            ◉ Source ↗
+                            <GitHubIcon />
+                            Source
                         </a>
                     )}
                 </div>
@@ -276,31 +308,24 @@ const ApiReferencePage = ({
                                                         #
                                                     </a>
                                                     {declaration.name}
-                                                    {declaration.kind ===
-                                                    "interface" ? (
-                                                            <span className="docs-kind-badge">
-                                                                INTERFACE
-                                                            </span>
-                                                        ) : null}
+                                                    <span className="docs-kind-badge">
+                                                        {declaration.kind.toUpperCase()}
+                                                    </span>
                                                 </h3>
                                                 <div className="docs-declaration-links">
-                                                    {declaration.introductionVersion ===
-                                                    undefined ? null : (
-                                                            <span>
-                                                                Added in{" "}
-                                                                {
-                                                                    declaration.introductionVersion
-                                                                }
-                                                            </span>
-                                                        )}
+                                                    <span>
+                                                        Added in v{declaration.introductionVersion ?? record.version}
+                                                    </span>
                                                     {declaration.source ===
                                                     undefined ? null : (
                                                             <a
+                                                                className="docs-source-link"
                                                                 href={ sourceHref(
                                                                     declaration.source
                                                                 ) }
                                                             >
-                                                                Source ↗
+                                                                Source
+                                                                <ExternalLinkIcon />
                                                             </a>
                                                         )}
                                                     <CopyForLlmButton

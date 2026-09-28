@@ -4,12 +4,12 @@ import dataset from "../../data/ApiReference.json";
 import DocsLayout from "../../layouts/DocsLayout.astro";
 
 const apiDataset = dataset as ApiReferenceDataset;
-const pages = apiDataset.records.map((record) => ({ description: record.summary, group: "API Reference", id: record.module, slug: `api/${record.module}`, title: record.displayName }));
+const pages = apiDataset.records.map((record) => ({ description: record.summary ?? "", group: "API Reference", id: record.module, slug: `api/${record.module}`, title: record.displayName }));
 ---
 
 <DocsLayout
     canonicalPath="/docs/api"
-    copyText={`# API Reference\n\n${apiDataset.records.map((record) => `${record.displayName}\n${record.summary}`).join("\n\n")}`}
+    copyText={`# API Reference\n\n${apiDataset.records.map((record) => [ record.displayName, record.summary ].filter(Boolean).join("\n")).join("\n\n")}`}
     description="Generated API reference pages from TypeDoc source comments."
     headings={[]}
     pages={pages}
@@ -18,6 +18,6 @@ const pages = apiDataset.records.map((record) => ({ description: record.summary,
 >
     <p>Browse the generated API reference for the Sorrell documentation packages.</p>
     <ul>
-        {apiDataset.records.map((record) => <li><a href={`/docs/api/${record.module}`}>{record.displayName}</a> — {record.summary}</li>)}
+        {apiDataset.records.map((record) => <li><a href={`/docs/api/${record.module}`}>{record.displayName}</a>{record.summary === undefined ? null : <> — {record.summary}</>}</li>)}
     </ul>
 </DocsLayout>

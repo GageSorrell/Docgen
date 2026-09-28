@@ -124,7 +124,7 @@ const apiReferenceRecordToAgentDocument = (
     version: record.version,
     ...(record.source === undefined ? { } : { source: record.source }),
     content: [
-        record.summary,
+        ...(record.summary === undefined ? [] : [ record.summary ]),
         `Exports: ${record.exportCount}`,
         record.introductionVersion === undefined
             ? ""
