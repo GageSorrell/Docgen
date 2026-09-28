@@ -7,6 +7,7 @@ import ApiReferenceLayout from "../../layouts/ApiReferenceLayout.astro";
 
 interface ApiPageProps {
     readonly record: ApiReferenceRecord;
+    readonly packageModules: readonly ApiReferenceRecord[];
     readonly view: "module" | "package";
 }
 
@@ -20,12 +21,13 @@ export function getStaticPaths() {
             : record.module.startsWith(`${record.packageId}/`)
                 ? record.module.slice(record.packageId.length + 1)
                 : record.module;
-        return { params: { slug: `${record.packageId}/${modulePath}` }, props: { record, view: "module" as const } };
+        const packageModules = apiDataset.records.filter((moduleRecord) => moduleRecord.packageId === record.packageId);
+        return { params: { slug: `${record.packageId}/${modulePath}` }, props: { record, packageModules, view: "module" as const } };
     });
     return [ ...packagePages, ...modulePages ];
 }
 
-const { record, view } = Astro.props as ApiPageProps;
+const { record, packageModules = [], view } = Astro.props as ApiPageProps;
 ---
 
-{view === "package" ? <ApiPackageLayout record={record} /> : <ApiReferenceLayout record={record} />}
+{view === "package" ? <ApiPackageLayout record={record} /> : <ApiReferenceLayout record={record} packageModules={packageModules} />}

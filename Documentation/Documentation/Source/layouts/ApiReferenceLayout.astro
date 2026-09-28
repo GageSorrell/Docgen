@@ -11,15 +11,35 @@ import "../styles/docs.css";
 interface Props
 {
     readonly record: ApiReferenceRecord;
+    readonly packageModules: readonly ApiReferenceRecord[];
 }
 
-const { record } = Astro.props as Props;
+const { record, packageModules } = Astro.props as Props;
 const document = recordToAgentDocument(record);
 const copyText = formatAgentDocument({ ...document, url: new URL(Astro.url.pathname, "https://docs.sorrell.sh").toString() });
 const canonicalPath = Astro.url.pathname;
 const canonical = canonicalUrl(Astro.site?.toString() ?? "https://docs.sorrell.sh", canonicalPath);
 const sourceHref = (source: ApiReferenceRecord["source"]): string | undefined => source === undefined ? undefined : `${source.repositoryUrl}/blob/${source.revision}/${source.file}${source.line === undefined ? "" : `#L${source.line}`}`;
 const declarationsFor = (categoryId: string) => record.declarations.filter((declaration) => declaration.categoryId === categoryId);
+const moduleNavigation = packageModules.map((moduleRecord) => {
+    const modulePath = moduleRecord.module === moduleRecord.packageId
+        ? ""
+        : moduleRecord.module.startsWith(`${moduleRecord.packageId}/`)
+            ? moduleRecord.module.slice(moduleRecord.packageId.length + 1)
+            : moduleRecord.module;
+    const parts = modulePath.split("/").filter(Boolean);
+    const groupPart = parts[0];
+    const group = groupPart === undefined ? "Core" : `${groupPart[0]?.toUpperCase() ?? ""}${groupPart.slice(1)}`;
+    return {
+        group,
+        href: moduleRecord.link?.href ?? `/docs/api/${moduleRecord.packageId}/${modulePath || "Core"}`,
+        label: parts.at(-1) ?? "Core",
+        module: moduleRecord.module
+    };
+}).sort((left, right) => left.group === right.group
+    ? left.label.localeCompare(right.label)
+    : left.group === "Core" ? -1 : right.group === "Core" ? 1 : left.group.localeCompare(right.group));
+const moduleGroups = [ ...new Set([ "Core", ...moduleNavigation.map((module) => module.group) ]) ];
 const highlighter = await createHighlighter({
     langs: ["typescript"],
     themes: ["github-light", "github-dark"]
@@ -55,10 +75,10 @@ highlighter.dispose();
                     <div class="docs-sidebar-label">API REFERENCE</div>
                     <h2 class="docs-api-package">{record.packageName}</h2>
                     <p class="docs-api-version">{record.version}</p>
-                    {record.categories.map((category) => <section class="docs-sidebar-group">
-                        <h3>{category.label}<span aria-hidden="true">⌃</span></h3>
+                    {moduleGroups.map((group) => <section class="docs-sidebar-group">
+                        <h3>{group}<span aria-hidden="true">⌃</span></h3>
                         <ul class="docs-nav-items">
-                            {declarationsFor(category.id).map((declaration) => <li><a href={`#${declaration.id}`}>{declaration.name}</a></li>)}
+                            {moduleNavigation.filter((module) => module.group === group).map((module) => <li><a href={module.href} class={module.module === record.module ? "is-active" : undefined} aria-current={module.module === record.module ? "page" : undefined}>{module.label}</a></li>)}
                         </ul>
                     </section>)}
                 </aside>

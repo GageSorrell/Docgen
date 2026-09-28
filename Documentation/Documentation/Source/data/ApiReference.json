@@ -1,5 +1,5 @@
 {
-  "checksum": "e3bb8e1ea0a62a2d377bad063b042106b75dd023ada65772c4d2d55f95af1e6c",
+  "checksum": "d44d304b64c830d846c4474d8525103835fd344e733acb1d48f4f0708b0c8bd3",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -70,7 +70,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 606
+            "line": 607
           }
         },
         {
@@ -84,7 +84,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 357
+            "line": 358
           }
         },
         {
@@ -98,7 +98,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 604
+            "line": 605
           }
         },
         {
@@ -112,7 +112,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 344
+            "line": 345
           }
         },
         {
@@ -126,7 +126,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 592
+            "line": 593
           }
         },
         {
@@ -140,7 +140,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 304
+            "line": 305
           }
         },
         {
@@ -154,7 +154,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 598
+            "line": 599
           }
         },
         {
@@ -168,7 +168,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 594
+            "line": 595
           }
         },
         {
@@ -182,7 +182,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 317
+            "line": 318
           }
         },
         {
@@ -196,7 +196,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 334
+            "line": 335
           }
         },
         {
@@ -238,7 +238,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 600
+            "line": 601
           }
         },
         {
@@ -280,7 +280,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 612
+            "line": 613
           }
         },
         {
@@ -294,7 +294,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 327
+            "line": 328
           }
         },
         {
@@ -308,7 +308,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 608
+            "line": 609
           }
         },
         {
@@ -322,7 +322,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 352
+            "line": 353
           }
         },
         {
@@ -336,7 +336,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 546
+            "line": 547
           }
         },
         {
@@ -364,7 +364,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 570
+            "line": 571
           }
         },
         {
@@ -392,7 +392,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 574
+            "line": 575
           }
         },
         {
@@ -420,7 +420,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 584
+            "line": 585
           }
         },
         {
@@ -448,7 +448,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 588
+            "line": 589
           }
         },
         {
@@ -457,7 +457,7 @@
           "id": "ApiReferenceRecordSchema",
           "kind": "variable",
           "name": "ApiReferenceRecordSchema",
-          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ categoryId: String; description: String; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageDescription: optionalKey<String>; packageExports: optionalKey<$Array<String>>; packageId: String; packageName: String; packagePrivate: optionalKey<Boolean>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: optionalKey<String>; version: String }>;",
+          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ categoryId: String; description: String; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageDescription: optionalKey<String>; packageExports: optionalKey<$Array<String>>; packageId: String; packageName: String; packagePrivate: optionalKey<Boolean>; packageSourceUrl: optionalKey<String>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: optionalKey<String>; version: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -471,7 +471,7 @@
           "id": "apiReferenceRecordToAgentDocument",
           "kind": "function",
           "name": "apiReferenceRecordToAgentDocument",
-          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
+          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -490,7 +490,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 578
+            "line": 579
           }
         },
         {
@@ -602,7 +602,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 530
+            "line": 531
           }
         },
         {
@@ -672,7 +672,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 616
+            "line": 617
           }
         },
         {
@@ -686,7 +686,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 512
+            "line": 513
           }
         },
         {
@@ -700,7 +700,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 532
+            "line": 533
           }
         },
         {
@@ -770,7 +770,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 566
+            "line": 567
           }
         },
         {
@@ -798,7 +798,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 540
+            "line": 541
           }
         },
         {
@@ -966,7 +966,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 536
+            "line": 537
           }
         },
         {
@@ -994,7 +994,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 542
+            "line": 543
           }
         },
         {
@@ -1036,7 +1036,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 528
+            "line": 529
           }
         },
         {
@@ -1064,7 +1064,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 550
+            "line": 551
           }
         },
         {
@@ -1092,7 +1092,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 582
+            "line": 583
           }
         },
         {
@@ -1120,7 +1120,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 544
+            "line": 545
           }
         },
         {
@@ -1148,7 +1148,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 564
+            "line": 565
           }
         },
         {
@@ -1176,7 +1176,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 556
+            "line": 557
           }
         },
         {
@@ -1218,7 +1218,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 552
+            "line": 553
           }
         },
         {
@@ -1232,7 +1232,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 554
+            "line": 555
           }
         },
         {
@@ -1274,7 +1274,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 560
+            "line": 561
           }
         },
         {
@@ -1301,6 +1301,7 @@
       "packageExports": [
         "."
       ],
+      "packageSourceUrl": "https://github.com/GageSorrell/Documentation",
       "packageDescription": "Effect schemas and normalized domain models for Sorrell documentation tooling.",
       "packagePrivate": false,
       "version": "1.0.1",
@@ -1385,7 +1386,7 @@
           "id": "ApiReferencePageProps",
           "kind": "interface",
           "name": "ApiReferencePageProps",
-          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string };\n}",
+          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { categoryId: string; description: string; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; version: string };\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1865,6 +1866,7 @@
       "packageExports": [
         "."
       ],
+      "packageSourceUrl": "https://github.com/GageSorrell/Documentation",
       "packageDescription": "Responsive React UI primitives and documentation shells for Sorrell documentation sites.",
       "packagePrivate": false,
       "version": "1.0.1",
