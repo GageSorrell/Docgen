@@ -18,12 +18,12 @@ interface Props {
     readonly versions: ReadonlyArray<VersionOption>;
 }
 
-const { docsPrefix, name, repositoryUrl, storybookPrefix, versions } = Astro.props;
+const configuredRepositoryUrl = {{REPOSITORY_URL}} as string;
+const { docsPrefix, name, repositoryUrl = configuredRepositoryUrl, storybookPrefix, versions } = Astro.props;
 const currentVersion = versions.find((version) => version.current)?.id ?? versions[0]?.id;
 const navigation = [
     { label: "Docs", href: `${docsPrefix}/` },
-    ...(storybookPrefix ? [ { label: "Storybook", href: `${storybookPrefix}/` } ] : []),
-    ...(repositoryUrl ? [ { external: true, label: "GitHub", href: repositoryUrl } ] : [])
+    ...(storybookPrefix ? [ { label: "Storybook", href: `${storybookPrefix}/` } ] : [])
 ];
 ---
 
@@ -38,6 +38,13 @@ const navigation = [
         <div class="landing-header-actions">
             {currentVersion === undefined ? null : <VersionDropdown currentVersion={currentVersion} prefix={docsPrefix} versions={versions} />}
             <SearchPalette />
+            {repositoryUrl ? <>
+                <span class="landing-header-divider" aria-hidden="true"></span>
+                <a class="landing-header-social-link" href={repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 .1.8-1.34 2.97-1.8.1-.72.4-1.2.7-1.48-2.5-.29-5.13-1.25-5.13-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.99 0 0 .95-.3 3.1 1.16a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.56.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.34-2.63 5.29-5.14 5.57.4.35.75 1.03.75 2.08v3.09c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z" /></svg>
+                </a>
+                <span class="landing-header-divider" aria-hidden="true"></span>
+            </> : null}
             <SiteThemeToggle />
         </div>
         <details class="landing-mobile-menu">
@@ -48,6 +55,7 @@ const navigation = [
                     <span>Search</span><kbd aria-hidden="true"><span>Ctrl</span><span class="search-shortcut-plus">+</span><span>K</span></kbd>
                 </button>
                 {navigation.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}
+                {repositoryUrl ? <a href={repositoryUrl} target="_blank" rel="noopener noreferrer">GitHub</a> : null}
                 {currentVersion === undefined ? null : <VersionDropdown currentVersion={currentVersion} prefix={docsPrefix} versions={versions} placement="mobile" />}
                 <div class="landing-mobile-theme"><span>Theme</span><SiteThemeToggle /></div>
             </nav>
@@ -115,6 +123,9 @@ const navigation = [
     .landing-header-nav a { color: var(--docs-muted); text-decoration: none; }
     .landing-header-nav a:hover, .landing-header-nav a:focus-visible { color: var(--docs-foreground); }
     .landing-header-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+    .landing-header-divider { width: 1px; height: 1.5rem; background: var(--docs-border); opacity: .75; }
+    .landing-header-social-link { display: inline-flex; width: 2.25rem; height: 2.25rem; align-items: center; justify-content: center; border-radius: .375rem; color: var(--docs-muted); text-decoration: none; transition: color .15s ease, background-color .15s ease; }
+    .landing-header-social-link:hover, .landing-header-social-link:focus-visible { background: var(--docs-code-background); color: var(--docs-foreground); }
     .site-theme-toggle { display: inline-flex; height: 2.25rem; width: 2.25rem; align-items: center; justify-content: center; border: 0; border-radius: .375rem; background: transparent; color: var(--docs-foreground); cursor: pointer; }
     .site-theme-toggle:hover, .site-theme-toggle:focus-visible { background: var(--docs-code-background); }
     .landing-mobile-menu { display: none; margin-left: auto; position: relative; }

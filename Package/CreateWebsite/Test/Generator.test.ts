@@ -21,7 +21,8 @@ describe("three-package website generation", () =>
                     enabled: true,
                     entryPoints: [ "Package/Widget/Source/index.ts" ],
                     packages: [ "@example/widget" ]
-                }
+                },
+                metadata: { repository: { url: "https://github.com/example/widget" } }
             },
             target: "generated"
         });
@@ -30,6 +31,7 @@ describe("three-package website generation", () =>
         );
         const apiPackageLayout = contents.get("Documentation/Source/layouts/ApiPackageLayout.astro") ?? "";
         const apiReferenceLayout = contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro") ?? "";
+        const siteHeader = contents.get("Documentation/Source/components/SiteHeader.astro") ?? "";
         expect(apiPackageLayout).toContain("record.packageDescription");
         expect(apiPackageLayout).toContain("record.packagePrivate === true");
         expect(apiPackageLayout).toContain("record.packageSourceUrl");
@@ -44,6 +46,10 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("font-size: 10px; font-weight: 400");
         expect(apiReferenceLayout).toContain("font-size: 25px");
         expect(apiReferenceLayout).toContain("background: var(--docs-code-background)");
+        expect(siteHeader).toContain("const configuredRepositoryUrl = \"https://github.com/example/widget\" as string;");
+        expect(siteHeader).toContain("aria-label=\"GitHub\"");
+        expect(siteHeader).toContain("landing-header-divider");
+        expect(siteHeader).not.toContain("label: \"GitHub\"");
         expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro"))
             .toContain(".docs-api-module-card:hover, .docs-api-module-card:focus-visible { background: var(--docs-code-background)");
         expect(contents.get("Documentation/Source/pages/api/index.astro"))
