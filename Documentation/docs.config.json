@@ -1,8 +1,8 @@
 {
     "$schema": "https://docs.sorrell.sh/docs.config.schema.json",
     "metadata": {
-        "name": "Sorrell Documentation",
-        "title": "Sorrell Documentation",
+        "name": "Sorrell Docgen",
+        "title": "Sorrell Docgen Tools",
         "description": "Build readable documentation sites with a shared content, theme, and publishing system.",
         "logo": {
             "type": "dicebear",

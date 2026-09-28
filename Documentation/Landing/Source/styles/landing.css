@@ -1,7 +1,7 @@
 .landing-container { width: min(100% - 2rem, 72rem); margin-inline: auto; }
 .landing-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--border); background: color-mix(in oklch, var(--background) 92%, transparent); backdrop-filter: blur(14px); }
 .landing-header-inner { display: flex; min-height: 4rem; align-items: center; gap: 2rem; }
-.landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
+.landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; gap: .625rem; font-weight: 650; }
 .landing-brand img { width: auto; height: 2rem; }
 .dark .landing-brand img:not(.landing-brand-avatar) { filter: invert(1) hue-rotate(180deg); }
 .landing-brand-avatar { display: block; height: 2rem; width: 2rem; }

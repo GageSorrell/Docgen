@@ -10,7 +10,10 @@ const isDicebearLogo = typeof logo === "object" && logo?.type === "dicebear"
 ---
 <header class="landing-header">
   <div class="landing-container landing-header-inner">
-    <a href="/" class="landing-brand" aria-label={`${name} home`}>{typeof logo === "string" && logo !== "" ? <img src={logo} alt={name} /> : isDicebearLogo ? <><img class="landing-brand-avatar" data-avatar-theme="light" src={dicebearAvatarUrl(logo as DicebearLogo, name, "light")} alt={name} /><img class="landing-brand-avatar" data-avatar-theme="dark" src={dicebearAvatarUrl(logo as DicebearLogo, name, "dark")} alt={name} /></> : <span>{name}</span>}</a>
+    <a href="/" class="landing-brand" aria-label={`${name} home`}>
+      {typeof logo === "string" && logo !== "" ? <img src={logo} alt="" /> : isDicebearLogo ? <><img class="landing-brand-avatar" data-avatar-theme="light" src={dicebearAvatarUrl(logo as DicebearLogo, name, "light")} alt="" /><img class="landing-brand-avatar" data-avatar-theme="dark" src={dicebearAvatarUrl(logo as DicebearLogo, name, "dark")} alt="" /></> : null}
+      <span>{name}</span>
+    </a>
     <nav class="landing-header-nav" aria-label="Primary navigation">
       {items.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}
     </nav>

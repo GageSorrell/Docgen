@@ -764,6 +764,23 @@ export const System: Story = { args: { children: null, initialMode: "system" }, 
             buildCommand: "npm run build",
             installCommand: "npm install",
             outputDirectory: "Distribution",
+            redirects: [
+                {
+                    destination: `${config.routing.storybookPrefix}/`,
+                    source: config.routing.storybookPrefix,
+                    statusCode: 301
+                }
+            ],
+            rewrites: [
+                {
+                    destination: "/",
+                    source: config.routing.storybookPrefix
+                },
+                {
+                    destination: "/:path*",
+                    source: `${config.routing.storybookPrefix}/:path*`
+                }
+            ],
             version: 2
         }),
         path: "Storybook/vercel.json"
@@ -774,6 +791,23 @@ export const System: Story = { args: { children: null, initialMode: "system" }, 
             cleanUrls: true,
             installCommand: "npm install",
             outputDirectory: "Distribution",
+            redirects: [
+                {
+                    destination: `${config.routing.storybookPrefix}/`,
+                    source: config.routing.storybookPrefix,
+                    statusCode: 301
+                }
+            ],
+            rewrites: [
+                {
+                    destination: "/",
+                    source: config.routing.storybookPrefix
+                },
+                {
+                    destination: "/:path*",
+                    source: `${config.routing.storybookPrefix}/:path*`
+                }
+            ],
             version: 2
         }),
         path: "Storybook/vercel.snapshot.json"

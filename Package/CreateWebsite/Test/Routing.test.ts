@@ -46,7 +46,13 @@ describe("generated website routing", () =>
             }
         ]);
         expect(result.installCommand).toBe("npm install");
-        expect(result.redirects).toEqual([]);
+        expect(result.redirects).toEqual([
+            {
+                destination: "/storybook/",
+                source: "/storybook",
+                statusCode: 301
+            }
+        ]);
     });
     it("keeps redirects in the Landing configuration and derives snapshot projects", () =>
     {
@@ -102,6 +108,7 @@ describe("generated website routing", () =>
             }
         );
         expect(result.rewrites).toHaveLength(0);
+        expect(result.redirects).toEqual([]);
         expect(
             result.rewrites.some((rewrite: VercelRewrite) =>
                 rewrite.source.startsWith("/workbench")

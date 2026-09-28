@@ -9,7 +9,7 @@ import "../styles/landing.css"
 import "../styles/tokens.css"
 
 const config: LandingPageConfig = {
-  name: "sorrell-documentation",
+  name: siteConfig.metadata.name,
   logo: (siteConfig.metadata as typeof siteConfig.metadata & { readonly logo?: SiteLogo }).logo,
   eyebrow: "Documentation for products with more to explain",
   title: "Sorrell Documentation",

@@ -3,5 +3,22 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": "Distribution",
+  "redirects": [
+    {
+      "destination": "/storybook/",
+      "source": "/storybook",
+      "statusCode": 301
+    }
+  ],
+  "rewrites": [
+    {
+      "destination": "/",
+      "source": "/storybook"
+    },
+    {
+      "destination": "/:path*",
+      "source": "/storybook/:path*"
+    }
+  ],
   "version": 2
 }

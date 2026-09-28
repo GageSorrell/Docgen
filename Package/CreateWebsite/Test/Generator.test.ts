@@ -102,8 +102,9 @@ describe("three-package website generation", () =>
         expect(apiIndex).toContain(".docs-api-package-card, .docs-api-package-card * { text-decoration: none !important; }");
         expect(apiIndex).toContain(".docs-api-package-card h2 { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; margin: 0; }");
         expect(apiReferenceLayout).toContain("{packageModules.length > 1 ? moduleGroups.map((group) => <section class=\"docs-sidebar-group\">");
-        expect(apiReferenceLayout).toContain(".docs-api-title-row { align-items: baseline; display: flex; gap: 24px; justify-content: space-around; }");
+        expect(apiReferenceLayout).toContain(".docs-api-title-row { align-items: baseline; display: flex; gap: 24px; justify-content: space-between; }");
         expect(apiReferenceLayout).toContain(".docs-api-title-row h1 { font-weight: 700; }");
+        expect(apiReferenceLayout).toContain(".docs-api-page .docs-toc .docs-nav-items a { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
     });
     it("generates the ported Astro landing composition and interactive components", () =>
@@ -144,6 +145,10 @@ describe("three-package website generation", () =>
         expect(generatedSearchPalette).toContain("document.body.append(dialog)");
         expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
             .toContain("<span class=\"search-shortcut-plus\">+</span>");
+        expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
+            .toContain("<span>{name}</span>");
+        expect(contents.get("Landing/Source/styles/landing.css"))
+            .toContain(".landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; gap: .625rem; font-weight: 650; }");
         expect(contents.get("Landing/Source/components/landing/sections/LandingQuotes.astro"))
             .toContain(".effect-landing-quote-button");
         expect(contents.get("Landing/Source/components/landing/LandingInstallCommand.astro"))
@@ -263,6 +268,7 @@ describe("three-package website generation", () =>
         expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
             .toContain("data-avatar-theme=\"dark\"");
         const generatedDocsHeader = contents.get("Documentation/Source/components/SiteHeader.astro") ?? "";
+        expect(generatedDocsHeader).toContain("<span>{name}</span>");
         expect(generatedDocsHeader).toContain("\"style\":\"pixelbot\"");
         expect(generatedDocsHeader).toContain("\"backgroundColor\":{\"dark\":\"#111111\",\"light\":\"#ffffff\"}");
         expect(contents.get("Landing/scripts/generate-favicons.mjs"))
@@ -415,6 +421,24 @@ describe("three-package website generation", () =>
                     file.path === "Storybook/vercel.snapshot.json"
             )
         ).toBe(true);
+        const storybookVercel = JSON.parse(website.files.find(
+            (file: GeneratedWebsiteFile) => file.path === "Storybook/vercel.json"
+        )?.content ?? "{}");
+        expect(storybookVercel.redirects).toEqual([
+            { destination: "/workbench/", source: "/workbench", statusCode: 301 }
+        ]);
+        expect(storybookVercel.rewrites).toEqual([
+            { destination: "/", source: "/workbench" },
+            { destination: "/:path*", source: "/workbench/:path*" }
+        ]);
+        const landingVercel = JSON.parse(website.files.find(
+            (file: GeneratedWebsiteFile) => file.path === "Landing/vercel.json"
+        )?.content ?? "{}");
+        expect(landingVercel.redirects).toContainEqual({
+            destination: "/workbench/",
+            source: "/workbench",
+            statusCode: 301
+        });
     });
     it("generates the optional MCP function package without adding a Landing route", () =>
     {

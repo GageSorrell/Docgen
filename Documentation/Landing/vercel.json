@@ -40,7 +40,13 @@
   ],
   "installCommand": "npm install",
   "outputDirectory": "Distribution",
-  "redirects": [],
+  "redirects": [
+    {
+      "destination": "/storybook/",
+      "source": "/storybook",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     {
       "destination": "https://storybook.invalid/storybook",

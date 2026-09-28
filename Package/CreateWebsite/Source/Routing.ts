@@ -89,17 +89,28 @@ const createLandingRewrites = (
     ],
     installCommand: "npm install",
     outputDirectory: "Distribution",
-    redirects: redirects.map(
-        (redirect: {
-            readonly from: string;
-            readonly to: string;
-            readonly status: 301 | 302;
-        }) => ({
-            destination: redirect.to,
-            source: redirect.from,
-            statusCode: redirect.status
-        })
-    ),
+    redirects: [
+        ...(deployments.storybook === undefined
+            ? []
+            : [
+                {
+                    destination: `${normalizedUrl(routing.storybookPrefix)}/`,
+                    source: normalizedUrl(routing.storybookPrefix),
+                    statusCode: 301 as const
+                }
+            ]),
+        ...redirects.map(
+            (redirect: {
+                readonly from: string;
+                readonly to: string;
+                readonly status: 301 | 302;
+            }) => ({
+                destination: redirect.to,
+                source: redirect.from,
+                statusCode: redirect.status
+            })
+        )
+    ],
     rewrites: [
         ...(deployments.storybook === undefined
             ? []
