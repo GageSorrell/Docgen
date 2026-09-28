@@ -33,6 +33,8 @@ sans-serif;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
 }
+html { scroll-behavior: smooth;
+}
 
 * { box-sizing: border-box;
 }

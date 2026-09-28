@@ -148,11 +148,10 @@ highlighter.dispose();
                             <h2>{category.label}</h2>
                             {declarationsFor(category.id).map((declaration) => <article class="docs-api-declaration" id={declaration.id}>
                                 <div class="docs-declaration-heading">
-                                    <h3>{declaration.name}<span class="docs-kind-badge">{declaration.kind.toUpperCase()}</span></h3>
+                                    <h3><a class="docs-declaration-name" href={`#${declaration.id}`} aria-label={`Link to ${declaration.name}`}><svg class="docs-declaration-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>{declaration.name}</a><span class="docs-kind-badge">{declaration.kind.toUpperCase()}</span></h3>
                                     <div class="docs-declaration-links">
                                         <span>Added in v{declaration.introductionVersion ?? record.version}</span>
                                         {sourceHref(declaration.source) === undefined ? null : <a class="docs-source-link" href={sourceHref(declaration.source)} rel="noreferrer">Source<svg aria-hidden="true" viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M13.25 2.75 7 9m1-5H4.5A1.5 1.5 0 0 0 3 5.5v6A1.5 1.5 0 0 0 4.5 13h6a1.5 1.5 0 0 0 1.5-1.5V9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" /></svg></a>}
-                                        <a href={`#${declaration.id}`}>#</a>
                                     </div>
                                 </div>
                                 <ApiReferenceDescription description={declaration.description} parts={declaration.descriptionParts} />
@@ -206,12 +205,16 @@ highlighter.dispose();
     .docs-api-page .docs-sidebar .docs-nav-items a, .docs-api-page .docs-toc .docs-nav-items a { padding-left: 14px; }
     .docs-api-main { max-width: 1050px; }
     .docs-api-main > .docs-breadcrumbs { margin-top: 34px; }
-    .docs-api-page .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 400; }
-    .docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+    .docs-api-page .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; font-weight: 400; }
+    .docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; }
     .docs-api-title-row { align-items: baseline; display: flex; gap: 24px; justify-content: space-between; }
     .docs-api-title-row .docs-copy-button { margin-left: auto; }
     .docs-api-page .docs-sidebar .docs-nav-items a:hover, .docs-api-page .docs-sidebar .docs-nav-items a.is-active, .docs-api-page .docs-toc .docs-nav-items a:hover { background: var(--docs-code-background); }
+    .docs-api-page > .docs-toc { align-self: start; max-height: calc(100vh - var(--docs-header-height, 72px)); overflow-y: auto; position: sticky; top: var(--docs-header-height, 72px); }
     .docs-api-page .docs-declaration-heading h3 { font-size: 25px; }
+    .docs-declaration-name { align-items: center; color: inherit; cursor: pointer; display: inline-flex; gap: 8px; text-decoration: none; }
+    .docs-declaration-link-icon { color: var(--docs-accent); flex: none; height: 18px; opacity: 0; transition: opacity 120ms ease; width: 18px; }
+    .docs-declaration-name:hover .docs-declaration-link-icon, .docs-declaration-name:focus-visible .docs-declaration-link-icon { opacity: 1; }
     .docs-api-meta { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; gap: 24px; margin: 28px 0 62px; }
     .docs-api-meta a, .docs-declaration-links a { color: var(--docs-accent); }
     .docs-declaration-links .docs-source-link { align-items: center; display: inline-flex; gap: 4px; text-decoration: none; white-space: nowrap; }

@@ -10,6 +10,7 @@
  */
 
 import { describe, expect, it } from "vitest";
+import { docsUiCss } from "@sorrell/docs-ui";
 import { createGeneratedWebsite } from "../Source/Generator.js";
 describe("three-package website generation", () =>
 {
@@ -62,10 +63,18 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("<span>Copy for LLM</span><span>Copied markdown!</span>");
         expect(apiReferenceLayout).toContain("button.setAttribute(\"aria-label\", \"Copied markdown!\")");
         expect(docsLayout).toContain("<span>Copy for LLM</span><span>Copied markdown!</span>");
+        expect(docsLayout).toContain(".docs-eyebrow { color: var(--docs-accent); font-size: 11.2px;");
+        expect(docsLayout).toContain(".docs-breadcrumbs { color: var(--docs-muted); display: flex; font-size: 11.2px;");
         const generatedApiDescription = contents.get("Documentation/Source/components/ApiReferenceDescription.astro") ?? "";
         expect(generatedApiDescription).toContain("part.external === true");
         expect(generatedApiDescription).toContain("docs-description-external-icon");
-        expect(apiReferenceLayout).toContain("font-size: 10px; font-weight: 400");
+        expect(apiReferenceLayout).toContain("font-size: 11.2px; font-weight: 400");
+        expect(apiReferenceLayout).toContain(".docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; }");
+        expect(apiReferenceLayout).toContain(".docs-api-page > .docs-toc { align-self: start; max-height: calc(100vh - var(--docs-header-height, 72px)); overflow-y: auto; position: sticky; top: var(--docs-header-height, 72px); }");
+        expect(docsUiCss).toContain("html { scroll-behavior: smooth;");
+        expect(docsUiCss).toContain("scroll-behavior: auto !important;");
+        expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
+        expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-eyebrow { color: var(--docs-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiReferenceLayout).toContain("font-size: 25px");
         expect(apiReferenceLayout).toContain("background: var(--docs-code-background)");
         expect(siteHeader).toContain("const configuredRepositoryUrl = \"https://github.com/example/widget\" as string;");
