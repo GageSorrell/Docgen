@@ -38,6 +38,15 @@ describe("TypeDoc generation", () =>
         const rootModule = dataset.records.find((record) => record.module === "fixture");
         const extraModule = dataset.records.find((record) => record.module === "fixture/Extra");
         expect(rootModule?.breadcrumbs[1]?.label).toBe("V1.0.1");
+        expect(rootModule?.breadcrumbs.map((breadcrumb) => breadcrumb.label)).toEqual([
+            "API Reference",
+            "V1.0.1",
+            "@sorrell/fixture"
+        ]);
+        expect(rootModule?.breadcrumbs.at(-1)).toMatchObject({
+            current: true,
+            label: "@sorrell/fixture"
+        });
         expect(rootModule?.packageDescription)
             .toBe("A fixture package with an exported root module.");
         expect(rootModule?.packagePrivate).toBe(false);
@@ -45,6 +54,12 @@ describe("TypeDoc generation", () =>
         expect(rootModule?.packageExports).toEqual([ ".", "./Extra" ]);
         expect(rootModule?.introductionVersion).toBeUndefined();
         expect(extraModule?.displayName).toBe("Extra");
+        expect(extraModule?.breadcrumbs.map((breadcrumb) => breadcrumb.label)).toEqual([
+            "API Reference",
+            "V1.0.1",
+            "@sorrell/fixture",
+            "Extra"
+        ]);
         expect(extraModule?.link?.href).toBe("/docs/api/fixture/Extra");
         expect(extraModule?.introductionVersion).toBe("1.0.1");
         expect(rootModule?.declarations.find((declaration) => declaration.name === "hello")?.category)

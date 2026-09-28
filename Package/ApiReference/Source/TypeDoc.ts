@@ -1034,14 +1034,20 @@ const recordFrom = async (
                 label: `V${packageInput.version.replace(/^[vV]/u, "")}`
             },
             {
-                current: false,
-                href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.id}`,
+                current: exportPath === ".",
+                ...(exportPath === "."
+                    ? {}
+                    : { href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.id}` }),
                 label: packageInput.name
             },
-            {
-                current: true,
-                label: displayName
-            }
+            ...(exportPath === "."
+                ? []
+                : [
+                      {
+                          current: true,
+                          label: displayName
+                      }
+                  ])
         ],
         categories,
         declarations,
