@@ -7,6 +7,7 @@
   --border-strong: color-mix(in srgb, {{LIGHT_BORDER}}, {{LIGHT_FOREGROUND}} 24%);
   --accent: {{LIGHT_ACCENT}};
   --code-background: {{LIGHT_CODE_BACKGROUND}};
+  --card-background: {{LIGHT_CARD_BACKGROUND}};
   --code-foreground: {{LIGHT_FOREGROUND}};
   --landing-soft: {{LIGHT_MUTED}};
   --landing-panel: color-mix(in srgb, {{LIGHT_BACKGROUND}} 96%, {{LIGHT_FOREGROUND}});
@@ -21,6 +22,7 @@
   --border-strong: color-mix(in srgb, {{DARK_BORDER}}, {{DARK_FOREGROUND}} 28%);
   --accent: {{DARK_ACCENT}};
   --code-background: {{DARK_CODE_BACKGROUND}};
+  --card-background: {{DARK_CARD_BACKGROUND}};
   --code-foreground: {{DARK_FOREGROUND}};
   --landing-soft: {{DARK_MUTED}};
   --landing-panel: color-mix(in srgb, {{DARK_BACKGROUND}} 92%, {{DARK_FOREGROUND}});

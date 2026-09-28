@@ -42,6 +42,15 @@ describe("three-package website generation", () =>
             .toContain("LandingCallToAction");
         expect(contents.get("Landing/Source/components/landing/sections/LandingProblem.astro"))
             .toContain("LandingComplexityChart");
+        const generatedSearchPalette =
+            contents.get("Landing/Source/components/SearchPalette.astro") ?? "";
+        expect(generatedSearchPalette).toContain("<span class=\"search-shortcut-plus\">+</span>");
+        expect(generatedSearchPalette).toContain("background: var(--card-background)");
+        expect(generatedSearchPalette).toContain("pagefind-ui__search-input:focus");
+        expect(generatedSearchPalette).toContain("pagefind-ui__result:hover");
+        expect(generatedSearchPalette).toContain("document.body.append(dialog)");
+        expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
+            .toContain("<span class=\"search-shortcut-plus\">+</span>");
         expect(contents.get("Landing/Source/components/landing/sections/LandingQuotes.astro"))
             .toContain(".effect-landing-quote-button");
         expect(contents.get("Landing/Source/components/landing/LandingInstallCommand.astro"))
@@ -52,6 +61,8 @@ describe("three-package website generation", () =>
             .toContain("landing-grid-rails");
         expect(contents.get("Landing/Source/styles/tokens.css"))
             .toContain("[data-theme=\"dark\"]");
+        expect(contents.get("Landing/Source/styles/tokens.css"))
+            .toContain("--card-background: oklch(0.985 0 0);");
         expect(documentationPackage.dependencies).toMatchObject({
             "@tailwindcss/typography": "0.5.20",
             "@tailwindcss/vite": "4.3.3",

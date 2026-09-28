@@ -5,7 +5,7 @@ import "@pagefind/default-ui/css/ui.css";
 
 <button type="button" class="site-search-trigger" aria-label="Search" aria-keyshortcuts="Control+K Meta+K" data-search-open>
   <Search size={18} aria-hidden="true" />
-  <kbd aria-hidden="true"><span>Ctrl</span><span>K</span></kbd>
+  <kbd aria-hidden="true"><span>Ctrl</span><span class="search-shortcut-plus">+</span><span>K</span></kbd>
 </button>
 
 <dialog class="docs-search-dialog" aria-labelledby="docs-search-title">
@@ -23,6 +23,11 @@ import "@pagefind/default-ui/css/ui.css";
 
   const dialog = document.querySelector<HTMLDialogElement>(".docs-search-dialog");
   let pagefind: PagefindUI | undefined;
+
+  // Keep the modal outside the mobile header actions, which are hidden at small widths.
+  if (dialog !== null && dialog.parentElement !== document.body) {
+    document.body.append(dialog);
+  }
 
   const openSearch = () => {
     if (dialog === null) return;
@@ -91,13 +96,14 @@ import "@pagefind/default-ui/css/ui.css";
     line-height: 1;
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   }
+  .site-search-trigger .search-shortcut-plus { color: var(--border-strong); font-size: .85em; }
   .landing-header-actions .site-search-trigger { height: 2rem; width: auto; }
   .landing-mobile-menu .site-search-trigger { justify-content: flex-start; width: 100%; }
   .docs-search-dialog {
-    background: var(--background);
+    background: var(--card-background);
     border: 1px solid var(--border);
-    border-radius: .75rem;
-    box-shadow: 0 24px 80px rgb(0 0 0 / .24);
+    border-radius: .8rem;
+    box-shadow: 0 24px 80px color-mix(in oklch, var(--foreground) 22%, transparent);
     color: var(--foreground);
     margin: 10vh auto auto;
     max-height: 80vh;
@@ -106,12 +112,12 @@ import "@pagefind/default-ui/css/ui.css";
     padding: 0;
     width: 100%;
   }
-  .docs-search-dialog::backdrop { background: rgb(9 9 11 / .56); backdrop-filter: blur(3px); }
-  .docs-search-panel { padding: 1rem 1.25rem 1.25rem; }
-  .docs-search-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: .75rem; }
-  .docs-search-heading h2 { color: var(--foreground); font-size: .9rem; font-weight: 600; margin: 0; }
-  .docs-search-close { background: transparent; border: 1px solid var(--border); border-radius: .375rem; color: var(--muted-foreground); cursor: pointer; font: inherit; font-size: .75rem; padding: .25rem .45rem; }
-  .docs-search-close:hover, .docs-search-close:focus-visible { color: var(--foreground); }
+  .docs-search-dialog::backdrop { background: color-mix(in oklch, var(--foreground) 48%, transparent); backdrop-filter: blur(5px); }
+  .docs-search-panel { padding: 1.1rem 1.25rem 1.25rem; }
+  .docs-search-heading { align-items: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: .8rem; }
+  .docs-search-heading h2 { color: var(--foreground); font-size: 1rem; font-weight: 600; letter-spacing: -.025em; margin: 0; }
+  .docs-search-close { background: var(--background); border: 1px solid var(--border); border-radius: .4rem; color: var(--muted-foreground); cursor: pointer; font: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .7rem; line-height: 1; padding: .4rem .5rem; transition: border-color .15s, color .15s; }
+  .docs-search-close:hover, .docs-search-close:focus-visible { border-color: var(--accent); color: var(--foreground); }
   .docs-search-dialog .pagefind-ui {
     --pagefind-ui-primary: var(--accent);
     --pagefind-ui-text: var(--foreground);
@@ -122,12 +128,23 @@ import "@pagefind/default-ui/css/ui.css";
     --pagefind-ui-border-radius: .5rem;
     --pagefind-ui-font: inherit;
   }
-  .docs-search-dialog .pagefind-ui__search-input { font-size: 1rem; padding: .75rem 1rem; }
-  .docs-search-dialog .pagefind-ui__result { padding-block: 1rem; }
-  .docs-search-dialog .pagefind-ui__result-title { font-size: 1rem; }
-  .docs-search-dialog .pagefind-ui__result-excerpt { font-size: .875rem; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__form::before { background-color: var(--muted-foreground); }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__search-input { appearance: none; background: var(--background); border: 1px solid var(--border); border-radius: .5rem; box-shadow: none; color: var(--foreground); font-size: 1rem; font-weight: 400; padding-inline: 3.375rem 4.375rem; transition: border-color .15s, box-shadow .15s; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__search-input::placeholder { color: var(--muted-foreground); opacity: .7; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 18%, transparent); outline: none; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__result { border-color: var(--border); border-radius: .5rem; padding: .8rem .75rem; transition: background-color .15s; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__result:hover { background: color-mix(in oklch, var(--code-background) 75%, var(--accent) 4%); }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__result-title { font-size: 1rem; font-weight: 600; letter-spacing: -.015em; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__result-link { color: var(--foreground); }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__result-link:hover { color: var(--accent); }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__result-excerpt { color: var(--muted-foreground); font-size: .875rem; line-height: 1.55; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__message { color: var(--muted-foreground); font-size: .875rem; font-weight: 500; height: auto; padding-block: .8rem; }
+  .docs-search-dialog .pagefind-ui mark { background: color-mix(in oklch, var(--accent) 16%, transparent); border-radius: .15rem; color: var(--foreground); }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__button { border-color: var(--border); border-radius: .5rem; color: var(--foreground); font-size: .875rem; font-weight: 500; }
+  .docs-search-dialog .pagefind-ui .pagefind-ui__button:hover { background: var(--code-background); border-color: var(--accent); }
   @media (max-width: 700px) {
     .docs-search-dialog { margin: 5vh auto auto; max-height: 90vh; }
     .docs-search-panel { padding: .75rem; }
+    .docs-search-heading { margin-bottom: .75rem; }
   }
 </style>

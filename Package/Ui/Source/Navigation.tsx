@@ -72,7 +72,7 @@ const DocsHeader = ({
                 >
                     <span aria-hidden="true">⌕</span>
                     <span>Search</span>
-                    <kbd>Ctrl K</kbd>
+                    <kbd>Ctrl + K</kbd>
                 </button>
                 {repositoryHref === undefined ? null : (
                     <a
