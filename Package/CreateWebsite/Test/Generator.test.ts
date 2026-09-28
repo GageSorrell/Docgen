@@ -29,6 +29,7 @@ describe("three-package website generation", () =>
             website.files.map((file: GeneratedWebsiteFile) => [ file.path, file.content ])
         );
         const apiPackageLayout = contents.get("Documentation/Source/layouts/ApiPackageLayout.astro") ?? "";
+        const apiReferenceLayout = contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro") ?? "";
         expect(apiPackageLayout).toContain("record.packageDescription");
         expect(apiPackageLayout).toContain("record.packagePrivate === true");
         expect(apiPackageLayout).toContain("record.packageSourceUrl");
@@ -36,6 +37,10 @@ describe("three-package website generation", () =>
         expect(apiPackageLayout).toContain("docs-package-module-search");
         expect(contents.get("Documentation/Source/pages/api/[...slug].astro"))
             .toContain("ApiPackageLayout record={record}");
+        expect(apiReferenceLayout).toContain("uncategorizedDeclarations");
+        expect(apiReferenceLayout).toContain("declarationCategoryNames");
+        expect(apiReferenceLayout).toContain("docs-toc-category");
+        expect(apiReferenceLayout).toContain(".docs-toc-category > span");
         expect(contents.get("Documentation/Source/pages/api/index.astro"))
             .toContain("docs-api-package-card");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);

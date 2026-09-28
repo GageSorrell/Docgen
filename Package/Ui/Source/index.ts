@@ -176,7 +176,7 @@ color: var(--docs-muted);
 display: block;
 font-size: 14px;
 line-height: 1.45;
-padding: 7px 9px;
+padding: 7px 14px;
 }
 .docs-nav-items a:hover,
 .docs-nav-items a.is-active { background: color-mix(in srgb,
@@ -190,7 +190,7 @@ padding: 42px 22px;
 .docs-toc .docs-nav-items { margin-top: 17px;
 }
 .docs-toc .docs-nav-items a { font-size: 13px;
-padding-left: 0;
+padding-left: 14px;
 }
 .docs-main { min-width: 0;
 padding: 48px clamp(24px,
@@ -440,7 +440,7 @@ text-decoration: none;
 transition: border-color 120ms ease, background 120ms ease;
 }
 .docs-package-module-card:hover,
-.docs-package-module-card:focus-visible { background: var(--docs-muted);
+.docs-package-module-card:focus-visible { background: var(--docs-code-background);
 border-color: var(--docs-accent);
 }
 .docs-package-module-card span:first-child { overflow-wrap: anywhere;
@@ -478,9 +478,7 @@ justify-content: space-between;
 SFMono-Regular,
 Menlo,
 monospace;
-font-size: clamp(22px,
-3vw,
-32px);
+font-size: 25px;
 letter-spacing: -0.04em;
 margin: 0;
 overflow-wrap: anywhere;

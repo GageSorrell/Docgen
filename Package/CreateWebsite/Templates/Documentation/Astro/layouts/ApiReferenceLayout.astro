@@ -21,6 +21,16 @@ const canonicalPath = Astro.url.pathname;
 const canonical = canonicalUrl(Astro.site?.toString() ?? "https://docs.sorrell.sh", canonicalPath);
 const sourceHref = (source: ApiReferenceRecord["source"]): string | undefined => source === undefined ? undefined : `${source.repositoryUrl}/blob/${source.revision}/${source.file}${source.line === undefined ? "" : `#L${source.line}`}`;
 const declarationsFor = (categoryId: string) => record.declarations.filter((declaration) => declaration.categoryId === categoryId);
+const uncategorizedDeclarations = record.declarations
+    .filter((declaration) => declaration.category === undefined || declaration.category.trim() === "")
+    .sort((left, right) => left.name.localeCompare(right.name));
+const declarationCategoryNames = [ ...new Set(record.declarations
+    .map((declaration) => declaration.category?.trim())
+    .filter((category): category is string => category !== undefined && category !== ""))]
+    .sort((left, right) => left.localeCompare(right, undefined, { sensitivity: "base" }));
+const declarationsInCategory = (category: string) => record.declarations
+    .filter((declaration) => declaration.category?.trim() === category)
+    .sort((left, right) => left.name.localeCompare(right.name));
 const moduleNavigation = packageModules.map((moduleRecord) => {
     const modulePath = moduleRecord.module === moduleRecord.packageId
         ? ""
@@ -130,8 +140,9 @@ highlighter.dispose();
                 <aside class="docs-toc" aria-label="On this page">
                     <strong>On this page</strong>
                     <ul class="docs-nav-items">
-                        {record.categories.map((category) => <li><a href={`#category-${category.id}`}>{category.label}</a>
-                            <ul>{declarationsFor(category.id).map((declaration) => <li><a href={`#${declaration.id}`}>{declaration.name}</a></li>)}</ul>
+                        {uncategorizedDeclarations.map((declaration) => <li><a href={`#${declaration.id}`}>{declaration.name}</a></li>)}
+                        {declarationCategoryNames.map((category) => <li class="docs-toc-category"><span>{category}</span>
+                            <ul>{declarationsInCategory(category).map((declaration) => <li><a href={`#${declaration.id}`}>{declaration.name}</a></li>)}</ul>
                         </li>)}
                     </ul>
                 </aside>
@@ -153,8 +164,13 @@ highlighter.dispose();
     .docs-sidebar-group { margin-top: 2rem; }
     .docs-sidebar-group h3 { align-items: center; display: flex; font-size: .95rem; justify-content: space-between; margin: 0 0 .6rem; }
     .docs-sidebar-group h3 span { color: var(--docs-muted); }
+    .docs-api-page .docs-sidebar .docs-nav-items a, .docs-api-page .docs-toc .docs-nav-items a { padding-left: 14px; }
     .docs-api-main { max-width: 1050px; }
     .docs-api-main > .docs-breadcrumbs { margin-top: 34px; }
+    .docs-api-page .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 400; }
+    .docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+    .docs-api-page .docs-sidebar .docs-nav-items a:hover, .docs-api-page .docs-sidebar .docs-nav-items a.is-active, .docs-api-page .docs-toc .docs-nav-items a:hover { background: var(--docs-code-background); }
+    .docs-api-page .docs-declaration-heading h3 { font-size: 25px; }
     .docs-api-meta { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; gap: 24px; margin: 28px 0 62px; }
     .docs-api-meta a, .docs-declaration-links a { color: var(--docs-accent); }
     .docs-declaration-links .docs-source-link { align-items: center; display: inline-flex; gap: 4px; text-decoration: none; white-space: nowrap; }
@@ -169,6 +185,7 @@ highlighter.dispose();
     .docs-signature-copy { background: transparent; border: 1px solid var(--docs-border); border-radius: 6px; color: var(--docs-muted); cursor: pointer; padding: 7px 9px; }
     .docs-signature-copy:hover, .docs-signature-copy:focus-visible { border-color: var(--docs-accent); color: var(--docs-foreground); }
     .docs-toc .docs-nav-items ul { list-style: none; margin: .5rem 0 0; padding-left: 1rem; }
+    .docs-toc-category > span { color: var(--docs-foreground); display: block; font-size: 13px; font-weight: 650; margin: 12px 0 4px; }
     @media (max-width: 780px) { .docs-signature-row { display: block; } .docs-signature-copy { margin-top: 6px; } }
 </style>
 

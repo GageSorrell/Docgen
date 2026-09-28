@@ -36,8 +36,13 @@ interface ReflectionSource {
 interface ReflectionCommentPart {
     readonly text?: string;
 }
+interface ReflectionCommentTag {
+    readonly tag: string;
+    readonly content?: ReadonlyArray<ReflectionCommentPart>;
+}
 interface ReflectionComment {
     readonly summary?: ReadonlyArray<ReflectionCommentPart>;
+    readonly blockTags?: ReadonlyArray<ReflectionCommentTag>;
 }
 interface PackageManifestLike {
     readonly name?: string;
@@ -80,6 +85,19 @@ const textOf = (reflection: ReflectionLike | undefined): string =>
         ?.map((part: { readonly text?: string }) => part.text ?? "")
         .join("")
         .trim() ?? "";
+const tsdocCategoryOf = (reflection: ReflectionLike): string | undefined =>
+{
+    const comments = [
+        ...(reflection.comment === undefined ? [] : [ reflection.comment ]),
+        ...(reflection.signatures ?? [])
+            .flatMap((signature) => signature.comment === undefined ? [] : [ signature.comment ])
+    ];
+    const categoryTag = comments
+        .flatMap((comment) => comment.blockTags ?? [])
+        .find((tag) => tag.tag === "@category");
+    const category = categoryTag?.content?.map((part) => part.text ?? "").join("").trim();
+    return category === undefined || category === "" ? undefined : category;
+};
 const sourceOf = (
     reflection: ReflectionLike | undefined,
     repositoryUrl: string | undefined,
@@ -631,6 +649,7 @@ const declarationFrom = (
 ): ApiReferenceDeclaration =>
 {
     const name = reflection.name ?? "unknown";
+    const category = tsdocCategoryOf(reflection);
     const source = sourceOf(
         reflection,
         options.repositoryUrl,
@@ -638,6 +657,7 @@ const declarationFrom = (
         options.sourceRoot
     );
     return {
+        ...(category === undefined ? {} : { category }),
         categoryId,
         description:
             textOf(reflection) || `${name} exported by ${packageInput.name}.`,
@@ -717,7 +737,7 @@ const recordFrom = (
         declarations,
         displayName,
         exportCount: declarations.length,
-        introductionVersion: packageInput.version,
+        ...(exportPath === "." ? {} : { introductionVersion: packageInput.version }),
         module: moduleName,
         packageId: packageInput.id,
         packageName: packageInput.name,

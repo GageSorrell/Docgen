@@ -43,8 +43,14 @@ describe("TypeDoc generation", () =>
         expect(rootModule?.packagePrivate).toBe(false);
         expect(rootModule?.packageSourceUrl).toBe("https://github.com/Sorrell/fixture");
         expect(rootModule?.packageExports).toEqual([ ".", "./Extra" ]);
+        expect(rootModule?.introductionVersion).toBeUndefined();
         expect(extraModule?.displayName).toBe("Extra");
         expect(extraModule?.link?.href).toBe("/docs/api/fixture/Extra");
+        expect(extraModule?.introductionVersion).toBe("1.0.1");
+        expect(rootModule?.declarations.find((declaration) => declaration.name === "hello")?.category)
+            .toBe("Greetings");
+        expect(rootModule?.declarations.find((declaration) => declaration.name === "Greeting")?.category)
+            .toBeUndefined();
         expect(
             dataset.records[0]?.declarations.some(
                 (declaration: {

@@ -263,6 +263,7 @@ const StableLinkSchema = Schema.Struct({
 });
 export/** @internal */
 const ApiReferenceDeclarationSchema = Schema.Struct({
+    category: Schema.optionalKey(Schema.String),
     categoryId: Schema.String,
     description: Schema.String,
     id: Schema.String,

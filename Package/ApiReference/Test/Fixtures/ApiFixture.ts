@@ -8,10 +8,15 @@
  * @copyright (c) 2026 Gage Sorrell
  * @license   MIT
  */
+
 /** A small TypeDoc fixture. */
 export interface Greeting {
     readonly message: string;
 }
-/** Returns a greeting. */
-export/** @internal */
-const hello = (): Greeting => ({ message: "hello" });
+
+/**
+ * Returns a greeting.
+ *
+ * @category Greetings
+ */
+export const hello = (): Greeting => ({ message: "hello" });
