@@ -1,119 +1,169 @@
 ---
-import { documentationVersions } from "../Versions.js";
+import { canonicalUrl, docsPath, docsVersionPath } from "@sorrell/docs-astro";
+import { DefaultDesignTokens } from "@sorrell/docs-core";
+import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/docs.css";
 
-interface Props {
-    readonly title: string;
+interface PageSummary
+{
     readonly description: string;
+    readonly group: string;
+    readonly id: string;
+    readonly slug: string;
+    readonly title: string;
 }
 
-const { title, description } = Astro.props;
-const siteName = {{SITE_NAME}};
-const docsPrefix = "{{DOCS_PREFIX}}";
-const repositoryUrl = {{REPOSITORY_URL}} as string;
-const storybookPrefix = {{STORYBOOK_PREFIX}} as string;
-const copyText = `${title}\n\n${description}`;
+interface Heading
+{
+    readonly depth: number;
+    readonly slug: string;
+    readonly text: string;
+}
+
+interface Props
+{
+    readonly canonicalPath: string;
+    readonly copyText: string;
+    readonly description: string;
+    readonly headings: ReadonlyArray<Heading>;
+    readonly pages: ReadonlyArray<PageSummary>;
+    readonly slug: string;
+    readonly title: string;
+    readonly version?: string | undefined;
+}
+
+const { canonicalPath, copyText, description, headings, pages, slug, title, version } = Astro.props;
+const prefix = "/docs";
+const groups = [ ...new Set(pages.map((page) => page.group)) ];
+const canonical = canonicalUrl("https://docs.sorrell.sh", canonicalPath);
+const pageHref = (page: PageSummary): string => {
+    const pageSlug = page.id === "index" ? "" : page.slug;
+    return version === undefined ? docsPath(prefix, pageSlug) : docsVersionPath(prefix, version, pageSlug);
+};
 ---
+
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="description" content={description} />
         <meta property="og:description" content={description} />
-        <meta property="og:title" content={`${title} · ${siteName}`} />
+        <meta property="og:title" content={`${title} · Sorrell Documentation`} />
         <meta property="og:type" content="article" />
-        <meta name="color-scheme" content="light dark" />
-        <title>{title} · {siteName}</title>
-        <script is:inline>
-            (() => {
-                let mode = "system";
-                try {
-                    const stored = localStorage.getItem("sorrell-docs-theme");
-                    if (stored === "light" || stored === "dark" || stored === "system") mode = stored;
-                } catch { /* Storage can be unavailable in restricted contexts. */ }
-                const dark = mode === "dark" || (mode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-                document.documentElement.dataset.theme = dark ? "dark" : "light";
-                document.documentElement.style.colorScheme = dark ? "dark" : "light";
-            })();
-        </script>
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" type="text/markdown" href={`${canonicalPath.endsWith("/") ? `${canonicalPath}index` : canonicalPath}.md`} />
+        <title>{title} · Sorrell Documentation</title>
     </head>
     <body>
         <div class="docs-site">
-            <SiteHeader docsPrefix={docsPrefix} name={siteName} repositoryUrl={repositoryUrl} storybookPrefix={storybookPrefix} versions={documentationVersions} />
+            <SiteHeader currentVersion={version ?? "current"} slug={slug === "index" ? "" : slug} />
             <div class="docs-layout">
-                <aside class="docs-sidebar" aria-label="Documentation contents">
+                <aside class="docs-sidebar" aria-label="Documentation navigation">
                     <div class="docs-sidebar-label">CONTENTS</div>
-                    <nav aria-label="Documentation navigation">
-                        <a href={`${docsPrefix}/`}>{title}</a>
-                    </nav>
+                    {groups.map((group) => <section class="docs-nav-group">
+                        <h2>{group}</h2>
+                        <ul>
+                            {pages.filter((page) => page.group === group).map((page) => <li>
+                                <a href={pageHref(page)}>{page.title}</a>
+                            </li>)}
+                        </ul>
+                    </section>)}
                 </aside>
                 <main class="docs-main" id="main-content">
                     <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
-                        <a href={`${docsPrefix}/`}>DOCS</a>
-                        <span aria-hidden="true">/</span>
-                        <span aria-current="page">{title}</span>
+                        <a href={docsPath(prefix)}>DOCS</a>
+                        <span>/</span>
+                        <span>{title}</span>
                     </nav>
                     <div class="docs-heading-row">
                         <div>
-                            <p class="docs-eyebrow">{siteName}</p>
+                            <p class="docs-eyebrow">SORRELL DOCUMENTATION</p>
                             <h1>{title}</h1>
                         </div>
-                        <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
+                        <button class="docs-copy-button" type="button" aria-label="Copy for LLM" aria-live="polite" data-copied="false" data-copy-llm data-copy-text={copyText}>
+                            <span aria-hidden="true" class="docs-copy-button-icon">
+                                <svg class="docs-copy-icon" viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                                <svg class="docs-copy-success-icon" viewBox="0 0 24 24" fill="none"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="docs-copy-button-label"><span>Copy for LLM</span><span>Copied markdown!</span></span>
+                        </button>
                     </div>
                     <p class="docs-lede">{description}</p>
                     <article class="docs-prose prose prose-effect" data-pagefind-body>
                         <slot />
                     </article>
+                    <nav class="docs-previous-next" aria-label="Page navigation">
+                        {(() => {
+                            const currentIndex = pages.findIndex((page) => pageHref(page) === canonicalPath);
+                            const previous = currentIndex > 0 ? pages[currentIndex - 1] : undefined;
+                            const next = currentIndex >= 0 && currentIndex < pages.length - 1 ? pages[currentIndex + 1] : undefined;
+                            return <>
+                                {previous ? <a href={pageHref(previous)}><small>Previous</small><strong>{previous.title}</strong></a> : <span />}
+                                {next ? <a class="next" href={pageHref(next)}><small>Next</small><strong>{next.title}</strong></a> : <span />}
+                            </>;
+                        })()}
+                    </nav>
                 </main>
                 <aside class="docs-toc" aria-label="On this page">
                     <strong>On this page</strong>
-                    <ul><li><a href="#main-content">{title}</a></li></ul>
+                    <ul>
+                        {headings.filter((heading) => heading.depth === 2).map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+                    </ul>
                 </aside>
             </div>
-            <footer class="docs-footer">{siteName}</footer>
+            <footer class="docs-footer">Built for readable, durable documentation.</footer>
         </div>
     </body>
 </html>
 
+<style is:global set:html={docsUiCss}></style>
+<style is:global set:html={createThemeCss(DefaultDesignTokens)}></style>
 <style is:global>
-    :root { color-scheme: light; }
-    [data-theme="dark"] { color-scheme: dark; }
-    body { margin: 0; min-width: 320px; }
-    .docs-site { min-height: 100vh; background: var(--docs-background); color: var(--docs-foreground); }
-    .docs-layout { display: grid; grid-template-columns: minmax(190px, 220px) minmax(0, 1fr) minmax(190px, 220px); margin: 0 auto; max-width: 1480px; min-height: calc(100vh - 4rem); }
-    .docs-sidebar, .docs-toc { padding: 2.5rem 1.25rem; }
+    :root { color-scheme: dark; }
+    [data-theme="light"] { color-scheme: light; }
+    body { margin: 0; }
+    .docs-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr) 220px; margin: 0 auto; max-width: 1480px; min-height: calc(100vh - 120px); }
+    .docs-layout > .docs-sidebar, .docs-layout > .docs-toc { padding: 2rem 1rem; }
     .docs-sidebar { border-right: 1px solid var(--docs-border); }
-    .docs-sidebar-label { color: var(--docs-muted); font-size: .75rem; font-weight: 700; letter-spacing: .16em; line-height: 1.5; text-transform: uppercase; }
-    .docs-sidebar nav { margin-top: 1.25rem; }
-    .docs-sidebar nav a { color: var(--docs-foreground); display: block; font-size: .9rem; line-height: 1.5; padding: .5rem .6rem; text-decoration: none; }
     .docs-toc { border-left: 1px solid var(--docs-border); }
-    .docs-toc strong { color: var(--docs-foreground); display: block; font-size: .9rem; font-weight: 600; line-height: 1.5; }
-    .docs-toc ul { border-top: 1px solid var(--docs-border); list-style: none; margin: 1rem 0 0; padding: 1rem 0 0; }
-    .docs-toc a { color: var(--docs-muted); font-size: .875rem; line-height: 1.4; text-decoration: none; }
-    .docs-toc a:hover { color: var(--docs-foreground); }
-    .docs-main { min-width: 0; padding: 2.5rem clamp(1.5rem, 5vw, 4.5rem); }
-    .docs-breadcrumbs { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-size: .72rem; font-weight: 700; gap: .65rem; letter-spacing: .13em; margin-bottom: 2rem; text-transform: uppercase; }
+    .docs-layout .docs-sidebar-label { color: var(--docs-foreground); font-size: .875rem; font-weight: 600; letter-spacing: normal; line-height: 1.5; }
+    .docs-eyebrow { color: var(--docs-accent); font-size: .72rem; font-weight: 700; letter-spacing: .14em; }
+    .docs-nav-group { margin: .25rem 0 0; }
+    .docs-nav-group h2 { color: var(--docs-foreground); font-size: .875rem; font-weight: 600; line-height: 1.5; margin: 0; padding: .625rem 0; }
+    .docs-nav-group ul, .docs-toc ul { list-style: none; margin: 0; padding: 0; }
+    .docs-nav-group ul { display: flex; flex-direction: column; gap: .125rem; }
+    .docs-nav-group li { margin: 0; }
+    .docs-nav-group a { border-radius: .375rem; color: var(--docs-muted); display: block; font-size: .875rem; line-height: 1.5; padding: .375rem 0 .375rem .75rem; text-decoration: none; }
+    .docs-toc a { color: var(--docs-muted); display: block; font-size: .875rem; line-height: 1.375; text-decoration: none; }
+    .docs-nav-group a:hover, .docs-toc a:hover { color: var(--docs-foreground); }
+    .docs-main { min-width: 0; padding: 4.5rem clamp(1.5rem, 6vw, 6rem); }
+    .docs-breadcrumbs { color: var(--docs-muted); display: flex; font-size: .72rem; gap: .7rem; letter-spacing: .13em; margin-bottom: 2rem; text-transform: uppercase; }
     .docs-breadcrumbs a { color: var(--docs-accent); text-decoration: none; }
-    .docs-heading-row { align-items: flex-start; display: flex; gap: 2rem; justify-content: space-between; margin-top: 2rem; }
-    .docs-eyebrow { color: var(--docs-accent); font-size: .72rem; font-weight: 700; letter-spacing: .14em; margin: 0 0 .75rem; text-transform: uppercase; }
-    .docs-heading-row h1 { color: var(--docs-foreground); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; margin: 0; }
-    .docs-copy-button { background: var(--docs-foreground); border: 0; border-radius: .45rem; color: var(--docs-background); cursor: pointer; flex: 0 0 auto; font-size: .8rem; font-weight: 650; padding: .65rem .8rem; white-space: nowrap; }
-    .docs-copy-button:hover, .docs-copy-button:focus-visible { background: var(--docs-accent); outline: 2px solid var(--docs-accent); outline-offset: 2px; }
-    .docs-lede { color: var(--docs-muted); font-size: 1.125rem; line-height: 1.65; margin: 1.25rem 0 2.5rem; max-width: 48rem; }
-    .docs-prose { max-width: 52rem; }
+    .docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-between; }
+    .docs-heading-row h1 { color: var(--docs-foreground); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; margin: .5rem 0 0; }
+    .docs-copy-button { background: var(--docs-foreground); border: 0; border-radius: 999px; color: var(--docs-background); cursor: pointer; font-weight: 700; padding: .75rem 1rem; white-space: nowrap; }
+    .docs-lede { color: var(--docs-muted); font-size: 1.15rem; line-height: 1.65; margin: 1.25rem 0 3rem; max-width: 48rem; }
+    .docs-previous-next { border-top: 1px solid var(--docs-border); display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-top: 5rem; padding-top: 1.5rem; }
+    .docs-previous-next a { color: var(--docs-foreground); display: flex; flex-direction: column; gap: .35rem; text-decoration: none; }
+    .docs-previous-next a.next { align-items: end; text-align: right; }
+    .docs-previous-next small { color: var(--docs-muted); }
+    .docs-toc strong { color: var(--docs-foreground); display: block; font-size: .875rem; font-weight: 600; line-height: 1.5; }
+    .docs-toc ul { border-top: 1px solid var(--docs-border); display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; padding-top: 1.25rem; }
+    .docs-toc li { margin: 0; }
     .docs-footer { border-top: 1px solid var(--docs-border); color: var(--docs-muted); font-size: .85rem; padding: 1.5rem 2rem; text-align: center; }
-    @media (max-width: 1120px) { .docs-layout { grid-template-columns: 200px minmax(0, 1fr); } .docs-toc { display: none; } }
-    @media (max-width: 800px) { .docs-layout { display: block; } .docs-sidebar { border-bottom: 1px solid var(--docs-border); border-right: 0; padding: 1rem 1.25rem; } .docs-sidebar nav { margin-top: .5rem; } .docs-sidebar nav a { padding: .35rem .5rem; } .docs-main { padding: 2rem 1.25rem 3rem; } .docs-heading-row { display: block; margin-top: 1.5rem; } .docs-copy-button { margin-top: 1.25rem; } .docs-lede { margin-bottom: 2rem; } }
+    @media (max-width: 1000px) { .docs-layout { grid-template-columns: 200px minmax(0, 1fr); } .docs-toc { display: none; } }
+    @media (max-width: 700px) { .docs-layout { display: block; } .docs-layout > .docs-sidebar { border-bottom: 1px solid var(--docs-border); border-right: 0; padding: 1rem; } .docs-nav-group { display: inline-block; margin: .6rem 1rem .2rem 0; vertical-align: top; } .docs-nav-group ul { display: none; } .docs-main { padding: 2.5rem 1rem; } .docs-heading-row { display: block; } .docs-copy-button { margin-top: 1.5rem; } }
 </style>
 
 <script is:inline>
     document.querySelectorAll("[data-copy-llm]").forEach((button) => {
         button.addEventListener("click", async () => {
             const text = button.dataset.copyText ?? "";
-            try { await navigator.clipboard.writeText(text); }
-            catch {
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch {
                 const area = document.createElement("textarea");
                 area.value = text;
                 document.body.appendChild(area);
@@ -122,8 +172,11 @@ const copyText = `${title}\n\n${description}`;
                 area.remove();
             }
             button.dataset.copied = "true";
-            button.textContent = "Copied";
-            window.setTimeout(() => { button.dataset.copied = "false"; button.textContent = "Copy for LLM"; }, 1600);
+            button.setAttribute("aria-label", "Copied markdown!");
+            window.setTimeout(() => {
+                button.dataset.copied = "false";
+                button.setAttribute("aria-label", "Copy for LLM");
+            }, 1600);
         });
     });
     const copyIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="8" y="7" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 4.5V4a1.5 1.5 0 0 0-1.5-1.5h-9A1.5 1.5 0 0 0 4 4v12A1.5 1.5 0 0 0 5.5 17.5H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';

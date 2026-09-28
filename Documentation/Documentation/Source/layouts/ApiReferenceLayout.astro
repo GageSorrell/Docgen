@@ -122,10 +122,18 @@ highlighter.dispose();
                     <div class="docs-api-heading-row">
                         <div>
                             <p class="docs-eyebrow">API REFERENCE</p>
-                            <h1>{record.displayName}</h1>
+                            <div class="docs-api-title-row">
+                                <h1>{record.displayName}</h1>
+                                <button class="docs-copy-button" type="button" aria-label="Copy for LLM" aria-live="polite" data-copied="false" data-copy-llm data-copy-text={copyText}>
+                                    <span aria-hidden="true" class="docs-copy-button-icon">
+                                        <svg class="docs-copy-icon" viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                                        <svg class="docs-copy-success-icon" viewBox="0 0 24 24" fill="none"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </span>
+                                    <span class="docs-copy-button-label"><span>Copy for LLM</span><span>Copied markdown!</span></span>
+                                </button>
+                            </div>
                             {record.summary === undefined ? null : <div class="prose prose-effect"><ApiReferenceDescription description={record.summary} parts={record.summaryParts} /></div>}
                         </div>
-                        <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
                     </div>
                     <div class="docs-api-meta">
                         <span>{record.exportCount} exports</span>
@@ -200,6 +208,8 @@ highlighter.dispose();
     .docs-api-main > .docs-breadcrumbs { margin-top: 34px; }
     .docs-api-page .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 400; }
     .docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+    .docs-api-title-row { align-items: baseline; display: flex; gap: 24px; justify-content: space-between; }
+    .docs-api-title-row .docs-copy-button { margin-left: auto; }
     .docs-api-page .docs-sidebar .docs-nav-items a:hover, .docs-api-page .docs-sidebar .docs-nav-items a.is-active, .docs-api-page .docs-toc .docs-nav-items a:hover { background: var(--docs-code-background); }
     .docs-api-page .docs-declaration-heading h3 { font-size: 25px; }
     .docs-api-meta { align-items: center; color: var(--docs-muted); display: flex; flex-wrap: wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; gap: 24px; margin: 28px 0 62px; }
@@ -224,7 +234,7 @@ highlighter.dispose();
     const copy = async (text) => {
         try { await navigator.clipboard.writeText(text); } catch { const area = document.createElement("textarea"); area.value = text; document.body.appendChild(area); area.select(); document.execCommand("copy"); area.remove(); }
     };
-    document.querySelectorAll("[data-copy-llm]").forEach((button) => button.addEventListener("click", async () => { await copy(button.dataset.copyText ?? ""); button.dataset.copied = "true"; button.textContent = "Copied"; window.setTimeout(() => { button.dataset.copied = "false"; button.textContent = "Copy for LLM"; }, 1600); }));
+    document.querySelectorAll("[data-copy-llm]").forEach((button) => button.addEventListener("click", async () => { await copy(button.dataset.copyText ?? ""); button.dataset.copied = "true"; button.setAttribute("aria-label", "Copied markdown!"); window.setTimeout(() => { button.dataset.copied = "false"; button.setAttribute("aria-label", "Copy for LLM"); }, 1600); }));
     const copyIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="8" y="7" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 4.5V4a1.5 1.5 0 0 0-1.5-1.5h-9A1.5 1.5 0 0 0 4 4v12A1.5 1.5 0 0 0 5.5 17.5H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
     const copiedIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     const addCopyButton = (frame, code) => {

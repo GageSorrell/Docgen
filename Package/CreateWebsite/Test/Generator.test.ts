@@ -31,6 +31,7 @@ describe("three-package website generation", () =>
         );
         const apiPackageLayout = contents.get("Documentation/Source/layouts/ApiPackageLayout.astro") ?? "";
         const apiReferenceLayout = contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro") ?? "";
+        const docsLayout = contents.get("Documentation/Source/layouts/DocsLayout.astro") ?? "";
         const siteHeader = contents.get("Documentation/Source/components/SiteHeader.astro") ?? "";
         expect(apiPackageLayout).toContain("record.packageDescription");
         expect(apiPackageLayout).toContain("record.packagePrivate === true");
@@ -49,6 +50,10 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("docs-api-example-heading");
         expect(apiReferenceLayout).toContain("data-copy-label=\"Copy example to clipboard\"");
         expect(apiReferenceLayout).toContain(".docs-api-package { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.1rem; font-weight: 700;");
+        expect(apiReferenceLayout).toContain("<div class=\"docs-api-title-row\">");
+        expect(apiReferenceLayout).toContain("<span>Copy for LLM</span><span>Copied markdown!</span>");
+        expect(apiReferenceLayout).toContain("button.setAttribute(\"aria-label\", \"Copied markdown!\")");
+        expect(docsLayout).toContain("<span>Copy for LLM</span><span>Copied markdown!</span>");
         const generatedApiDescription = contents.get("Documentation/Source/components/ApiReferenceDescription.astro") ?? "";
         expect(generatedApiDescription).toContain("part.external === true");
         expect(generatedApiDescription).toContain("docs-description-external-icon");

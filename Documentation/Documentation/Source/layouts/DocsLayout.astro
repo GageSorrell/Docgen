@@ -82,7 +82,13 @@ const pageHref = (page: PageSummary): string => {
                             <p class="docs-eyebrow">SORRELL DOCUMENTATION</p>
                             <h1>{title}</h1>
                         </div>
-                        <button class="docs-copy-button" type="button" data-copy-llm data-copy-text={copyText}>Copy for LLM</button>
+                        <button class="docs-copy-button" type="button" aria-label="Copy for LLM" aria-live="polite" data-copied="false" data-copy-llm data-copy-text={copyText}>
+                            <span aria-hidden="true" class="docs-copy-button-icon">
+                                <svg class="docs-copy-icon" viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                                <svg class="docs-copy-success-icon" viewBox="0 0 24 24" fill="none"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="docs-copy-button-label"><span>Copy for LLM</span><span>Copied markdown!</span></span>
+                        </button>
                     </div>
                     <p class="docs-lede">{description}</p>
                     <article class="docs-prose prose prose-effect" data-pagefind-body>
@@ -138,7 +144,6 @@ const pageHref = (page: PageSummary): string => {
     .docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-between; }
     .docs-heading-row h1 { color: var(--docs-foreground); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; margin: .5rem 0 0; }
     .docs-copy-button { background: var(--docs-foreground); border: 0; border-radius: 999px; color: var(--docs-background); cursor: pointer; font-weight: 700; padding: .75rem 1rem; white-space: nowrap; }
-    .docs-copy-button[data-copied="true"] { background: var(--docs-accent); color: var(--docs-background); }
     .docs-lede { color: var(--docs-muted); font-size: 1.15rem; line-height: 1.65; margin: 1.25rem 0 3rem; max-width: 48rem; }
     .docs-previous-next { border-top: 1px solid var(--docs-border); display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-top: 5rem; padding-top: 1.5rem; }
     .docs-previous-next a { color: var(--docs-foreground); display: flex; flex-direction: column; gap: .35rem; text-decoration: none; }
@@ -167,10 +172,10 @@ const pageHref = (page: PageSummary): string => {
                 area.remove();
             }
             button.dataset.copied = "true";
-            button.textContent = "Copied";
+            button.setAttribute("aria-label", "Copied markdown!");
             window.setTimeout(() => {
                 button.dataset.copied = "false";
-                button.textContent = "Copy for LLM";
+                button.setAttribute("aria-label", "Copy for LLM");
             }, 1600);
         });
     });

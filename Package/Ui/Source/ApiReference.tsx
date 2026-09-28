@@ -245,7 +245,10 @@ const ApiReferencePage = ({
                 ) } />
                 <div className="docs-api-heading-row">
                     <div>
-                        <h1>{record.displayName}</h1>
+                        <div className="docs-api-title-row">
+                            <h1>{record.displayName}</h1>
+                            <CopyForLlmButton document={ document } />
+                        </div>
                         {record.packageDescription === undefined ? null : (
                             <p>{record.packageDescription}</p>
                         )}
@@ -254,7 +257,6 @@ const ApiReferencePage = ({
                             text={ record.summary }
                         />
                     </div>
-                    <CopyForLlmButton document={ document } />
                 </div>
                 <div className="docs-api-meta">
                     <span>{modules.length} {modules.length === 1 ? "module" : "modules"}</span>
