@@ -749,11 +749,12 @@ const moduleEntryForTarget = (
 const moduleHrefFor = (
     packageId: string,
     exportPath: string,
+    moduleCount: number,
     options: ApiReferenceGenerationOptions
 ): string =>
 {
     const modulePath = exportPath === "." ? "Core" : exportPath.replace(/^\.\//u, "");
-    return `${options.referencePrefix ?? "/docs/api"}/${packageId}/${modulePath}`;
+    return `${options.referencePrefix ?? "/docs/api"}/${packageId}${moduleCount === 1 ? "" : `/${modulePath}`}`;
 };
 const publicPackageCache = new Map<string, Promise<boolean>>();
 const isPublicNpmPackage = (
@@ -849,7 +850,7 @@ const linkPartFor = async (
             }
             if (targetReflection.id === moduleReflection.id || ancestor?.id === moduleReflection.id)
             {
-                const href = moduleHrefFor(packageInput.id, exportPath, options);
+                const href = moduleHrefFor(packageInput.id, exportPath, moduleEntries.length, options);
                 const targetIsModule = targetReflection.id === moduleReflection.id ||
                     targetReflection.kind === ReflectionKind.Module ||
                     targetReflection.kind === ReflectionKind.Project;
@@ -867,7 +868,7 @@ const linkPartFor = async (
                 const entry = moduleEntryForTarget(symbol, packageDirectory, moduleEntries);
                 if (entry !== undefined)
                 {
-                    const href = moduleHrefFor(packageInput.id, entry.exportPath, options);
+                    const href = moduleHrefFor(packageInput.id, entry.exportPath, moduleEntries.length, options);
                     const targetName = symbol.qualifiedName?.split(".")[0];
                     return makeLink(
                         targetName === undefined || targetName === ""
@@ -1040,14 +1041,7 @@ const recordFrom = async (
                     : { href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.id}` }),
                 label: packageInput.name
             },
-            ...(exportPath === "."
-                ? []
-                : [
-                      {
-                          current: true,
-                          label: displayName
-                      }
-                  ])
+            ...(exportPath === "." ? [] : [ { current: true, label: displayName } ])
         ],
         categories,
         declarations,
@@ -1073,7 +1067,7 @@ const recordFrom = async (
         ...(moduleSource === undefined ? {} : { source: moduleSource }),
         link: {
             external: false,
-            href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.id}/${modulePath}`,
+            href: `${options.referencePrefix ?? "/docs/api"}/${packageInput.id}${moduleEntries.length === 1 ? "" : `/${modulePath}`}`,
             label: displayName
         }
     };

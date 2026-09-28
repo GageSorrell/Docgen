@@ -13,9 +13,20 @@ interface ApiPageProps {
 
 export function getStaticPaths() {
     const apiDataset = dataset as ApiReferenceDataset;
-    const packageRecords = [ ...new Map(apiDataset.records.map((record) => [record.packageId, record])).values()];
-    const packagePages = packageRecords.map((record) => ({ params: { slug: record.packageId }, props: { record, view: "package" as const } }));
-    const modulePages = apiDataset.records.map((record) => {
+    const modulesByPackage = new Map<string, ApiReferenceRecord[]>();
+    for (const record of apiDataset.records) {
+        const modules = modulesByPackage.get(record.packageId) ?? [];
+        modules.push(record);
+        modulesByPackage.set(record.packageId, modules);
+    }
+    const packagePages = [ ...modulesByPackage.entries() ].flatMap(([ packageId, packageModules ]) => {
+        const record = packageModules[0];
+        return record === undefined ? [] : [{
+            params: { slug: packageId },
+            props: { record, packageModules, view: packageModules.length === 1 ? "module" as const : "package" as const }
+        }];
+    });
+    const modulePages = apiDataset.records.filter((record) => modulesByPackage.get(record.packageId)?.length !== 1).map((record) => {
         const modulePath = record.module === record.packageId
             ? "Core"
             : record.module.startsWith(`${record.packageId}/`)

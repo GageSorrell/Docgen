@@ -1,0 +1,7 @@
+{
+  "name": "@sorrell/single-fixture",
+  "version": "1.0.0",
+  "description": "A fixture package with one exported module.",
+  "private": false,
+  "main": "./Source/index.ts"
+}

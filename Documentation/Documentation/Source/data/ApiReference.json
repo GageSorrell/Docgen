@@ -1,5 +1,5 @@
 {
-  "checksum": "e3fc6bf2ea692ede9516705b68586a6d0e395ee31c9893561e48cbf19e7f83b5",
+  "checksum": "cd8b4ed084651e3b857721eb33c5e7d77f29f7aca5274b502395fcb07dc73c40",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -1258,7 +1258,7 @@
       },
       "link": {
         "external": false,
-        "href": "/docs/api/core/Core",
+        "href": "/docs/api/core",
         "label": "@sorrell/docs-core"
       }
     },
@@ -1794,7 +1794,7 @@
       },
       "link": {
         "external": false,
-        "href": "/docs/api/ui/Core",
+        "href": "/docs/api/ui",
         "label": "@sorrell/docs-ui"
       }
     }

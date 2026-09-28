@@ -40,6 +40,10 @@ describe("three-package website generation", () =>
         expect(apiPackageLayout).toContain("docs-package-module-search");
         expect(contents.get("Documentation/Source/pages/api/[...slug].astro"))
             .toContain("ApiPackageLayout record={record}");
+        expect(contents.get("Documentation/Source/pages/api/[...slug].astro"))
+            .toContain("view: packageModules.length === 1 ? \"module\" as const : \"package\" as const");
+        expect(contents.get("Documentation/Source/pages/api/[...slug].astro"))
+            .toContain("modulesByPackage.get(record.packageId)?.length !== 1");
         expect(apiReferenceLayout).toContain("uncategorizedDeclarations");
         expect(apiReferenceLayout).toContain("declarationCategoryNames");
         expect(apiReferenceLayout).toContain("docs-toc-category");

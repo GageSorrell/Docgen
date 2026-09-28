@@ -14,6 +14,37 @@ import { fileURLToPath } from "node:url";
 import { generateApiDataset } from "../Source/TypeDoc.js";
 describe("TypeDoc generation", () =>
 {
+    it("uses the package URL as the module page when a package has one exported module", async () =>
+    {
+        const entryPoint = fileURLToPath(
+            new URL("./Fixtures/Single/Source/index.ts", import.meta.url)
+        );
+        const tsconfig = fileURLToPath(
+            new URL("./Fixtures/Single/tsconfig.json", import.meta.url)
+        );
+        const dataset = await generateApiDataset({
+            generatedAt: "2026-09-24T00:00:00.000Z",
+            packages: [
+                {
+                    entryPoints: [ entryPoint ],
+                    id: "single",
+                    name: "@sorrell/single-fixture",
+                    tsconfig,
+                    version: "1.0.0"
+                }
+            ]
+        });
+        expect(dataset.records).toHaveLength(1);
+        expect(dataset.records[0]?.link?.href).toBe("/docs/api/single");
+        expect(dataset.records[0]?.declarations.find((declaration) => declaration.name === "linkToOnly")?.descriptionParts)
+            .toContainEqual(expect.objectContaining({
+                external: false,
+                href: "/docs/api/single#only",
+                kind: "link",
+                text: "the only export"
+            }));
+    });
+
     it("discovers exported declarations programmatically", async () =>
     {
         const entryPoint = fileURLToPath(
