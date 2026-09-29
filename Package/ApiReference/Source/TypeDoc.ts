@@ -32,6 +32,7 @@ import { createRequire } from "node:module";
 import { basename, dirname, isAbsolute, join, parse, relative, resolve, sep } from "node:path";
 import { createApiDataset, validateApiRecords } from "./Serialization.js";
 import { ApiReferenceError } from "./Errors.js";
+import { generateDoxygenRecords } from "./Doxygen.js";
 interface ReflectionSource {
     readonly fileName?: string;
     readonly line?: number;
@@ -1205,7 +1206,7 @@ const generateApiDataset = async (
     options: ApiReferenceGenerationOptions
 ): Promise<ApiReferenceDataset> =>
 {
-    if (options.packages.length === 0 && (options.jsonSchemas?.length ?? 0) === 0)
+    if (options.packages.length === 0 && (options.doxygen?.length ?? 0) === 0 && (options.jsonSchemas?.length ?? 0) === 0)
     {
         throw new ApiReferenceError("at least one package must be configured");
     }
@@ -1253,6 +1254,15 @@ const generateApiDataset = async (
             );
         }
     }
+    records.push(...await generateDoxygenRecords({
+        projects: options.doxygen ?? [],
+        ...(options.repositoryRoot === undefined && options.sourceRoot === undefined
+            ? {}
+            : { repositoryRoot: options.repositoryRoot ?? options.sourceRoot }),
+        ...(options.repositoryUrl === undefined ? {} : { repositoryUrl: options.repositoryUrl }),
+        ...(options.revision === undefined ? {} : { revision: options.revision }),
+        ...(options.referencePrefix === undefined ? {} : { referencePrefix: options.referencePrefix })
+    }));
     const jsonSchemas = [];
     const schemaRoutes = new Set<string>();
     const repositoryRoot = resolve(options.repositoryRoot ?? options.sourceRoot ?? process.cwd());
@@ -1345,7 +1355,7 @@ const generateApiDataset = async (
     {
         if (generatedRoutes.has(route))
         {
-            throw new ApiReferenceError(`JSON Schema route ${route} collides with a TypeScript API reference route`);
+            throw new ApiReferenceError(`JSON Schema route ${route} collides with an API reference route`);
         }
     }
     const validation = validateApiRecords(records);

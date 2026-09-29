@@ -9,6 +9,7 @@
  * @license   MIT
  */
 export * from "./Errors.js";
+export * from "./Doxygen.js";
 export * from "./Serialization.js";
 export * from "./Snapshot.js";
 export * from "./TypeDoc.js";

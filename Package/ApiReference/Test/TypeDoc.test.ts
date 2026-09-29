@@ -118,7 +118,7 @@ describe("TypeDoc generation", () =>
                 packages: [ { entryPoints: [ entryPoint ], id: "single", name: "@sorrell/single-fixture", tsconfig, version: "1.0.0" } ],
                 jsonSchemas: [ { path: "schema.json", route: "/docs/api/single" } ],
                 repositoryRoot: root
-            })).rejects.toThrow("collides with a TypeScript API reference route");
+            })).rejects.toThrow("collides with an API reference route");
         }
         finally
         {
@@ -271,7 +271,9 @@ describe("TypeDoc generation", () =>
                         | "interface"
                         | "type"
                         | "variable"
-                        | "namespace";
+                        | "namespace"
+                        | "enum"
+                        | "alias";
                     readonly categoryId: string;
                     readonly description?: string;
                     readonly signature: string;

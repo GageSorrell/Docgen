@@ -34,6 +34,7 @@ describe("docs-core configuration", () =>
             }
         ]);
         expect(config.api.enabled).toBe(false);
+        expect(config.api.doxygen).toEqual({ projects: [] });
         expect(config.api.jsonSchemas).toEqual([]);
         expect(config.footer.columns).toEqual([
             { links: [ { href: "/docs/", label: "Documentation" } ], title: "Resources" }
@@ -70,6 +71,28 @@ describe("docs-core configuration", () =>
             { path: "Documentation/schema.json", route: "/docs/schema/" }
         ]);
         expect(config.routing.documentationPrefix).toBe("/reference");
+    });
+    it("normalizes configured Doxygen project inputs", () =>
+    {
+        const config = decodeDocsConfigSync({
+            api: {
+                doxygen: {
+                    projects: [ {
+                        id: "engine",
+                        name: "Engine",
+                        version: "3.2.1",
+                        xmlDirectory: "build/docs/xml"
+                    } ]
+                }
+            },
+            metadata: { name: "Example" }
+        });
+        expect(config.api.doxygen.projects).toEqual([ {
+            id: "engine",
+            name: "Engine",
+            version: "3.2.1",
+            xmlDirectory: "build/docs/xml"
+        } ]);
     });
     it("normalizes custom footer columns, message, and lower links", () =>
     {

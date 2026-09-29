@@ -140,7 +140,9 @@ const apiReferenceRecordToAgentDocument = (
                     | "interface"
                     | "type"
                     | "variable"
-                    | "namespace";
+                        | "namespace"
+                        | "enum"
+                        | "alias";
                 readonly categoryId: string;
                 readonly description?: string;
                 readonly signature: string;
@@ -165,7 +167,7 @@ const apiReferenceRecordToAgentDocument = (
                         ? ""
                         : `Added in ${declaration.introductionVersion}`,
                     declaration.description,
-                    `Signature:\n\n\`\`\`typescript\n${declaration.signature}\n\`\`\``,
+                    `Signature:\n\n\`\`\`${record.language ?? "typescript"}\n${declaration.signature}\n\`\`\``,
                     declaration.source === undefined
                         ? ""
                         : [

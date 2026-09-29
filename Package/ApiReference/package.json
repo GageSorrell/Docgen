@@ -19,7 +19,10 @@
   "license": "MIT",
   "private": false,
   "type": "module",
-  "files": ["Distribution", "ReadMe.md"],
+  "files": [
+    "Distribution",
+    "ReadMe.md"
+  ],
   "main": "./Distribution/index.js",
   "types": "./Distribution/index.d.ts",
   "exports": {
@@ -36,6 +39,7 @@
   },
   "dependencies": {
     "@sorrell/docs-core": "1.0.1",
+    "@xmldom/xmldom": "0.8.15",
     "effect": "4.0.0-rc.117",
     "typedoc": "0.28.20"
   },

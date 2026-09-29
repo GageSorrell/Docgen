@@ -1,5 +1,5 @@
 /**
- * Generate configured TypeDoc and JSON Schema API references.
+ * Generate configured TypeDoc, Doxygen, and JSON Schema API references.
  *
  * @file      generate-api.mjs
  * @author    Sorrell Documentation
@@ -59,6 +59,7 @@ for (const configuredEntry of api.entryPoints ?? [])
     packages.set(manifest.name, packageInput);
 }
 const dataset = await ApiReference.generateApiDataset({
+    doxygen: api.enabled === false ? [] : (api.doxygen?.projects ?? []),
     generatedAt: process.env.SORRELL_API_GENERATED_AT ?? "2026-09-24T00:00:00.000Z",
     jsonSchemas: api.jsonSchemas ?? [],
     packages: api.enabled === false ? [] : [ ...packages.values() ],
@@ -123,6 +124,6 @@ await Effect.runPromise(
     )
 );
 process.stdout.write(
-    `Generated ${dataset.records.length} TypeScript and ` +
+    `Generated ${dataset.records.length} API reference pages and ` +
     `${(dataset.jsonSchemas ?? []).length} JSON Schema API references.\n`
 );

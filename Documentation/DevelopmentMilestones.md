@@ -76,14 +76,15 @@ story/example/article fixtures. Verify theme synchronization and all nested
 
 ## Milestone 8 — API Reference and Snapshot Pipeline
 
-Implement `@sorrell/docs-api-reference` with programmatic TypeDoc discovery,
-multi-package datasets, validation, checksums, snapshots, publish/resolve/
+Implement `@sorrell/docs-api-reference` with programmatic TypeDoc discovery and
+Doxygen XML parsing, named C++ project inputs, mixed-language multi-package datasets, validation, checksums, snapshots, publish/resolve/
 restore, Astro API pages, normalized content for the top-of-page `Copy for
 LLM` control, and the complete Effect-style reference-page view model and
 layout contract, including breadcrumbs, grouped package/module navigation,
 export counts, introduction metadata, GitHub source links, declaration kind
-badges, signature copy controls, stable anchors, and the `On this page` table
-of contents.
+badges, TypeScript and C++ signature highlighting, signature copy controls,
+stable anchors, and the `On this page` table of contents. Consume Doxygen XML
+prepared by the project build; do not invoke Doxygen from the site generator.
 
 ## Milestone 9 — `sorrell-docs` CLI and Three-Package Website Generator
 

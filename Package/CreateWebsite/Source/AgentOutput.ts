@@ -246,7 +246,9 @@ const apiDocuments = (
                         | "interface"
                         | "type"
                         | "variable"
-                        | "namespace";
+                        | "namespace"
+                        | "enum"
+                        | "alias";
                     readonly categoryId: string;
                     readonly description?: string;
                     readonly signature: string;

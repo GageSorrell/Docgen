@@ -20,8 +20,16 @@ export interface ApiReferencePackageInput {
     readonly tsconfig?: string;
 }
 /** @internal */
+export interface DoxygenProjectInput {
+    readonly id: string;
+    readonly name: string;
+    readonly version: string;
+    readonly xmlDirectory: string;
+}
+/** @internal */
 export interface ApiReferenceGenerationOptions {
     readonly packages: ReadonlyArray<ApiReferencePackageInput>;
+    readonly doxygen?: ReadonlyArray<DoxygenProjectInput>;
     readonly jsonSchemas?: ReadonlyArray<JsonSchemaReferenceInput>;
     readonly repositoryRoot?: string;
     readonly repositoryUrl?: string;

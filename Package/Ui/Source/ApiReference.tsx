@@ -118,7 +118,9 @@ const apiNavigation = (
                             | "interface"
                             | "type"
                             | "variable"
-                            | "namespace";
+                            | "namespace"
+                            | "enum"
+                            | "alias";
                         readonly categoryId: string;
                         readonly description?: string;
                         readonly signature: string;
@@ -192,7 +194,9 @@ const declarationDocument = (
                         | "interface"
                         | "type"
                         | "variable"
-                        | "namespace";
+                        | "namespace"
+                        | "enum"
+                        | "alias";
                     readonly categoryId: string;
                     readonly description?: string;
                     readonly signature: string;
@@ -332,7 +336,9 @@ const ApiReferencePage = ({
                                             | "interface"
                                             | "type"
                                             | "variable"
-                                            | "namespace";
+                                            | "namespace"
+                                            | "enum"
+                                            | "alias";
                                         readonly categoryId: string;
                                         readonly description?: string;
                                         readonly descriptionParts?: ReadonlyArray<{
@@ -371,7 +377,9 @@ const ApiReferencePage = ({
                                             | "interface"
                                             | "type"
                                             | "variable"
-                                            | "namespace";
+                                            | "namespace"
+                                            | "enum"
+                                            | "alias";
                                         readonly categoryId: string;
                                         readonly description?: string;
                                         readonly descriptionParts?: ReadonlyArray<{
@@ -480,7 +488,7 @@ const ApiReferencePage = ({
                                                 </section>
                                             ))}
                                             <h4>Signature</h4>
-                                            <DocCode language="typescript">
+                                            <DocCode language={ record.language ?? "typescript" }>
                                                 {declaration.signature}
                                             </DocCode>
                                         </article>

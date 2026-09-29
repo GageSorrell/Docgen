@@ -58,13 +58,13 @@ const moduleNavigation = packageModules.map((moduleRecord) => {
     : left.group === "Core" ? -1 : right.group === "Core" ? 1 : left.group.localeCompare(right.group));
 const moduleGroups = [ ...new Set([ "Core", ...moduleNavigation.map((module) => module.group) ]) ];
 const highlighter = await createHighlighter({
-    langs: ["typescript", "javascript", "bash", "json"],
+    langs: ["typescript", "javascript", "cpp", "bash", "json"],
     themes: ["github-light", "github-dark"]
 });
 const signatures = new Map(record.declarations.map((declaration) => [
     declaration.id,
     highlighter.codeToHtml(declaration.signature, {
-        lang: "typescript",
+        lang: record.language ?? "typescript",
         themes: { dark: "github-dark", light: "github-light" },
         defaultColor: false
     })

@@ -175,6 +175,18 @@ const prepareVercelDirectory = (
             prefix: "sorrell-vercel-"
         });
         yield* fileSystem.copy(source, staging, { overwrite: true });
+        const apiGenerator = path.join(staging, "GenerateApi.mjs");
+        if (yield* fileSystem.exists(apiGenerator))
+        {
+            const source = yield* fileSystem.readText(apiGenerator);
+            yield* fileSystem.writeText(
+                apiGenerator,
+                source.replace(
+                    "../../Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs",
+                    "./Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs"
+                )
+            );
+        }
         if (options.staticContent !== undefined)
         {
             const destination = path.join(

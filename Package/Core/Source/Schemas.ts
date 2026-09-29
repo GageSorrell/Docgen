@@ -154,6 +154,14 @@ const StorybookConfigSchema = Schema.Struct({
 });
 export/** @internal */
 const ApiGenerationConfigSchema = Schema.Struct({
+    doxygen: Schema.Struct({
+        projects: Schema.Array(Schema.Struct({
+            id: Schema.String,
+            name: Schema.String,
+            version: Schema.String,
+            xmlDirectory: Schema.String
+        }))
+    }),
     enabled: Schema.Boolean,
     entryPoints: Schema.Array(Schema.String),
     jsonSchemas: Schema.Array(Schema.Struct({
@@ -302,7 +310,9 @@ const ApiReferenceDeclarationSchema = Schema.Struct({
         "interface",
         "type",
         "variable",
-        "namespace"
+        "namespace",
+        "enum",
+        "alias"
     ]),
     link: Schema.optionalKey(StableLinkSchema),
     name: Schema.String,
@@ -318,6 +328,7 @@ const ApiReferenceRecordSchema = Schema.Struct({
     exportCount: Schema.Number,
     introductionVersion: optionalString,
     link: Schema.optionalKey(StableLinkSchema),
+    language: Schema.optionalKey(Schema.Literals([ "typescript", "cpp" ])),
     module: Schema.String,
     packageId: Schema.String,
     packageName: Schema.String,
@@ -498,6 +509,14 @@ const OptionalStorybookSchema = Schema.Struct({
     url: optionalString
 });
 const OptionalApiSchema = Schema.Struct({
+    doxygen: Schema.optionalKey(Schema.Struct({
+        projects: Schema.optionalKey(Schema.Array(Schema.Struct({
+            id: Schema.String,
+            name: Schema.String,
+            version: Schema.String,
+            xmlDirectory: Schema.String
+        })))
+    })),
     enabled: optionalBoolean,
     entryPoints: Schema.optionalKey(Schema.Array(Schema.String)),
     jsonSchemas: Schema.optionalKey(Schema.Array(Schema.Struct({

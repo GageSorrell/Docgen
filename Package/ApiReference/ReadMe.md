@@ -2,8 +2,31 @@
 
 # `@sorrell/docs-api-reference`
 
-Programmatic TypeDoc discovery, Draft 2020-12 JSON Schema references, and
-deterministic API-reference snapshots for Sorrell documentation sites.
+Programmatic TypeDoc discovery, Doxygen XML parsing, Draft 2020-12 JSON Schema
+references, and deterministic mixed-language API-reference snapshots for
+Sorrell documentation sites.
+
+Add C++ APIs under `api.doxygen.projects` in `docs.config.json`. The project's
+own build should run Doxygen with XML output enabled before `sorrell-docs api
+generate`; Sorrell Docs reads the configured repository-root-relative XML
+directory and does not invoke Doxygen.
+
+```json
+{
+  "api": {
+    "doxygen": {
+      "projects": [
+        {
+          "id": "engine",
+          "name": "Engine",
+          "version": "1.2.0",
+          "xmlDirectory": "build/docs/xml"
+        }
+      ]
+    }
+  }
+}
+```
 
 Add schema references under `api.jsonSchemas` in `docs.config.json`:
 

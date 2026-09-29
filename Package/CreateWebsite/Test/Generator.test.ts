@@ -41,6 +41,8 @@ describe("three-package website generation", () =>
         expect(apiPackageLayout).toContain("record.packageDescription");
         expect(apiPackageLayout).toContain("<Footer />");
         expect(apiReferenceLayout).toContain("<Footer />");
+        expect(apiReferenceLayout).toContain("langs: [\"typescript\", \"javascript\", \"cpp\", \"bash\", \"json\"]");
+        expect(apiReferenceLayout).toContain("lang: record.language ?? \"typescript\"");
         expect(docsLayout).toContain("<Footer />");
         expect(generatedFooter).toContain("siteConfig.footer");
         expect(generatedFooter).toContain("site-footer-columns");
@@ -124,6 +126,7 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain(".docs-api-page .docs-toc .docs-nav-items a { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
         expect(contents.has("Documentation/scripts/generate-api.mjs")).toBe(true);
+        expect(contents.get("Documentation/scripts/generate-api.mjs")).toContain("doxygen: api.enabled === false ? [] : (api.doxygen?.projects ?? [])");
         expect(contents.get("Documentation/Source/pages/widget-schema.astro")).toContain("item.route === \"/docs/widget-schema/\"");
         expect(contents.get("Documentation/Source/layouts/JsonSchemaReferenceLayout.astro")).toContain("required");
         const generatedDocsPackage = JSON.parse(contents.get("Documentation/package.json") ?? "{}");

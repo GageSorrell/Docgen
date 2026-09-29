@@ -65,6 +65,14 @@ describe("website deployment orchestration", () =>
         const target = join(workspace, "generated");
         await mkdir(join(workspace, "Package/Core"), { recursive: true });
         await writeFile(join(workspace, "Package/Core/package.json"), "{}\n");
+        await mkdir(
+            join(workspace, "Package/CreateWebsite/Templates/Documentation/scripts"),
+            { recursive: true }
+        );
+        await writeFile(
+            join(workspace, "Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs"),
+            "export {};\n"
+        );
         await mkdir(join(target, "Documentation/Source/components"), { recursive: true });
         await mkdir(join(target, "Documentation/Source/layouts"), { recursive: true });
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
@@ -90,6 +98,10 @@ describe("website deployment orchestration", () =>
             );
         }
         await writeFile(join(target, "Documentation/package.json"), "{}\n");
+        await writeFile(
+            join(target, "Documentation/GenerateApi.mjs"),
+            "import \"../../Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs\";\n"
+        );
         await writeFile(
             join(target, "Landing/Source/pages/index.astro"),
             "import config from \"../../../docs.config.json\";\n"
@@ -120,6 +132,7 @@ describe("website deployment orchestration", () =>
         await writeFile(join(target, "docs.config.json"), generatedConfig);
 
         let stagedConfig = "";
+        let stagedApiGenerator = "";
         let stagedVersions = "";
         let stagedSiteHeader = "";
         let stagedDocumentationFooter = "";
@@ -136,6 +149,10 @@ describe("website deployment orchestration", () =>
                     {
                         if (options?.name === "documentation")
                         {
+                            stagedApiGenerator = readFileSync(
+                                join(directory, "GenerateApi.mjs"),
+                                "utf8"
+                            );
                             stagedConfig = readFileSync(
                                 join(directory, "docs.config.json"),
                                 "utf8"
@@ -194,6 +211,12 @@ describe("website deployment orchestration", () =>
         try
         {
             await Effect.runPromise(deployWebsite(website).pipe(Effect.provide(layer)));
+            expect(stagedApiGenerator).toContain(
+                "./Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs"
+            );
+            expect(stagedApiGenerator).not.toContain(
+                "../../Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs"
+            );
             expect(stagedConfig).toContain("\"versions\"");
             expect(stagedVersions).toContain("\"../docs.config.json\"");
             expect(stagedVersions).not.toContain("\"../../docs.config.json\"");

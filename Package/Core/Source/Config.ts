@@ -633,6 +633,9 @@ export /** @internal */ const normalizeDocsConfig = (
     const api = decodeAs<ApiGenerationConfig>(
         ApiGenerationConfigSchema,
         omitUndefined({
+            doxygen: {
+                projects: input.api?.doxygen?.projects ?? []
+            },
             enabled: input.api?.enabled ?? false,
             entryPoints: input.api?.entryPoints ?? [],
             jsonSchemas: input.api?.jsonSchemas ?? [],
