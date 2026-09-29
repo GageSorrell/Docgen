@@ -190,13 +190,13 @@
         "productionBranch": "Master",
         "projects": {
             "landing": {
-                "project": "sorrell-documentation-landing"
+                "project": "docgen-landing"
             },
             "documentation": {
-                "project": "documentation"
+                "project": "docgen"
             },
             "storybook": {
-                "project": "sorrell-documentation-storybook"
+                "project": "docgen-storybook"
             }
         }
     }
