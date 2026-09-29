@@ -3,10 +3,7 @@
 .landing-header-inner { display: flex; min-height: 4rem; align-items: center; gap: 2rem; }
 .landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; gap: .625rem; font-weight: 650; }
 .landing-brand img { width: auto; height: 2rem; }
-.dark .landing-brand img:not(.landing-brand-avatar) { filter: invert(1) hue-rotate(180deg); }
-.landing-brand-avatar { display: block; height: 2rem; width: 2rem; }
-.landing-brand img.landing-brand-avatar { height: 2rem; width: 2rem; }
-html[data-theme="dark"] .landing-brand-avatar[data-avatar-theme="light"], html:not([data-theme="dark"]) .landing-brand-avatar[data-avatar-theme="dark"] { display: none; }
+html[data-theme="dark"] .landing-brand-logo[data-logo-theme="light"], html:not([data-theme="dark"]) .landing-brand-logo[data-logo-theme="dark"] { display: none; }
 .landing-header-nav { display: flex; align-items: center; gap: 1.35rem; font-size: .875rem; color: var(--muted-foreground); }
 .landing-header-nav a:hover, .landing-header-nav a:focus-visible { color: var(--foreground); }
 .landing-header-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }

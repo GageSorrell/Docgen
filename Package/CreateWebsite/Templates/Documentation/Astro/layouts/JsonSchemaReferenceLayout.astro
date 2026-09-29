@@ -1,0 +1,53 @@
+---
+import { jsonSchemaReferenceToView, type JsonSchemaReferenceRecord } from "@sorrell/docs-api-reference";
+import { formatAgentDocument } from "@sorrell/docs-core";
+import DocsLayout from "./DocsLayout.astro";
+
+interface Props { readonly record: JsonSchemaReferenceRecord; }
+const { record } = Astro.props as Props;
+const view = jsonSchemaReferenceToView(record);
+const properties = view.properties;
+const defs = view.definitions;
+const summary = view.description ?? record.title;
+const sourceHref = record.sourceUrl;
+const definitionId = (name: string) => `definition-${encodeURIComponent(name)}`;
+const nav = [ ...(properties.length ? [{ id: "properties", label: "Properties" }] : []), ...defs.map((definition) => ({ id: definitionId(definition.name), label: definition.name })) ];
+const copyText = formatAgentDocument({ content: JSON.stringify(record.schema, null, 2), id: `json-schema:${record.route}`, kind: "json-schema", title: record.title, url: new URL(record.route, Astro.site ?? "https://docs.sorrell.sh").toString(), ...(record.description === undefined ? {} : { description: record.description }) });
+---
+<DocsLayout canonicalPath={record.route} copyText={copyText} description={summary ?? ""} headings={[]} pages={[]} slug={record.route.replace(/^\/docs\/?/u, "")} title={record.title}>
+    <article class="schema-reference">
+        <p class="eyebrow">JSON Schema · Draft 2020-12</p>
+        <h1>{record.title}</h1>
+        {summary ? <p class="schema-summary">{summary}</p> : null}
+        <p class="schema-source">Source: {sourceHref ? <a href={sourceHref}>{record.path}</a> : record.path}</p>
+        {nav.length ? <nav aria-label="On this page" class="schema-toc"><strong>Contents</strong><ul>{nav.map((item) => <li><a href={`#${item.id}`}>{item.label}</a></li>)}</ul></nav> : null}
+        {properties.length ? <section id="properties"><h2>Properties</h2><div class="schema-property-list">{properties.map((property) => <section class="schema-property"><h3>{property.name}{property.required ? <span class="required">Required</span> : null}</h3><p><code>{property.type}</code>{property.description ? <> · {property.description}</> : null}</p>
+            {property.reference ? <p>Reference: <a href={property.reference.href}>{property.reference.uri}</a></p> : null}
+            {property.constraints.map(({ name, value }) => <p class="constraint"><strong>{name}:</strong> <code>{JSON.stringify(value)}</code></p>)}
+        </section>)}</div></section> : null}
+        {view.constraints.length ? <section><h2>Constraints</h2><div class="schema-property-list">{view.constraints.map(({ name, value }) => <section class="schema-property"><h3>{name}</h3><pre><code>{JSON.stringify(value, null, 2)}</code></pre></section>)}</div></section> : null}
+        {defs.length ? <section><h2>Definitions</h2>{defs.map((definition) => <section class="schema-definition" id={definitionId(definition.name)}><h3>{definition.name}</h3>{definition.properties.length ? <div class="schema-property-list">{definition.properties.map((property) => <section class="schema-property"><h3>{property.name}{property.required ? <span class="required">Required</span> : null}</h3><p><code>{property.type}</code>{property.description ? <> · {property.description}</> : null}</p>
+            {property.reference ? <p>Reference: <a href={property.reference.href}>{property.reference.uri}</a></p> : null}
+            {property.constraints.map(({ name, value }) => <p class="constraint"><strong>{name}:</strong> <code>{JSON.stringify(value)}</code></p>)}
+        </section>)}</div> : null}<pre><code>{JSON.stringify(definition.schema, null, 2)}</code></pre></section>)}</section> : null}
+        <section><h2>Complete JSON Schema</h2><pre class="schema-json"><code>{view.formattedJson}</code></pre></section>
+    </article>
+</DocsLayout>
+<style is:global>
+    .schema-reference { max-width: 940px; margin: 0 auto; padding: 44px 28px 96px; }
+    .schema-reference h1 { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -.045em; margin: 8px 0 16px; }
+    .schema-reference h2 { border-bottom: 1px solid var(--docs-border); font-size: 1.45rem; margin: 42px 0 16px; padding-bottom: 10px; }
+    .schema-reference h3 { font-size: 1rem; margin: 0 0 8px; }
+    .schema-reference a { color: var(--docs-accent); }
+    .eyebrow { color: var(--docs-accent); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .schema-summary { color: var(--docs-muted); font-size: 1.1rem; }
+    .schema-source, .constraint { color: var(--docs-muted); font-size: .9rem; }
+    .schema-source a { overflow-wrap: anywhere; }
+    .schema-toc, .schema-property, .schema-definition { background: var(--docs-card-background); border: 1px solid var(--docs-border); border-radius: 10px; margin: 14px 0; padding: 16px 20px; }
+    .schema-toc ul { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; margin: 10px 0 0; padding: 0; }
+    .schema-property-list { display: grid; gap: 10px; }
+    .schema-property { min-width: 0; max-width: 100%; }
+    .schema-property p code { overflow-wrap: anywhere; white-space: normal; }
+    .required { background: var(--docs-code-background); border-radius: 999px; color: var(--docs-accent); font-size: .72rem; margin-left: 10px; padding: 3px 8px; vertical-align: middle; }
+    .schema-json, .schema-definition pre { background: var(--docs-code-background); border: 1px solid var(--docs-border); border-radius: 10px; overflow: auto; padding: 18px; }
+</style>

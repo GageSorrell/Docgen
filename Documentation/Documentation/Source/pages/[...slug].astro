@@ -3,14 +3,25 @@ import { getCollection, render } from "astro:content";
 import { formatAgentDocument, normalizeAgentMarkdown } from "@sorrell/docs-core";
 import { documentationSlug, docsPath, docsVersionPath, visibleDocumentationPages } from "@sorrell/docs-astro";
 import DocsLayout from "../layouts/DocsLayout.astro";
+import JsonSchemaReferenceLayout from "../layouts/JsonSchemaReferenceLayout.astro";
+import type { ApiReferenceDataset, JsonSchemaReferenceRecord } from "@sorrell/docs-api-reference";
+import apiDataset from "../data/ApiReference.json";
 import { documentationVersions } from "../Versions.js";
 
 export async function getStaticPaths() {
+    const generatedApiDataset = apiDataset as ApiReferenceDataset;
     const entries = await getCollection("documentation", ({ data }) => !data.draft);
     const currentPaths = entries.filter((entry) => entry.id !== "index").map((entry) => ({
         params: { slug: documentationSlug(entry.id) },
         props: { entry, version: undefined }
     }));
+    const schemaPaths = (generatedApiDataset.jsonSchemas ?? []).map((record) => {
+        const slug = record.route.replace(/^\/docs\/?/u, "").replace(/\/$/u, "");
+        if (currentPaths.some((path) => path.params.slug === slug)) {
+            throw new Error(`JSON Schema route ${record.route} collides with an authored documentation page`);
+        }
+        return { params: { slug }, props: { schemaRecord: record } };
+    });
     const versionedPaths = documentationVersions.filter(({ id }) => id !== "current").flatMap(({ id }) => entries.map((entry) => {
         const slug = documentationSlug(entry.id);
         return {
@@ -18,16 +29,21 @@ export async function getStaticPaths() {
             props: { entry, version: id }
         };
     }));
-    return [ ...currentPaths, ...versionedPaths ];
+    return [ ...currentPaths, ...versionedPaths, ...schemaPaths ];
 }
 
-const { entry, version } = Astro.props;
-const { Content, headings } = await render(entry);
+const schemaRecord = "schemaRecord" in Astro.props ? Astro.props.schemaRecord as JsonSchemaReferenceRecord : undefined;
+const entry = "entry" in Astro.props ? Astro.props.entry : undefined;
+const version = "version" in Astro.props ? Astro.props.version : undefined;
+const rendered = entry === undefined ? undefined : await render(entry);
+const Content = rendered?.Content;
+const headings = rendered?.headings ?? [];
+const EmptyContent = () => null;
 const entries = await getCollection("documentation", ({ data }) => !data.draft);
 const pages = visibleDocumentationPages(entries.map((item) => ({ ...item.data, id: item.id, slug: documentationSlug(item.id) })));
-const slug = documentationSlug(entry.id);
-const canonicalPath = version === undefined ? docsPath("/docs", slug) : docsVersionPath("/docs", version, slug);
-const copyText = formatAgentDocument({
+const slug = entry === undefined ? "" : documentationSlug(entry.id);
+const canonicalPath = entry === undefined ? Astro.url.pathname : version === undefined ? docsPath("/docs", slug) : docsVersionPath("/docs", version, slug);
+const copyText = entry === undefined ? "" : formatAgentDocument({
     id: `article:${version ?? "current"}:${slug || "index"}`,
     kind: "article",
     title: entry.data.title,
@@ -38,15 +54,15 @@ const copyText = formatAgentDocument({
 });
 ---
 
-<DocsLayout
+{schemaRecord !== undefined ? <JsonSchemaReferenceLayout record={schemaRecord} /> : <DocsLayout
     canonicalPath={canonicalPath}
     copyText={copyText}
-    description={entry.data.description}
+    description={entry?.data.description ?? "Documentation"}
     headings={headings}
     pages={pages}
     slug={slug}
-    title={entry.data.title}
+    title={entry?.data.title ?? "Documentation"}
     version={version}
 >
-    <Content />
-</DocsLayout>
+    {Content ? <Content /> : <EmptyContent />}
+</DocsLayout>}

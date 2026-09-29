@@ -95,7 +95,7 @@ const currentDocuments = (
     return corpus.documents.filter(
         (document: {
             readonly id: string;
-            readonly kind: "article" | "api-module" | "component";
+            readonly kind: "article" | "api-module" | "json-schema" | "component";
             readonly url: string;
             readonly content: string;
             readonly title: string;
@@ -119,7 +119,7 @@ const currentDocuments = (
     );
 };
 const isApiModule = (document: AgentDocument): boolean =>
-    document.kind === "api-module";
+    document.kind === "api-module" || document.kind === "json-schema";
 const isEssential = (
     document: AgentDocument,
     essentials: ReadonlyArray<string>
@@ -138,7 +138,7 @@ const skillMarkdown = (
     const essentials = documents.filter(
         (document: {
             readonly id: string;
-            readonly kind: "article" | "api-module" | "component";
+            readonly kind: "article" | "api-module" | "json-schema" | "component";
             readonly url: string;
             readonly content: string;
             readonly title: string;
@@ -233,7 +233,7 @@ const selectedDocuments = (
             : documents.filter(
                 (document: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -262,7 +262,7 @@ const selectedDocuments = (
         (
             left: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -282,7 +282,7 @@ const selectedDocuments = (
             },
             right: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -374,7 +374,7 @@ const writeSkillDirectory = (
         for (const document of documents.filter(
             (value: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -443,7 +443,7 @@ const buildProductSkill = (
                 .filter(
                     (value: {
                         readonly id: string;
-                        readonly kind: "article" | "api-module" | "component";
+                        readonly kind: "article" | "api-module" | "json-schema" | "component";
                         readonly url: string;
                         readonly content: string;
                         readonly title: string;

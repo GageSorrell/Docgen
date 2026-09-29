@@ -1,22 +1,10 @@
 {
     "$schema": "https://docgen.sorrell.sh/docs.config.schema.json",
     "metadata": {
+        "logo": "logo-light.png",
         "name": "Sorrell Docgen",
         "title": "Sorrell Docgen Toolset",
         "description": "Build readable documentation sites with a shared content, theme, and publishing system.",
-        "logo": {
-            "type": "dicebear",
-            "style": "pixelbot",
-            "props": {
-                "tags": [
-                    "animation"
-                ],
-                "glowColor": [
-                    "86EFAC"
-                ],
-                "seed": "Felix"
-            }
-        },
         "url": "https://docgen.sorrell.sh",
         "repository": {
             "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
@@ -37,16 +25,16 @@
             {
                 "title": "Guides",
                 "links": [
-                    { "label": "Overview", "href": "/docs/" },
-                    { "label": "Architecture", "href": "/docs/architecture/" },
-                    { "label": "Authoring", "href": "/docs/authoring/" },
-                    { "label": "Release readiness", "href": "/docs/release-readiness/" }
+                    { "label": "Introduction", "href": "/docs/guides/introduction/" },
+                    { "label": "Getting Started", "href": "/docs/guides/getting-started/" },
+                    { "label": "Customization", "href": "/docs/guides/customization/" }
                 ]
             },
             {
                 "title": "Developer tools",
                 "links": [
-                    { "label": "API reference", "href": "/docs/api/" },
+                    { "label": "API Reference", "href": "/docs/api/" },
+                    { "label": "Config JSON Schema", "href": "/docs/config-json-schema/" },
                     { "label": "Storybook", "href": "/storybook/" }
                 ]
             },
@@ -128,21 +116,21 @@
                 "label": "Guides",
                 "items": [
                     {
-                        "id": "overview",
-                        "label": "Overview",
-                        "href": "/docs/",
+                        "id": "introduction",
+                        "label": "Introduction",
+                        "href": "/docs/guides/introduction/",
                         "kind": "page"
                     },
                     {
-                        "id": "architecture",
-                        "label": "Architecture",
-                        "href": "/docs/architecture/",
+                        "id": "getting-started",
+                        "label": "Getting Started",
+                        "href": "/docs/guides/getting-started/",
                         "kind": "page"
                     },
                     {
-                        "id": "authoring",
-                        "label": "Authoring",
-                        "href": "/docs/authoring/",
+                        "id": "customization",
+                        "label": "Customization",
+                        "href": "/docs/guides/customization/",
                         "kind": "page"
                     }
                 ]
@@ -155,6 +143,12 @@
                         "id": "api",
                         "label": "API Reference",
                         "href": "/docs/api/",
+                        "kind": "page"
+                    },
+                    {
+                        "id": "config-json-schema",
+                        "label": "Config JSON Schema",
+                        "href": "/docs/config-json-schema/",
                         "kind": "page"
                     }
                 ]
@@ -185,6 +179,12 @@
             "@sorrell/docs-react-native-storybook",
             "@sorrell/docs-skills",
             "@sorrell/docs-ui"
+        ],
+        "jsonSchemas": [
+            {
+                "path": "Documentation/Landing/public/docs.config.schema.json",
+                "route": "/docs/config-json-schema/"
+            }
         ],
         "sourceRepository": {
             "url": "https://github.com/GageSorrell/Documentation",

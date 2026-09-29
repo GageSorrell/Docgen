@@ -30,10 +30,11 @@ describe("generated agent output", () =>
             await mkdir(join(target, "Landing", "Distribution"), {
                 recursive: true
             });
+            await mkdir(join(target, "Documentation", "Source", "data"), { recursive: true });
             await writeFile(
                 join(target, "docs.config.json"),
                 JSON.stringify({
-                    agent: { enabled: true },
+                    agent: { enabled: true, mcp: { enabled: true } },
                     metadata: { name: "Fixture", url: "https://example.test" }
                 })
             );
@@ -48,6 +49,16 @@ describe("generated agent output", () =>
                 ),
                 "---\ntitle: Welcome\ndescription: A fixture.\n---\n\n# Welcome\n\nReadable content.\n"
             );
+            await writeFile(
+                join(target, "Documentation", "Source", "data", "ApiReference.json"),
+                JSON.stringify({ jsonSchemas: [ {
+                    description: "Settings for the fixture.",
+                    path: "schemas/settings.json",
+                    route: "/docs/settings-schema/",
+                    schema: { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" },
+                    title: "Settings Schema"
+                } ], records: [] })
+            );
             await Effect.runPromise(
                 buildAgentOutput(target, {
                     generatedAt: "2026-09-24T00:00:00.000Z",
@@ -59,6 +70,15 @@ describe("generated agent output", () =>
                 "utf8"
             );
             await Effect.runPromise(verifyAgentOutput(target));
+            const corpus = JSON.parse(await readFile(join(target, "Documentation", "dist", "agent", "corpus", "current.json"), "utf8"));
+            expect(corpus.documents).toContainEqual(expect.objectContaining({
+                id: "json-schema:/docs/settings-schema/",
+                kind: "json-schema",
+                title: "Settings Schema",
+                url: "https://example.test/docs/settings-schema/"
+            }));
+            expect(JSON.parse(await readFile(join(target, "Documentation", "dist", "agent", "search-index.json"), "utf8")).entries)
+                .toContainEqual(expect.objectContaining({ id: "json-schema:/docs/settings-schema/" }));
             await Effect.runPromise(
                 buildAgentOutput(target, {
                     generatedAt: "2026-09-24T00:00:00.000Z",

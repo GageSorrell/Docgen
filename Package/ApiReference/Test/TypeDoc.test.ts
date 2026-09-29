@@ -9,11 +9,123 @@
  * @license   MIT
  */
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { fileURLToPath } from "node:url";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { generateApiDataset } from "../Source/TypeDoc.js";
 describe("TypeDoc generation", () =>
 {
+    it("generates a Draft 2020-12 schema reference and normalizes its route", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-schema-"));
+        const schema = {
+            $schema: "https://json-schema.org/draft/2020-12/schema",
+            $defs: { Shared: { type: "string", minLength: 2 } },
+            description: "Example schema.",
+            properties: {
+                active: true,
+                external: { $ref: "https://example.test/schema.json#/$defs/Name" },
+                internal: { $ref: "#/$defs/Shared" },
+                name: { maxLength: 30, type: "string" }
+            },
+            required: [ "name" ],
+            title: "Example Config",
+            type: "object"
+        };
+        await mkdir(join(root, "schemas"));
+        await writeFile(join(root, "schemas/example.json"), JSON.stringify(schema));
+        const warning = vi.spyOn(process.stderr, "write").mockImplementation(() => true);
+        try
+        {
+            const dataset = await generateApiDataset({
+                generatedAt: "2026-09-24T00:00:00.000Z",
+                jsonSchemas: [ { path: "schemas/example.json", route: "config/example/" } ],
+                packages: [],
+                repositoryRoot: root
+            });
+            expect(dataset.records).toEqual([]);
+            expect(dataset.jsonSchemas?.[0]).toMatchObject({
+                description: "Example schema.",
+                path: "schemas/example.json",
+                route: "/docs/config/example/",
+                title: "Example Config"
+            });
+            expect(warning).toHaveBeenCalledWith(expect.stringContaining("\"config/example/\""));
+            expect(warning).toHaveBeenCalledWith(expect.stringContaining("\"/docs/config/example/\""));
+        }
+        finally
+        {
+            warning.mockRestore();
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
+    it("requires an explicit Draft 2020-12 dialect and rejects unreadable or invalid files", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-schema-invalid-"));
+        const schemaPath = join(root, "schema.json");
+        const options = { generatedAt: "2026-09-24T00:00:00.000Z", packages: [], repositoryRoot: root, jsonSchemas: [ { path: "schema.json", route: "/docs/schema/" } ] };
+        try
+        {
+            await expect(generateApiDataset(options)).rejects.toThrow("could not read JSON Schema");
+            await writeFile(schemaPath, JSON.stringify({ type: "object" }));
+            await expect(generateApiDataset(options)).rejects.toThrow("must declare $schema");
+            await writeFile(schemaPath, JSON.stringify({ $schema: "https://json-schema.org/draft-07/schema#", type: "object" }));
+            await expect(generateApiDataset(options)).rejects.toThrow("must declare $schema");
+            await writeFile(schemaPath, "{");
+            await expect(generateApiDataset(options)).rejects.toThrow("contains invalid JSON");
+            await writeFile(schemaPath, JSON.stringify({ $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" }));
+            await expect(generateApiDataset({
+                ...options,
+                jsonSchemas: [ { path: schemaPath, route: "/docs/schema/" } ]
+            })).rejects.toThrow("must be relative to the repository root");
+        }
+        finally
+        {
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
+    it("rejects duplicate schema routes", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-schema-duplicate-"));
+        const schemaPath = join(root, "schema.json");
+        await writeFile(schemaPath, JSON.stringify({ $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" }));
+        try
+        {
+            await expect(generateApiDataset({
+                packages: [], repositoryRoot: root,
+                jsonSchemas: [ { path: "schema.json", route: "/docs/schema/" }, { path: "schema.json", route: "/docs/schema/" } ]
+            })).rejects.toThrow("duplicate JSON Schema route");
+        }
+        finally
+        {
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
+    it("rejects a schema route that collides with a TypeScript API route", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-schema-api-collision-"));
+        await writeFile(join(root, "schema.json"), JSON.stringify({ $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" }));
+        const entryPoint = fileURLToPath(new URL("./Fixtures/Single/Source/index.ts", import.meta.url));
+        const tsconfig = fileURLToPath(new URL("./Fixtures/Single/tsconfig.json", import.meta.url));
+        try
+        {
+            await expect(generateApiDataset({
+                packages: [ { entryPoints: [ entryPoint ], id: "single", name: "@sorrell/single-fixture", tsconfig, version: "1.0.0" } ],
+                jsonSchemas: [ { path: "schema.json", route: "/docs/api/single" } ],
+                repositoryRoot: root
+            })).rejects.toThrow("collides with a TypeScript API reference route");
+        }
+        finally
+        {
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
     it("uses the package URL as the module page when a package has one exported module", async () =>
     {
         const entryPoint = fileURLToPath(

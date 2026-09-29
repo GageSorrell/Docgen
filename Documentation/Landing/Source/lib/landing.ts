@@ -17,8 +17,6 @@
  * @license MIT
  */
 
-import type { SiteLogo } from "./dicebear.js";
-
 export interface LandingNavItem {
     readonly label: string
     readonly href: string
@@ -102,7 +100,6 @@ export interface LandingSectionContent {
 
 export interface LandingPageConfig {
     readonly name: string
-    readonly logo?: SiteLogo | undefined
     readonly eyebrow: string
     readonly title: string
     readonly description: string

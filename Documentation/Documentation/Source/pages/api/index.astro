@@ -5,8 +5,9 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
 
 const apiDataset = dataset as ApiReferenceDataset;
 const packages = [ ...new Map(apiDataset.records.map((record) => [record.packageId, record])).values()];
+const schemas = apiDataset.jsonSchemas ?? [];
 const docsPrefix = import.meta.env.BASE_URL.replace(/\/$/u, "");
-const pages = packages.map((record) => ({ description: record.packageDescription ?? "", group: "API Reference", id: record.packageId, slug: `api/${record.packageId}`, title: record.packageName }));
+const pages = [ ...packages.map((record) => ({ description: record.packageDescription ?? "", group: "API Reference", id: record.packageId, slug: `api/${record.packageId}`, title: record.packageName })), ...schemas.map((record) => ({ description: record.description ?? "JSON Schema reference", group: "JSON Schemas", id: record.route, slug: record.route.replace(/^\/docs\/?/u, ""), title: record.title })) ];
 ---
 
 <DocsLayout
@@ -25,6 +26,7 @@ const pages = packages.map((record) => ({ description: record.packageDescription
             <h2>{record.packageName}</h2>
         </a>)}
     </div>
+    {schemas.length ? <><h2>JSON Schemas</h2><div class="docs-api-package-grid">{schemas.map((record) => <a class="docs-api-package-card" href={record.route}><h2>{record.title}</h2>{record.description ? <p>{record.description}</p> : null}</a>)}</div></> : null}
 </DocsLayout>
 
 <style is:global>

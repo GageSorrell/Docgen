@@ -14,16 +14,14 @@ import { Schema } from "effect";
 const optionalString = Schema.optionalKey(Schema.String);
 const optionalNumber = Schema.optionalKey(Schema.Number);
 const optionalBoolean = Schema.optionalKey(Schema.Boolean);
-/** @internal */
-export const DicebearLogoSchema = Schema.Struct({
-    props: Schema.optionalKey(Schema.Record(Schema.String, Schema.Unknown)),
-    style: Schema.optionalKey(Schema.String),
-    type: Schema.Literal("dicebear")
-});
-const LogoSchema = Schema.Union([ Schema.String, DicebearLogoSchema ]);
-/** DiceBear options are intentionally open-ended; color options may be strings or theme maps. */
-export type DicebearLogo = Schema.Schema.Type<typeof DicebearLogoSchema>;
+const LogoSchema = Schema.String;
 export type SiteLogo = Schema.Schema.Type<typeof LogoSchema>;
+export/** @internal */
+const BannerSchema = Schema.Struct({
+    backgroundColor: optionalString,
+    logoHeight: optionalNumber,
+    logoWidth: optionalNumber
+});
 export/** @internal */
 const RepositorySchema = Schema.Struct({
     branch: Schema.optionalKey(Schema.String),
@@ -158,6 +156,10 @@ export/** @internal */
 const ApiGenerationConfigSchema = Schema.Struct({
     enabled: Schema.Boolean,
     entryPoints: Schema.Array(Schema.String),
+    jsonSchemas: Schema.Array(Schema.Struct({
+        path: Schema.String,
+        route: Schema.String
+    })),
     outputDirectory: Schema.String,
     packages: Schema.Array(Schema.String),
     sourceRepository: Schema.optionalKey(RepositorySchema),
@@ -334,7 +336,7 @@ const AgentDocumentSchema = Schema.Struct({
     context: optionalString,
     description: optionalString,
     id: Schema.String,
-    kind: Schema.Literals([ "article", "api-module", "component" ]),
+    kind: Schema.Literals([ "article", "api-module", "json-schema", "component" ]),
     metadata: Schema.optionalKey(Schema.Record(Schema.String, Schema.Unknown)),
     source: Schema.optionalKey(ApiReferenceSourceSchema),
     title: Schema.String,
@@ -345,7 +347,7 @@ export/** @internal */
 const AgentManifestEntrySchema = Schema.Struct({
     checksum: Schema.String,
     id: Schema.String,
-    kind: Schema.Literals([ "article", "api-module", "component" ]),
+    kind: Schema.Literals([ "article", "api-module", "json-schema", "component" ]),
     markdownUrl: Schema.String,
     title: Schema.String,
     url: Schema.String,
@@ -498,6 +500,10 @@ const OptionalStorybookSchema = Schema.Struct({
 const OptionalApiSchema = Schema.Struct({
     enabled: optionalBoolean,
     entryPoints: Schema.optionalKey(Schema.Array(Schema.String)),
+    jsonSchemas: Schema.optionalKey(Schema.Array(Schema.Struct({
+        path: Schema.String,
+        route: Schema.String
+    }))),
     outputDirectory: optionalString,
     packages: Schema.optionalKey(Schema.Array(Schema.String)),
     sourceRepository: Schema.optionalKey(RepositorySchema),
@@ -554,6 +560,7 @@ export/** @internal */
 const DocsConfigInputSchema = Schema.Struct({
     agent: Schema.optionalKey(OptionalAgentSchema),
     api: Schema.optionalKey(OptionalApiSchema),
+    banner: Schema.optionalKey(BannerSchema),
     footer: Schema.optionalKey(OptionalFooterSchema),
     landing: Schema.optionalKey(OptionalLandingSchema),
     manifests: Schema.optionalKey(Schema.Array(OptionalManifestSchema)),
@@ -673,3 +680,4 @@ export type AgentSkillArtifact = Schema.Schema.Type<
 >;
 /** @internal */
 export type DocsConfigInput = Schema.Schema.Type<typeof DocsConfigInputSchema>;
+export type BannerConfig = Schema.Schema.Type<typeof BannerSchema>;

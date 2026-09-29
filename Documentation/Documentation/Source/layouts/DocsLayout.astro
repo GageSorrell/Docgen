@@ -4,7 +4,6 @@ import { DefaultDesignTokens } from "@sorrell/docs-core";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
 import Footer from "../components/Footer.astro";
-import type { SiteLogo } from "../lib/dicebear.js";
 import siteConfig from "../../../docs.config.json";
 import "../styles/docs.css";
 
@@ -37,11 +36,12 @@ interface Props
 }
 
 const { canonicalPath, copyText, description, headings, pages, slug, title, version } = Astro.props;
-const prefix = "/docs";
+const prefix = siteConfig.routing?.documentationPrefix ?? "/docs";
+const siteUrl = siteConfig.metadata.url ?? "";
+const docsImagePath = `/${[ ...prefix.split("/").filter(Boolean), "opengraph.svg" ].join("/")}`;
+const ogImageUrl = siteUrl === "" ? undefined : new URL(docsImagePath, siteUrl).toString();
 const groups = [ ...new Set(pages.map((page) => page.group)) ];
 const canonical = canonicalUrl("https://docs.sorrell.sh", canonicalPath);
-const configuredLogo = (siteConfig.metadata as typeof siteConfig.metadata & { readonly logo?: SiteLogo }).logo;
-const hasDicebearLogo = typeof configuredLogo === "object" && configuredLogo?.type === "dicebear";
 const pageHref = (page: PageSummary): string => {
     const pageSlug = page.id === "index" ? "" : page.slug;
     return version === undefined ? docsPath(prefix, pageSlug) : docsVersionPath(prefix, version, pageSlug);
@@ -57,7 +57,9 @@ const pageHref = (page: PageSummary): string => {
         <meta property="og:description" content={description} />
         <meta property="og:title" content={`${title} · Sorrell Documentation`} />
         <meta property="og:type" content="article" />
-        {hasDicebearLogo ? <><link rel="icon" href="/docs/favicon-light.svg" data-theme-favicon="light" media="all" /><link rel="icon" href="/docs/favicon-dark.svg" data-theme-favicon="dark" media="not all" /></> : null}
+        {ogImageUrl ? <><meta property="og:image" content={ogImageUrl} /><meta property="og:image:type" content="image/svg+xml" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></> : null}
+        <link rel="icon" type="image/png" href="/docs/favicon.png" data-theme-favicon="light" media="all" />
+        <link rel="icon" type="image/png" href="/docs/favicon.png" data-theme-favicon="dark" media="not all" />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" type="text/markdown" href={`${canonicalPath.endsWith("/") ? `${canonicalPath}index` : canonicalPath}.md`} />
         <title>{title} · Sorrell Documentation</title>

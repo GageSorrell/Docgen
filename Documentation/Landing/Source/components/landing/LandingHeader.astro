@@ -3,15 +3,14 @@
 import ThemeToggle from "../ThemeToggle.astro"
 import SearchPalette from "../SearchPalette.astro"
 import type { LandingNavItem } from "../../lib/landing.js"
-import { dicebearAvatarUrl, type DicebearLogo, type SiteLogo } from "../../lib/dicebear.js"
-interface Props { readonly name: string; readonly items: readonly LandingNavItem[]; readonly logo?: SiteLogo | undefined }
-const { name, items, logo } = Astro.props
-const isDicebearLogo = typeof logo === "object" && logo?.type === "dicebear"
+interface Props { readonly name: string; readonly items: readonly LandingNavItem[] }
+const { name, items } = Astro.props
 ---
 <header class="landing-header">
   <div class="landing-container landing-header-inner">
     <a href="/" class="landing-brand" aria-label={`${name} home`}>
-      {typeof logo === "string" && logo !== "" ? <img src={logo} alt="" /> : isDicebearLogo ? <><img class="landing-brand-avatar" data-avatar-theme="light" src={dicebearAvatarUrl(logo as DicebearLogo, name, "light")} alt="" /><img class="landing-brand-avatar" data-avatar-theme="dark" src={dicebearAvatarUrl(logo as DicebearLogo, name, "dark")} alt="" /></> : null}
+      <img class="landing-brand-logo" data-logo-theme="light" src="/logo-light.png" alt="" />
+      <img class="landing-brand-logo" data-logo-theme="dark" src="/logo-dark.png" alt="" />
       <span>{name}</span>
     </a>
     <nav class="landing-header-nav" aria-label="Primary navigation">

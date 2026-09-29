@@ -5,7 +5,7 @@
   --muted-foreground: #6b7280;
   --border: #e5e7eb;
   --border-strong: color-mix(in srgb, #e5e7eb, #111111 24%);
-  --accent: #2563eb;
+  /* --accent: #2563eb; */
   --code-background: #f3f4f6;
   --code-foreground: #111111;
   --landing-soft: #6b7280;

@@ -8,7 +8,7 @@ import { createHighlighter } from "shiki";
 import ApiReferenceDescription from "../components/ApiReferenceDescription.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import Footer from "../components/Footer.astro";
-import type { SiteLogo } from "../lib/dicebear.js";
+import siteConfig from "../../../docs.config.json";
 import "../styles/docs.css";
 
 interface Props
@@ -21,10 +21,11 @@ const { record, packageModules } = Astro.props as Props;
 const document = recordToAgentDocument(record);
 const copyText = formatAgentDocument({ ...document, url: new URL(Astro.url.pathname, "https://docs.sorrell.sh").toString() });
 const canonicalPath = Astro.url.pathname;
-const docsPrefix = "{{DOCS_PREFIX}}";
 const canonical = canonicalUrl(Astro.site?.toString() ?? "https://docs.sorrell.sh", canonicalPath);
-const configuredLogo = {{LOGO}} as SiteLogo | undefined;
-const hasDicebearLogo = typeof configuredLogo === "object" && configuredLogo?.type === "dicebear";
+const siteUrl = siteConfig.metadata.url ?? "";
+const docsPrefix = siteConfig.routing?.documentationPrefix ?? "{{DOCS_PREFIX}}";
+const docsImagePath = `/${[ ...docsPrefix.split("/").filter(Boolean), "opengraph.svg" ].join("/")}`;
+const ogImageUrl = siteUrl === "" ? undefined : new URL(docsImagePath, siteUrl).toString();
 const sourceHref = (source: ApiReferenceRecord["source"]): string | undefined => source === undefined ? undefined : `${source.repositoryUrl}/blob/${source.revision}/${source.file}${source.line === undefined ? "" : `#L${source.line}`}`;
 const declarationsFor = (categoryId: string) => record.declarations.filter((declaration) => declaration.categoryId === categoryId);
 const uncategorizedDeclarations = record.declarations
@@ -98,8 +99,8 @@ highlighter.dispose();
         {record.summary === undefined ? null : <meta name="description" content={record.summary} />}
         {record.summary === undefined ? null : <meta property="og:description" content={record.summary} />}
         <meta property="og:title" content={`${record.displayName} · API Reference`} />
+        {ogImageUrl ? <><meta property="og:image" content={ogImageUrl} /><meta property="og:image:type" content="image/svg+xml" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></> : null}
         <link rel="canonical" href={canonical} />
-        {hasDicebearLogo ? <><link rel="icon" href={`${docsPrefix}/favicon-light.svg`} data-theme-favicon="light" media="all" /><link rel="icon" href={`${docsPrefix}/favicon-dark.svg`} data-theme-favicon="dark" media="not all" /></> : null}
         <link rel="alternate" type="text/markdown" href={`${canonicalPath}.md`} />
         <title>{record.displayName} · API Reference</title>
     </head>

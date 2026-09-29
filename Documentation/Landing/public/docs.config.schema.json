@@ -16,7 +16,11 @@
     },
     "api": {
       "$ref": "#/$defs/api",
-      "description": "Settings for generating API reference pages from TypeScript source with TypeDoc."
+      "description": "Settings for generating API reference pages from TypeScript modules and configured JSON Schemas."
+    },
+    "banner": {
+      "$ref": "#/$defs/banner",
+      "description": "Optional settings for the generated Open Graph banner."
     },
     "footer": {
       "$ref": "#/$defs/footer",
@@ -73,6 +77,16 @@
   },
   "additionalProperties": false,
   "$defs": {
+    "banner": {
+      "type": "object",
+      "description": "Settings for the generated 1200 by 630 Open Graph banner.",
+      "properties": {
+        "backgroundColor": { "type": "string", "description": "CSS color for the banner background. Defaults to tokens.light.background." },
+        "logoHeight": { "type": "number", "exclusiveMinimum": 0, "description": "Maximum logo height in pixels. The logo keeps its aspect ratio." },
+        "logoWidth": { "type": "number", "exclusiveMinimum": 0, "description": "Maximum logo width in pixels. The logo keeps its aspect ratio." }
+      },
+      "additionalProperties": false
+    },
     "footerLink": {
       "type": "object",
       "description": "A link shown in a footer column or in the footer's lower-right link row.",
@@ -121,28 +135,14 @@
       "properties": {
         "description": { "type": "string", "description": "Default site description used in metadata and when landing.description is omitted." },
         "logo": {
-          "description": "An image URL or site-relative path, or a DiceBear avatar displayed in the landing and documentation headers.",
-          "oneOf": [
-            { "type": "string", "description": "An image URL or site-relative path displayed in the site header." },
-            { "$ref": "#/$defs/dicebearLogo" }
-          ]
+          "type": "string",
+          "description": "An image URL or site-relative path displayed in the site header."
         },
         "name": { "type": "string", "description": "Stable site or product name used by generated tooling and metadata." },
         "repository": { "$ref": "#/$defs/repository", "description": "Repository associated with the site." },
         "title": { "type": "string", "description": "Human-readable site title used in the header and document titles." },
         "url": { "type": "string", "description": "Canonical base URL for the published site. An empty string is allowed for local or preview-only sites." }
       },
-      "additionalProperties": false
-    },
-    "dicebearLogo": {
-      "type": "object",
-      "description": "A DiceBear avatar used as the site logo. The style name may be any style offered by DiceBear. Header avatars may animate; generated favicons disable animation when the style supports it.",
-      "properties": {
-        "type": { "const": "dicebear", "description": "Selects DiceBear avatar rendering." },
-        "style": { "type": "string", "default": "pixelbot", "description": "Any DiceBear avatar style name, for example pixelbot. Defaults to pixelbot." },
-        "props": { "type": "object", "default": {}, "description": "Optional DiceBear style options. Option names and values are intentionally unrestricted in the schema. Color options accept a color string or an object with optional light and dark string values; the active site theme selects the corresponding color." }
-      },
-      "required": [ "type" ],
       "additionalProperties": false
     },
     "colorTokens": {
@@ -288,15 +288,26 @@
     },
     "api": {
       "type": "object",
-      "description": "API reference generation settings.",
+      "description": "API reference generation settings for TypeScript modules and configured JSON Schemas.",
       "properties": {
         "enabled": { "type": "boolean", "description": "Whether API reference generation is enabled." },
         "entryPoints": { "type": "array", "description": "TypeScript files passed to TypeDoc as API entry points.", "items": { "type": "string", "description": "A source file path relative to the repository root." } },
+        "jsonSchemas": { "type": "array", "description": "JSON Schema files and routes for generated reference pages.", "items": { "$ref": "#/$defs/jsonSchemaReference" } },
         "outputDirectory": { "type": "string", "description": "Directory in which generated API reference data is written." },
         "packages": { "type": "array", "description": "Workspace package names included in API reference generation.", "items": { "type": "string", "description": "A package name, such as @scope/package." } },
         "sourceRepository": { "$ref": "#/$defs/repository", "description": "Repository metadata used to create API source links." },
         "typedoc": { "type": "object", "description": "Additional TypeDoc options passed through to TypeDoc. TypeDoc option names and values are intentionally unrestricted.", "additionalProperties": true }
       },
+      "additionalProperties": false
+    },
+    "jsonSchemaReference": {
+      "type": "object",
+      "description": "A repository-root-relative Draft 2020-12 JSON Schema and its public route.",
+      "properties": {
+        "path": { "type": "string", "description": "Repository-root-relative path to the JSON Schema file." },
+        "route": { "type": "string", "description": "Public route. A route not beginning with /docs is normalized to begin with /docs." }
+      },
+      "required": [ "path", "route" ],
       "additionalProperties": false
     },
     "routing": {

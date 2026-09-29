@@ -8,7 +8,6 @@
 import SearchPalette from "./SearchPalette.astro";
 import SiteThemeToggle from "./SiteThemeToggle.astro";
 import VersionDropdown from "./VersionDropdown.astro";
-import { dicebearAvatarUrl, type DicebearLogo, type SiteLogo } from "../lib/dicebear.js";
 import siteConfig from "../../../docs.config.json";
 
 interface Props
@@ -19,8 +18,6 @@ interface Props
 
 const { currentVersion, slug = "" } = Astro.props;
 const repositoryUrl = siteConfig.metadata.repository?.url;
-const logo = (siteConfig.metadata as typeof siteConfig.metadata & { readonly logo?: SiteLogo }).logo;
-const isDicebearLogo = typeof logo === "object" && logo?.type === "dicebear";
 const navigation = [
     { label: "Docs", href: "/docs/" },
     { label: "API", href: "/docs/api/" },
@@ -31,7 +28,8 @@ const navigation = [
 <header class="landing-header">
     <div class="landing-container landing-header-inner">
         <a href="/" class="landing-brand" aria-label={`${siteConfig.metadata.name} home`}>
-            {typeof logo === "string" && logo !== "" ? <img src={logo} alt="" /> : isDicebearLogo ? <><img class="landing-brand-avatar" data-avatar-theme="light" src={dicebearAvatarUrl(logo as DicebearLogo, siteConfig.metadata.name, "light")} alt="" /><img class="landing-brand-avatar" data-avatar-theme="dark" src={dicebearAvatarUrl(logo as DicebearLogo, siteConfig.metadata.name, "dark")} alt="" /></> : null}
+            <img class="landing-brand-logo" data-logo-theme="light" src="/docs/logo-light.png" alt="" />
+            <img class="landing-brand-logo" data-logo-theme="dark" src="/docs/logo-dark.png" alt="" />
             <span>{siteConfig.metadata.name}</span>
         </a>
         <nav class="landing-header-nav" aria-label="Primary navigation">
@@ -125,9 +123,8 @@ const navigation = [
     .landing-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--docs-border); background: color-mix(in oklch, var(--docs-background) 92%, transparent); backdrop-filter: blur(14px); }
     .landing-header-inner { display: flex; min-height: 4rem; align-items: center; gap: 2rem; }
     .landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; gap: .625rem; color: var(--docs-foreground); font-size: 1rem; font-weight: 650; text-decoration: none; }
-    .landing-brand > img:not(.landing-brand-avatar) { height: 2rem; width: auto; }
-    .landing-brand-avatar { display: block; height: 2rem; width: 2rem; }
-    html[data-theme="dark"] .landing-brand-avatar[data-avatar-theme="light"], html:not([data-theme="dark"]) .landing-brand-avatar[data-avatar-theme="dark"] { display: none; }
+    .landing-brand > img { height: 2rem; width: auto; }
+    html[data-theme="dark"] .landing-brand-logo[data-logo-theme="light"], html:not([data-theme="dark"]) .landing-brand-logo[data-logo-theme="dark"] { display: none; }
     .landing-header-nav { display: flex; align-items: center; gap: 1.35rem; font-size: .875rem; color: var(--docs-muted); }
     .landing-header-nav a:hover, .landing-header-nav a:focus-visible { color: var(--docs-foreground); }
     .landing-header-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }

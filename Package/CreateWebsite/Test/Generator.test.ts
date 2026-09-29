@@ -22,9 +22,11 @@ describe("three-package website generation", () =>
                 api: {
                     enabled: true,
                     entryPoints: [ "Package/Widget/Source/index.ts" ],
-                    packages: [ "@example/widget" ]
+                    packages: [ "@example/widget" ],
+                    jsonSchemas: [ { path: "schemas/widget.json", route: "/docs/widget-schema/" } ]
                 },
-                metadata: { repository: { url: "https://github.com/example/widget" } }
+                metadata: { repository: { url: "https://github.com/example/widget" } },
+                routing: { documentationPrefix: "/reference" }
             },
             target: "generated"
         });
@@ -121,6 +123,16 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain(".docs-api-title-row h1 { font-weight: 700; }");
         expect(apiReferenceLayout).toContain(".docs-api-page .docs-toc .docs-nav-items a { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }");
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
+        expect(contents.has("Documentation/scripts/generate-api.mjs")).toBe(true);
+        expect(contents.get("Documentation/Source/pages/widget-schema.astro")).toContain("item.route === \"/docs/widget-schema/\"");
+        expect(contents.get("Documentation/Source/layouts/JsonSchemaReferenceLayout.astro")).toContain("required");
+        const generatedDocsPackage = JSON.parse(contents.get("Documentation/package.json") ?? "{}");
+        expect(generatedDocsPackage.scripts.build).toContain("node scripts/generate-api.mjs &&");
+        const generatedDocsVercel = JSON.parse(contents.get("Documentation/vercel.json") ?? "{}");
+        expect(generatedDocsVercel.rewrites).toContainEqual({
+            source: "/docs/widget-schema/:path*",
+            destination: "/widget-schema/:path*"
+        });
     });
     it("generates the ported Astro landing composition and interactive components", () =>
     {
@@ -133,9 +145,9 @@ describe("three-package website generation", () =>
         const landingTsconfig = JSON.parse(contents.get("Landing/tsconfig.json") ?? "{}");
         expect(landingTsconfig.compilerOptions.moduleResolution).toBe("Bundler");
         expect(landingPackage.scripts).toEqual({
-            build: "node scripts/generate-favicons.mjs && astro build",
+            build: "node scripts/generate-opengraph.mjs && astro build",
             check: "astro check",
-            dev: "astro dev --host 127.0.0.1 --port 4173",
+            dev: "node scripts/generate-opengraph.mjs && astro dev --host 127.0.0.1 --port 4173",
             verify: "astro check"
         });
         expect(contents.has("Landing/Source/main.tsx")).toBe(false);
@@ -204,16 +216,33 @@ describe("three-package website generation", () =>
         expect(contents.get("Documentation/package.json")).toContain("pagefind --site dist --output-path dist/pagefind");
         expect(contents.get("Documentation/Source/layouts/DocsLayout.astro")).toContain("class=\"docs-prose prose prose-effect\"");
         expect(contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro"))
-            .toContain("data-theme-favicon=\"light\"");
+            .not.toContain("favicon-light.svg");
         expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro"))
-            .toContain("data-theme-favicon=\"dark\"");
+            .not.toContain("favicon-dark.svg");
+        const landingLayout = contents.get("Landing/Source/layouts/BaseLayout.astro") ?? "";
+        const docsLayout = contents.get("Documentation/Source/layouts/DocsLayout.astro") ?? "";
+        expect(landingLayout).toContain("property=\"og:image\"");
+        expect(landingLayout).toContain("new URL(\"/opengraph.svg\", siteUrl).toString()");
+        expect(docsLayout).toContain("property=\"og:image\"");
+        expect(docsLayout).toContain("docsImagePath");
+        expect(docsLayout).toContain("new URL(docsImagePath, siteUrl).toString()");
+        expect(contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro")).toContain("property=\"og:image\"");
+        expect(contents.get("Documentation/Source/layouts/ApiPackageLayout.astro")).toContain("property=\"og:image\"");
+        expect(contents.get("Documentation/Source/layouts/JsonSchemaReferenceLayout.astro")).toContain("<DocsLayout");
+        expect(contents.has("Landing/scripts/generate-opengraph.mjs")).toBe(true);
+        expect(contents.has("Documentation/scripts/generate-opengraph.mjs")).toBe(true);
+        expect(contents.get("Landing/package.json")).toContain("generate-opengraph.mjs");
+        expect(contents.get("Documentation/package.json")).toContain("generate-opengraph.mjs");
         expect(contents.get("Documentation/Source/layouts/DocsLayout.astro")).toContain("<SiteHeader");
         expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<SearchPalette />");
         expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<SiteThemeToggle />");
         expect(contents.get("Documentation/Source/components/SiteHeader.astro")).toContain("<VersionDropdown");
         expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("<span class=\"search-shortcut-plus\">+</span>");
         expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("background: var(--docs-card-background)");
-        expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("v${item.version ?? item.id.replace(/^v/u, \"\")} (Latest)");
+        expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("class=\"docs-version-number\">");
+        expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("class=\"docs-version-latest\">(Latest)</span>");
+        expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("font-family: ui-monospace, SFMono-Regular, Menlo, monospace");
+        expect(contents.get("Documentation/Source/components/VersionDropdown.astro")).toContain("white-space: nowrap");
         expect(contents.get("Documentation/Source/Versions.ts")).not.toContain("{{VERSIONS_ESCAPED}}");
         expect(contents.get("Documentation/Source/components/SearchPalette.astro")).toContain("bundlePath: \"/docs/pagefind/\"");
     });
@@ -268,15 +297,12 @@ describe("three-package website generation", () =>
         expect(contents.get("Landing/astro.config.mjs")).toContain("\"/reference\":");
         expect(contents.get("Landing/astro.config.mjs")).not.toContain("\"\"/reference\"\"");
     });
-    it("generates DiceBear logos, theme-aware favicons, and permissive logo props", () =>
+    it("generates image logos and excludes DiceBear support", () =>
     {
         const website = createGeneratedWebsite({
             config: {
                 metadata: {
-                    logo: {
-                        props: { backgroundColor: { dark: "#111111", light: "#ffffff" } },
-                        type: "dicebear"
-                    },
+                    logo: "/assets/logo.svg",
                     name: "Example",
                     title: "Example",
                     description: "Example site",
@@ -287,25 +313,31 @@ describe("three-package website generation", () =>
         });
         const contents = new Map(website.files.map((file: GeneratedWebsiteFile) => [ file.path, file.content ]));
         expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
-            .toContain("data-avatar-theme=\"dark\"");
+            .toContain("{logo ? <img src={logo} alt=\"\" /> : null}");
         const generatedDocsHeader = contents.get("Documentation/Source/components/SiteHeader.astro") ?? "";
         expect(generatedDocsHeader).toContain("<span>{name}</span>");
-        expect(generatedDocsHeader).toContain("\"style\":\"pixelbot\"");
-        expect(generatedDocsHeader).toContain("\"backgroundColor\":{\"dark\":\"#111111\",\"light\":\"#ffffff\"}");
-        expect(contents.get("Landing/scripts/generate-favicons.mjs"))
-            .toContain("query.set(\"tags\", \"!animation\")");
-        expect(contents.get("Documentation/scripts/generate-favicons.mjs"))
-            .toContain("favicon-${theme}.svg");
-        expect(contents.get("Landing/package.json")).toContain("generate-favicons.mjs && astro build");
-        expect(contents.get("Documentation/package.json")).toContain("generate-favicons.mjs && astro build");
-        expect(contents.get("Documentation/Source/layouts/DocsLayout.astro"))
-            .toContain("data-theme-favicon=\"light\"");
+        expect(generatedDocsHeader).toContain("\"/assets/logo.svg\"");
+        expect(contents.has("Landing/scripts/generate-favicons.mjs")).toBe(false);
+        expect(contents.has("Documentation/scripts/generate-favicons.mjs")).toBe(false);
+        expect(contents.has("Landing/scripts/generate-opengraph.mjs")).toBe(true);
+        expect(contents.has("Documentation/scripts/generate-opengraph.mjs")).toBe(true);
+        expect(generatedDocsHeader).not.toContain("dicebear");
         const schema = JSON.parse(readFileSync(
             new URL("../../../Documentation/Landing/public/docs.config.schema.json", import.meta.url),
             "utf8"
-        )) as { $defs: { dicebearLogo: { properties: { props: { type: string } } } } };
-        expect(schema.$defs.dicebearLogo.properties.props.type).toBe("object");
-        expect(schema.$defs.dicebearLogo.properties.props).not.toHaveProperty("properties");
+        )) as {
+            $defs: {
+                banner: { properties: { backgroundColor: { type: string }; logoHeight: { exclusiveMinimum: number }; logoWidth: { exclusiveMinimum: number } } };
+                metadata: { properties: { logo: { type: string } } };
+            };
+            properties: { banner: { $ref: string } };
+        };
+        expect(schema.$defs.metadata.properties.logo.type).toBe("string");
+        expect(schema.properties.banner.$ref).toBe("#/$defs/banner");
+        expect(schema.$defs.banner.properties.logoWidth.exclusiveMinimum).toBe(0);
+        expect(schema.$defs.banner.properties.logoHeight.exclusiveMinimum).toBe(0);
+        expect(schema.$defs.banner.properties.backgroundColor.type).toBe("string");
+        expect(JSON.stringify(schema).toLowerCase()).not.toContain("dicebear");
     });
     it("generates Landing and Documentation without Storybook by default", () =>
     {

@@ -208,8 +208,16 @@ const apiDocuments = (
             readonly records?: ReadonlyArray<
                 Parameters<typeof recordToAgentDocument>[0]
             >;
+            readonly jsonSchemas?: ReadonlyArray<{
+                readonly path: string;
+                readonly route: string;
+                readonly title: string;
+                readonly description?: string;
+                readonly schema: unknown;
+                readonly sourceUrl?: string;
+            }>;
         };
-        return (dataset.records ?? []).map(
+        const moduleDocuments = (dataset.records ?? []).map(
             (record: {
                 readonly packageId: string;
                 readonly packageName: string;
@@ -288,6 +296,16 @@ const apiDocuments = (
                 };
             }
         );
+        const schemaDocuments: ReadonlyArray<AgentDocument> = (dataset.jsonSchemas ?? []).map((schema) => ({
+            content: `# ${schema.title}\n\n${schema.description ?? "JSON Schema reference."}\n\nSource: ${schema.sourceUrl ?? schema.path}\n\n\`\`\`json\n${JSON.stringify(schema.schema, null, 2)}\n\`\`\``,
+            ...(schema.description === undefined ? {} : { description: schema.description }),
+            id: `json-schema:${schema.route}`,
+            kind: "json-schema",
+            metadata: { path: schema.path, route: schema.route },
+            title: schema.title,
+            url: absoluteUrl(siteUrl, schema.route)
+        }));
+        return [ ...moduleDocuments, ...schemaDocuments ];
     }
     catch
     {
@@ -549,7 +567,7 @@ const buildAgentOutputEffect = (
             (
                 left: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -569,7 +587,7 @@ const buildAgentOutputEffect = (
                 },
                 right: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -604,7 +622,7 @@ const buildAgentOutputEffect = (
         const entries: ReadonlyArray<AgentManifestEntry> = documents.map(
             (document: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -684,7 +702,7 @@ const buildAgentOutputEffect = (
             const versionDocuments = documents.filter(
                 (document: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -727,7 +745,7 @@ const buildAgentOutputEffect = (
             const versionEntries = entries.filter(
                 (entry: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly title: string;
                     readonly checksum: string;
@@ -739,8 +757,7 @@ const buildAgentOutputEffect = (
                             readonly id: string;
                             readonly kind:
                                 | "article"
-                                | "api-module"
-                                | "component";
+                                | "api-module" | "json-schema" | "component";
                             readonly url: string;
                             readonly content: string;
                             readonly title: string;
@@ -764,7 +781,7 @@ const buildAgentOutputEffect = (
                 .map(
                     (entry: {
                         readonly id: string;
-                        readonly kind: "article" | "api-module" | "component";
+                        readonly kind: "article" | "api-module" | "json-schema" | "component";
                         readonly url: string;
                         readonly title: string;
                         readonly checksum: string;
@@ -777,8 +794,7 @@ const buildAgentOutputEffect = (
                                     readonly id: string;
                                     readonly kind:
                                         | "article"
-                                        | "api-module"
-                                        | "component";
+                                        | "api-module" | "json-schema" | "component";
                                     readonly url: string;
                                     readonly content: string;
                                     readonly title: string;
@@ -804,7 +820,7 @@ const buildAgentOutputEffect = (
                 .map(
                     (document: {
                         readonly id: string;
-                        readonly kind: "article" | "api-module" | "component";
+                        readonly kind: "article" | "api-module" | "json-schema" | "component";
                         readonly url: string;
                         readonly content: string;
                         readonly title: string;
@@ -850,7 +866,7 @@ const buildAgentOutputEffect = (
             const entry = entries.find(
                 (candidate: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly title: string;
                     readonly checksum: string;
@@ -1057,7 +1073,7 @@ const verifyAgentOutput = (
                 const entry = manifest.documents.find(
                     (candidate: {
                         readonly id: string;
-                        readonly kind: "article" | "api-module" | "component";
+                        readonly kind: "article" | "api-module" | "json-schema" | "component";
                         readonly url: string;
                         readonly title: string;
                         readonly checksum: string;
@@ -1128,8 +1144,7 @@ const verifyAgentOutput = (
                                 readonly id: string;
                                 readonly kind:
                                     | "article"
-                                    | "api-module"
-                                    | "component";
+                                    | "api-module" | "json-schema" | "component";
                                 readonly url: string;
                                 readonly title: string;
                                 readonly checksum: string;

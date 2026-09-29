@@ -52,8 +52,8 @@ const packageManifest = (
         scripts: name === "@sorrell/documentation"
             ? {
                 ...scripts,
-                build: "node scripts/generate-favicons.mjs && astro build && pagefind --site dist --output-path dist/pagefind",
-                verify: "astro check"
+                build: `${scripts.build ?? "astro build"} && pagefind --site dist --output-path dist/pagefind`,
+                verify: scripts.verify ?? "astro check"
             }
             : scripts,
         type: "module",
@@ -122,6 +122,10 @@ const landingFiles = (
         }
     ];
 };
+const documentationApiCommand = (config: DocsConfig): string =>
+    config.api.enabled || (config.api.jsonSchemas?.length ?? 0) > 0
+        ? "node scripts/generate-api.mjs && "
+        : "";
 const documentationFiles = (
     config: DocsConfig
 ): ReadonlyArray<GeneratedWebsiteFile> => [
@@ -129,9 +133,9 @@ const documentationFiles = (
         content: packageManifest(
             "@sorrell/documentation",
             {
-                build: "node scripts/generate-favicons.mjs && astro build",
-                dev: "astro dev",
-                verify: "astro check"
+                build: `${documentationApiCommand(config)}node scripts/generate-favicons.mjs && node scripts/generate-opengraph.mjs && astro build`,
+                dev: `${documentationApiCommand(config)}node scripts/generate-opengraph.mjs && astro dev`,
+                verify: `${documentationApiCommand(config)}node scripts/generate-opengraph.mjs && astro check`
             },
             {
                 "@pagefind/default-ui": "1.5.2",
@@ -143,6 +147,7 @@ const documentationFiles = (
                 "@sorrell/docs-astro": "1.0.1",
                 "@sorrell/docs-create-website": "1.0.1",
                 "@sorrell/docs-ui": "1.0.1",
+                effect: "4.0.0-rc.117",
                 astro: "7.3.4",
                 tailwindcss: "4.3.3"
             },
@@ -234,9 +239,18 @@ ${config.metadata.description}
             buildCommand: "npm run build",
             installCommand: "npm install",
             outputDirectory: "dist",
-            rewrites: documentationBaseRewrites(
-                config.routing.documentationPrefix
-            ),
+            rewrites: documentationBaseRewrites(config.routing.documentationPrefix)
+                .concat((config.api.jsonSchemas ?? []).flatMap((schema) => {
+                    const route = schema.route === "/docs" || schema.route.startsWith("/docs/")
+                        ? schema.route
+                        : `/docs${schema.route.startsWith("/") ? "" : "/"}${schema.route}`;
+                    if (config.routing.documentationPrefix === "/docs")
+                    {
+                        return [];
+                    }
+                    const slug = route.replace(/^\/docs\/?/u, "").replace(/\/$/u, "");
+                    return [ { destination: `/${slug}/:path*`, source: `/docs/${slug}/:path*` } ];
+                })),
             version: 2
         }),
         path: "Documentation/vercel.json"

@@ -15,6 +15,8 @@ import {
     AgentSkillConfigSchema,
     type ApiGenerationConfig,
     ApiGenerationConfigSchema,
+    type BannerConfig,
+    BannerSchema,
     type DesignTokens,
     DesignTokensSchema,
     type DocsConfigInput,
@@ -65,6 +67,7 @@ const omitUndefined = (
 /** @internal */
 export interface DocsConfig {
     readonly metadata: SiteMetadata;
+    readonly banner?: BannerConfig | undefined;
     readonly tokens: DesignTokens;
     readonly navigation: Navigation;
     readonly versions: ReadonlyArray<DocumentationVersion>;
@@ -224,6 +227,18 @@ const duplicateDiagnostics = (
 const validate = (config: DocsConfig): ReadonlyArray<DocsConfigDiagnostic> =>
 {
     const diagnostics: Array<DocsConfigDiagnostic> = [];
+    for (const dimension of [ "logoHeight", "logoWidth" ] as const)
+    {
+        const value = config.banner?.[dimension];
+        if (value !== undefined && (!Number.isFinite(value) || value <= 0))
+        {
+            diagnostics.push({
+                expected: "a positive finite number",
+                message: "must be greater than zero",
+                path: [ "banner", dimension ]
+            });
+        }
+    }
     if (config.metadata.name.trim() === "")
     {
         diagnostics.push({
@@ -381,20 +396,16 @@ export /** @internal */ const normalizeDocsConfig = (
 ): DocsConfig =>
 {
     const metadataInput = input.metadata ?? {};
+    const banner = input.banner === undefined
+        ? undefined
+        : decodeAs<BannerConfig>(BannerSchema, input.banner);
     const metadata = decodeAs<SiteMetadata>(
         SiteMetadataSchema,
         omitUndefined({
             description:
                 metadataInput.description ??
                 "Documentation generated with Sorrell documentation tooling.",
-            logo: metadataInput.logo === undefined
-                ? undefined
-                : typeof metadataInput.logo === "string"
-                    ? metadataInput.logo
-                    : {
-                        ...metadataInput.logo,
-                        style: metadataInput.logo.style ?? "pixelbot"
-                    },
+            logo: metadataInput.logo,
             name: metadataInput.name ?? "Sorrell Documentation",
             repository: metadataInput.repository,
             title:
@@ -624,6 +635,7 @@ export /** @internal */ const normalizeDocsConfig = (
         omitUndefined({
             enabled: input.api?.enabled ?? false,
             entryPoints: input.api?.entryPoints ?? [],
+            jsonSchemas: input.api?.jsonSchemas ?? [],
             outputDirectory: input.api?.outputDirectory ?? "Documentation/Api",
             packages: input.api?.packages ?? [],
             sourceRepository: input.api?.sourceRepository,
@@ -726,6 +738,7 @@ export /** @internal */ const normalizeDocsConfig = (
     return {
         agent,
         api,
+        banner,
         footer,
         landing,
         manifests,

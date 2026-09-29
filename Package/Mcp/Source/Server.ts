@@ -71,7 +71,7 @@ const buildSearchIndex = (
         .map(
             (document: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -146,7 +146,7 @@ const searchDocuments = (
         .filter(
             (document: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -168,7 +168,7 @@ const searchDocuments = (
         .map(
             (document: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;
@@ -191,7 +191,7 @@ const searchDocuments = (
             (value: {
                 document: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -217,7 +217,7 @@ const searchDocuments = (
                 left: {
                     document: {
                         readonly id: string;
-                        readonly kind: "article" | "api-module" | "component";
+                        readonly kind: "article" | "api-module" | "json-schema" | "component";
                         readonly url: string;
                         readonly content: string;
                         readonly title: string;
@@ -240,7 +240,7 @@ const searchDocuments = (
                 right: {
                     document: {
                         readonly id: string;
-                        readonly kind: "article" | "api-module" | "component";
+                        readonly kind: "article" | "api-module" | "json-schema" | "component";
                         readonly url: string;
                         readonly content: string;
                         readonly title: string;
@@ -269,7 +269,7 @@ const searchDocuments = (
             (value: {
                 document: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -309,7 +309,7 @@ const GetDocument = Tool.make("get_document", {
     success: AgentDocumentSchema
 });
 const GetApi = Tool.make("get_api", {
-    description: "Get one API reference module by id.",
+    description: "Get one TypeScript module or JSON Schema API reference by id.",
     parameters: Schema.Struct({
         id: Schema.String,
         version: Schema.optional(Schema.String)
@@ -338,6 +338,7 @@ const DocumentationToolkit = Toolkit.make(
     ListPackages,
     ListComponents
 );
+export/** @internal */
 const findDocument = (
     corpus: AgentCorpus,
     id: string,
@@ -348,7 +349,7 @@ const findDocument = (
     const value = corpus.documents.find(
         (document: {
             readonly id: string;
-            readonly kind: "article" | "api-module" | "component";
+            readonly kind: "article" | "api-module" | "json-schema" | "component";
             readonly url: string;
             readonly content: string;
             readonly title: string;
@@ -368,7 +369,7 @@ const findDocument = (
         }) =>
             document.id === id &&
             (version === undefined || document.version === version) &&
-            (kind === undefined || document.kind === kind)
+            (kind === undefined || document.kind === kind || (kind === "api-module" && document.kind === "json-schema"))
     );
     return value === undefined
         ? Effect.die(`Documentation document not found: ${id}`)
@@ -436,7 +437,7 @@ const resourceLayers = (corpus: AgentCorpus) =>
             layer: Layer.Layer<never, never, never>,
             document: {
                 readonly id: string;
-                readonly kind: "article" | "api-module" | "component";
+                readonly kind: "article" | "api-module" | "json-schema" | "component";
                 readonly url: string;
                 readonly content: string;
                 readonly title: string;

@@ -9,9 +9,10 @@
  * @license   MIT
  */
 
-import { buildSearchIndex, searchDocuments } from "../Source/index.js";
+import { buildSearchIndex, findDocument, searchDocuments } from "../Source/index.js";
 import { describe, expect, it } from "vitest";
 import type { AgentCorpus } from "@sorrell/docs-core";
+import { Effect } from "effect";
 const corpus: AgentCorpus = {
     checksum: "corpus-checksum",
     documents: [
@@ -30,6 +31,13 @@ const corpus: AgentCorpus = {
             title: "Core API",
             url: "https://example.test/docs/api/core",
             version: "current"
+        },
+        {
+            content: "JSON Schema title: Site Configuration. Draft 2020-12 schema.",
+            id: "json-schema:/docs/config-json-schema/",
+            kind: "json-schema",
+            title: "Site Configuration Schema",
+            url: "https://example.test/docs/config-json-schema/"
         }
     ],
     generatedAt: "2026-09-24T00:00:00.000Z",
@@ -41,12 +49,12 @@ describe("documentation MCP index", () =>
     {
         const index = buildSearchIndex(corpus, corpus.checksum);
         expect(index.version).toBe(1);
-        expect(index.entries).toHaveLength(2);
+        expect(index.entries).toHaveLength(3);
         expect(
             searchDocuments(corpus, "core API", "current", 1).map(
                 (document: {
                     readonly id: string;
-                    readonly kind: "article" | "api-module" | "component";
+                    readonly kind: "article" | "api-module" | "json-schema" | "component";
                     readonly url: string;
                     readonly content: string;
                     readonly title: string;
@@ -67,5 +75,8 @@ describe("documentation MCP index", () =>
             )
         ).toEqual([ "api:current:core" ]);
         expect(searchDocuments(corpus, "missing")).toEqual([]);
+        expect(searchDocuments(corpus, "Draft 2020-12").map((document) => document.kind)).toEqual([ "json-schema" ]);
+        expect(Effect.runSync(findDocument(corpus, "json-schema:/docs/config-json-schema/", undefined, "api-module")).kind)
+            .toBe("json-schema");
     });
 });

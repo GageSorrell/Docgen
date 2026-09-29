@@ -3,14 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import Footer from "../components/Footer.astro"
 import LandingPage from "../components/landing/LandingPage.astro"
 import type { LandingPageConfig } from "../lib/landing.js"
-import type { SiteLogo } from "../lib/dicebear.js"
 import siteConfig from "../../../docs.config.json"
 import "../styles/landing.css"
 import "../styles/tokens.css"
 
 const config: LandingPageConfig = {
   name: siteConfig.metadata.name,
-  logo: (siteConfig.metadata as typeof siteConfig.metadata & { readonly logo?: SiteLogo }).logo,
   eyebrow: "Documentation for products with more to explain",
   title: "Sorrell Documentation",
   description: "Build readable documentation sites with a shared content, theme, and publishing system.",
@@ -41,8 +39,9 @@ const config: LandingPageConfig = {
     ]
   },
   navItems: [{ label: "Docs", href: "/docs/" },
-    { label: "Architecture", href: "/docs/architecture/" },
-    { label: "Authoring", href: "/docs/authoring/" },
+    { label: "Introduction", href: "/docs/guides/introduction/" },
+    { label: "Getting Started", href: "/docs/guides/getting-started/" },
+    { label: "Customization", href: "/docs/guides/customization/" },
     { label: "API", href: "/docs/api/" },
     { label: "Storybook", href: "/storybook/" },
     { label: "GitHub", href: "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe", external: true }
@@ -138,11 +137,11 @@ const config: LandingPageConfig = {
       linkLabel: "Explore Storybook"
     },
     {
-      eyebrow: "Authoring",
-      title: "A clear path from source to site",
-      description: "Understand how configuration, content, generated routes, and deployment fit together in this repository.",
-      href: "/docs/authoring/",
-      linkLabel: "Read the authoring guide"
+      eyebrow: "Customization",
+      title: "Make the docs site fit your product",
+      description: "Customize site metadata, navigation, theme colors, and generated API references.",
+      href: "/docs/guides/customization/",
+      linkLabel: "Read the customization guide"
     }
   ],
   statements: [
@@ -200,7 +199,7 @@ const tokens = {
   }
 }
 ---
-<BaseLayout title={config.title} description={config.description} tokens={tokens} logo={config.logo}>
+<BaseLayout title={config.title} description={config.description} tokens={tokens}>
   <LandingPage config={config} />
   <Footer />
 </BaseLayout>

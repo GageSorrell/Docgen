@@ -15,7 +15,6 @@ import { fileURLToPath } from "node:url";
 
 import type { DocsConfig } from "@sorrell/docs-core";
 import type { GeneratedWebsiteFile } from "./Types.js";
-import { faviconGeneratorSource } from "./FaviconTemplate.js";
 
 const templateRoot = join(
     dirname(fileURLToPath(import.meta.url)),
@@ -155,8 +154,5 @@ export const landingTemplateFiles = (
                 TOKENS: JSON.stringify(tokens, null, 2)
             })
         };
-    }), {
-        path: "Landing/scripts/generate-favicons.mjs",
-        content: faviconGeneratorSource(config.metadata.logo, config.metadata.name)
-    } ];
+    }) ];
 };

@@ -34,6 +34,7 @@ describe("docs-core configuration", () =>
             }
         ]);
         expect(config.api.enabled).toBe(false);
+        expect(config.api.jsonSchemas).toEqual([]);
         expect(config.footer.columns).toEqual([
             { links: [ { href: "/docs/", label: "Documentation" } ], title: "Resources" }
         ]);
@@ -57,6 +58,18 @@ describe("docs-core configuration", () =>
         expect(config.vercel.projects.landing.directory).toBe("Landing");
         expect(config.vercel.projects.documentation.routePrefix).toBe("/docs");
         expect(config.vercel.projects.storybook).toBeUndefined();
+    });
+    it("normalizes configured JSON Schema reference entries without changing their routes", () =>
+    {
+        const config = decodeDocsConfigSync({
+            api: { jsonSchemas: [ { path: "Documentation/schema.json", route: "/docs/schema/" } ] },
+            metadata: { name: "Example" },
+            routing: { documentationPrefix: "/reference" }
+        });
+        expect(config.api.jsonSchemas).toEqual([
+            { path: "Documentation/schema.json", route: "/docs/schema/" }
+        ]);
+        expect(config.routing.documentationPrefix).toBe("/reference");
     });
     it("normalizes custom footer columns, message, and lower links", () =>
     {
@@ -82,28 +95,44 @@ describe("docs-core configuration", () =>
             message: "© {year} {name}"
         });
     });
-    it("accepts open-ended DiceBear logo props and defaults its style to pixelbot", () =>
+    it("accepts image paths and URLs as site logos", () =>
     {
         const config = decodeDocsConfigSync({
-            metadata: {
-                logo: {
-                    props: {
-                        backgroundColor: { dark: "#111111", light: "#ffffff" },
-                        seed: "example"
-                    },
-                    type: "dicebear"
-                },
-                name: "Example"
-            }
+            metadata: { logo: "/assets/logo.svg", name: "Example" }
         });
-        expect(config.metadata.logo).toEqual({
-            props: {
-                backgroundColor: { dark: "#111111", light: "#ffffff" },
-                seed: "example"
+        expect(config.metadata.logo).toBe("/assets/logo.svg");
+        expect(() => decodeDocsConfigSync({
+            metadata: { logo: { type: "dicebear" }, name: "Example" }
+        })).toThrow();
+    });
+    it("normalizes banner overrides and rejects non-positive logo bounds", () =>
+    {
+        const config = decodeDocsConfigSync({
+            banner: {
+                backgroundColor: "#f8fafc",
+                logoHeight: 180,
+                logoWidth: 560
             },
-            style: "pixelbot",
-            type: "dicebear"
+            metadata: { name: "Example" }
         });
+        expect(config.banner).toEqual({
+            backgroundColor: "#f8fafc",
+            logoHeight: 180,
+            logoWidth: 560
+        });
+        for (const logoWidth of [ 0, -1, Number.NaN, Number.POSITIVE_INFINITY ])
+        {
+            const invalid = decodeDocsConfig({
+                banner: { logoWidth },
+                metadata: { name: "Example" }
+            });
+            expect(Result.isFailure(invalid)).toBe(true);
+            if (Result.isFailure(invalid))
+            {
+                expect(invalid.failure.diagnostics.some((diagnostic: DocsConfigDiagnostic) =>
+                    diagnostic.path.join(".") === "banner.logoWidth")).toBe(true);
+            }
+        }
     });
     it("normalizes custom routes and Vercel project metadata", () =>
     {

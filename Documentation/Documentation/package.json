@@ -20,11 +20,11 @@
   "description": "The published dogfood documentation site.",
   "scripts": {
     "api:generate": "node GenerateApi.mjs",
-    "build": "npm run api:generate && node scripts/generate-favicons.mjs && astro build && pagefind --site dist --output-path dist/pagefind",
-    "dev": "npm run api:generate && astro dev",
+    "build": "npm run api:generate && node scripts/generate-favicons.mjs && node scripts/generate-opengraph.mjs && astro build && pagefind --site dist --output-path dist/pagefind",
+    "dev": "npm run api:generate && node scripts/generate-favicons.mjs && node scripts/generate-opengraph.mjs && astro dev",
     "preview": "astro preview",
     "typecheck": "npm run api:generate && astro check",
-    "verify": "npm run typecheck && astro build && pagefind --site dist --output-path dist/pagefind"
+    "verify": "npm run typecheck && node scripts/generate-opengraph.mjs && astro build && pagefind --site dist --output-path dist/pagefind"
   },
   "dependencies": {
     "@astrojs/mdx": "8.0.2",

@@ -20,6 +20,7 @@ import type {
     ApiReferenceRecord,
     ApiReferenceSource
 } from "@sorrell/docs-core";
+import * as JsonSchema from "effect/JsonSchema";
 import {
     Application,
     ReflectionKind,
@@ -28,7 +29,7 @@ import {
 } from "typedoc";
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { basename, dirname, join, parse, relative, resolve, sep } from "node:path";
+import { basename, dirname, isAbsolute, join, parse, relative, resolve, sep } from "node:path";
 import { createApiDataset, validateApiRecords } from "./Serialization.js";
 import { ApiReferenceError } from "./Errors.js";
 interface ReflectionSource {
@@ -1204,7 +1205,7 @@ const generateApiDataset = async (
     options: ApiReferenceGenerationOptions
 ): Promise<ApiReferenceDataset> =>
 {
-    if (options.packages.length === 0)
+    if (options.packages.length === 0 && (options.jsonSchemas?.length ?? 0) === 0)
     {
         throw new ApiReferenceError("at least one package must be configured");
     }
@@ -1252,6 +1253,101 @@ const generateApiDataset = async (
             );
         }
     }
+    const jsonSchemas = [];
+    const schemaRoutes = new Set<string>();
+    const repositoryRoot = resolve(options.repositoryRoot ?? options.sourceRoot ?? process.cwd());
+    const repositoryUrl = options.repositoryUrl?.replace(/\/+$/u, "").replace(/\.git$/u, "");
+    for (const configured of options.jsonSchemas ?? [])
+    {
+        const configuredPath = configured.path;
+        const schemaPath = resolve(repositoryRoot, configuredPath);
+        const relativeSchemaPath = relative(repositoryRoot, schemaPath);
+        if (isAbsolute(configuredPath) || relativeSchemaPath === ".." || relativeSchemaPath.startsWith(`..${sep}`))
+        {
+            throw new ApiReferenceError(`JSON Schema path ${configuredPath} must be relative to the repository root`);
+        }
+        let contents: string;
+        let parsed: unknown;
+        try
+        {
+            contents = await readFile(schemaPath, "utf8");
+        }
+        catch (error)
+        {
+            throw new ApiReferenceError(`could not read JSON Schema ${configuredPath}: ${String(error)}`);
+        }
+        try
+        {
+            parsed = JSON.parse(contents);
+        }
+        catch (error)
+        {
+            throw new ApiReferenceError(`JSON Schema ${configuredPath} contains invalid JSON: ${String(error)}`);
+        }
+        if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed))
+        {
+            throw new ApiReferenceError(`JSON Schema ${configuredPath} must be an object declaring $schema`);
+        }
+        const schema = parsed as Record<string, unknown>;
+        if (schema.$schema !== JsonSchema.META_SCHEMA_URI_DRAFT_2020_12)
+        {
+            throw new ApiReferenceError(`JSON Schema ${configuredPath} must declare $schema as ${JsonSchema.META_SCHEMA_URI_DRAFT_2020_12}`);
+        }
+        try
+        {
+            // Effect's document model normalizes the 2020-12 $defs collection while
+            // the original JSON remains the source of truth for complete rendering.
+            JsonSchema.fromSchemaDraft2020_12(schema as JsonSchema.JsonSchema);
+        }
+        catch (error)
+        {
+            throw new ApiReferenceError(`invalid Draft 2020-12 JSON Schema ${configuredPath}: ${String(error)}`);
+        }
+        const route = configured.route === "/docs" || configured.route.startsWith("/docs/")
+            ? configured.route
+            : `/docs${configured.route.startsWith("/") ? "" : "/"}${configured.route}`;
+        const unsafeRoute = route.includes("?") || route.includes("#") || route.includes("\\") || /\/{2,}/u.test(route.slice(1)) || route.split("/").some((segment) => {
+            if (segment === "") {return false;}
+            let decoded: string;
+            try { decoded = decodeURIComponent(segment); } catch { return true; }
+            return decoded === "." || decoded === ".." || decoded.includes("/") || decoded.includes("\\");
+        });
+        if (unsafeRoute)
+        {
+            throw new ApiReferenceError(`JSON Schema route ${configured.route} is not a safe URL path`);
+        }
+        if (route !== configured.route)
+        {
+            process.stderr.write(`Warning: JSON Schema route ${JSON.stringify(configured.route)} normalized to ${JSON.stringify(route)} (routes must start with /docs).\n`);
+        }
+        const routeKey = route.replace(/\/+$/u, "") || "/docs";
+        if (schemaRoutes.has(routeKey))
+        {
+            throw new ApiReferenceError(`duplicate JSON Schema route ${route}`);
+        }
+        schemaRoutes.add(routeKey);
+        const title = typeof schema.title === "string" ? schema.title : basename(configuredPath);
+        const defs = schema.$defs !== null && typeof schema.$defs === "object" && !Array.isArray(schema.$defs)
+            ? Object.entries(schema.$defs as Record<string, unknown>).map(([ name, value ]) => ({ name, schema: value }))
+            : [];
+        jsonSchemas.push({
+            definitions: defs,
+            ...(typeof schema.description === "string" ? { description: schema.description } : {}),
+            path: configuredPath,
+            route,
+            schema,
+            title,
+            ...(repositoryUrl === undefined ? {} : { sourceUrl: `${repositoryUrl}/blob/${options.revision ?? "main"}/${configuredPath.replaceAll("\\", "/")}` })
+        });
+    }
+    const generatedRoutes = new Set(records.map((record) => record.link?.href).filter((route): route is string => route !== undefined).map((route) => route.replace(/\/+$/u, "")));
+    for (const route of schemaRoutes)
+    {
+        if (generatedRoutes.has(route))
+        {
+            throw new ApiReferenceError(`JSON Schema route ${route} collides with a TypeScript API reference route`);
+        }
+    }
     const validation = validateApiRecords(records);
     if (!validation.valid)
     {
@@ -1261,7 +1357,8 @@ const generateApiDataset = async (
         generatedAt: options.generatedAt ?? new Date().toISOString(),
         ...(options.revision === undefined
             ? {}
-            : { sourceRevision: options.revision })
+            : { sourceRevision: options.revision }),
+        ...(options.jsonSchemas === undefined ? {} : { jsonSchemas })
     };
     return createApiDataset(
         records.sort(

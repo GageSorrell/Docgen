@@ -1,21 +1,14 @@
 ---
-title: Getting started
-description: Build readable documentation sites with a shared content, theme, and publishing system.
+title: Documentation overview
+description: Explore the Sorrell documentation guides, API references, and site configuration.
 group: Guides
 order: 0
 ---
 
-## Documentation with a point of view
+## Explore the documentation
 
-Sorrell Documentation gives teams a stable place to explain products, publish API references, and keep examples close to the code they describe.
+Sorrell Documentation brings authored guides, generated API references, and site configuration together in one place.
 
-The first useful path is deliberately small: write a page, organize it into a versioned navigation tree, and let the generated site take care of the reading surface.
+Start with the [Introduction](./guides/introduction/) for an overview, then follow [Getting Started](./guides/getting-started/) to build and publish a site. The [Customization guide](./guides/customization/) covers the site configuration options.
 
-## What this site demonstrates
-
-- Markdown and MDX content collections with deterministic ordering.
-- A responsive documentation shell with navigation, table of contents, and previous/next links.
-- Canonical URLs, metadata, theme persistence, and a Copy for LLM control on every article.
-
-For the complete build, packaging, routing, and agent-access checklist, read
-[Release readiness](./release-readiness/).
+Browse the [API reference](./api/) for generated package documentation, or see the [configuration JSON schema](./config-json-schema/) for the complete site configuration format.
