@@ -295,7 +295,12 @@ const recordFor = async (
         ...(source === undefined ? {} : { source })
     };
 };
-/** Parse configured Doxygen XML trees into shared API-reference records. @internal */
+
+/**
+ * Parse configured Doxygen XML trees into shared API-reference records.
+ *
+ * @internal
+ */
 export const generateDoxygenRecords = async (
     options: DoxygenGenerationOptions
 ): Promise<ReadonlyArray<ApiReferenceRecord>> =>

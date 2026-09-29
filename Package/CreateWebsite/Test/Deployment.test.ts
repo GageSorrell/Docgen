@@ -65,6 +65,11 @@ describe("website deployment orchestration", () =>
         const target = join(workspace, "generated");
         await mkdir(join(workspace, "Package/Core"), { recursive: true });
         await writeFile(join(workspace, "Package/Core/package.json"), "{}\n");
+        await mkdir(join(workspace, "Documentation/Landing/public"), { recursive: true });
+        await writeFile(
+            join(workspace, "Documentation/Landing/public/schema.json"),
+            "{\"title\":\"staged schema\"}\n"
+        );
         await mkdir(
             join(workspace, "Package/CreateWebsite/Templates/Documentation/scripts"),
             { recursive: true }
@@ -114,6 +119,15 @@ describe("website deployment orchestration", () =>
 
         const website = createGeneratedWebsite({
             config: {
+                api: {
+                    enabled: false,
+                    jsonSchemas: [
+                        {
+                            path: "Documentation/Landing/public/schema.json",
+                            route: "/docs/schema"
+                        }
+                    ]
+                },
                 vercel: {
                     projects: {
                         documentation: {
@@ -133,6 +147,7 @@ describe("website deployment orchestration", () =>
 
         let stagedConfig = "";
         let stagedApiGenerator = "";
+        let stagedSchema = "";
         let stagedVersions = "";
         let stagedSiteHeader = "";
         let stagedDocumentationFooter = "";
@@ -151,6 +166,10 @@ describe("website deployment orchestration", () =>
                         {
                             stagedApiGenerator = readFileSync(
                                 join(directory, "GenerateApi.mjs"),
+                                "utf8"
+                            );
+                            stagedSchema = readFileSync(
+                                join(directory, "Documentation/Landing/public/schema.json"),
                                 "utf8"
                             );
                             stagedConfig = readFileSync(
@@ -217,6 +236,7 @@ describe("website deployment orchestration", () =>
             expect(stagedApiGenerator).not.toContain(
                 "../../Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs"
             );
+            expect(stagedSchema).toContain("staged schema");
             expect(stagedConfig).toContain("\"versions\"");
             expect(stagedVersions).toContain("\"../docs.config.json\"");
             expect(stagedVersions).not.toContain("\"../../docs.config.json\"");

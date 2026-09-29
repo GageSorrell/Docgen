@@ -19,6 +19,7 @@ import {
     VercelService
 } from "@sorrell/docs-cli";
 import { Data, Effect, Layer, Result } from "effect";
+import { isAbsolute, relative, sep } from "node:path";
 import type {
     DeploymentTarget,
     GeneratedWebsite,
@@ -206,6 +207,43 @@ const prepareVercelDirectory = (
                 path.join(staging, "docs.config.json"),
                 options.siteConfig
             );
+            const configuredSchemas = (
+                JSON.parse(options.siteConfig) as {
+                    readonly api?: {
+                        readonly jsonSchemas?: ReadonlyArray<{
+                            readonly path: string;
+                        }>;
+                    };
+                }
+            ).api?.jsonSchemas ?? [];
+            for (const schema of configuredSchemas)
+            {
+                if (isAbsolute(schema.path))
+                {
+                    continue;
+                }
+                const schemaSource = path.resolve(repositoryRoot, schema.path);
+                const schemaRelativePath = relative(repositoryRoot, schemaSource);
+                if (
+                    schemaRelativePath === ".." ||
+                    schemaRelativePath.startsWith(`..${sep}`)
+                )
+                {
+                    continue;
+                }
+                const schemaDestination = path.resolve(
+                    staging,
+                    schemaRelativePath
+                );
+                yield* fileSystem.makeDirectory(
+                    path.resolve(schemaDestination, "..")
+                );
+                yield* fileSystem.copy(
+                    schemaSource,
+                    schemaDestination,
+                    { overwrite: true }
+                );
+            }
             const versionsSource = path.join(
                 staging,
                 "Source",

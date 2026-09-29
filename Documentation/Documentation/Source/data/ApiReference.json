@@ -1,5 +1,5 @@
 {
-  "checksum": "9723031162f7ca0c43ffeeafdc457f9aa2d93f34fee2bb5853638e782405afc0",
+  "checksum": "2e71e5d240a6e2ee7ed3ad4a6c9607f19352b1b0083ec04f818bfe313c378be5",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -58,7 +58,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 81
+            "line": 89
           }
         },
         {
@@ -66,12 +66,12 @@
           "id": "ApiReferenceDataset",
           "kind": "interface",
           "name": "ApiReferenceDataset",
-          "signature": "export declare interface ApiReferenceDataset {\n    readonly checksum: string;\n    readonly generatedAt: string;\n    readonly jsonSchemas?: readonly JsonSchemaReferenceRecord[];\n    readonly records: readonly { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { category?: string; categoryId: string; description?: string; descriptionParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; examples?: readonly { code: string; language?: string; name?: string }[]; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; summaryParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; version: string }[];\n    readonly sourceRevision?: string;\n    readonly version: 1;\n}",
+          "signature": "export declare interface ApiReferenceDataset {\n    readonly checksum: string;\n    readonly generatedAt: string;\n    readonly jsonSchemas?: readonly JsonSchemaReferenceRecord[];\n    readonly records: readonly { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { category?: string; categoryId: string; description?: string; descriptionParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; examples?: readonly { code: string; language?: string; name?: string }[]; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; language?: \"typescript\" | \"cpp\"; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; summaryParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; version: string }[];\n    readonly sourceRevision?: string;\n    readonly version: 1;\n}",
           "source": {
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 72
+            "line": 80
           }
         },
         {
@@ -92,12 +92,12 @@
           "id": "ApiReferenceGenerationOptions",
           "kind": "interface",
           "name": "ApiReferenceGenerationOptions",
-          "signature": "export declare interface ApiReferenceGenerationOptions {\n    readonly generatedAt?: string;\n    readonly jsonSchemas?: readonly JsonSchemaReferenceInput[];\n    readonly packages: readonly ApiReferencePackageInput[];\n    readonly referencePrefix?: string;\n    readonly repositoryRoot?: string;\n    readonly repositoryUrl?: string;\n    readonly revision?: string;\n    readonly sourceRoot?: string;\n    readonly typedoc?: Readonly<Record<string, unknown>>;\n}",
+          "signature": "export declare interface ApiReferenceGenerationOptions {\n    readonly doxygen?: readonly DoxygenProjectInput[];\n    readonly generatedAt?: string;\n    readonly jsonSchemas?: readonly JsonSchemaReferenceInput[];\n    readonly packages: readonly ApiReferencePackageInput[];\n    readonly referencePrefix?: string;\n    readonly repositoryRoot?: string;\n    readonly repositoryUrl?: string;\n    readonly revision?: string;\n    readonly sourceRoot?: string;\n    readonly typedoc?: Readonly<Record<string, unknown>>;\n}",
           "source": {
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 23
+            "line": 30
           }
         },
         {
@@ -110,7 +110,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 83
+            "line": 91
           }
         },
         {
@@ -175,7 +175,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 85
+            "line": 93
           }
         },
         {
@@ -209,12 +209,25 @@
           "id": "createApiDataset",
           "kind": "function",
           "name": "createApiDataset",
-          "signature": "export declare function createApiDataset(\n    records: readonly {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }[],\n    options: Pick<ApiReferenceDataset, \"generatedAt\" | \"sourceRevision\"> & { jsonSchemas?: readonly JsonSchemaReferenceRecord[] }\n): ApiReferenceDataset;",
+          "signature": "export declare function createApiDataset(\n    records: readonly {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        language?: \"typescript\" | \"cpp\";\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }[],\n    options: Pick<ApiReferenceDataset, \"generatedAt\" | \"sourceRevision\"> & { jsonSchemas?: readonly JsonSchemaReferenceRecord[] }\n): ApiReferenceDataset;",
           "source": {
             "file": "Package/ApiReference/Source/Serialization.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
             "line": 157
+          }
+        },
+        {
+          "categoryId": "interfaces",
+          "id": "DoxygenProjectInput",
+          "kind": "interface",
+          "name": "DoxygenProjectInput",
+          "signature": "export declare interface DoxygenProjectInput {\n    readonly id: string;\n    readonly name: string;\n    readonly version: string;\n    readonly xmlDirectory: string;\n}",
+          "source": {
+            "file": "Package/ApiReference/Source/Types.ts",
+            "repositoryUrl": "https://github.com/GageSorrell/Documentation",
+            "revision": "Master",
+            "line": 23
           }
         },
         {
@@ -227,7 +240,21 @@
             "file": "Package/ApiReference/Source/TypeDoc.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 1204
+            "line": 1205
+          }
+        },
+        {
+          "categoryId": "functions",
+          "description": "Parse configured Doxygen XML trees into shared API-reference records.",
+          "id": "generateDoxygenRecords",
+          "kind": "function",
+          "name": "generateDoxygenRecords",
+          "signature": "export declare function generateDoxygenRecords(\n    options: DoxygenGenerationOptions\n): Promise<readonly { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { category?: string; categoryId: string; description?: string; descriptionParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; examples?: readonly { code: string; language?: string; name?: string }[]; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; language?: \"typescript\" | \"cpp\"; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; summaryParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; version: string }[]>;",
+          "source": {
+            "file": "Package/ApiReference/Source/Doxygen.ts",
+            "repositoryUrl": "https://github.com/GageSorrell/Documentation",
+            "revision": "Master",
+            "line": 304
           }
         },
         {
@@ -240,7 +267,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 35
+            "line": 43
           }
         },
         {
@@ -253,7 +280,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 50
+            "line": 58
           }
         },
         {
@@ -266,7 +293,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 40
+            "line": 48
           }
         },
         {
@@ -292,7 +319,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 59
+            "line": 67
           }
         },
         {
@@ -326,7 +353,7 @@
           "id": "recordToAgentDocument",
           "kind": "function",
           "name": "recordToAgentDocument",
-          "signature": "export declare function recordToAgentDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"json-schema\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
+          "signature": "export declare function recordToAgentDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        language?: \"typescript\" | \"cpp\";\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"json-schema\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/ApiReference/Source/Serialization.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -339,7 +366,7 @@
           "id": "recordToLlmDocument",
           "kind": "function",
           "name": "recordToLlmDocument",
-          "signature": "export declare function recordToLlmDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"json-schema\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
+          "signature": "export declare function recordToLlmDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        language?: \"typescript\" | \"cpp\";\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"json-schema\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/ApiReference/Source/Serialization.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -378,7 +405,7 @@
           "id": "validateApiRecords",
           "kind": "function",
           "name": "validateApiRecords",
-          "signature": "export declare function validateApiRecords(\n    records: readonly {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }[]\n): ApiReferenceValidationResult;",
+          "signature": "export declare function validateApiRecords(\n    records: readonly {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"link\" | \"text\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        language?: \"typescript\" | \"cpp\";\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"link\" | \"text\";\n            text: string\n        }[];\n        version: string\n    }[]\n): ApiReferenceValidationResult;",
           "source": {
             "file": "Package/ApiReference/Source/Serialization.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -401,7 +428,7 @@
         }
       ],
       "displayName": "@sorrell/docs-api-reference",
-      "exportCount": 27,
+      "exportCount": 29,
       "module": "api-reference",
       "packageId": "api-reference",
       "packageName": "@sorrell/docs-api-reference",
@@ -1617,7 +1644,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 672
+            "line": 691
           }
         },
         {
@@ -1630,7 +1657,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 387
+            "line": 398
           }
         },
         {
@@ -1643,7 +1670,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 670
+            "line": 689
           }
         },
         {
@@ -1656,7 +1683,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 374
+            "line": 385
           }
         },
         {
@@ -1669,7 +1696,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 658
+            "line": 677
           }
         },
         {
@@ -1682,7 +1709,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 334
+            "line": 345
           }
         },
         {
@@ -1695,7 +1722,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 664
+            "line": 683
           }
         },
         {
@@ -1708,7 +1735,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 660
+            "line": 679
           }
         },
         {
@@ -1721,7 +1748,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 347
+            "line": 358
           }
         },
         {
@@ -1734,7 +1761,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 364
+            "line": 375
           }
         },
         {
@@ -1773,7 +1800,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 666
+            "line": 685
           }
         },
         {
@@ -1786,7 +1813,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 205
+            "line": 213
           }
         },
         {
@@ -1799,7 +1826,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 211
+            "line": 219
           }
         },
         {
@@ -1812,7 +1839,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 678
+            "line": 697
           }
         },
         {
@@ -1825,7 +1852,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 357
+            "line": 368
           }
         },
         {
@@ -1838,7 +1865,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 674
+            "line": 693
           }
         },
         {
@@ -1851,7 +1878,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 382
+            "line": 393
           }
         },
         {
@@ -1864,7 +1891,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 606
+            "line": 625
           }
         },
         {
@@ -1872,7 +1899,7 @@
           "id": "ApiGenerationConfigSchema",
           "kind": "variable",
           "name": "ApiGenerationConfigSchema",
-          "signature": "export declare const ApiGenerationConfigSchema: Struct<{ enabled: Boolean; entryPoints: $Array<String>; jsonSchemas: $Array<Struct<{ path: String; route: String }>>; outputDirectory: String; packages: $Array<String>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: $Record<String, Unknown> }>;",
+          "signature": "export declare const ApiGenerationConfigSchema: Struct<{ doxygen: Struct<{ projects: $Array<Struct<{ id: String; name: String; version: String; xmlDirectory: String }>> }>; enabled: Boolean; entryPoints: $Array<String>; jsonSchemas: $Array<Struct<{ path: String; route: String }>>; outputDirectory: String; packages: $Array<String>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: $Record<String, Unknown> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1890,7 +1917,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 630
+            "line": 649
           }
         },
         {
@@ -1903,7 +1930,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 250
+            "line": 258
           }
         },
         {
@@ -1916,7 +1943,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 634
+            "line": 653
           }
         },
         {
@@ -1929,7 +1956,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 256
+            "line": 264
           }
         },
         {
@@ -1942,7 +1969,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 644
+            "line": 663
           }
         },
         {
@@ -1950,12 +1977,12 @@
           "id": "ApiReferenceDeclarationSchema",
           "kind": "variable",
           "name": "ApiReferenceDeclarationSchema",
-          "signature": "export declare const ApiReferenceDeclarationSchema: Struct<{ category: optionalKey<String>; categoryId: String; description: optionalKey<String>; descriptionParts: optionalKey<$Array<Struct<{ code: optionalKey<Boolean>; external: optionalKey<Boolean>; href: optionalKey<String>; kind: Literals<readonly [\"text\", \"link\"]>; text: String }>>>; examples: optionalKey<$Array<Struct<{ code: String; language: optionalKey<String>; name: optionalKey<String> }>>>; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>;",
+          "signature": "export declare const ApiReferenceDeclarationSchema: Struct<{ category: optionalKey<String>; categoryId: String; description: optionalKey<String>; descriptionParts: optionalKey<$Array<Struct<{ code: optionalKey<Boolean>; external: optionalKey<Boolean>; href: optionalKey<String>; kind: Literals<readonly [\"text\", \"link\"]>; text: String }>>>; examples: optionalKey<$Array<Struct<{ code: String; language: optionalKey<String>; name: optionalKey<String> }>>>; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\", \"enum\", \"alias\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 290
+            "line": 298
           }
         },
         {
@@ -1968,7 +1995,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 647
+            "line": 666
           }
         },
         {
@@ -1981,7 +2008,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 277
+            "line": 285
           }
         },
         {
@@ -1994,7 +2021,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 650
+            "line": 669
           }
         },
         {
@@ -2007,7 +2034,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 654
+            "line": 673
           }
         },
         {
@@ -2015,12 +2042,12 @@
           "id": "ApiReferenceRecordSchema",
           "kind": "variable",
           "name": "ApiReferenceRecordSchema",
-          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ category: optionalKey<String>; categoryId: String; description: optionalKey<String>; descriptionParts: optionalKey<$Array<Struct<{ code: optionalKey<Boolean>; external: optionalKey<Boolean>; href: optionalKey<String>; kind: Literals<readonly [(...), (...)]>; text: String }>>>; examples: optionalKey<$Array<Struct<{ code: String; language: optionalKey<String>; name: optionalKey<String> }>>>; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageDescription: optionalKey<String>; packageExports: optionalKey<$Array<String>>; packageId: String; packageName: String; packagePrivate: optionalKey<Boolean>; packageSourceUrl: optionalKey<String>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: optionalKey<String>; summaryParts: optionalKey<$Array<Struct<{ code: optionalKey<Boolean>; external: optionalKey<Boolean>; href: optionalKey<String>; kind: Literals<readonly [\"text\", \"link\"]>; text: String }>>>; version: String }>;",
+          "signature": "export declare const ApiReferenceRecordSchema: Struct<{ breadcrumbs: $Array<Struct<{ current: Boolean; href: optionalKey<String>; label: String }>>; categories: $Array<Struct<{ collapsed: Boolean; id: String; label: String; order: Number }>>; declarations: $Array<Struct<{ category: optionalKey<String>; categoryId: String; description: optionalKey<String>; descriptionParts: optionalKey<$Array<Struct<{ code: optionalKey<Boolean>; external: optionalKey<Boolean>; href: optionalKey<String>; kind: Literals<readonly [(...), (...)]>; text: String }>>>; examples: optionalKey<$Array<Struct<{ code: String; language: optionalKey<String>; name: optionalKey<String> }>>>; id: String; introductionVersion: optionalKey<String>; kind: Literals<readonly [\"function\", \"const\", \"class\", \"interface\", \"type\", \"variable\", \"namespace\", \"enum\", \"alias\"]>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; name: String; signature: String; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>> }>>; displayName: String; exportCount: Number; introductionVersion: optionalKey<String>; language: optionalKey<Literals<readonly [\"typescript\", \"cpp\"]>>; link: optionalKey<Struct<{ external: Boolean; href: String; label: optionalKey<String> }>>; module: String; packageDescription: optionalKey<String>; packageExports: optionalKey<$Array<String>>; packageId: String; packageName: String; packagePrivate: optionalKey<Boolean>; packageSourceUrl: optionalKey<String>; source: optionalKey<Struct<{ endLine: optionalKey<Number>; file: String; line: optionalKey<Number>; repositoryUrl: String; revision: String }>>; summary: optionalKey<String>; summaryParts: optionalKey<$Array<Struct<{ code: optionalKey<Boolean>; external: optionalKey<Boolean>; href: optionalKey<String>; kind: Literals<readonly [\"text\", \"link\"]>; text: String }>>>; version: String }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 313
+            "line": 323
           }
         },
         {
@@ -2028,7 +2055,7 @@
           "id": "apiReferenceRecordToAgentDocument",
           "kind": "function",
           "name": "apiReferenceRecordToAgentDocument",
-          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"text\" | \"link\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"text\" | \"link\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"json-schema\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
+          "signature": "export declare function apiReferenceRecordToAgentDocument(\n    record: {\n        breadcrumbs: readonly {\n            current: boolean;\n            href?: string;\n            label: string\n        }[];\n        categories: readonly {\n            collapsed: boolean;\n            id: string;\n            label: string;\n            order: number\n        }[];\n        declarations: readonly {\n            category?: string;\n            categoryId: string;\n            description?: string;\n            descriptionParts?: readonly {\n                code?: boolean;\n                external?: boolean;\n                href?: string;\n                kind: \"text\" | \"link\";\n                text: string\n            }[];\n            examples?: readonly {\n                code: string;\n                language?: string;\n                name?: string\n            }[];\n            id: string;\n            introductionVersion?: string;\n            kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\";\n            link?: {\n                external: boolean;\n                href: string;\n                label?: string\n            };\n            name: string;\n            signature: string;\n            source?: {\n                endLine?: number;\n                file: string;\n                line?: number;\n                repositoryUrl: string;\n                revision: string\n            }\n        }[];\n        displayName: string;\n        exportCount: number;\n        introductionVersion?: string;\n        language?: \"typescript\" | \"cpp\";\n        link?: {\n            external: boolean;\n            href: string;\n            label?: string\n        };\n        module: string;\n        packageDescription?: string;\n        packageExports?: readonly string[];\n        packageId: string;\n        packageName: string;\n        packagePrivate?: boolean;\n        packageSourceUrl?: string;\n        source?: {\n            endLine?: number;\n            file: string;\n            line?: number;\n            repositoryUrl: string;\n            revision: string\n        };\n        summary?: string;\n        summaryParts?: readonly {\n            code?: boolean;\n            external?: boolean;\n            href?: string;\n            kind: \"text\" | \"link\";\n            text: string\n        }[];\n        version: string\n    }\n): { content: string; context?: string; description?: string; id: string; kind: \"article\" | \"api-module\" | \"json-schema\" | \"component\"; metadata?: { [key: string]: unknown }; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; title: string; url: string; version?: string };",
           "source": {
             "file": "Package/Core/Source/Agent.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -2046,7 +2073,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 638
+            "line": 657
           }
         },
         {
@@ -2059,7 +2086,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 263
+            "line": 271
           }
         },
         {
@@ -2072,7 +2099,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 683
+            "line": 702
           }
         },
         {
@@ -2124,7 +2151,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 757
+            "line": 760
           }
         },
         {
@@ -2137,7 +2164,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 783
+            "line": 786
           }
         },
         {
@@ -2150,7 +2177,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 772
+            "line": 775
           }
         },
         {
@@ -2176,7 +2203,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 580
+            "line": 599
           }
         },
         {
@@ -2197,7 +2224,7 @@
           "id": "DocsConfig",
           "kind": "interface",
           "name": "DocsConfig",
-          "signature": "export declare interface DocsConfig {\n    readonly agent: { description?: string; enabled: boolean; essentials: readonly string[]; mcp: { enabled: boolean }; skill: { enabled: boolean; name: string } };\n    readonly api: { enabled: boolean; entryPoints: readonly string[]; jsonSchemas: readonly { path: string; route: string }[]; outputDirectory: string; packages: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc: { [key: string]: unknown } };\n    readonly banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number };\n    readonly footer: SiteFooter;\n    readonly landing: { description: string; primaryAction?: { href: string; label: string }; sections: readonly { body: string; href?: string; id: string; title: string }[]; title: string };\n    readonly manifests: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[];\n    readonly mcpEndpoint: string;\n    readonly metadata: { description: string; logo?: string; name: string; repository?: { branch?: string; directory?: string; url: string }; title: string; url: string };\n    readonly navigation: Navigation;\n    readonly packages: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[];\n    readonly redirects: readonly { from: string; status: 301 | 302; to: string }[];\n    readonly routing: { documentationPrefix: string; storybookPrefix: string };\n    readonly storybook: { command?: string; directory?: string; enabled: boolean; stories: readonly string[]; url?: string };\n    readonly tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } };\n    readonly vercel: { domains: readonly string[]; enabled: boolean; outputDirectory: string; productionBranch: string; project?: string; projects: { documentation: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; landing: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; mcp?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; storybook?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string } }; team?: string };\n    readonly versions: readonly { current: boolean; directory: string; href?: string; id: string; label: string; order: number; version?: string }[];\n}",
+          "signature": "export declare interface DocsConfig {\n    readonly agent: { description?: string; enabled: boolean; essentials: readonly string[]; mcp: { enabled: boolean }; skill: { enabled: boolean; name: string } };\n    readonly api: { doxygen: { projects: readonly { id: string; name: string; version: string; xmlDirectory: string }[] }; enabled: boolean; entryPoints: readonly string[]; jsonSchemas: readonly { path: string; route: string }[]; outputDirectory: string; packages: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc: { [key: string]: unknown } };\n    readonly banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number };\n    readonly footer: SiteFooter;\n    readonly landing: { description: string; primaryAction?: { href: string; label: string }; sections: readonly { body: string; href?: string; id: string; title: string }[]; title: string };\n    readonly manifests: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[];\n    readonly mcpEndpoint: string;\n    readonly metadata: { description: string; logo?: string; name: string; repository?: { branch?: string; directory?: string; url: string }; title: string; url: string };\n    readonly navigation: Navigation;\n    readonly packages: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[];\n    readonly redirects: readonly { from: string; status: 301 | 302; to: string }[];\n    readonly routing: { documentationPrefix: string; storybookPrefix: string };\n    readonly storybook: { command?: string; directory?: string; enabled: boolean; stories: readonly string[]; url?: string };\n    readonly tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } };\n    readonly vercel: { domains: readonly string[]; enabled: boolean; outputDirectory: string; productionBranch: string; project?: string; projects: { documentation: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; landing: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; mcp?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; storybook?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string } }; team?: string };\n    readonly versions: readonly { current: boolean; directory: string; href?: string; id: string; label: string; order: number; version?: string }[];\n}",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -2241,7 +2268,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 682
+            "line": 701
           }
         },
         {
@@ -2249,12 +2276,12 @@
           "id": "DocsConfigInputSchema",
           "kind": "variable",
           "name": "DocsConfigInputSchema",
-          "signature": "export declare const DocsConfigInputSchema: Struct<{ agent: optionalKey<Struct<{ description: optionalKey<String>; enabled: optionalKey<Boolean>; essentials: optionalKey<$Array<String>>; mcp: optionalKey<Struct<{ enabled: optionalKey<Boolean> }>>; skill: optionalKey<Struct<{ enabled: optionalKey<Boolean>; name: optionalKey<String> }>> }>>; api: optionalKey<Struct<{ enabled: optionalKey<Boolean>; entryPoints: optionalKey<$Array<String>>; jsonSchemas: optionalKey<$Array<Struct<{ path: String; route: String }>>>; outputDirectory: optionalKey<String>; packages: optionalKey<$Array<String>>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: optionalKey<$Record<String, Unknown>> }>>; banner: optionalKey<Struct<{ backgroundColor: optionalKey<String>; logoHeight: optionalKey<Number>; logoWidth: optionalKey<Number> }>>; footer: optionalKey<Struct<{ columns: optionalKey<$Array<Struct<{ links: $Array<Struct<(...)>>; title: String }>>>; links: optionalKey<$Array<Struct<{ href: String; icon: optionalKey<String>; label: String }>>>; message: optionalKey<String> }>>; landing: optionalKey<Struct<{ description: optionalKey<String>; primaryAction: optionalKey<Struct<{ href: String; label: String }>>; sections: optionalKey<$Array<Struct<{ body: optionalKey<String>; href: optionalKey<String>; id: String; title: String }>>>; title: optionalKey<String> }>>; manifests: optionalKey<$Array<Struct<{ checksum: optionalKey<String>; generatedAt: optionalKey<String>; kind: Literals<readonly [\"site\", \"api-reference\", \"storybook\", \"project\"]>; path: String; revision: optionalKey<String> }>>>; metadata: optionalKey<Struct<{ description: optionalKey<String>; logo: optionalKey<String>; name: optionalKey<String>; repository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; title: optionalKey<String>; url: optionalKey<String> }>>; navigation: optionalKey<Struct<{ groups: optionalKey<$Array<Struct<{ id: String; items: $Array<Schema<(...)>>; label: String }>>> }>>; packages: optionalKey<$Array<Struct<{ description: optionalKey<String>; directory: optionalKey<String>; id: String; name: String; source: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; version: optionalKey<String> }>>>; redirects: optionalKey<$Array<Struct<{ from: String; status: optionalKey<Literals<readonly [301, 302]>>; to: String }>>>; routing: optionalKey<Struct<{ documentationPrefix: optionalKey<String>; storybookPrefix: optionalKey<String> }>>; storybook: optionalKey<Struct<{ command: optionalKey<String>; directory: optionalKey<String>; enabled: optionalKey<Boolean>; stories: optionalKey<$Array<String>>; url: optionalKey<String> }>>; tokens: optionalKey<Struct<{ dark: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>>; light: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>> }>>; vercel: optionalKey<Struct<{ domains: optionalKey<$Array<String>>; enabled: optionalKey<Boolean>; outputDirectory: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; projects: optionalKey<Struct<{ documentation: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; landing: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; mcp: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; storybook: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>> }>>; team: optionalKey<String> }>>; versions: optionalKey<$Array<Struct<{ current: optionalKey<Boolean>; directory: optionalKey<String>; href: optionalKey<String>; id: String; label: optionalKey<String>; order: optionalKey<Number>; version: optionalKey<String> }>>> }>;",
+          "signature": "export declare const DocsConfigInputSchema: Struct<{ agent: optionalKey<Struct<{ description: optionalKey<String>; enabled: optionalKey<Boolean>; essentials: optionalKey<$Array<String>>; mcp: optionalKey<Struct<{ enabled: optionalKey<Boolean> }>>; skill: optionalKey<Struct<{ enabled: optionalKey<Boolean>; name: optionalKey<String> }>> }>>; api: optionalKey<Struct<{ doxygen: optionalKey<Struct<{ projects: optionalKey<$Array<Struct<(...)>>> }>>; enabled: optionalKey<Boolean>; entryPoints: optionalKey<$Array<String>>; jsonSchemas: optionalKey<$Array<Struct<{ path: String; route: String }>>>; outputDirectory: optionalKey<String>; packages: optionalKey<$Array<String>>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: optionalKey<$Record<String, Unknown>> }>>; banner: optionalKey<Struct<{ backgroundColor: optionalKey<String>; logoHeight: optionalKey<Number>; logoWidth: optionalKey<Number> }>>; footer: optionalKey<Struct<{ columns: optionalKey<$Array<Struct<{ links: $Array<Struct<(...)>>; title: String }>>>; links: optionalKey<$Array<Struct<{ href: String; icon: optionalKey<String>; label: String }>>>; message: optionalKey<String> }>>; landing: optionalKey<Struct<{ description: optionalKey<String>; primaryAction: optionalKey<Struct<{ href: String; label: String }>>; sections: optionalKey<$Array<Struct<{ body: optionalKey<String>; href: optionalKey<String>; id: String; title: String }>>>; title: optionalKey<String> }>>; manifests: optionalKey<$Array<Struct<{ checksum: optionalKey<String>; generatedAt: optionalKey<String>; kind: Literals<readonly [\"site\", \"api-reference\", \"storybook\", \"project\"]>; path: String; revision: optionalKey<String> }>>>; metadata: optionalKey<Struct<{ description: optionalKey<String>; logo: optionalKey<String>; name: optionalKey<String>; repository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; title: optionalKey<String>; url: optionalKey<String> }>>; navigation: optionalKey<Struct<{ groups: optionalKey<$Array<Struct<{ id: String; items: $Array<Schema<(...)>>; label: String }>>> }>>; packages: optionalKey<$Array<Struct<{ description: optionalKey<String>; directory: optionalKey<String>; id: String; name: String; source: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; version: optionalKey<String> }>>>; redirects: optionalKey<$Array<Struct<{ from: String; status: optionalKey<Literals<readonly [301, 302]>>; to: String }>>>; routing: optionalKey<Struct<{ documentationPrefix: optionalKey<String>; storybookPrefix: optionalKey<String> }>>; storybook: optionalKey<Struct<{ command: optionalKey<String>; directory: optionalKey<String>; enabled: optionalKey<Boolean>; stories: optionalKey<$Array<String>>; url: optionalKey<String> }>>; tokens: optionalKey<Struct<{ dark: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>>; light: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>> }>>; vercel: optionalKey<Struct<{ domains: optionalKey<$Array<String>>; enabled: optionalKey<Boolean>; outputDirectory: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; projects: optionalKey<Struct<{ documentation: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; landing: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; mcp: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; storybook: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>> }>>; team: optionalKey<String> }>>; versions: optionalKey<$Array<Struct<{ current: optionalKey<Boolean>; directory: optionalKey<String>; href: optionalKey<String>; id: String; label: optionalKey<String>; order: optionalKey<Number>; version: optionalKey<String> }>>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 560
+            "line": 579
           }
         },
         {
@@ -2267,7 +2294,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 582
+            "line": 601
           }
         },
         {
@@ -2293,7 +2320,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 594
+            "line": 613
           }
         },
         {
@@ -2306,7 +2333,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 592
+            "line": 611
           }
         },
         {
@@ -2358,7 +2385,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 626
+            "line": 645
           }
         },
         {
@@ -2371,7 +2398,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 242
+            "line": 250
           }
         },
         {
@@ -2384,7 +2411,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 590
+            "line": 609
           }
         },
         {
@@ -2522,7 +2549,7 @@
           "id": "normalizeDocsConfig",
           "kind": "function",
           "name": "normalizeDocsConfig",
-          "signature": "export declare function normalizeDocsConfig(\n    input: {\n        agent?: {\n            description?: string;\n            enabled?: boolean;\n            essentials?: readonly string[];\n            mcp?: { enabled?: boolean };\n            skill?: {\n                enabled?: boolean;\n                name?: string\n            }\n        };\n        api?: {\n            enabled?: boolean;\n            entryPoints?: readonly string[];\n            jsonSchemas?: readonly {\n                path: string;\n                route: string\n            }[];\n            outputDirectory?: string;\n            packages?: readonly string[];\n            sourceRepository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            typedoc?: { [key: string]: unknown }\n        };\n        banner?: {\n            backgroundColor?: string;\n            logoHeight?: number;\n            logoWidth?: number\n        };\n        footer?: {\n            columns?: readonly {\n                links: readonly {\n                    href: string;\n                    icon?: string;\n                    label: string\n                }[];\n                title: string\n            }[];\n            links?: readonly {\n                href: string;\n                icon?: string;\n                label: string\n            }[];\n            message?: string\n        };\n        landing?: {\n            description?: string;\n            primaryAction?: {\n                href: string;\n                label: string\n            };\n            sections?: readonly {\n                body?: string;\n                href?: string;\n                id: string;\n                title: string\n            }[];\n            title?: string\n        };\n        manifests?: readonly {\n            checksum?: string;\n            generatedAt?: string;\n            kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\";\n            path: string;\n            revision?: string\n        }[];\n        metadata?: {\n            description?: string;\n            logo?: string;\n            name?: string;\n            repository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            title?: string;\n            url?: string\n        };\n        navigation?: { groups?: readonly {\n            id: string;\n            items: readonly NavigationItemInput[];\n            label: string\n        }[] };\n        packages?: readonly {\n            description?: string;\n            directory?: string;\n            id: string;\n            name: string;\n            source?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            version?: string\n        }[];\n        redirects?: readonly {\n            from: string;\n            status?: 301 | 302;\n            to: string\n        }[];\n        routing?: {\n            documentationPrefix?: string;\n            storybookPrefix?: string\n        };\n        storybook?: {\n            command?: string;\n            directory?: string;\n            enabled?: boolean;\n            stories?: readonly string[];\n            url?: string\n        };\n        tokens?: {\n            dark?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            };\n            light?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            }\n        };\n        vercel?: {\n            domains?: readonly string[];\n            enabled?: boolean;\n            outputDirectory?: string;\n            productionBranch?: string;\n            project?: string;\n            projects?: {\n                documentation?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                landing?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                mcp?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                storybook?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                }\n            };\n            team?: string\n        };\n        versions?: readonly {\n            current?: boolean;\n            directory?: string;\n            href?: string;\n            id: string;\n            label?: string;\n            order?: number;\n            version?: string\n        }[]\n    }\n): DocsConfig;",
+          "signature": "export declare function normalizeDocsConfig(\n    input: {\n        agent?: {\n            description?: string;\n            enabled?: boolean;\n            essentials?: readonly string[];\n            mcp?: { enabled?: boolean };\n            skill?: {\n                enabled?: boolean;\n                name?: string\n            }\n        };\n        api?: {\n            doxygen?: { projects?: readonly {\n                id: string;\n                name: string;\n                version: string;\n                xmlDirectory: string\n            }[] };\n            enabled?: boolean;\n            entryPoints?: readonly string[];\n            jsonSchemas?: readonly {\n                path: string;\n                route: string\n            }[];\n            outputDirectory?: string;\n            packages?: readonly string[];\n            sourceRepository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            typedoc?: { [key: string]: unknown }\n        };\n        banner?: {\n            backgroundColor?: string;\n            logoHeight?: number;\n            logoWidth?: number\n        };\n        footer?: {\n            columns?: readonly {\n                links: readonly {\n                    href: string;\n                    icon?: string;\n                    label: string\n                }[];\n                title: string\n            }[];\n            links?: readonly {\n                href: string;\n                icon?: string;\n                label: string\n            }[];\n            message?: string\n        };\n        landing?: {\n            description?: string;\n            primaryAction?: {\n                href: string;\n                label: string\n            };\n            sections?: readonly {\n                body?: string;\n                href?: string;\n                id: string;\n                title: string\n            }[];\n            title?: string\n        };\n        manifests?: readonly {\n            checksum?: string;\n            generatedAt?: string;\n            kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\";\n            path: string;\n            revision?: string\n        }[];\n        metadata?: {\n            description?: string;\n            logo?: string;\n            name?: string;\n            repository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            title?: string;\n            url?: string\n        };\n        navigation?: { groups?: readonly {\n            id: string;\n            items: readonly NavigationItemInput[];\n            label: string\n        }[] };\n        packages?: readonly {\n            description?: string;\n            directory?: string;\n            id: string;\n            name: string;\n            source?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            version?: string\n        }[];\n        redirects?: readonly {\n            from: string;\n            status?: 301 | 302;\n            to: string\n        }[];\n        routing?: {\n            documentationPrefix?: string;\n            storybookPrefix?: string\n        };\n        storybook?: {\n            command?: string;\n            directory?: string;\n            enabled?: boolean;\n            stories?: readonly string[];\n            url?: string\n        };\n        tokens?: {\n            dark?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            };\n            light?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            }\n        };\n        vercel?: {\n            domains?: readonly string[];\n            enabled?: boolean;\n            outputDirectory?: string;\n            productionBranch?: string;\n            project?: string;\n            projects?: {\n                documentation?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                landing?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                mcp?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                storybook?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                }\n            };\n            team?: string\n        };\n        versions?: readonly {\n            current?: boolean;\n            directory?: string;\n            href?: string;\n            id: string;\n            label?: string;\n            order?: number;\n            version?: string\n        }[]\n    }\n): DocsConfig;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -2540,7 +2567,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 586
+            "line": 605
           }
         },
         {
@@ -2566,7 +2593,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 602
+            "line": 621
           }
         },
         {
@@ -2605,7 +2632,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 596
+            "line": 615
           }
         },
         {
@@ -2631,7 +2658,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 578
+            "line": 597
           }
         },
         {
@@ -2657,7 +2684,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 610
+            "line": 629
           }
         },
         {
@@ -2670,7 +2697,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 169
+            "line": 177
           }
         },
         {
@@ -2683,7 +2710,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 642
+            "line": 661
           }
         },
         {
@@ -2696,7 +2723,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 271
+            "line": 279
           }
         },
         {
@@ -2709,7 +2736,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 604
+            "line": 623
           }
         },
         {
@@ -2735,7 +2762,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 624
+            "line": 643
           }
         },
         {
@@ -2748,7 +2775,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 232
+            "line": 240
           }
         },
         {
@@ -2761,7 +2788,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 616
+            "line": 635
           }
         },
         {
@@ -2774,7 +2801,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 191
+            "line": 199
           }
         },
         {
@@ -2787,7 +2814,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 198
+            "line": 206
           }
         },
         {
@@ -2800,7 +2827,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 612
+            "line": 631
           }
         },
         {
@@ -2813,7 +2840,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 614
+            "line": 633
           }
         },
         {
@@ -2826,7 +2853,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 174
+            "line": 182
           }
         },
         {
@@ -2839,7 +2866,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 184
+            "line": 192
           }
         },
         {
@@ -2852,7 +2879,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 620
+            "line": 639
           }
         },
         {
@@ -2865,7 +2892,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 217
+            "line": 225
           }
         }
       ],
@@ -2992,7 +3019,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 549
+            "line": 596
           }
         },
         {
@@ -3109,7 +3136,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 57
+            "line": 58
           }
         },
         {
@@ -3122,7 +3149,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 702
+            "line": 749
           }
         },
         {
@@ -3135,7 +3162,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 287
+            "line": 334
           }
         },
         {
@@ -3382,7 +3409,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 572
+            "line": 619
           }
         },
         {
@@ -3421,7 +3448,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 65
+            "line": 66
           }
         },
         {
@@ -3434,7 +3461,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 663
+            "line": 710
           }
         },
         {
@@ -3538,7 +3565,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 706
+            "line": 753
           }
         },
         {
@@ -3551,7 +3578,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 30
+            "line": 31
           }
         },
         {
@@ -3572,7 +3599,7 @@
           "id": "WebsiteGenerationOptions",
           "kind": "interface",
           "name": "WebsiteGenerationOptions",
-          "signature": "export declare interface WebsiteGenerationOptions {\n    readonly config?: { agent?: { description?: string; enabled?: boolean; essentials?: readonly string[]; mcp?: { enabled?: boolean }; skill?: { enabled?: boolean; name?: string } }; api?: { enabled?: boolean; entryPoints?: readonly string[]; jsonSchemas?: readonly { path: string; route: string }[]; outputDirectory?: string; packages?: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc?: { [key: string]: unknown } }; banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number }; footer?: { columns?: readonly { links: readonly { href: string; icon?: string; label: string }[]; title: string }[]; links?: readonly { href: string; icon?: string; label: string }[]; message?: string }; landing?: { description?: string; primaryAction?: { href: string; label: string }; sections?: readonly { body?: string; href?: string; id: string; title: string }[]; title?: string }; manifests?: readonly { checksum?: string; generatedAt?: string; kind: \"storybook\" | \"project\" | \"site\" | \"api-reference\"; path: string; revision?: string }[]; metadata?: { description?: string; logo?: string; name?: string; repository?: { branch?: string; directory?: string; url: string }; title?: string; url?: string }; navigation?: { groups?: readonly { id: string; items: readonly NavigationItemInput[]; label: string }[] }; packages?: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[]; redirects?: readonly { from: string; status?: 301 | 302; to: string }[]; routing?: { documentationPrefix?: string; storybookPrefix?: string }; storybook?: { command?: string; directory?: string; enabled?: boolean; stories?: readonly string[]; url?: string }; tokens?: { dark?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string }; light?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string } }; vercel?: { domains?: readonly string[]; enabled?: boolean; outputDirectory?: string; productionBranch?: string; project?: string; projects?: { documentation?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; landing?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; mcp?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; storybook?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string } }; team?: string }; versions?: readonly { current?: boolean; directory?: string; href?: string; id: string; label?: string; order?: number; version?: string }[] };\n    readonly generatedAt?: string;\n    readonly revision?: string;\n    readonly target: string;\n}",
+          "signature": "export declare interface WebsiteGenerationOptions {\n    readonly config?: { agent?: { description?: string; enabled?: boolean; essentials?: readonly string[]; mcp?: { enabled?: boolean }; skill?: { enabled?: boolean; name?: string } }; api?: { doxygen?: { projects?: readonly { id: string; name: string; version: string; xmlDirectory: string }[] }; enabled?: boolean; entryPoints?: readonly string[]; jsonSchemas?: readonly { path: string; route: string }[]; outputDirectory?: string; packages?: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc?: { [key: string]: unknown } }; banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number }; footer?: { columns?: readonly { links: readonly { href: string; icon?: string; label: string }[]; title: string }[]; links?: readonly { href: string; icon?: string; label: string }[]; message?: string }; landing?: { description?: string; primaryAction?: { href: string; label: string }; sections?: readonly { body?: string; href?: string; id: string; title: string }[]; title?: string }; manifests?: readonly { checksum?: string; generatedAt?: string; kind: \"storybook\" | \"project\" | \"site\" | \"api-reference\"; path: string; revision?: string }[]; metadata?: { description?: string; logo?: string; name?: string; repository?: { branch?: string; directory?: string; url: string }; title?: string; url?: string }; navigation?: { groups?: readonly { id: string; items: readonly NavigationItemInput[]; label: string }[] }; packages?: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[]; redirects?: readonly { from: string; status?: 301 | 302; to: string }[]; routing?: { documentationPrefix?: string; storybookPrefix?: string }; storybook?: { command?: string; directory?: string; enabled?: boolean; stories?: readonly string[]; url?: string }; tokens?: { dark?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string }; light?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string } }; vercel?: { domains?: readonly string[]; enabled?: boolean; outputDirectory?: string; productionBranch?: string; project?: string; projects?: { documentation?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; landing?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; mcp?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; storybook?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string } }; team?: string }; versions?: readonly { current?: boolean; directory?: string; href?: string; id: string; label?: string; order?: number; version?: string }[] };\n    readonly generatedAt?: string;\n    readonly revision?: string;\n    readonly target: string;\n}",
           "source": {
             "file": "Package/CreateWebsite/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -3603,7 +3630,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 41
+            "line": 42
           }
         },
         {
@@ -3655,7 +3682,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 618
+            "line": 665
           }
         }
       ],
@@ -4919,7 +4946,7 @@
             "file": "Ui/Source/ApiReference.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 220
+            "line": 224
           }
         },
         {
@@ -4927,7 +4954,7 @@
           "id": "ApiReferencePageProps",
           "kind": "interface",
           "name": "ApiReferencePageProps",
-          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { category?: string; categoryId: string; description?: string; descriptionParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; examples?: readonly { code: string; language?: string; name?: string }[]; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; summaryParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; version: string };\n}",
+          "signature": "export declare interface ApiReferencePageProps {\n    readonly navigation?: readonly DocumentationNavGroup[];\n    readonly record: { breadcrumbs: readonly { current: boolean; href?: string; label: string }[]; categories: readonly { collapsed: boolean; id: string; label: string; order: number }[]; declarations: readonly { category?: string; categoryId: string; description?: string; descriptionParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; examples?: readonly { code: string; language?: string; name?: string }[]; id: string; introductionVersion?: string; kind: \"function\" | \"const\" | \"class\" | \"interface\" | \"type\" | \"variable\" | \"namespace\" | \"enum\" | \"alias\"; link?: { external: boolean; href: string; label?: string }; name: string; signature: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string } }[]; displayName: string; exportCount: number; introductionVersion?: string; language?: \"typescript\" | \"cpp\"; link?: { external: boolean; href: string; label?: string }; module: string; packageDescription?: string; packageExports?: readonly string[]; packageId: string; packageName: string; packagePrivate?: boolean; packageSourceUrl?: string; source?: { endLine?: number; file: string; line?: number; repositoryUrl: string; revision: string }; summary?: string; summaryParts?: readonly { code?: boolean; external?: boolean; href?: string; kind: \"link\" | \"text\"; text: string }[]; version: string };\n}",
           "source": {
             "file": "Ui/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -5187,7 +5214,7 @@
           "id": "Heading",
           "kind": "function",
           "name": "Heading",
-          "signature": "export declare function Heading(\n    __namedParameters: {\n        children: ReactNode;\n        id?: string;\n        level?: 4 | 2 | 3\n    }\n): Element;",
+          "signature": "export declare function Heading(\n    __namedParameters: {\n        children: ReactNode;\n        id?: string;\n        level?: 2 | 4 | 3\n    }\n): Element;",
           "source": {
             "file": "Ui/Source/Mdx.tsx",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -5929,8 +5956,22 @@
           "name": "api",
           "schema": {
             "type": "object",
-            "description": "API reference generation settings for TypeScript modules and configured JSON Schemas.",
+            "description": "API reference generation settings for TypeScript modules, Doxygen XML projects, and configured JSON Schemas.",
             "properties": {
+              "doxygen": {
+                "type": "object",
+                "description": "C++ API projects described by Doxygen XML generated before Sorrell Docs runs.",
+                "properties": {
+                  "projects": {
+                    "type": "array",
+                    "description": "Named C++ projects whose Doxygen XML contributes reference pages.",
+                    "items": {
+                      "$ref": "#/$defs/doxygenProject"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
               "enabled": {
                 "type": "boolean",
                 "description": "Whether API reference generation is enabled."
@@ -5972,6 +6013,38 @@
                 "additionalProperties": true
               }
             },
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "doxygenProject",
+          "schema": {
+            "type": "object",
+            "description": "A C++ project and the Doxygen XML directory generated by its build.",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Stable URL-safe project identifier used in API routes."
+              },
+              "name": {
+                "type": "string",
+                "description": "Project name shown in API navigation."
+              },
+              "version": {
+                "type": "string",
+                "description": "Project version shown in API reference metadata."
+              },
+              "xmlDirectory": {
+                "type": "string",
+                "description": "Repository-root-relative Doxygen XML directory containing index.xml and compound files."
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "version",
+              "xmlDirectory"
+            ],
             "additionalProperties": false
           }
         },
@@ -6736,8 +6809,22 @@
           },
           "api": {
             "type": "object",
-            "description": "API reference generation settings for TypeScript modules and configured JSON Schemas.",
+            "description": "API reference generation settings for TypeScript modules, Doxygen XML projects, and configured JSON Schemas.",
             "properties": {
+              "doxygen": {
+                "type": "object",
+                "description": "C++ API projects described by Doxygen XML generated before Sorrell Docs runs.",
+                "properties": {
+                  "projects": {
+                    "type": "array",
+                    "description": "Named C++ projects whose Doxygen XML contributes reference pages.",
+                    "items": {
+                      "$ref": "#/$defs/doxygenProject"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
               "enabled": {
                 "type": "boolean",
                 "description": "Whether API reference generation is enabled."
@@ -6779,6 +6866,35 @@
                 "additionalProperties": true
               }
             },
+            "additionalProperties": false
+          },
+          "doxygenProject": {
+            "type": "object",
+            "description": "A C++ project and the Doxygen XML directory generated by its build.",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Stable URL-safe project identifier used in API routes."
+              },
+              "name": {
+                "type": "string",
+                "description": "Project name shown in API navigation."
+              },
+              "version": {
+                "type": "string",
+                "description": "Project version shown in API reference metadata."
+              },
+              "xmlDirectory": {
+                "type": "string",
+                "description": "Repository-root-relative Doxygen XML directory containing index.xml and compound files."
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "version",
+              "xmlDirectory"
+            ],
             "additionalProperties": false
           },
           "jsonSchemaReference": {
