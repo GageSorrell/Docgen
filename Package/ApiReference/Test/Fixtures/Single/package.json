@@ -1,5 +1,6 @@
 {
   "name": "@sorrell/single-fixture",
+  "homepage": "https://docgen.sorrell.sh",
   "version": "1.0.0",
   "description": "A fixture package with one exported module.",
   "private": false,

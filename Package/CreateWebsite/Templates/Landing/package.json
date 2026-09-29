@@ -1,5 +1,6 @@
 {
   "name": "generated-documentation-landing",
+  "homepage": "https://docgen.sorrell.sh",
   "private": true,
   "type": "module",
   "scripts": {

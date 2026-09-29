@@ -1,10 +1,11 @@
 {
   "name": "@sorrell/docs-mcp",
+  "homepage": "https://docgen.sorrell.sh",
   "version": "1.0.1",
   "description": "Effect MCP server for Sorrell documentation agent corpora.",
   "author": { "name": "Gage Sorrell", "email": "gage@sorrell.sh", "url": "https://sorrell.sh" },
-  "repository": { "type": "git", "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe", "directory": "Package/Mcp" },
-  "bugs": { "url": "https://github.com/GageSorrell/Documentation/issues" },
+  "repository": { "type": "git", "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe", "directory": "Package/Mcp" },
+  "bugs": { "url": "https://github.com/GageSorrell/Docgen/issues" },
   "license": "MIT",
   "private": false,
   "type": "module",

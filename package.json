@@ -1,7 +1,8 @@
 {
-  "name": "sorrell-documentation-monorepo",
+  "name": "sorrell-docgen-monorepo",
   "private": true,
   "description": "The monorepo for documentation tooling used for products under the Sorrell brand.",
+  "homepage": "https://docgen.sorrell.sh",
   "author": {
     "email": "gage@sorrell.sh",
     "name": "Gage Sorrell",
@@ -9,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
+    "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe",
     "directory": "."
   },
   "bugs": {
-    "url": "https://github.com/GageSorrell/Documentation/issues"
+    "url": "https://github.com/GageSorrell/Docgen/issues"
   },
   "license": "MIT",
   "engines": {

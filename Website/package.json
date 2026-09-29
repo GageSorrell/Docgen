@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
+    "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe",
     "directory": "Website"
   },
   "bugs": {
-    "url": "https://github.com/GageSorrell/Documentation/issues"
+    "url": "https://github.com/GageSorrell/Docgen/issues"
   },
   "type": "module",
   "description": "The web-package development sandbox.",

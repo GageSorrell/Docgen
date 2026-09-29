@@ -1,5 +1,6 @@
 {
   "name": "@sorrell/docs-react-native-storybook",
+  "homepage": "https://docgen.sorrell.sh",
   "version": "1.0.1",
   "description": "Reusable React Native Storybook providers, decorators, Metro helpers, and article primitives.",
   "author": {
@@ -9,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
+    "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe",
     "directory": "Package/ReactNativeStorybook"
   },
   "bugs": {
-    "url": "https://github.com/GageSorrell/Documentation/issues"
+    "url": "https://github.com/GageSorrell/Docgen/issues"
   },
   "license": "MIT",
   "private": false,

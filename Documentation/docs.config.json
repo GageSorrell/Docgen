@@ -164,12 +164,26 @@
     "api": {
         "enabled": true,
         "entryPoints": [
+            "Package/ApiReference/Source/index.ts",
+            "Package/Astro/Source/index.ts",
+            "Package/Cli/Source/index.ts",
             "Package/Core/Source/index.ts",
+            "Package/CreateWebsite/Source/index.ts",
+            "Package/Mcp/Source/index.ts",
+            "Package/ReactNativeStorybook/Source/index.ts",
+            "Package/Skills/Source/index.ts",
             "Package/Ui/Source/index.ts"
         ],
         "outputDirectory": "Documentation/Source/data",
         "packages": [
+            "@sorrell/docs-api-reference",
+            "@sorrell/docs-astro",
+            "@sorrell/docs-cli",
             "@sorrell/docs-core",
+            "@sorrell/docs-create-website",
+            "@sorrell/docs-mcp",
+            "@sorrell/docs-react-native-storybook",
+            "@sorrell/docs-skills",
             "@sorrell/docs-ui"
         ],
         "sourceRepository": {

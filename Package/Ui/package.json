@@ -1,5 +1,6 @@
 {
   "name": "@sorrell/docs-ui",
+  "homepage": "https://docgen.sorrell.sh",
   "version": "1.0.1",
   "description": "Responsive React UI primitives and documentation shells for Sorrell documentation sites.",
   "author": {
@@ -9,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
+    "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe",
     "directory": "Package/Ui"
   },
   "bugs": {
-    "url": "https://github.com/GageSorrell/Documentation/issues"
+    "url": "https://github.com/GageSorrell/Docgen/issues"
   },
   "license": "MIT",
   "private": false,

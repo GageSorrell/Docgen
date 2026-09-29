@@ -2,7 +2,7 @@
   "name": "generated-documentation",
   "private": true,
   "type": "module",
-  "homepage": "https://docs.sorrell.sh",
+  "homepage": "https://docgen.sorrell.sh",
   "packageManager": "npm@11.0.0",
   "author": {
     "name": "Gage Sorrell",
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
+    "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe",
     "directory": "Documentation"
   },
   "bugs": {
-    "url": "https://github.com/GageSorrell/Documentation/issues"
+    "url": "https://github.com/GageSorrell/Docgen/issues"
   },
   "workspaces": [
     "Landing",

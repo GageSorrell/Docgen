@@ -7,14 +7,14 @@
     "email": "gage@sorrell.sh",
     "url": "https://sorrell.sh"
   },
-  "homepage": "https://docs.sorrell.sh",
+  "homepage": "https://docgen.sorrell.sh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
+    "url": "https://github.com/GageSorrell/Docgen/tree/Master#ReadMe",
     "directory": "Documentation/Documentation"
   },
   "bugs": {
-    "url": "https://github.com/GageSorrell/Documentation/issues"
+    "url": "https://github.com/GageSorrell/Docgen/issues"
   },
   "type": "module",
   "description": "The published dogfood documentation site.",
