@@ -65,6 +65,8 @@ describe("website deployment orchestration", () =>
         const target = join(workspace, "generated");
         await mkdir(join(workspace, "Package/Core"), { recursive: true });
         await writeFile(join(workspace, "Package/Core/package.json"), "{}\n");
+        await mkdir(join(workspace, "Resource"), { recursive: true });
+        await writeFile(join(workspace, "Resource/Logo.png"), "logo\n");
         await mkdir(join(workspace, "Documentation/Landing/public"), { recursive: true });
         await writeFile(
             join(workspace, "Documentation/Landing/public/schema.json"),
@@ -80,6 +82,7 @@ describe("website deployment orchestration", () =>
         );
         await mkdir(join(target, "Documentation/Source/components"), { recursive: true });
         await mkdir(join(target, "Documentation/Source/layouts"), { recursive: true });
+        await mkdir(join(target, "Documentation/scripts"), { recursive: true });
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
         await mkdir(join(target, "Landing/Source/pages"), { recursive: true });
         await mkdir(join(target, "Landing/Source/components"), { recursive: true });
@@ -106,6 +109,10 @@ describe("website deployment orchestration", () =>
         await writeFile(
             join(target, "Documentation/GenerateApi.mjs"),
             "import \"../../Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs\";\n"
+        );
+        await writeFile(
+            join(target, "Documentation/scripts/generate-favicons.mjs"),
+            "copyFile(new URL(\"../../../Resource/Logo.png\", import.meta.url));\n"
         );
         await writeFile(
             join(target, "Landing/Source/pages/index.astro"),
@@ -147,7 +154,9 @@ describe("website deployment orchestration", () =>
 
         let stagedConfig = "";
         let stagedApiGenerator = "";
+        let stagedFaviconGenerator = "";
         let stagedSchema = "";
+        let stagedLogo = "";
         let stagedVersions = "";
         let stagedSiteHeader = "";
         let stagedDocumentationFooter = "";
@@ -170,6 +179,14 @@ describe("website deployment orchestration", () =>
                             );
                             stagedSchema = readFileSync(
                                 join(directory, "Documentation/Landing/public/schema.json"),
+                                "utf8"
+                            );
+                            stagedFaviconGenerator = readFileSync(
+                                join(directory, "scripts/generate-favicons.mjs"),
+                                "utf8"
+                            );
+                            stagedLogo = readFileSync(
+                                join(directory, "Resource/Logo.png"),
                                 "utf8"
                             );
                             stagedConfig = readFileSync(
@@ -237,6 +254,9 @@ describe("website deployment orchestration", () =>
                 "../../Package/CreateWebsite/Templates/Documentation/scripts/generate-api.mjs"
             );
             expect(stagedSchema).toContain("staged schema");
+            expect(stagedFaviconGenerator).toContain("../Resource/Logo.png");
+            expect(stagedFaviconGenerator).not.toContain("../../../Resource/Logo.png");
+            expect(stagedLogo).toContain("logo");
             expect(stagedConfig).toContain("\"versions\"");
             expect(stagedVersions).toContain("\"../docs.config.json\"");
             expect(stagedVersions).not.toContain("\"../../docs.config.json\"");

@@ -240,6 +240,10 @@ highlighter.dispose();
     [data-theme="dark"] .docs-signature-output pre.shiki span { color: var(--shiki-dark); }
     .docs-toc .docs-nav-items ul { list-style: none; margin: .5rem 0 0; padding-left: 1rem; }
     .docs-toc-category > span { color: var(--docs-foreground); display: block; font-size: 13px; font-weight: 650; margin: 12px 0 4px; }
+    @media (max-width: 780px) {
+        .docs-api-title-row { align-items: flex-start; flex-direction: column; gap: 0; }
+        .docs-api-title-row .docs-copy-button { margin-top: 12px; }
+    }
 </style>
 
 <script is:inline>

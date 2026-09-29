@@ -188,6 +188,22 @@ const prepareVercelDirectory = (
                 )
             );
         }
+        const faviconGenerator = path.join(
+            staging,
+            "scripts",
+            "generate-favicons.mjs"
+        );
+        if (yield* fileSystem.exists(faviconGenerator))
+        {
+            const source = yield* fileSystem.readText(faviconGenerator);
+            yield* fileSystem.writeText(
+                faviconGenerator,
+                source.replace(
+                    "../../../Resource/Logo.png",
+                    "../Resource/Logo.png"
+                )
+            );
+        }
         if (options.staticContent !== undefined)
         {
             const destination = path.join(
@@ -291,6 +307,17 @@ const prepareVercelDirectory = (
             yield* fileSystem.copy(
                 configurationSource,
                 path.join(staging, "Configuration"),
+                { overwrite: true }
+            );
+        }
+        const resourceLogo = path.join(repositoryRoot, "Resource", "Logo.png");
+        if (yield* fileSystem.exists(resourceLogo))
+        {
+            const stagedResource = path.join(staging, "Resource");
+            yield* fileSystem.makeDirectory(stagedResource);
+            yield* fileSystem.copy(
+                resourceLogo,
+                path.join(stagedResource, "Logo.png"),
                 { overwrite: true }
             );
         }

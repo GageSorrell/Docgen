@@ -5414,6 +5414,55 @@
         "href": "/docs/api/ui",
         "label": "@sorrell/docs-ui"
       }
+    },
+    {
+      "breadcrumbs": [
+        {
+          "current": false,
+          "href": "/docs/api/",
+          "label": "API Reference"
+        },
+        {
+          "current": false,
+          "href": "/docs/api/1.0.0",
+          "label": "V1.0.0"
+        },
+        {
+          "current": true,
+          "label": "C++ Smoke"
+        }
+      ],
+      "categories": [
+        {
+          "collapsed": false,
+          "id": "functions",
+          "label": "Functions",
+          "order": 0
+        }
+      ],
+      "declarations": [
+        {
+          "categoryId": "functions",
+          "description": "Adds two values.",
+          "id": "sum",
+          "kind": "function",
+          "name": "sum",
+          "signature": "int sum(int left, int right);"
+        }
+      ],
+      "displayName": "demo::Widget",
+      "exportCount": 1,
+      "language": "cpp",
+      "link": {
+        "external": false,
+        "href": "/docs/api/cpp-smoke",
+        "label": "demo::Widget"
+      },
+      "module": "cpp-smoke/demo/Widget",
+      "packageId": "cpp-smoke",
+      "packageName": "C++ Smoke",
+      "version": "1.0.0",
+      "summary": "C++ reference smoke test."
     }
   ],
   "jsonSchemas": [

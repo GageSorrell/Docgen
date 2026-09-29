@@ -943,6 +943,12 @@ overflow-x: auto;
 .docs-api-heading-row { display: block;
 margin: 34px 0 26px;
 }
+    .docs-api-title-row { align-items: flex-start;
+flex-direction: column;
+gap: 0;
+}
+    .docs-api-title-row .docs-copy-button { margin-top: 12px;
+}
     .docs-copy-button { margin-top: 22px;
 }
     .docs-landing { padding: 22px 18px 0;
