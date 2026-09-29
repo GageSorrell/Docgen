@@ -656,7 +656,7 @@ export default preview;
         content: `import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
     Cta,
-    DocsFooter,
+    Footer,
     Faq,
     InstallCommand,
     LandingPage,
@@ -692,7 +692,14 @@ export const FullComposition: Story = {
             </div>
         </LandingSection>
         <Cta href="/docs/" label="Read the docs" title="Build something worth documenting." />
-        <DocsFooter />
+        <Footer
+            columns={[
+                { title: "Resources", links: [{ href: "/docs/", label: "Documentation" }, { href: "/storybook/", label: "Storybook" }] },
+                { title: "Community", links: [{ href: "https://github.com/GageSorrell/Documentation", label: "GitHub" }] }
+            ]}
+            links={[{ href: "https://github.com/GageSorrell/Documentation", label: "GitHub", icon: "github" }]}
+            message="© Sorrell Documentation"
+        />
     </LandingPage>
 };
 

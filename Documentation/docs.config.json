@@ -24,6 +24,46 @@
             "directory": "Documentation"
         }
     },
+    "footer": {
+        "columns": [
+            {
+                "title": "Resources",
+                "links": [
+                    { "label": "Documentation", "href": "/docs/" },
+                    { "label": "API reference", "href": "/docs/api/" },
+                    { "label": "Storybook", "href": "/storybook/" }
+                ]
+            },
+            {
+                "title": "Guides",
+                "links": [
+                    { "label": "Overview", "href": "/docs/" },
+                    { "label": "Architecture", "href": "/docs/architecture/" },
+                    { "label": "Authoring", "href": "/docs/authoring/" },
+                    { "label": "Release readiness", "href": "/docs/release-readiness/" }
+                ]
+            },
+            {
+                "title": "Developer tools",
+                "links": [
+                    { "label": "API reference", "href": "/docs/api/" },
+                    { "label": "Storybook", "href": "/storybook/" }
+                ]
+            },
+            {
+                "title": "Community",
+                "links": [
+                    { "label": "GitHub repository", "href": "https://github.com/GageSorrell/Documentation" },
+                    { "label": "npm packages", "href": "https://www.npmjs.com/org/sorrell" }
+                ]
+            }
+        ],
+        "message": "© {year} {name}",
+        "links": [
+            { "label": "GitHub", "href": "https://github.com/GageSorrell/Documentation", "icon": "github" },
+            { "label": "Storybook", "href": "/storybook/" }
+        ]
+    },
     "routing": {
         "documentationPrefix": "/docs",
         "storybookPrefix": "/storybook"

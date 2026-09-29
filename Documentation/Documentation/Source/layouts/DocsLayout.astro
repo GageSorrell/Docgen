@@ -3,6 +3,7 @@ import { canonicalUrl, docsPath, docsVersionPath } from "@sorrell/docs-astro";
 import { DefaultDesignTokens } from "@sorrell/docs-core";
 import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import SiteHeader from "../components/SiteHeader.astro";
+import Footer from "../components/Footer.astro";
 import type { SiteLogo } from "../lib/dicebear.js";
 import siteConfig from "../../../docs.config.json";
 import "../styles/docs.css";
@@ -79,7 +80,7 @@ const pageHref = (page: PageSummary): string => {
                 <main class="docs-main" id="main-content">
                     <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
                         <a href={docsPath(prefix)}>DOCS</a>
-                        <span>/</span>
+                        <span class="docs-breadcrumb-separator" aria-hidden="true">{" / "}</span>
                         <span>{title}</span>
                     </nav>
                     <div class="docs-heading-row">
@@ -118,7 +119,7 @@ const pageHref = (page: PageSummary): string => {
                     </ul>
                 </aside>
             </div>
-            <footer class="docs-footer">Built for readable, durable documentation.</footer>
+            <Footer />
         </div>
     </body>
 </html>
@@ -144,7 +145,8 @@ const pageHref = (page: PageSummary): string => {
     .docs-toc a { color: var(--docs-muted); display: block; font-size: .875rem; line-height: 1.375; text-decoration: none; }
     .docs-nav-group a:hover, .docs-toc a:hover { color: var(--docs-foreground); }
     .docs-main { min-width: 0; padding: 4.5rem clamp(1.5rem, 6vw, 6rem); }
-    .docs-breadcrumbs { color: var(--docs-muted); display: flex; font-size: 11.2px; gap: .7rem; letter-spacing: .13em; margin-bottom: 2rem; text-transform: uppercase; }
+    .docs-layout > .docs-main > .docs-breadcrumbs { color: var(--docs-muted); display: flex; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; font-weight: 400; gap: 0; letter-spacing: .12em; margin-bottom: 2rem; text-transform: uppercase; }
+    .docs-layout > .docs-main > .docs-breadcrumbs .docs-breadcrumb-separator { margin-right: 0; white-space: pre; }
     .docs-breadcrumbs a { color: var(--docs-accent); text-decoration: none; }
     .docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-around; }
     .docs-heading-row h1 { color: var(--docs-foreground); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: -.065em; line-height: 1; margin: .5rem 0 0; }
@@ -157,7 +159,6 @@ const pageHref = (page: PageSummary): string => {
     .docs-toc strong { color: var(--docs-foreground); display: block; font-size: .875rem; font-weight: 600; line-height: 1.5; }
     .docs-toc ul { border-top: 1px solid var(--docs-border); display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; padding-top: 1.25rem; }
     .docs-toc li { margin: 0; }
-    .docs-footer { border-top: 1px solid var(--docs-border); color: var(--docs-muted); font-size: .85rem; padding: 1.5rem 2rem; text-align: center; }
     @media (max-width: 1000px) { .docs-layout { grid-template-columns: 200px minmax(0, 1fr); } .docs-toc { display: none; } }
     @media (max-width: 700px) { .docs-layout { display: block; } .docs-layout > .docs-sidebar { border-bottom: 1px solid var(--docs-border); border-right: 0; padding: 1rem; } .docs-nav-group { display: inline-block; margin: .6rem 1rem .2rem 0; vertical-align: top; } .docs-nav-group ul { display: none; } .docs-main { padding: 2.5rem 1rem; } .docs-heading-row { display: block; } .docs-copy-button { margin-top: 1.5rem; } }
 </style>

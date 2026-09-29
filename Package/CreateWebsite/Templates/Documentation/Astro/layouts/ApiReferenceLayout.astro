@@ -7,6 +7,7 @@ import { createThemeCss, docsUiCss } from "@sorrell/docs-ui";
 import { createHighlighter } from "shiki";
 import ApiReferenceDescription from "../components/ApiReferenceDescription.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import Footer from "../components/Footer.astro";
 import type { SiteLogo } from "../lib/dicebear.js";
 import "../styles/docs.css";
 
@@ -120,7 +121,7 @@ highlighter.dispose();
                 <main class="docs-api-main" id="main-content">
                     <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
                         {record.breadcrumbs.map((breadcrumb, index) => <>
-                            {index === 0 ? null : <span class="docs-breadcrumb-separator">/</span>}
+                            {index === 0 ? null : <span class="docs-breadcrumb-separator" aria-hidden="true">{" / "}</span>}
                             {breadcrumb.current || breadcrumb.href === undefined ? <span>{index === 1 && !/^[vV]/u.test(breadcrumb.label) ? `V${breadcrumb.label}` : breadcrumb.label}</span> : <a href={breadcrumb.href}>{index === 1 && !/^[vV]/u.test(breadcrumb.label) ? `V${breadcrumb.label}` : breadcrumb.label}</a>}
                         </>)}
                     </nav>
@@ -190,7 +191,7 @@ highlighter.dispose();
                     </ul>
                 </aside>
             </div>
-            <footer class="docs-footer">Generated from TypeDoc source comments.</footer>
+            <Footer />
         </div>
     </body>
 </html>
@@ -210,7 +211,8 @@ highlighter.dispose();
     .docs-api-page .docs-sidebar .docs-nav-items a, .docs-api-page .docs-toc .docs-nav-items a { padding-left: 14px; }
     .docs-api-main { margin-inline: auto; max-width: 1050px; width: 100%; }
     .docs-api-main > .docs-breadcrumbs { margin-top: 34px; }
-    .docs-api-page .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; font-weight: 400; }
+    .docs-api-page .docs-breadcrumbs { display: flex; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; font-weight: 400; gap: 0; }
+    .docs-api-page .docs-breadcrumb-separator { margin-right: 0; white-space: pre; }
     .docs-api-heading-row .docs-eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; }
     .docs-api-title-row { align-items: baseline; display: flex; gap: 24px; justify-content: space-between; }
     .docs-api-title-row h1 { font-weight: 700; }

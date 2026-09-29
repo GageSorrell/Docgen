@@ -69,12 +69,17 @@ describe("website deployment orchestration", () =>
         await mkdir(join(target, "Documentation/Source/layouts"), { recursive: true });
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
         await mkdir(join(target, "Landing/Source/pages"), { recursive: true });
+        await mkdir(join(target, "Landing/Source/components"), { recursive: true });
         await writeFile(
             join(target, "Documentation/Source/Versions.ts"),
             "import config from \"../../docs.config.json\";\n"
         );
         await writeFile(
             join(target, "Documentation/Source/components/SiteHeader.astro"),
+            "import config from \"../../../docs.config.json\";\n"
+        );
+        await writeFile(
+            join(target, "Documentation/Source/components/Footer.astro"),
             "import config from \"../../../docs.config.json\";\n"
         );
         for (const layout of [ "ApiPackageLayout.astro", "ApiReferenceLayout.astro", "DocsLayout.astro" ])
@@ -87,6 +92,10 @@ describe("website deployment orchestration", () =>
         await writeFile(join(target, "Documentation/package.json"), "{}\n");
         await writeFile(
             join(target, "Landing/Source/pages/index.astro"),
+            "import config from \"../../../docs.config.json\";\n"
+        );
+        await writeFile(
+            join(target, "Landing/Source/components/Footer.astro"),
             "import config from \"../../../docs.config.json\";\n"
         );
         await writeFile(join(target, "Landing/package.json"), "{}\n");
@@ -113,8 +122,10 @@ describe("website deployment orchestration", () =>
         let stagedConfig = "";
         let stagedVersions = "";
         let stagedSiteHeader = "";
+        let stagedDocumentationFooter = "";
         let stagedLandingConfig = "";
         let stagedLandingIndex = "";
+        let stagedLandingFooter = "";
         const stagedLayoutImports = new Map<string, string>();
         const layer = Layer.succeed(
             VercelService,
@@ -137,6 +148,10 @@ describe("website deployment orchestration", () =>
                                 join(directory, "Source/components/SiteHeader.astro"),
                                 "utf8"
                             );
+                            stagedDocumentationFooter = readFileSync(
+                                join(directory, "Source/components/Footer.astro"),
+                                "utf8"
+                            );
                             for (const layout of [ "ApiPackageLayout.astro", "ApiReferenceLayout.astro", "DocsLayout.astro" ])
                             {
                                 stagedLayoutImports.set(
@@ -153,6 +168,10 @@ describe("website deployment orchestration", () =>
                             );
                             stagedLandingIndex = readFileSync(
                                 join(directory, "Source/pages/index.astro"),
+                                "utf8"
+                            );
+                            stagedLandingFooter = readFileSync(
+                                join(directory, "Source/components/Footer.astro"),
                                 "utf8"
                             );
                         }
@@ -180,6 +199,8 @@ describe("website deployment orchestration", () =>
             expect(stagedVersions).not.toContain("\"../../docs.config.json\"");
             expect(stagedSiteHeader).toContain("\"../../docs.config.json\"");
             expect(stagedSiteHeader).not.toContain("\"../../../docs.config.json\"");
+            expect(stagedDocumentationFooter).toContain("\"../../docs.config.json\"");
+            expect(stagedDocumentationFooter).not.toContain("\"../../../docs.config.json\"");
             for (const source of stagedLayoutImports.values())
             {
                 expect(source).toContain("\"../../docs.config.json\"");
@@ -188,6 +209,8 @@ describe("website deployment orchestration", () =>
             expect(stagedLandingConfig).toContain("\"metadata\"");
             expect(stagedLandingIndex).toContain("\"../../docs.config.json\"");
             expect(stagedLandingIndex).not.toContain("\"../../../docs.config.json\"");
+            expect(stagedLandingFooter).toContain("\"../../docs.config.json\"");
+            expect(stagedLandingFooter).not.toContain("\"../../../docs.config.json\"");
         }
         finally
         {

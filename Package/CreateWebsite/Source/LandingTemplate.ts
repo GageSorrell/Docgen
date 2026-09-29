@@ -131,16 +131,6 @@ export const landingTemplateFiles = (
                 );
             }
         }
-        if (outputPath === "Source/components/Footer.astro")
-        {
-            content = content.replaceAll(
-                "react-native-notion-markdown",
-                config.metadata.name
-            ).replaceAll(
-                "https://github.com/GageSorrell/ReactNativeNotionMarkdown",
-                repositoryHref
-            );
-        }
         return {
             path: `Landing/${outputPath}`,
             content: replace(content, {

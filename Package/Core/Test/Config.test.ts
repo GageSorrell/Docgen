@@ -34,6 +34,10 @@ describe("docs-core configuration", () =>
             }
         ]);
         expect(config.api.enabled).toBe(false);
+        expect(config.footer.columns).toEqual([
+            { links: [ { href: "/docs/", label: "Documentation" } ], title: "Resources" }
+        ]);
+        expect(config.footer.message).toBe("© {year} Example");
         expect(config.tokens.dark.codeBackground).toBe("oklch(0.274 0.006 286.033)");
         expect(config.tokens.light.proseForeground).toBe("oklch(0.37 0.013 285.805)");
         expect(config.tokens.dark.proseForeground).toBe("oklch(0.871 0.006 286.286)");
@@ -53,6 +57,30 @@ describe("docs-core configuration", () =>
         expect(config.vercel.projects.landing.directory).toBe("Landing");
         expect(config.vercel.projects.documentation.routePrefix).toBe("/docs");
         expect(config.vercel.projects.storybook).toBeUndefined();
+    });
+    it("normalizes custom footer columns, message, and lower links", () =>
+    {
+        const config = decodeDocsConfigSync({
+            footer: {
+                columns: [
+                    { title: "Resources", links: [ { href: "/docs/", label: "Docs" } ] }
+                ],
+                links: [
+                    { href: "https://github.com/example/site", icon: "github", label: "GitHub" }
+                ],
+                message: "© {year} {name}"
+            },
+            metadata: { name: "Example" }
+        });
+        expect(config.footer).toEqual({
+            columns: [
+                { title: "Resources", links: [ { href: "/docs/", label: "Docs" } ] }
+            ],
+            links: [
+                { href: "https://github.com/example/site", icon: "github", label: "GitHub" }
+            ],
+            message: "© {year} {name}"
+        });
     });
     it("accepts open-ended DiceBear logo props and defaults its style to pixelbot", () =>
     {

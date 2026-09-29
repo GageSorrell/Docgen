@@ -25,6 +25,9 @@ import {
     GeneratedManifestSchema,
     type LandingContent,
     LandingContentSchema,
+    type FooterColumn,
+    type FooterLink,
+    type SiteFooter,
     type Navigation,
     type NavigationItemInput,
     NavigationSchema,
@@ -67,6 +70,7 @@ export interface DocsConfig {
     readonly versions: ReadonlyArray<DocumentationVersion>;
     readonly packages: ReadonlyArray<PackageReference>;
     readonly landing: LandingContent;
+    readonly footer: SiteFooter;
     readonly redirects: ReadonlyArray<Redirect>;
     readonly storybook: StorybookConfig;
     readonly api: ApiGenerationConfig;
@@ -549,6 +553,35 @@ export /** @internal */ const normalizeDocsConfig = (
             title: input.landing?.title ?? metadata.title
         })
     );
+    const footer: SiteFooter = {
+        columns: input.footer?.columns ?? (
+            navigation.groups.length > 0
+                ? navigation.groups.map((group) => ({
+                    links: group.items.map((item) => ({
+                        href: item.href,
+                        label: item.label
+                    })),
+                    title: group.label
+                }))
+                : [ {
+                    links: [ {
+                        href: `${input.routing?.documentationPrefix ?? "/docs"}/`,
+                        label: "Documentation"
+                    } ],
+                    title: "Resources"
+                } ]
+        ) as ReadonlyArray<FooterColumn>,
+        links: input.footer?.links ?? (
+            metadata.repository === undefined
+                ? []
+                : [ {
+                    href: metadata.repository.url,
+                    icon: "github",
+                    label: "GitHub"
+                } ]
+        ) as ReadonlyArray<FooterLink>,
+        message: input.footer?.message ?? `© {year} ${metadata.name}`
+    };
     const redirects = [ ...(input.redirects ?? []) ]
         .map(
             (redirect: {
@@ -693,6 +726,7 @@ export /** @internal */ const normalizeDocsConfig = (
     return {
         agent,
         api,
+        footer,
         landing,
         manifests,
         mcpEndpoint,

@@ -18,6 +18,10 @@
       "$ref": "#/$defs/api",
       "description": "Settings for generating API reference pages from TypeScript source with TypeDoc."
     },
+    "footer": {
+      "$ref": "#/$defs/footer",
+      "description": "Footer link columns, copyright message, and links shown at the lower right of landing and documentation pages."
+    },
     "landing": {
       "$ref": "#/$defs/landing",
       "description": "Landing page content, including its title, summary, primary action, and content sections."
@@ -69,6 +73,37 @@
   },
   "additionalProperties": false,
   "$defs": {
+    "footerLink": {
+      "type": "object",
+      "description": "A link shown in a footer column or in the footer's lower-right link row.",
+      "properties": {
+        "href": { "type": "string", "description": "Destination URL or site-relative path." },
+        "icon": { "type": "string", "description": "Optional icon name for the link, such as github." },
+        "label": { "type": "string", "description": "Accessible and visible name of the link." }
+      },
+      "required": [ "href", "label" ],
+      "additionalProperties": false
+    },
+    "footerColumn": {
+      "type": "object",
+      "description": "A titled group of links in the upper footer area.",
+      "properties": {
+        "links": { "type": "array", "description": "Links in this footer column.", "items": { "$ref": "#/$defs/footerLink" } },
+        "title": { "type": "string", "description": "Column heading." }
+      },
+      "required": [ "links", "title" ],
+      "additionalProperties": false
+    },
+    "footer": {
+      "type": "object",
+      "description": "Site footer content shared by the landing and documentation sites. The message supports {year} and {name} placeholders.",
+      "properties": {
+        "columns": { "type": "array", "description": "Groups of links displayed as footer columns.", "items": { "$ref": "#/$defs/footerColumn" } },
+        "links": { "type": "array", "description": "Links displayed at the lower right of the footer.", "items": { "$ref": "#/$defs/footerLink" } },
+        "message": { "type": "string", "description": "Message displayed at the lower left. {year} and {name} are replaced with the current year and site name." }
+      },
+      "additionalProperties": false
+    },
     "repository": {
       "type": "object",
       "description": "A source repository location and optional source-relative directory and branch.",

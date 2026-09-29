@@ -35,7 +35,14 @@ describe("three-package website generation", () =>
         const apiReferenceLayout = contents.get("Documentation/Source/layouts/ApiReferenceLayout.astro") ?? "";
         const docsLayout = contents.get("Documentation/Source/layouts/DocsLayout.astro") ?? "";
         const siteHeader = contents.get("Documentation/Source/components/SiteHeader.astro") ?? "";
+        const generatedFooter = contents.get("Documentation/Source/components/Footer.astro") ?? "";
         expect(apiPackageLayout).toContain("record.packageDescription");
+        expect(apiPackageLayout).toContain("<Footer />");
+        expect(apiReferenceLayout).toContain("<Footer />");
+        expect(docsLayout).toContain("<Footer />");
+        expect(generatedFooter).toContain("siteConfig.footer");
+        expect(generatedFooter).toContain("site-footer-columns");
+        expect(generatedFooter).toContain("site-footer-bottom");
         expect(apiPackageLayout).toContain("record.packagePrivate === true");
         expect(apiPackageLayout).toContain("record.packageSourceUrl");
         expect(apiPackageLayout).toContain("viewBox=\"0 0 640 640\" fill=\"currentColor\"><path fill=\"currentColor\" d=\"M320 352h-32v-64h32zm288-128v192H320v32H192v-32H32V224");
@@ -65,7 +72,9 @@ describe("three-package website generation", () =>
         expect(apiReferenceLayout).toContain("button.setAttribute(\"aria-label\", \"Copied markdown!\")");
         expect(docsLayout).toContain("<span>Copy for LLM</span><span>Copied markdown!</span>");
         expect(docsLayout).toContain(".docs-eyebrow { color: var(--docs-accent); font-size: 11.2px;");
-        expect(docsLayout).toContain(".docs-breadcrumbs { color: var(--docs-muted); display: flex; font-size: 11.2px;");
+        expect(docsLayout).toContain(".docs-layout > .docs-main > .docs-breadcrumbs { color: var(--docs-muted); display: flex; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px; font-weight: 400; gap: 0; letter-spacing: .12em;");
+        expect(docsLayout).toContain(".docs-layout > .docs-main > .docs-breadcrumbs .docs-breadcrumb-separator { margin-right: 0; white-space: pre; }");
+        expect(docsLayout).toContain("class=\"docs-breadcrumb-separator\" aria-hidden=\"true\">{\" / \"}</span>");
         const generatedApiDescription = contents.get("Documentation/Source/components/ApiReferenceDescription.astro") ?? "";
         expect(generatedApiDescription).toContain("part.external === true");
         expect(generatedApiDescription).toContain("docs-description-external-icon");
@@ -85,7 +94,13 @@ describe("three-package website generation", () =>
         expect(docsUiCss).toContain(".docs-api-category > .docs-api-declaration:first-of-type { border-top: 0;\npadding-top: 12px;");
         expect(docsLayout).toContain("font-size: 12px; font-weight: 400; justify-content: flex-start; min-height: 34px; padding: 0 10px; text-align: left;");
         expect(docsLayout).toContain(".docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-around; }");
-        expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
+        expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { display: flex; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
+        expect(apiPackageLayout).toContain("class=\"docs-breadcrumb-separator\" aria-hidden=\"true\">{\" / \"}</span>");
+        expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { display: flex;");
+        expect(apiPackageLayout).toContain(".docs-api-package-main .docs-breadcrumb-separator { margin-right: 0; white-space: pre; }");
+        expect(apiReferenceLayout).toContain("class=\"docs-breadcrumb-separator\" aria-hidden=\"true\">{\" / \"}</span>");
+        expect(apiReferenceLayout).toContain(".docs-api-page .docs-breadcrumbs { display: flex;");
+        expect(apiReferenceLayout).toContain(".docs-api-page .docs-breadcrumb-separator { margin-right: 0; white-space: pre; }");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-eyebrow { color: var(--docs-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiReferenceLayout).toContain("font-size: 25px");
         expect(apiReferenceLayout).toContain("background: var(--docs-code-background)");
@@ -130,6 +145,9 @@ describe("three-package website generation", () =>
             "import BaseLayout from \"../layouts/BaseLayout.astro\""
         );
         expect(contents.get("Landing/Source/pages/index.astro")).not.toContain("@/layouts/");
+        expect(contents.get("Landing/Source/pages/index.astro")).toContain("<Footer />");
+        expect(contents.get("Landing/Source/components/Footer.astro")).toContain("siteConfig.footer");
+        expect(contents.get("docs.config.json")).toContain("\"footer\"");
         expect(contents.get("Landing/Source/components/landing/sections/LandingHero.astro"))
             .toContain("@lucide/astro/icons/arrow-right");
         expect(contents.get("Landing/Source/components/landing/LandingPage.astro"))

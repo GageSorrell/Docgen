@@ -15,7 +15,7 @@ import {
     ApiReferencePage,
     Callout,
     Cta,
-    DocsFooter,
+    Footer,
     DocumentationShell,
     Heading,
     LandingPage,
@@ -24,6 +24,24 @@ import {
     docsUiCss
 } from "@sorrell/docs-ui";
 
+const footerColumns = [
+    {
+        title: "Resources",
+        links: [
+            { href: "/api", label: "API reference" },
+            { href: "/storybook/", label: "Storybook" }
+        ]
+    },
+    {
+        title: "Community",
+        links: [ { href: "https://github.com/GageSorrell/Documentation", label: "GitHub" } ]
+    }
+];
+const footerLinks = [ {
+    href: "https://github.com/GageSorrell/Documentation",
+    icon: "github",
+    label: "GitHub"
+} ];
 const tokens: DesignTokens = {
     light: {
         background: "#fbfbfa",
@@ -146,7 +164,9 @@ export const App = () =>
                             label="Open API reference"
                             title="Explore the reference" />
                     </div>
-                    <DocsFooter />
+                    <Footer columns={ footerColumns }
+                        links={ footerLinks }
+                        message="© Sorrell Documentation" />
                 </LandingPage>
             </>}
         </DocumentationShell>

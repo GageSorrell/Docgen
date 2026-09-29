@@ -212,6 +212,7 @@ const prepareVercelDirectory = (
             }
             for (const configImportFile of [
                 path.join(staging, "Source", "components", "SiteHeader.astro"),
+                path.join(staging, "Source", "components", "Footer.astro"),
                 path.join(staging, "Source", "layouts", "ApiPackageLayout.astro"),
                 path.join(staging, "Source", "layouts", "ApiReferenceLayout.astro"),
                 path.join(staging, "Source", "layouts", "DocsLayout.astro"),

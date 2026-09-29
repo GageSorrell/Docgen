@@ -469,6 +469,20 @@ const OptionalLandingSchema = Schema.Struct({
     ),
     title: optionalString
 });
+const FooterLinkSchema = Schema.Struct({
+    href: Schema.String,
+    icon: optionalString,
+    label: Schema.String
+});
+const FooterColumnSchema = Schema.Struct({
+    links: Schema.Array(FooterLinkSchema),
+    title: Schema.String
+});
+const OptionalFooterSchema = Schema.Struct({
+    columns: Schema.optionalKey(Schema.Array(FooterColumnSchema)),
+    links: Schema.optionalKey(Schema.Array(FooterLinkSchema)),
+    message: optionalString
+});
 const OptionalRedirectSchema = Schema.Struct({
     from: Schema.String,
     status: Schema.optionalKey(Schema.Literals([ 301, 302 ])),
@@ -540,6 +554,7 @@ export/** @internal */
 const DocsConfigInputSchema = Schema.Struct({
     agent: Schema.optionalKey(OptionalAgentSchema),
     api: Schema.optionalKey(OptionalApiSchema),
+    footer: Schema.optionalKey(OptionalFooterSchema),
     landing: Schema.optionalKey(OptionalLandingSchema),
     manifests: Schema.optionalKey(Schema.Array(OptionalManifestSchema)),
     metadata: Schema.optionalKey(OptionalSiteMetadataSchema),
@@ -566,6 +581,16 @@ export type PackageReference = Schema.Schema.Type<
 >;
 /** @internal */
 export type LandingContent = Schema.Schema.Type<typeof LandingContentSchema>;
+/** @internal */
+export type FooterLink = Schema.Schema.Type<typeof FooterLinkSchema>;
+/** @internal */
+export type FooterColumn = Schema.Schema.Type<typeof FooterColumnSchema>;
+/** @internal */
+export type SiteFooter = {
+    readonly columns: ReadonlyArray<FooterColumn>;
+    readonly links: ReadonlyArray<FooterLink>;
+    readonly message: string;
+};
 /** @internal */
 export type Redirect = Schema.Schema.Type<typeof RedirectSchema>;
 /** @internal */

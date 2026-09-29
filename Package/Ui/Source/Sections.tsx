@@ -146,13 +146,47 @@ const Cta = ({
 );
 
 export/** @internal */
-const DocsFooter = ({
-    children = "Built for readable, durable documentation."
+const Footer = ({
+    columns = [],
+    links = [],
+    message = `© ${new Date().getFullYear()} Sorrell`
 }: {
-    readonly children?: ReactNode;
+    readonly columns?: ReadonlyArray<{
+        readonly title: string;
+        readonly links: ReadonlyArray<{ readonly href: string; readonly label: string }>;
+    }>;
+    readonly links?: ReadonlyArray<{
+        readonly href: string;
+        readonly label: string;
+        readonly icon?: ReactNode;
+    }>;
+    readonly message?: ReactNode;
 }) => (
-    <footer className="docs-footer">
-        <span>{ children }</span>
-        <span>© { new Date().getFullYear() } Sorrell</span>
+    <footer aria-label="Site footer"
+        className="docs-footer">
+        { columns.length > 0 && <div className="docs-footer-columns">
+            { columns.map((column) => <section aria-label={ column.title }
+                key={ column.title }>
+                <h2>{ column.title }</h2>
+                <ul>{ column.links.map((link) => <li key={ link.href }><a href={ link.href }>{ link.label }</a></li>) }</ul>
+            </section>) }
+        </div> }
+        <div className="docs-footer-bottom">
+            <div>{ message }</div>
+            { links.length > 0 && <nav aria-label="Footer links">
+                { links.map((link) => <a aria-label={ link.label }
+                    href={ link.href }
+                    key={ link.href }
+                    title={ link.label }>
+                    { link.icon === "github"
+                        ? <svg aria-hidden="true"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            width="20"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.08c-3.1.68-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .7 2.65.5 3.3.38.1-.72.39-1.2.7-1.48-2.48-.28-5.09-1.24-5.09-5.53 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.06 1.15a10.63 10.63 0 0 1 5.57 0c2.12-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3.01 0 4.3-2.61 5.24-5.1 5.51.4.35.75 1.03.75 2.08v3.09c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"
+                                fill="currentColor" /></svg>
+                        : link.icon ?? link.label }
+                </a>) }
+            </nav> }
+        </div>
     </footer>
 );

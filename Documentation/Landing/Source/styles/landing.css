@@ -266,7 +266,3 @@ html[data-theme="dark"] .landing-brand-avatar[data-avatar-theme="light"], html:n
   .effect-landing-pipeline { padding: 1.5rem 1rem; }
   .effect-landing-example-tabs { padding-inline: .5rem; }
 }
-
-.landing-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; width: min(100% - 2rem, 73.75rem); margin: 0 auto; border-top: 1px solid var(--border); padding: 2rem 0; color: var(--muted-foreground); font-size: .85rem; }
-.landing-footer p { margin: 0; }
-.landing-footer a:hover, .landing-footer a:focus-visible { color: var(--foreground); }

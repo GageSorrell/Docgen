@@ -1,8 +1,41 @@
 ---
-interface Props { readonly name: string; readonly repositoryHref: string }
-const { name, repositoryHref } = Astro.props
+import siteConfig from "../../../docs.config.json"
+
+const footer = siteConfig.footer
+const renderMessage = footer.message
+  .replace(/\{year\}/g, String(new Date().getFullYear()))
+  .replace(/\{name\}/g, siteConfig.metadata.name)
+const isExternal = (href: string) => /^https?:\/\//i.test(href)
 ---
-<footer class="landing-footer">
-  <p>{name} documentation</p>
-  {repositoryHref && <a href={repositoryHref} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}
+<footer class="site-footer" aria-label="Site footer">
+  {footer.columns.length > 0 && <div class="site-footer-columns">
+    {footer.columns.map((column) => <section class="site-footer-column" aria-label={column.title}>
+      <h2>{column.title}</h2>
+      <ul>{column.links.map((link) => <li><a href={link.href} {...isExternal(link.href) ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{link.label}</a></li>)}</ul>
+    </section>)}
+  </div>}
+  <div class="site-footer-bottom">
+    <p>{renderMessage}</p>
+    {footer.links.length > 0 && <nav aria-label="Footer links">
+      {footer.links.map((link) => <a href={link.href} aria-label={link.label} title={link.label} {...isExternal(link.href) ? { target: "_blank", rel: "noopener noreferrer" } : {}}>
+        {link.icon === "github" ? <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.08c-3.1.68-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .7 2.65.5 3.3.38.1-.72.39-1.2.7-1.48-2.48-.28-5.09-1.24-5.09-5.53 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.06 1.15a10.63 10.63 0 0 1 5.57 0c2.12-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3.01 0 4.3-2.61 5.24-5.1 5.51.4.35.75 1.03.75 2.08v3.09c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg> : link.label}
+      </a>)}
+    </nav>}
+  </div>
 </footer>
+
+<style>
+  .site-footer { width: min(100% - 3rem, 76rem); margin: 5rem auto 0; color: var(--muted-foreground, var(--docs-muted)); }
+  .site-footer-columns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; border-top: 1px solid var(--border, var(--docs-border)); padding: 2.5rem 0 3.5rem; }
+  .site-footer-column h2 { margin: 0 0 1.2rem; color: var(--foreground, var(--docs-foreground)); font-size: .72rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+  .site-footer-column ul { display: grid; gap: .8rem; margin: 0; padding: 0; list-style: none; }
+  .site-footer-column a, .site-footer-bottom a { color: inherit; font-size: .9rem; text-decoration: none; transition: color 120ms ease; }
+  .site-footer-column a:hover, .site-footer-column a:focus-visible, .site-footer-bottom a:hover, .site-footer-bottom a:focus-visible { color: var(--foreground, var(--docs-foreground)); }
+  .site-footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; border-top: 1px solid var(--border, var(--docs-border)); padding: 1.5rem 0 2rem; }
+  .site-footer-bottom p { margin: 0; font-size: .85rem; }
+  .site-footer-bottom nav { display: flex; align-items: center; gap: 1.2rem; }
+  .site-footer-bottom nav a { display: inline-flex; align-items: center; justify-content: center; }
+  .site-footer-bottom svg { display: block; width: 1.2rem; height: 1.2rem; }
+  @media (max-width: 760px) { .site-footer-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 1.5rem; } }
+  @media (max-width: 460px) { .site-footer { width: min(100% - 2rem, 76rem); } .site-footer-columns { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; } .site-footer-bottom { align-items: flex-start; flex-direction: column; } }
+</style>
