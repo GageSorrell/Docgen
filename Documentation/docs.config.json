@@ -207,7 +207,7 @@
                 "project": "docgen-landing"
             },
             "documentation": {
-                "project": "docgen"
+                "project": "docgen-docs"
             },
             "storybook": {
                 "project": "docgen-storybook"

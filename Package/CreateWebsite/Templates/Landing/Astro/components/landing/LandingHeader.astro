@@ -1,7 +1,6 @@
 ---
 /** @module generated-documentation-landing/components/landing/LandingHeader @file LandingHeader.astro @author Gage Sorrell <gage@sorrell.sh> @copyright (c) 2026 Gage Sorrell @license MIT */
 import ThemeToggle from "../ThemeToggle.astro"
-import SearchPalette from "../SearchPalette.astro"
 import type { LandingNavItem } from "@/lib/landing"
 interface Props { readonly name: string; readonly items: readonly LandingNavItem[]; readonly logo?: string | undefined }
 const { name, items, logo } = Astro.props
@@ -15,10 +14,13 @@ const { name, items, logo } = Astro.props
     <nav class="landing-header-nav" aria-label="Primary navigation">
       {items.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}
     </nav>
-    <div class="landing-header-actions"><SearchPalette /><ThemeToggle /></div>
+    <div class="landing-header-actions"><ThemeToggle /></div>
     <details class="landing-mobile-menu">
       <summary aria-label="Open navigation"><span>Menu</span><span aria-hidden="true">+</span></summary>
-      <nav aria-label="Mobile navigation"><button class="site-search-trigger" type="button" aria-label="Search" aria-keyshortcuts="Control+K Meta+K" data-search-open><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg><span>Search</span><kbd aria-hidden="true"><span>Ctrl</span><span class="search-shortcut-plus">+</span><span>K</span></kbd></button>{items.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}<div class="landing-mobile-theme"><span>Theme</span><ThemeToggle /></div></nav>
+      <nav aria-label="Mobile navigation">
+        {items.map((item) => <a href={item.href} {...item.external ? { target: "_blank", rel: "noopener noreferrer" } : {}}>{item.label}</a>)}
+        <div class="landing-mobile-theme"><span>Theme</span><ThemeToggle /></div>
+      </nav>
     </details>
   </div>
 </header>

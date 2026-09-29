@@ -176,10 +176,12 @@ describe("three-package website generation", () =>
         expect(generatedSearchPalette).toContain("pagefind-ui__search-input:focus");
         expect(generatedSearchPalette).toContain("pagefind-ui__result:hover");
         expect(generatedSearchPalette).toContain("document.body.append(dialog)");
-        expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
-            .toContain("<span class=\"search-shortcut-plus\">+</span>");
-        expect(contents.get("Landing/Source/components/landing/LandingHeader.astro"))
-            .toContain("<span>{name}</span>");
+        const generatedLandingHeader =
+            contents.get("Landing/Source/components/landing/LandingHeader.astro") ?? "";
+        expect(generatedLandingHeader).toContain("<span>{name}</span>");
+        expect(generatedLandingHeader).toContain("<ThemeToggle />");
+        expect(generatedLandingHeader).not.toContain("SearchPalette");
+        expect(generatedLandingHeader).not.toContain("data-search-open");
         expect(contents.get("Landing/Source/styles/landing.css"))
             .toContain(".landing-brand { display: inline-flex; align-items: center; flex: 0 0 auto; gap: .625rem; font-weight: 650; }");
         expect(contents.get("Landing/Source/components/landing/sections/LandingQuotes.astro"))
