@@ -45,7 +45,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { min-width: 320px; font-family: var(--font-sans); }
+body { min-width: 320px; background-color: var(--background); color: var(--foreground); font-family: var(--font-sans); }
 body[data-mobile-menu-open], html[data-mobile-menu-open] { overflow: hidden; }
 a { color: inherit; }
 ::selection { background: oklch(0.82 0.08 250); color: oklch(0.18 0.02 260); }

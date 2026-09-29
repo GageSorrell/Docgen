@@ -147,6 +147,9 @@ describe("three-package website generation", () =>
         expect(contents.get("Landing/Source/pages/index.astro")).not.toContain("@/layouts/");
         expect(contents.get("Landing/Source/pages/index.astro")).toContain("<Footer />");
         expect(contents.get("Landing/Source/components/Footer.astro")).toContain("siteConfig.footer");
+        expect(contents.get("Landing/Source/styles/global.css")).toContain(
+            "body { min-width: 320px; background-color: var(--background); color: var(--foreground); font-family: var(--font-sans); }"
+        );
         expect(contents.get("docs.config.json")).toContain("\"footer\"");
         expect(contents.get("Landing/Source/components/landing/sections/LandingHero.astro"))
             .toContain("@lucide/astro/icons/arrow-right");
