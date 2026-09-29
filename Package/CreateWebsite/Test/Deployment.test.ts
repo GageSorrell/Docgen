@@ -86,6 +86,7 @@ describe("website deployment orchestration", () =>
         await mkdir(join(target, "Documentation/dist"), { recursive: true });
         await mkdir(join(target, "Landing/Source/pages"), { recursive: true });
         await mkdir(join(target, "Landing/Source/components"), { recursive: true });
+        await mkdir(join(target, "Landing/Source/layouts"), { recursive: true });
         await writeFile(
             join(target, "Documentation/Source/Versions.ts"),
             "import config from \"../../docs.config.json\";\n"
@@ -115,11 +116,19 @@ describe("website deployment orchestration", () =>
             "copyFile(new URL(\"../../../Resource/Logo.png\", import.meta.url));\n"
         );
         await writeFile(
+            join(target, "Documentation/scripts/generate-opengraph.mjs"),
+            'const configPath = resolve(siteDirectory, "..", "docs.config.json");\n'
+        );
+        await writeFile(
             join(target, "Landing/Source/pages/index.astro"),
             "import config from \"../../../docs.config.json\";\n"
         );
         await writeFile(
             join(target, "Landing/Source/components/Footer.astro"),
+            "import config from \"../../../docs.config.json\";\n"
+        );
+        await writeFile(
+            join(target, "Landing/Source/layouts/BaseLayout.astro"),
             "import config from \"../../../docs.config.json\";\n"
         );
         await writeFile(join(target, "Landing/package.json"), "{}\n");
@@ -155,6 +164,7 @@ describe("website deployment orchestration", () =>
         let stagedConfig = "";
         let stagedApiGenerator = "";
         let stagedFaviconGenerator = "";
+        let stagedOpenGraphGenerator = "";
         let stagedSchema = "";
         let stagedLogo = "";
         let stagedVersions = "";
@@ -163,6 +173,7 @@ describe("website deployment orchestration", () =>
         let stagedLandingConfig = "";
         let stagedLandingIndex = "";
         let stagedLandingFooter = "";
+        let stagedLandingBaseLayout = "";
         const stagedLayoutImports = new Map<string, string>();
         const layer = Layer.succeed(
             VercelService,
@@ -183,6 +194,10 @@ describe("website deployment orchestration", () =>
                             );
                             stagedFaviconGenerator = readFileSync(
                                 join(directory, "scripts/generate-favicons.mjs"),
+                                "utf8"
+                            );
+                            stagedOpenGraphGenerator = readFileSync(
+                                join(directory, "scripts/generate-opengraph.mjs"),
                                 "utf8"
                             );
                             stagedLogo = readFileSync(
@@ -227,6 +242,10 @@ describe("website deployment orchestration", () =>
                                 join(directory, "Source/components/Footer.astro"),
                                 "utf8"
                             );
+                            stagedLandingBaseLayout = readFileSync(
+                                join(directory, "Source/layouts/BaseLayout.astro"),
+                                "utf8"
+                            );
                         }
                         const url = `https://${options?.name ?? "site"}.vercel.app`;
                         return { deploymentId: url, raw: url, url };
@@ -256,6 +275,12 @@ describe("website deployment orchestration", () =>
             expect(stagedSchema).toContain("staged schema");
             expect(stagedFaviconGenerator).toContain("../Resource/Logo.png");
             expect(stagedFaviconGenerator).not.toContain("../../../Resource/Logo.png");
+            expect(stagedOpenGraphGenerator).toContain(
+                'resolve(siteDirectory, "docs.config.json")'
+            );
+            expect(stagedOpenGraphGenerator).not.toContain(
+                'resolve(siteDirectory, "..", "docs.config.json")'
+            );
             expect(stagedLogo).toContain("logo");
             expect(stagedConfig).toContain("\"versions\"");
             expect(stagedVersions).toContain("\"../docs.config.json\"");
@@ -274,6 +299,8 @@ describe("website deployment orchestration", () =>
             expect(stagedLandingIndex).not.toContain("\"../../../docs.config.json\"");
             expect(stagedLandingFooter).toContain("\"../../docs.config.json\"");
             expect(stagedLandingFooter).not.toContain("\"../../../docs.config.json\"");
+            expect(stagedLandingBaseLayout).toContain("\"../../docs.config.json\"");
+            expect(stagedLandingBaseLayout).not.toContain("\"../../../docs.config.json\"");
         }
         finally
         {

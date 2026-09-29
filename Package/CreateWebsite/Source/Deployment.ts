@@ -204,6 +204,22 @@ const prepareVercelDirectory = (
                 )
             );
         }
+        const openGraphGenerator = path.join(
+            staging,
+            "scripts",
+            "generate-opengraph.mjs"
+        );
+        if (yield* fileSystem.exists(openGraphGenerator))
+        {
+            const source = yield* fileSystem.readText(openGraphGenerator);
+            yield* fileSystem.writeText(
+                openGraphGenerator,
+                source.replace(
+                    'resolve(siteDirectory, "..", "docs.config.json")',
+                    'resolve(siteDirectory, "docs.config.json")'
+                )
+            );
+        }
         if (options.staticContent !== undefined)
         {
             const destination = path.join(
@@ -279,6 +295,7 @@ const prepareVercelDirectory = (
             for (const configImportFile of [
                 path.join(staging, "Source", "components", "SiteHeader.astro"),
                 path.join(staging, "Source", "components", "Footer.astro"),
+                path.join(staging, "Source", "layouts", "BaseLayout.astro"),
                 path.join(staging, "Source", "layouts", "ApiPackageLayout.astro"),
                 path.join(staging, "Source", "layouts", "ApiReferenceLayout.astro"),
                 path.join(staging, "Source", "layouts", "DocsLayout.astro"),
