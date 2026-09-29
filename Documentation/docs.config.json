@@ -1,8 +1,8 @@
 {
-    "$schema": "https://docs.sorrell.sh/docs.config.schema.json",
+    "$schema": "https://docgen.sorrell.sh/docs.config.schema.json",
     "metadata": {
         "name": "Sorrell Docgen",
-        "title": "Sorrell Docgen Tools",
+        "title": "Sorrell Docgen Toolset",
         "description": "Build readable documentation sites with a shared content, theme, and publishing system.",
         "logo": {
             "type": "dicebear",
@@ -17,7 +17,7 @@
                 "seed": "Felix"
             }
         },
-        "url": "https://docs.sorrell.sh",
+        "url": "https://docgen.sorrell.sh",
         "repository": {
             "url": "https://github.com/GageSorrell/Documentation/tree/Master#ReadMe",
             "branch": "Master",
@@ -69,7 +69,7 @@
         "storybookPrefix": "/storybook"
     },
     "landing": {
-        "title": "Sorrell Documentation",
+        "title": "Sorrell Docgen Toolset",
         "description": "Build readable documentation sites with a shared content, theme, and publishing system.",
         "primaryAction": {
             "label": "Read the docs",
@@ -185,7 +185,7 @@
     "vercel": {
         "enabled": true,
         "domains": [
-            "docs.sorrell.sh"
+            "docgen.sorrell.sh"
         ],
         "productionBranch": "Master",
         "projects": {

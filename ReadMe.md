@@ -1,5 +1,7 @@
 *&copy; 2026 Gage Sorrell.  Released under the [MIT license](./License.md).*
 
-# Sorrell Documentation Tooling
+# Sorrell Docgen
 
-`@TODO` Write this `ReadMe.md`
+**Purpose.**&ensp;Generate sleek, modern websites for libraries with a nice landing page, API documentation, and an optional Storybook "sub-site."
+
+`@TODO` Finish writing this `ReadMe.md`
