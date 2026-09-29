@@ -164,6 +164,22 @@ const ApiGenerationConfigSchema = Schema.Struct({
     }),
     enabled: Schema.Boolean,
     entryPoints: Schema.Array(Schema.String),
+    unreal: Schema.Struct({
+        plugins: Schema.Array(Schema.Struct({
+            descriptor: Schema.String,
+            id: Schema.String,
+            name: Schema.String,
+            version: Schema.String,
+            xmlDirectory: Schema.String
+        })),
+        projects: Schema.Array(Schema.Struct({
+            descriptor: Schema.String,
+            id: Schema.String,
+            name: Schema.String,
+            version: Schema.String,
+            xmlDirectory: Schema.String
+        }))
+    }),
     jsonSchemas: Schema.Array(Schema.Struct({
         path: Schema.String,
         route: Schema.String
@@ -511,6 +527,22 @@ const OptionalStorybookSchema = Schema.Struct({
 const OptionalApiSchema = Schema.Struct({
     doxygen: Schema.optionalKey(Schema.Struct({
         projects: Schema.optionalKey(Schema.Array(Schema.Struct({
+            id: Schema.String,
+            name: Schema.String,
+            version: Schema.String,
+            xmlDirectory: Schema.String
+        })))
+    })),
+    unreal: Schema.optionalKey(Schema.Struct({
+        plugins: Schema.optionalKey(Schema.Array(Schema.Struct({
+            descriptor: Schema.String,
+            id: Schema.String,
+            name: Schema.String,
+            version: Schema.String,
+            xmlDirectory: Schema.String
+        }))),
+        projects: Schema.optionalKey(Schema.Array(Schema.Struct({
+            descriptor: Schema.String,
             id: Schema.String,
             name: Schema.String,
             version: Schema.String,

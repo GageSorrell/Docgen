@@ -28,6 +28,41 @@ directory and does not invoke Doxygen.
 }
 ```
 
+Unreal projects and plugins can be configured separately under
+`api.unreal.projects` and `api.unreal.plugins`. Each entry requires an explicit
+ID, display name, version, descriptor path, and Doxygen XML directory. Project
+descriptors must be `.uproject` files and plugin descriptors must be
+`.uplugin` files. Descriptor paths and XML directories are relative to the
+repository root; the descriptor is validated, while declarations come from
+the Doxygen XML prepared by the Unreal build.
+
+```json
+{
+  "api": {
+    "unreal": {
+      "projects": [
+        {
+          "id": "sample-game",
+          "name": "Sample Game",
+          "version": "1.0.0",
+          "descriptor": "SampleGame/SampleGame.uproject",
+          "xmlDirectory": "SampleGame/build/docs/xml"
+        }
+      ],
+      "plugins": [
+        {
+          "id": "sample-plugin",
+          "name": "Sample Plugin",
+          "version": "1.0.0",
+          "descriptor": "SampleGame/Plugins/SamplePlugin/SamplePlugin.uplugin",
+          "xmlDirectory": "SampleGame/Plugins/SamplePlugin/build/docs/xml"
+        }
+      ]
+    }
+  }
+}
+```
+
 Add schema references under `api.jsonSchemas` in `docs.config.json`:
 
 ```json

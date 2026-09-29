@@ -1,5 +1,5 @@
 {
-  "checksum": "66f8f822826e1b410ec8b5f6b8568362d7ae945f2340bb87e4d618221392919e",
+  "checksum": "bcb55c760f61e28718958b51c4a84f80ef3dcadd7e22e0fdc5da416e83c399c2",
   "generatedAt": "2026-09-24T00:00:00.000Z",
   "version": 1,
   "sourceRevision": "Master",
@@ -58,7 +58,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 89
+            "line": 103
           }
         },
         {
@@ -71,7 +71,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 80
+            "line": 94
           }
         },
         {
@@ -92,12 +92,12 @@
           "id": "ApiReferenceGenerationOptions",
           "kind": "interface",
           "name": "ApiReferenceGenerationOptions",
-          "signature": "export declare interface ApiReferenceGenerationOptions {\n    readonly doxygen?: readonly DoxygenProjectInput[];\n    readonly generatedAt?: string;\n    readonly jsonSchemas?: readonly JsonSchemaReferenceInput[];\n    readonly packages: readonly ApiReferencePackageInput[];\n    readonly referencePrefix?: string;\n    readonly repositoryRoot?: string;\n    readonly repositoryUrl?: string;\n    readonly revision?: string;\n    readonly sourceRoot?: string;\n    readonly typedoc?: Readonly<Record<string, unknown>>;\n}",
+          "signature": "export declare interface ApiReferenceGenerationOptions {\n    readonly doxygen?: readonly DoxygenProjectInput[];\n    readonly generatedAt?: string;\n    readonly jsonSchemas?: readonly JsonSchemaReferenceInput[];\n    readonly packages: readonly ApiReferencePackageInput[];\n    readonly referencePrefix?: string;\n    readonly repositoryRoot?: string;\n    readonly repositoryUrl?: string;\n    readonly revision?: string;\n    readonly sourceRoot?: string;\n    readonly typedoc?: Readonly<Record<string, unknown>>;\n    readonly unreal?: UnrealGenerationInput;\n}",
           "source": {
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 30
+            "line": 43
           }
         },
         {
@@ -110,7 +110,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 91
+            "line": 105
           }
         },
         {
@@ -175,7 +175,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 93
+            "line": 107
           }
         },
         {
@@ -240,7 +240,7 @@
             "file": "Package/ApiReference/Source/TypeDoc.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 1206
+            "line": 1207
           }
         },
         {
@@ -254,7 +254,7 @@
             "file": "Package/ApiReference/Source/Doxygen.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 304
+            "line": 328
           }
         },
         {
@@ -267,7 +267,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 43
+            "line": 57
           }
         },
         {
@@ -280,7 +280,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 58
+            "line": 72
           }
         },
         {
@@ -293,7 +293,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 48
+            "line": 62
           }
         },
         {
@@ -319,7 +319,7 @@
             "file": "Package/ApiReference/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 67
+            "line": 81
           }
         },
         {
@@ -388,6 +388,45 @@
           }
         },
         {
+          "categoryId": "interfaces",
+          "id": "UnrealGenerationInput",
+          "kind": "interface",
+          "name": "UnrealGenerationInput",
+          "signature": "export declare interface UnrealGenerationInput {\n    readonly plugins?: readonly UnrealPluginInput[];\n    readonly projects?: readonly UnrealProjectInput[];\n}",
+          "source": {
+            "file": "Package/ApiReference/Source/Types.ts",
+            "repositoryUrl": "https://github.com/GageSorrell/Documentation",
+            "revision": "Master",
+            "line": 38
+          }
+        },
+        {
+          "categoryId": "interfaces",
+          "id": "UnrealPluginInput",
+          "kind": "interface",
+          "name": "UnrealPluginInput",
+          "signature": "export declare interface UnrealPluginInput extends DoxygenProjectInput {\n    readonly descriptor: string;\n    readonly id: string;\n    readonly name: string;\n    readonly version: string;\n    readonly xmlDirectory: string;\n}",
+          "source": {
+            "file": "Package/ApiReference/Source/Types.ts",
+            "repositoryUrl": "https://github.com/GageSorrell/Documentation",
+            "revision": "Master",
+            "line": 34
+          }
+        },
+        {
+          "categoryId": "interfaces",
+          "id": "UnrealProjectInput",
+          "kind": "interface",
+          "name": "UnrealProjectInput",
+          "signature": "export declare interface UnrealProjectInput extends DoxygenProjectInput {\n    readonly descriptor: string;\n    readonly id: string;\n    readonly name: string;\n    readonly version: string;\n    readonly xmlDirectory: string;\n}",
+          "source": {
+            "file": "Package/ApiReference/Source/Types.ts",
+            "repositoryUrl": "https://github.com/GageSorrell/Documentation",
+            "revision": "Master",
+            "line": 30
+          }
+        },
+        {
           "categoryId": "functions",
           "id": "validateApiDataset",
           "kind": "function",
@@ -428,7 +467,7 @@
         }
       ],
       "displayName": "@sorrell/docs-api-reference",
-      "exportCount": 29,
+      "exportCount": 32,
       "module": "api-reference",
       "packageId": "api-reference",
       "packageName": "@sorrell/docs-api-reference",
@@ -439,6 +478,7 @@
       "packageDescription": "Programmatic TypeDoc generation, validation, and snapshots for Sorrell API references.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Public API-reference generation and snapshot exports.",
       "source": {
         "file": "Package/ApiReference/Source/index.ts",
@@ -652,6 +692,7 @@
       "packageDescription": "Astro integration and route helpers for Sorrell documentation sites.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Public exports for the Astro documentation integration.",
       "source": {
         "file": "Package/Astro/Source/index.ts",
@@ -1572,6 +1613,7 @@
       "packageDescription": "Shared Effect runtime services for Sorrell documentation tooling.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Shared Effect runtime services for Sorrell documentation tooling.",
       "source": {
         "file": "Package/Cli/Source/index.ts",
@@ -1644,7 +1686,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 691
+            "line": 723
           }
         },
         {
@@ -1657,7 +1699,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 398
+            "line": 414
           }
         },
         {
@@ -1670,7 +1712,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 689
+            "line": 721
           }
         },
         {
@@ -1683,7 +1725,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 385
+            "line": 401
           }
         },
         {
@@ -1696,7 +1738,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 677
+            "line": 709
           }
         },
         {
@@ -1709,7 +1751,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 345
+            "line": 361
           }
         },
         {
@@ -1722,7 +1764,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 683
+            "line": 715
           }
         },
         {
@@ -1735,7 +1777,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 679
+            "line": 711
           }
         },
         {
@@ -1748,7 +1790,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 358
+            "line": 374
           }
         },
         {
@@ -1761,7 +1803,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 375
+            "line": 391
           }
         },
         {
@@ -1800,7 +1842,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 685
+            "line": 717
           }
         },
         {
@@ -1813,7 +1855,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 213
+            "line": 229
           }
         },
         {
@@ -1826,7 +1868,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 219
+            "line": 235
           }
         },
         {
@@ -1839,7 +1881,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 697
+            "line": 729
           }
         },
         {
@@ -1852,7 +1894,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 368
+            "line": 384
           }
         },
         {
@@ -1865,7 +1907,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 693
+            "line": 725
           }
         },
         {
@@ -1878,7 +1920,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 393
+            "line": 409
           }
         },
         {
@@ -1891,7 +1933,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 625
+            "line": 657
           }
         },
         {
@@ -1899,7 +1941,7 @@
           "id": "ApiGenerationConfigSchema",
           "kind": "variable",
           "name": "ApiGenerationConfigSchema",
-          "signature": "export declare const ApiGenerationConfigSchema: Struct<{ doxygen: Struct<{ projects: $Array<Struct<{ id: String; name: String; version: String; xmlDirectory: String }>> }>; enabled: Boolean; entryPoints: $Array<String>; jsonSchemas: $Array<Struct<{ path: String; route: String }>>; outputDirectory: String; packages: $Array<String>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: $Record<String, Unknown> }>;",
+          "signature": "export declare const ApiGenerationConfigSchema: Struct<{ doxygen: Struct<{ projects: $Array<Struct<{ id: String; name: String; version: String; xmlDirectory: String }>> }>; enabled: Boolean; entryPoints: $Array<String>; jsonSchemas: $Array<Struct<{ path: String; route: String }>>; outputDirectory: String; packages: $Array<String>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: $Record<String, Unknown>; unreal: Struct<{ plugins: $Array<Struct<{ descriptor: String; id: String; name: String; version: String; xmlDirectory: String }>>; projects: $Array<Struct<{ descriptor: String; id: String; name: String; version: String; xmlDirectory: String }>> }> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -1917,7 +1959,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 649
+            "line": 681
           }
         },
         {
@@ -1930,7 +1972,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 258
+            "line": 274
           }
         },
         {
@@ -1943,7 +1985,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 653
+            "line": 685
           }
         },
         {
@@ -1956,7 +1998,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 264
+            "line": 280
           }
         },
         {
@@ -1969,7 +2011,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 663
+            "line": 695
           }
         },
         {
@@ -1982,7 +2024,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 298
+            "line": 314
           }
         },
         {
@@ -1995,7 +2037,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 666
+            "line": 698
           }
         },
         {
@@ -2008,7 +2050,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 285
+            "line": 301
           }
         },
         {
@@ -2021,7 +2063,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 669
+            "line": 701
           }
         },
         {
@@ -2034,7 +2076,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 673
+            "line": 705
           }
         },
         {
@@ -2047,7 +2089,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 323
+            "line": 339
           }
         },
         {
@@ -2073,7 +2115,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 657
+            "line": 689
           }
         },
         {
@@ -2086,7 +2128,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 271
+            "line": 287
           }
         },
         {
@@ -2099,7 +2141,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 702
+            "line": 734
           }
         },
         {
@@ -2151,7 +2193,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 760
+            "line": 764
           }
         },
         {
@@ -2164,7 +2206,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 786
+            "line": 790
           }
         },
         {
@@ -2177,7 +2219,7 @@
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 775
+            "line": 779
           }
         },
         {
@@ -2203,7 +2245,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 599
+            "line": 631
           }
         },
         {
@@ -2224,7 +2266,7 @@
           "id": "DocsConfig",
           "kind": "interface",
           "name": "DocsConfig",
-          "signature": "export declare interface DocsConfig {\n    readonly agent: { description?: string; enabled: boolean; essentials: readonly string[]; mcp: { enabled: boolean }; skill: { enabled: boolean; name: string } };\n    readonly api: { doxygen: { projects: readonly { id: string; name: string; version: string; xmlDirectory: string }[] }; enabled: boolean; entryPoints: readonly string[]; jsonSchemas: readonly { path: string; route: string }[]; outputDirectory: string; packages: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc: { [key: string]: unknown } };\n    readonly banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number };\n    readonly footer: SiteFooter;\n    readonly landing: { description: string; primaryAction?: { href: string; label: string }; sections: readonly { body: string; href?: string; id: string; title: string }[]; title: string };\n    readonly manifests: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[];\n    readonly mcpEndpoint: string;\n    readonly metadata: { description: string; logo?: string; name: string; repository?: { branch?: string; directory?: string; url: string }; title: string; url: string };\n    readonly navigation: Navigation;\n    readonly packages: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[];\n    readonly redirects: readonly { from: string; status: 301 | 302; to: string }[];\n    readonly routing: { documentationPrefix: string; storybookPrefix: string };\n    readonly storybook: { command?: string; directory?: string; enabled: boolean; stories: readonly string[]; url?: string };\n    readonly tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } };\n    readonly vercel: { domains: readonly string[]; enabled: boolean; outputDirectory: string; productionBranch: string; project?: string; projects: { documentation: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; landing: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; mcp?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; storybook?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string } }; team?: string };\n    readonly versions: readonly { current: boolean; directory: string; href?: string; id: string; label: string; order: number; version?: string }[];\n}",
+          "signature": "export declare interface DocsConfig {\n    readonly agent: { description?: string; enabled: boolean; essentials: readonly string[]; mcp: { enabled: boolean }; skill: { enabled: boolean; name: string } };\n    readonly api: { doxygen: { projects: readonly { id: string; name: string; version: string; xmlDirectory: string }[] }; enabled: boolean; entryPoints: readonly string[]; jsonSchemas: readonly { path: string; route: string }[]; outputDirectory: string; packages: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc: { [key: string]: unknown }; unreal: { plugins: readonly { descriptor: string; id: string; name: string; version: string; xmlDirectory: string }[]; projects: readonly { descriptor: string; id: string; name: string; version: string; xmlDirectory: string }[] } };\n    readonly banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number };\n    readonly footer: SiteFooter;\n    readonly landing: { description: string; primaryAction?: { href: string; label: string }; sections: readonly { body: string; href?: string; id: string; title: string }[]; title: string };\n    readonly manifests: readonly { checksum?: string; generatedAt?: string; kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\"; path: string; revision?: string }[];\n    readonly mcpEndpoint: string;\n    readonly metadata: { description: string; logo?: string; name: string; repository?: { branch?: string; directory?: string; url: string }; title: string; url: string };\n    readonly navigation: Navigation;\n    readonly packages: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[];\n    readonly redirects: readonly { from: string; status: 301 | 302; to: string }[];\n    readonly routing: { documentationPrefix: string; storybookPrefix: string };\n    readonly storybook: { command?: string; directory?: string; enabled: boolean; stories: readonly string[]; url?: string };\n    readonly tokens: { dark: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string }; light: { accent: string; background: string; border: string; cardBackground?: string; codeBackground: string; foreground: string; muted: string; proseForeground?: string; subtleForeground?: string } };\n    readonly vercel: { domains: readonly string[]; enabled: boolean; outputDirectory: string; productionBranch: string; project?: string; projects: { documentation: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; landing: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; mcp?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string }; storybook?: { directory: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix: string; team?: string } }; team?: string };\n    readonly versions: readonly { current: boolean; directory: string; href?: string; id: string; label: string; order: number; version?: string }[];\n}",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -2268,7 +2310,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 701
+            "line": 733
           }
         },
         {
@@ -2276,12 +2318,12 @@
           "id": "DocsConfigInputSchema",
           "kind": "variable",
           "name": "DocsConfigInputSchema",
-          "signature": "export declare const DocsConfigInputSchema: Struct<{ agent: optionalKey<Struct<{ description: optionalKey<String>; enabled: optionalKey<Boolean>; essentials: optionalKey<$Array<String>>; mcp: optionalKey<Struct<{ enabled: optionalKey<Boolean> }>>; skill: optionalKey<Struct<{ enabled: optionalKey<Boolean>; name: optionalKey<String> }>> }>>; api: optionalKey<Struct<{ doxygen: optionalKey<Struct<{ projects: optionalKey<$Array<Struct<(...)>>> }>>; enabled: optionalKey<Boolean>; entryPoints: optionalKey<$Array<String>>; jsonSchemas: optionalKey<$Array<Struct<{ path: String; route: String }>>>; outputDirectory: optionalKey<String>; packages: optionalKey<$Array<String>>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: optionalKey<$Record<String, Unknown>> }>>; banner: optionalKey<Struct<{ backgroundColor: optionalKey<String>; logoHeight: optionalKey<Number>; logoWidth: optionalKey<Number> }>>; footer: optionalKey<Struct<{ columns: optionalKey<$Array<Struct<{ links: $Array<Struct<(...)>>; title: String }>>>; links: optionalKey<$Array<Struct<{ href: String; icon: optionalKey<String>; label: String }>>>; message: optionalKey<String> }>>; landing: optionalKey<Struct<{ description: optionalKey<String>; primaryAction: optionalKey<Struct<{ href: String; label: String }>>; sections: optionalKey<$Array<Struct<{ body: optionalKey<String>; href: optionalKey<String>; id: String; title: String }>>>; title: optionalKey<String> }>>; manifests: optionalKey<$Array<Struct<{ checksum: optionalKey<String>; generatedAt: optionalKey<String>; kind: Literals<readonly [\"site\", \"api-reference\", \"storybook\", \"project\"]>; path: String; revision: optionalKey<String> }>>>; metadata: optionalKey<Struct<{ description: optionalKey<String>; logo: optionalKey<String>; name: optionalKey<String>; repository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; title: optionalKey<String>; url: optionalKey<String> }>>; navigation: optionalKey<Struct<{ groups: optionalKey<$Array<Struct<{ id: String; items: $Array<Schema<(...)>>; label: String }>>> }>>; packages: optionalKey<$Array<Struct<{ description: optionalKey<String>; directory: optionalKey<String>; id: String; name: String; source: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; version: optionalKey<String> }>>>; redirects: optionalKey<$Array<Struct<{ from: String; status: optionalKey<Literals<readonly [301, 302]>>; to: String }>>>; routing: optionalKey<Struct<{ documentationPrefix: optionalKey<String>; storybookPrefix: optionalKey<String> }>>; storybook: optionalKey<Struct<{ command: optionalKey<String>; directory: optionalKey<String>; enabled: optionalKey<Boolean>; stories: optionalKey<$Array<String>>; url: optionalKey<String> }>>; tokens: optionalKey<Struct<{ dark: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>>; light: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>> }>>; vercel: optionalKey<Struct<{ domains: optionalKey<$Array<String>>; enabled: optionalKey<Boolean>; outputDirectory: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; projects: optionalKey<Struct<{ documentation: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; landing: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; mcp: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; storybook: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>> }>>; team: optionalKey<String> }>>; versions: optionalKey<$Array<Struct<{ current: optionalKey<Boolean>; directory: optionalKey<String>; href: optionalKey<String>; id: String; label: optionalKey<String>; order: optionalKey<Number>; version: optionalKey<String> }>>> }>;",
+          "signature": "export declare const DocsConfigInputSchema: Struct<{ agent: optionalKey<Struct<{ description: optionalKey<String>; enabled: optionalKey<Boolean>; essentials: optionalKey<$Array<String>>; mcp: optionalKey<Struct<{ enabled: optionalKey<Boolean> }>>; skill: optionalKey<Struct<{ enabled: optionalKey<Boolean>; name: optionalKey<String> }>> }>>; api: optionalKey<Struct<{ doxygen: optionalKey<Struct<{ projects: optionalKey<$Array<Struct<(...)>>> }>>; enabled: optionalKey<Boolean>; entryPoints: optionalKey<$Array<String>>; jsonSchemas: optionalKey<$Array<Struct<{ path: String; route: String }>>>; outputDirectory: optionalKey<String>; packages: optionalKey<$Array<String>>; sourceRepository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; typedoc: optionalKey<$Record<String, Unknown>>; unreal: optionalKey<Struct<{ plugins: optionalKey<$Array<Struct<(...)>>>; projects: optionalKey<$Array<Struct<(...)>>> }>> }>>; banner: optionalKey<Struct<{ backgroundColor: optionalKey<String>; logoHeight: optionalKey<Number>; logoWidth: optionalKey<Number> }>>; footer: optionalKey<Struct<{ columns: optionalKey<$Array<Struct<{ links: $Array<Struct<(...)>>; title: String }>>>; links: optionalKey<$Array<Struct<{ href: String; icon: optionalKey<String>; label: String }>>>; message: optionalKey<String> }>>; landing: optionalKey<Struct<{ description: optionalKey<String>; primaryAction: optionalKey<Struct<{ href: String; label: String }>>; sections: optionalKey<$Array<Struct<{ body: optionalKey<String>; href: optionalKey<String>; id: String; title: String }>>>; title: optionalKey<String> }>>; manifests: optionalKey<$Array<Struct<{ checksum: optionalKey<String>; generatedAt: optionalKey<String>; kind: Literals<readonly [\"site\", \"api-reference\", \"storybook\", \"project\"]>; path: String; revision: optionalKey<String> }>>>; metadata: optionalKey<Struct<{ description: optionalKey<String>; logo: optionalKey<String>; name: optionalKey<String>; repository: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; title: optionalKey<String>; url: optionalKey<String> }>>; navigation: optionalKey<Struct<{ groups: optionalKey<$Array<Struct<{ id: String; items: $Array<Schema<(...)>>; label: String }>>> }>>; packages: optionalKey<$Array<Struct<{ description: optionalKey<String>; directory: optionalKey<String>; id: String; name: String; source: optionalKey<Struct<{ branch: optionalKey<String>; directory: optionalKey<String>; url: String }>>; version: optionalKey<String> }>>>; redirects: optionalKey<$Array<Struct<{ from: String; status: optionalKey<Literals<readonly [301, 302]>>; to: String }>>>; routing: optionalKey<Struct<{ documentationPrefix: optionalKey<String>; storybookPrefix: optionalKey<String> }>>; storybook: optionalKey<Struct<{ command: optionalKey<String>; directory: optionalKey<String>; enabled: optionalKey<Boolean>; stories: optionalKey<$Array<String>>; url: optionalKey<String> }>>; tokens: optionalKey<Struct<{ dark: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>>; light: optionalKey<Struct<{ accent: optionalKey<String>; background: optionalKey<String>; border: optionalKey<String>; cardBackground: optionalKey<String>; codeBackground: optionalKey<String>; foreground: optionalKey<String>; muted: optionalKey<String>; proseForeground: optionalKey<String>; subtleForeground: optionalKey<String> }>> }>>; vercel: optionalKey<Struct<{ domains: optionalKey<$Array<String>>; enabled: optionalKey<Boolean>; outputDirectory: optionalKey<String>; productionBranch: optionalKey<String>; project: optionalKey<String>; projects: optionalKey<Struct<{ documentation: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; landing: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; mcp: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>>; storybook: optionalKey<Struct<{ directory: ...; id: ...; origin: ...; productionBranch: ...; project: ...; routePrefix: ...; team: ... }>> }>>; team: optionalKey<String> }>>; versions: optionalKey<$Array<Struct<{ current: optionalKey<Boolean>; directory: optionalKey<String>; href: optionalKey<String>; id: String; label: optionalKey<String>; order: optionalKey<Number>; version: optionalKey<String> }>>> }>;",
           "source": {
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 579
+            "line": 611
           }
         },
         {
@@ -2294,7 +2336,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 601
+            "line": 633
           }
         },
         {
@@ -2320,7 +2362,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 613
+            "line": 645
           }
         },
         {
@@ -2333,7 +2375,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 611
+            "line": 643
           }
         },
         {
@@ -2385,7 +2427,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 645
+            "line": 677
           }
         },
         {
@@ -2398,7 +2440,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 250
+            "line": 266
           }
         },
         {
@@ -2411,7 +2453,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 609
+            "line": 641
           }
         },
         {
@@ -2549,7 +2591,7 @@
           "id": "normalizeDocsConfig",
           "kind": "function",
           "name": "normalizeDocsConfig",
-          "signature": "export declare function normalizeDocsConfig(\n    input: {\n        agent?: {\n            description?: string;\n            enabled?: boolean;\n            essentials?: readonly string[];\n            mcp?: { enabled?: boolean };\n            skill?: {\n                enabled?: boolean;\n                name?: string\n            }\n        };\n        api?: {\n            doxygen?: { projects?: readonly {\n                id: string;\n                name: string;\n                version: string;\n                xmlDirectory: string\n            }[] };\n            enabled?: boolean;\n            entryPoints?: readonly string[];\n            jsonSchemas?: readonly {\n                path: string;\n                route: string\n            }[];\n            outputDirectory?: string;\n            packages?: readonly string[];\n            sourceRepository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            typedoc?: { [key: string]: unknown }\n        };\n        banner?: {\n            backgroundColor?: string;\n            logoHeight?: number;\n            logoWidth?: number\n        };\n        footer?: {\n            columns?: readonly {\n                links: readonly {\n                    href: string;\n                    icon?: string;\n                    label: string\n                }[];\n                title: string\n            }[];\n            links?: readonly {\n                href: string;\n                icon?: string;\n                label: string\n            }[];\n            message?: string\n        };\n        landing?: {\n            description?: string;\n            primaryAction?: {\n                href: string;\n                label: string\n            };\n            sections?: readonly {\n                body?: string;\n                href?: string;\n                id: string;\n                title: string\n            }[];\n            title?: string\n        };\n        manifests?: readonly {\n            checksum?: string;\n            generatedAt?: string;\n            kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\";\n            path: string;\n            revision?: string\n        }[];\n        metadata?: {\n            description?: string;\n            logo?: string;\n            name?: string;\n            repository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            title?: string;\n            url?: string\n        };\n        navigation?: { groups?: readonly {\n            id: string;\n            items: readonly NavigationItemInput[];\n            label: string\n        }[] };\n        packages?: readonly {\n            description?: string;\n            directory?: string;\n            id: string;\n            name: string;\n            source?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            version?: string\n        }[];\n        redirects?: readonly {\n            from: string;\n            status?: 301 | 302;\n            to: string\n        }[];\n        routing?: {\n            documentationPrefix?: string;\n            storybookPrefix?: string\n        };\n        storybook?: {\n            command?: string;\n            directory?: string;\n            enabled?: boolean;\n            stories?: readonly string[];\n            url?: string\n        };\n        tokens?: {\n            dark?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            };\n            light?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            }\n        };\n        vercel?: {\n            domains?: readonly string[];\n            enabled?: boolean;\n            outputDirectory?: string;\n            productionBranch?: string;\n            project?: string;\n            projects?: {\n                documentation?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                landing?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                mcp?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                storybook?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                }\n            };\n            team?: string\n        };\n        versions?: readonly {\n            current?: boolean;\n            directory?: string;\n            href?: string;\n            id: string;\n            label?: string;\n            order?: number;\n            version?: string\n        }[]\n    }\n): DocsConfig;",
+          "signature": "export declare function normalizeDocsConfig(\n    input: {\n        agent?: {\n            description?: string;\n            enabled?: boolean;\n            essentials?: readonly string[];\n            mcp?: { enabled?: boolean };\n            skill?: {\n                enabled?: boolean;\n                name?: string\n            }\n        };\n        api?: {\n            doxygen?: { projects?: readonly {\n                id: string;\n                name: string;\n                version: string;\n                xmlDirectory: string\n            }[] };\n            enabled?: boolean;\n            entryPoints?: readonly string[];\n            jsonSchemas?: readonly {\n                path: string;\n                route: string\n            }[];\n            outputDirectory?: string;\n            packages?: readonly string[];\n            sourceRepository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            typedoc?: { [key: string]: unknown };\n            unreal?: {\n                plugins?: readonly {\n                    descriptor: string;\n                    id: string;\n                    name: string;\n                    version: string;\n                    xmlDirectory: string\n                }[];\n                projects?: readonly {\n                    descriptor: string;\n                    id: string;\n                    name: string;\n                    version: string;\n                    xmlDirectory: string\n                }[]\n            }\n        };\n        banner?: {\n            backgroundColor?: string;\n            logoHeight?: number;\n            logoWidth?: number\n        };\n        footer?: {\n            columns?: readonly {\n                links: readonly {\n                    href: string;\n                    icon?: string;\n                    label: string\n                }[];\n                title: string\n            }[];\n            links?: readonly {\n                href: string;\n                icon?: string;\n                label: string\n            }[];\n            message?: string\n        };\n        landing?: {\n            description?: string;\n            primaryAction?: {\n                href: string;\n                label: string\n            };\n            sections?: readonly {\n                body?: string;\n                href?: string;\n                id: string;\n                title: string\n            }[];\n            title?: string\n        };\n        manifests?: readonly {\n            checksum?: string;\n            generatedAt?: string;\n            kind: \"project\" | \"storybook\" | \"site\" | \"api-reference\";\n            path: string;\n            revision?: string\n        }[];\n        metadata?: {\n            description?: string;\n            logo?: string;\n            name?: string;\n            repository?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            title?: string;\n            url?: string\n        };\n        navigation?: { groups?: readonly {\n            id: string;\n            items: readonly NavigationItemInput[];\n            label: string\n        }[] };\n        packages?: readonly {\n            description?: string;\n            directory?: string;\n            id: string;\n            name: string;\n            source?: {\n                branch?: string;\n                directory?: string;\n                url: string\n            };\n            version?: string\n        }[];\n        redirects?: readonly {\n            from: string;\n            status?: 301 | 302;\n            to: string\n        }[];\n        routing?: {\n            documentationPrefix?: string;\n            storybookPrefix?: string\n        };\n        storybook?: {\n            command?: string;\n            directory?: string;\n            enabled?: boolean;\n            stories?: readonly string[];\n            url?: string\n        };\n        tokens?: {\n            dark?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            };\n            light?: {\n                accent?: string;\n                background?: string;\n                border?: string;\n                cardBackground?: string;\n                codeBackground?: string;\n                foreground?: string;\n                muted?: string;\n                proseForeground?: string;\n                subtleForeground?: string\n            }\n        };\n        vercel?: {\n            domains?: readonly string[];\n            enabled?: boolean;\n            outputDirectory?: string;\n            productionBranch?: string;\n            project?: string;\n            projects?: {\n                documentation?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                landing?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                mcp?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                };\n                storybook?: {\n                    directory?: string;\n                    id?: string;\n                    origin?: string;\n                    productionBranch?: string;\n                    project?: string;\n                    routePrefix?: string;\n                    team?: string\n                }\n            };\n            team?: string\n        };\n        versions?: readonly {\n            current?: boolean;\n            directory?: string;\n            href?: string;\n            id: string;\n            label?: string;\n            order?: number;\n            version?: string\n        }[]\n    }\n): DocsConfig;",
           "source": {
             "file": "Package/Core/Source/Config.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -2567,7 +2609,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 605
+            "line": 637
           }
         },
         {
@@ -2593,7 +2635,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 621
+            "line": 653
           }
         },
         {
@@ -2632,7 +2674,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 615
+            "line": 647
           }
         },
         {
@@ -2658,7 +2700,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 597
+            "line": 629
           }
         },
         {
@@ -2684,7 +2726,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 629
+            "line": 661
           }
         },
         {
@@ -2697,7 +2739,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 177
+            "line": 193
           }
         },
         {
@@ -2710,7 +2752,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 661
+            "line": 693
           }
         },
         {
@@ -2723,7 +2765,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 279
+            "line": 295
           }
         },
         {
@@ -2736,7 +2778,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 623
+            "line": 655
           }
         },
         {
@@ -2762,7 +2804,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 643
+            "line": 675
           }
         },
         {
@@ -2775,7 +2817,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 240
+            "line": 256
           }
         },
         {
@@ -2788,7 +2830,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 635
+            "line": 667
           }
         },
         {
@@ -2801,7 +2843,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 199
+            "line": 215
           }
         },
         {
@@ -2814,7 +2856,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 206
+            "line": 222
           }
         },
         {
@@ -2827,7 +2869,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 631
+            "line": 663
           }
         },
         {
@@ -2840,7 +2882,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 633
+            "line": 665
           }
         },
         {
@@ -2853,7 +2895,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 182
+            "line": 198
           }
         },
         {
@@ -2866,7 +2908,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 192
+            "line": 208
           }
         },
         {
@@ -2879,7 +2921,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 639
+            "line": 671
           }
         },
         {
@@ -2892,7 +2934,7 @@
             "file": "Package/Core/Source/Schemas.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 225
+            "line": 241
           }
         }
       ],
@@ -2908,6 +2950,7 @@
       "packageDescription": "Effect schemas and normalized domain models for Sorrell documentation tooling.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Effect schemas and normalized domain models for Sorrell documentation tooling.",
       "source": {
         "file": "Package/Core/Source/index.ts",
@@ -3019,7 +3062,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 626
+            "line": 643
           }
         },
         {
@@ -3149,7 +3192,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 779
+            "line": 796
           }
         },
         {
@@ -3162,7 +3205,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 364
+            "line": 381
           }
         },
         {
@@ -3409,7 +3452,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 649
+            "line": 666
           }
         },
         {
@@ -3461,7 +3504,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 740
+            "line": 757
           }
         },
         {
@@ -3565,7 +3608,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 783
+            "line": 800
           }
         },
         {
@@ -3599,7 +3642,7 @@
           "id": "WebsiteGenerationOptions",
           "kind": "interface",
           "name": "WebsiteGenerationOptions",
-          "signature": "export declare interface WebsiteGenerationOptions {\n    readonly config?: { agent?: { description?: string; enabled?: boolean; essentials?: readonly string[]; mcp?: { enabled?: boolean }; skill?: { enabled?: boolean; name?: string } }; api?: { doxygen?: { projects?: readonly { id: string; name: string; version: string; xmlDirectory: string }[] }; enabled?: boolean; entryPoints?: readonly string[]; jsonSchemas?: readonly { path: string; route: string }[]; outputDirectory?: string; packages?: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc?: { [key: string]: unknown } }; banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number }; footer?: { columns?: readonly { links: readonly { href: string; icon?: string; label: string }[]; title: string }[]; links?: readonly { href: string; icon?: string; label: string }[]; message?: string }; landing?: { description?: string; primaryAction?: { href: string; label: string }; sections?: readonly { body?: string; href?: string; id: string; title: string }[]; title?: string }; manifests?: readonly { checksum?: string; generatedAt?: string; kind: \"storybook\" | \"project\" | \"site\" | \"api-reference\"; path: string; revision?: string }[]; metadata?: { description?: string; logo?: string; name?: string; repository?: { branch?: string; directory?: string; url: string }; title?: string; url?: string }; navigation?: { groups?: readonly { id: string; items: readonly NavigationItemInput[]; label: string }[] }; packages?: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[]; redirects?: readonly { from: string; status?: 301 | 302; to: string }[]; routing?: { documentationPrefix?: string; storybookPrefix?: string }; storybook?: { command?: string; directory?: string; enabled?: boolean; stories?: readonly string[]; url?: string }; tokens?: { dark?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string }; light?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string } }; vercel?: { domains?: readonly string[]; enabled?: boolean; outputDirectory?: string; productionBranch?: string; project?: string; projects?: { documentation?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; landing?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; mcp?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; storybook?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string } }; team?: string }; versions?: readonly { current?: boolean; directory?: string; href?: string; id: string; label?: string; order?: number; version?: string }[] };\n    readonly generatedAt?: string;\n    readonly revision?: string;\n    readonly target: string;\n}",
+          "signature": "export declare interface WebsiteGenerationOptions {\n    readonly config?: { agent?: { description?: string; enabled?: boolean; essentials?: readonly string[]; mcp?: { enabled?: boolean }; skill?: { enabled?: boolean; name?: string } }; api?: { doxygen?: { projects?: readonly { id: string; name: string; version: string; xmlDirectory: string }[] }; enabled?: boolean; entryPoints?: readonly string[]; jsonSchemas?: readonly { path: string; route: string }[]; outputDirectory?: string; packages?: readonly string[]; sourceRepository?: { branch?: string; directory?: string; url: string }; typedoc?: { [key: string]: unknown }; unreal?: { plugins?: readonly { descriptor: string; id: string; name: string; version: string; xmlDirectory: string }[]; projects?: readonly { descriptor: string; id: string; name: string; version: string; xmlDirectory: string }[] } }; banner?: { backgroundColor?: string; logoHeight?: number; logoWidth?: number }; footer?: { columns?: readonly { links: readonly { href: string; icon?: string; label: string }[]; title: string }[]; links?: readonly { href: string; icon?: string; label: string }[]; message?: string }; landing?: { description?: string; primaryAction?: { href: string; label: string }; sections?: readonly { body?: string; href?: string; id: string; title: string }[]; title?: string }; manifests?: readonly { checksum?: string; generatedAt?: string; kind: \"storybook\" | \"project\" | \"site\" | \"api-reference\"; path: string; revision?: string }[]; metadata?: { description?: string; logo?: string; name?: string; repository?: { branch?: string; directory?: string; url: string }; title?: string; url?: string }; navigation?: { groups?: readonly { id: string; items: readonly NavigationItemInput[]; label: string }[] }; packages?: readonly { description?: string; directory?: string; id: string; name: string; source?: { branch?: string; directory?: string; url: string }; version?: string }[]; redirects?: readonly { from: string; status?: 301 | 302; to: string }[]; routing?: { documentationPrefix?: string; storybookPrefix?: string }; storybook?: { command?: string; directory?: string; enabled?: boolean; stories?: readonly string[]; url?: string }; tokens?: { dark?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string }; light?: { accent?: string; background?: string; border?: string; cardBackground?: string; codeBackground?: string; foreground?: string; muted?: string; proseForeground?: string; subtleForeground?: string } }; vercel?: { domains?: readonly string[]; enabled?: boolean; outputDirectory?: string; productionBranch?: string; project?: string; projects?: { documentation?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; landing?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; mcp?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string }; storybook?: { directory?: string; id?: string; origin?: string; productionBranch?: string; project?: string; routePrefix?: string; team?: string } }; team?: string }; versions?: readonly { current?: boolean; directory?: string; href?: string; id: string; label?: string; order?: number; version?: string }[] };\n    readonly generatedAt?: string;\n    readonly revision?: string;\n    readonly target: string;\n}",
           "source": {
             "file": "Package/CreateWebsite/Source/Types.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -3682,7 +3725,7 @@
             "file": "Package/CreateWebsite/Source/Deployment.ts",
             "repositoryUrl": "https://github.com/GageSorrell/Documentation",
             "revision": "Master",
-            "line": 695
+            "line": 712
           }
         }
       ],
@@ -3698,6 +3741,7 @@
       "packageDescription": "Generate and orchestrate three-package Sorrell documentation websites.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Public exports for website generation and deployment.",
       "source": {
         "file": "Package/CreateWebsite/Source/index.ts",
@@ -3897,6 +3941,7 @@
       "packageDescription": "Effect MCP server for Sorrell documentation agent corpora.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "MCP server for Sorrell documentation agent corpora.",
       "source": {
         "file": "Package/Mcp/Source/index.ts",
@@ -4590,6 +4635,7 @@
       "packageDescription": "Reusable React Native Storybook providers, decorators, Metro helpers, and article primitives.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Native Storybook infrastructure for Expo applications.",
       "source": {
         "file": "Package/ReactNativeStorybook/Source/index.ts",
@@ -4867,6 +4913,7 @@
       "packageDescription": "Canonical Sorrell documentation workflow skills and their managed installer.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "summary": "Public exports for Sorrell workflow skills.",
       "source": {
         "file": "Package/Skills/Source/index.ts",
@@ -5404,6 +5451,7 @@
       "packageDescription": "Responsive React UI primitives and documentation shells for Sorrell documentation sites.",
       "packagePrivate": false,
       "version": "1.0.1",
+      "language": "typescript",
       "source": {
         "file": "Package/Ui/Source/index.ts",
         "repositoryUrl": "https://github.com/GageSorrell/Documentation",
@@ -5956,7 +6004,7 @@
           "name": "api",
           "schema": {
             "type": "object",
-            "description": "API reference generation settings for TypeScript modules, Doxygen XML projects, and configured JSON Schemas.",
+            "description": "API reference generation settings for TypeScript modules, Doxygen XML projects, Unreal projects and plugins, and configured JSON Schemas.",
             "properties": {
               "doxygen": {
                 "type": "object",
@@ -5967,6 +6015,27 @@
                     "description": "Named C++ projects whose Doxygen XML contributes reference pages.",
                     "items": {
                       "$ref": "#/$defs/doxygenProject"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "unreal": {
+                "type": "object",
+                "description": "Unreal Engine projects and plugins whose Doxygen XML was prepared by their build.",
+                "properties": {
+                  "projects": {
+                    "type": "array",
+                    "description": "Unreal projects documented from their configured Doxygen XML.",
+                    "items": {
+                      "$ref": "#/$defs/unrealProject"
+                    }
+                  },
+                  "plugins": {
+                    "type": "array",
+                    "description": "Unreal plugins documented as independent entries from their configured Doxygen XML.",
+                    "items": {
+                      "$ref": "#/$defs/unrealPlugin"
                     }
                   }
                 },
@@ -6040,6 +6109,80 @@
               }
             },
             "required": [
+              "id",
+              "name",
+              "version",
+              "xmlDirectory"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "unrealProject",
+          "schema": {
+            "type": "object",
+            "description": "An Unreal project descriptor and the Doxygen XML directory generated by its build.",
+            "properties": {
+              "descriptor": {
+                "type": "string",
+                "description": "Repository-root-relative path to a .uproject descriptor."
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable URL-safe project identifier used in API routes."
+              },
+              "name": {
+                "type": "string",
+                "description": "Project name shown in API navigation."
+              },
+              "version": {
+                "type": "string",
+                "description": "Project version shown in API reference metadata."
+              },
+              "xmlDirectory": {
+                "type": "string",
+                "description": "Repository-root-relative Doxygen XML directory containing index.xml and compound files."
+              }
+            },
+            "required": [
+              "descriptor",
+              "id",
+              "name",
+              "version",
+              "xmlDirectory"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "unrealPlugin",
+          "schema": {
+            "type": "object",
+            "description": "An Unreal plugin descriptor and the Doxygen XML directory generated by its build.",
+            "properties": {
+              "descriptor": {
+                "type": "string",
+                "description": "Repository-root-relative path to a .uplugin descriptor."
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable URL-safe plugin identifier used in API routes."
+              },
+              "name": {
+                "type": "string",
+                "description": "Plugin name shown in API navigation."
+              },
+              "version": {
+                "type": "string",
+                "description": "Plugin version shown in API reference metadata."
+              },
+              "xmlDirectory": {
+                "type": "string",
+                "description": "Repository-root-relative Doxygen XML directory containing index.xml and compound files."
+              }
+            },
+            "required": [
+              "descriptor",
               "id",
               "name",
               "version",
@@ -6809,7 +6952,7 @@
           },
           "api": {
             "type": "object",
-            "description": "API reference generation settings for TypeScript modules, Doxygen XML projects, and configured JSON Schemas.",
+            "description": "API reference generation settings for TypeScript modules, Doxygen XML projects, Unreal projects and plugins, and configured JSON Schemas.",
             "properties": {
               "doxygen": {
                 "type": "object",
@@ -6820,6 +6963,27 @@
                     "description": "Named C++ projects whose Doxygen XML contributes reference pages.",
                     "items": {
                       "$ref": "#/$defs/doxygenProject"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "unreal": {
+                "type": "object",
+                "description": "Unreal Engine projects and plugins whose Doxygen XML was prepared by their build.",
+                "properties": {
+                  "projects": {
+                    "type": "array",
+                    "description": "Unreal projects documented from their configured Doxygen XML.",
+                    "items": {
+                      "$ref": "#/$defs/unrealProject"
+                    }
+                  },
+                  "plugins": {
+                    "type": "array",
+                    "description": "Unreal plugins documented as independent entries from their configured Doxygen XML.",
+                    "items": {
+                      "$ref": "#/$defs/unrealPlugin"
                     }
                   }
                 },
@@ -6890,6 +7054,74 @@
               }
             },
             "required": [
+              "id",
+              "name",
+              "version",
+              "xmlDirectory"
+            ],
+            "additionalProperties": false
+          },
+          "unrealProject": {
+            "type": "object",
+            "description": "An Unreal project descriptor and the Doxygen XML directory generated by its build.",
+            "properties": {
+              "descriptor": {
+                "type": "string",
+                "description": "Repository-root-relative path to a .uproject descriptor."
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable URL-safe project identifier used in API routes."
+              },
+              "name": {
+                "type": "string",
+                "description": "Project name shown in API navigation."
+              },
+              "version": {
+                "type": "string",
+                "description": "Project version shown in API reference metadata."
+              },
+              "xmlDirectory": {
+                "type": "string",
+                "description": "Repository-root-relative Doxygen XML directory containing index.xml and compound files."
+              }
+            },
+            "required": [
+              "descriptor",
+              "id",
+              "name",
+              "version",
+              "xmlDirectory"
+            ],
+            "additionalProperties": false
+          },
+          "unrealPlugin": {
+            "type": "object",
+            "description": "An Unreal plugin descriptor and the Doxygen XML directory generated by its build.",
+            "properties": {
+              "descriptor": {
+                "type": "string",
+                "description": "Repository-root-relative path to a .uplugin descriptor."
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable URL-safe plugin identifier used in API routes."
+              },
+              "name": {
+                "type": "string",
+                "description": "Plugin name shown in API navigation."
+              },
+              "version": {
+                "type": "string",
+                "description": "Plugin version shown in API reference metadata."
+              },
+              "xmlDirectory": {
+                "type": "string",
+                "description": "Repository-root-relative Doxygen XML directory containing index.xml and compound files."
+              }
+            },
+            "required": [
+              "descriptor",
               "id",
               "name",
               "version",

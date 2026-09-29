@@ -165,6 +165,7 @@ const categoriesFor = (members: ReadonlyArray<ApiReferenceDeclaration>): Readonl
                 "public-attrib": "Attributes",
                 "public-static-func": "Static Functions",
                 "public-static-attrib": "Static Attributes",
+                "enum-values": "Enumerators",
                 func: "Functions",
                 var: "Variables",
                 enum: "Enumerations",
@@ -188,7 +189,7 @@ const indexedCompounds = (document: Document): ReadonlyArray<IndexedCompound> =>
         }))
         .filter((compound) =>
             compound.refid !== "" && compound.name !== "" &&
-            [ "namespace", "class", "struct", "group" ].includes(compound.kind)
+            [ "namespace", "class", "struct", "group", "enum" ].includes(compound.kind)
         );
 };
 const membersFor = (compound: Element): ReadonlyArray<DoxygenMember> =>
@@ -265,6 +266,29 @@ const recordFor = async (
         const declaration = declarationFor(member, categoryId, options, repositoryRoot);
         return declaration === undefined ? [] : [ declaration ];
     });
+    if (indexed.kind === "enum")
+    {
+        declarations.push(...Array.from(compound.getElementsByTagName("enumvalue"))
+            .filter((value): value is Element => value.nodeType === 1)
+            .flatMap((value) =>
+            {
+                const description = descriptionFor(value);
+                const name = text(firstChild(value, "name"));
+                if (name === "" || description === undefined)
+                {
+                    return [];
+                }
+                const initializer = text(firstChild(value, "initializer"));
+                return [ {
+                    categoryId: "enum-values",
+                    description,
+                    id: safeDeclarationId(value.getAttribute("id") || `${displayName}-${name}`),
+                    kind: "variable" as const,
+                    name,
+                    signature: `${name}${initializer === "" ? "" : ` ${initializer}`}`
+                } ];
+            }));
+    }
     if (summary === undefined && declarations.length === 0)
     {
         return undefined;

@@ -636,6 +636,10 @@ export /** @internal */ const normalizeDocsConfig = (
             doxygen: {
                 projects: input.api?.doxygen?.projects ?? []
             },
+            unreal: {
+                plugins: input.api?.unreal?.plugins ?? [],
+                projects: input.api?.unreal?.projects ?? []
+            },
             enabled: input.api?.enabled ?? false,
             entryPoints: input.api?.entryPoints ?? [],
             jsonSchemas: input.api?.jsonSchemas ?? [],

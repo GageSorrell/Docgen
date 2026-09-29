@@ -127,6 +127,9 @@ describe("three-package website generation", () =>
         expect(contents.has("Documentation/Source/data/ApiReference.json")).toBe(true);
         expect(contents.has("Documentation/scripts/generate-api.mjs")).toBe(true);
         expect(contents.get("Documentation/scripts/generate-api.mjs")).toContain("doxygen: api.enabled === false ? [] : (api.doxygen?.projects ?? [])");
+        expect(contents.get("Documentation/scripts/generate-api.mjs")).toContain("unreal: api.enabled === false ? { plugins: [], projects: [] } : (api.unreal ?? {})");
+        expect(contents.get("Documentation/scripts/generate-api.mjs")).toContain("join(repositoryRoot, \"docs.config.json\")");
+        expect(contents.get("Documentation/scripts/generate-api.mjs")).not.toContain("Package/Core/Source/index.ts");
         expect(contents.get("Documentation/Source/pages/widget-schema.astro")).toContain("item.route === \"/docs/widget-schema/\"");
         expect(contents.get("Documentation/Source/layouts/JsonSchemaReferenceLayout.astro")).toContain("required");
         const generatedDocsPackage = JSON.parse(contents.get("Documentation/package.json") ?? "{}");

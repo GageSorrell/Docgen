@@ -8,25 +8,35 @@
 
 import * as ApiReference from "@sorrell/docs-api-reference";
 import * as Effect from "effect/Effect";
-import { dirname, join, relative, resolve } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 
 /** @type {string} */
 let repositoryRoot = resolve(".");
-while (
-    !existsSync(join(repositoryRoot, "Package/Core/Source/index.ts")) &&
-    dirname(repositoryRoot) !== repositoryRoot
-)
+/** @type {string | undefined} */
+let configPath;
+while (configPath === undefined)
 {
-    repositoryRoot = dirname(repositoryRoot);
-}
-const configPath = [
-    join(repositoryRoot, "docs.config.json"),
-    join(repositoryRoot, "Documentation/docs.config.json")
-].find(existsSync);
-if (configPath === undefined)
-{
-    throw new Error("Could not locate docs.config.json from the repository root.");
+    const rootConfig = join(repositoryRoot, "docs.config.json");
+    const documentationConfig = join(repositoryRoot, "Documentation/docs.config.json");
+    if (basename(repositoryRoot).toLowerCase() === "documentation" && existsSync(rootConfig))
+    {
+        configPath = rootConfig;
+        repositoryRoot = dirname(repositoryRoot);
+    }
+    else
+    {
+        configPath = [ rootConfig, documentationConfig ].find(existsSync);
+    }
+    const parentDirectory = dirname(repositoryRoot);
+    if (configPath === undefined && parentDirectory === repositoryRoot)
+    {
+        throw new Error("Could not locate docs.config.json from the current directory or its parents.");
+    }
+    if (configPath === undefined)
+    {
+        repositoryRoot = parentDirectory;
+    }
 }
 const config = JSON.parse(readFileSync(configPath, "utf8"));
 const api = config.api ?? {};
@@ -67,7 +77,8 @@ const dataset = await ApiReference.generateApiDataset({
     repositoryUrl: api.sourceRepository?.url ?? config.metadata.repository?.url,
     revision: api.sourceRepository?.branch ?? config.metadata.repository?.branch ?? "main",
     sourceRoot: repositoryRoot,
-    typedoc: api.typedoc ?? {}
+    typedoc: api.typedoc ?? {},
+    unreal: api.enabled === false ? { plugins: [], projects: [] } : (api.unreal ?? {})
 });
 const sourceContent = resolve("Source/content/docs");
 

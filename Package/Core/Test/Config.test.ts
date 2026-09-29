@@ -35,6 +35,7 @@ describe("docs-core configuration", () =>
         ]);
         expect(config.api.enabled).toBe(false);
         expect(config.api.doxygen).toEqual({ projects: [] });
+        expect(config.api.unreal).toEqual({ plugins: [], projects: [] });
         expect(config.api.jsonSchemas).toEqual([]);
         expect(config.footer.columns).toEqual([
             { links: [ { href: "/docs/", label: "Documentation" } ], title: "Resources" }
@@ -93,6 +94,28 @@ describe("docs-core configuration", () =>
             version: "3.2.1",
             xmlDirectory: "build/docs/xml"
         } ]);
+    });
+    it("normalizes configured Unreal project and plugin inputs", () =>
+    {
+        const project = {
+            descriptor: "Game/Game.uproject",
+            id: "game",
+            name: "Game",
+            version: "1.0.0",
+            xmlDirectory: "Game/build/xml"
+        };
+        const plugin = {
+            descriptor: "Game/Plugins/Tools/Tools.uplugin",
+            id: "tools",
+            name: "Tools",
+            version: "2.0.0",
+            xmlDirectory: "Game/Plugins/Tools/build/xml"
+        };
+        const config = decodeDocsConfigSync({
+            api: { unreal: { plugins: [ plugin ], projects: [ project ] } },
+            metadata: { name: "Example" }
+        });
+        expect(config.api.unreal).toEqual({ plugins: [ plugin ], projects: [ project ] });
     });
     it("normalizes custom footer columns, message, and lower links", () =>
     {

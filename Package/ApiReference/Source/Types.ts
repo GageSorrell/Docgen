@@ -27,9 +27,23 @@ export interface DoxygenProjectInput {
     readonly xmlDirectory: string;
 }
 /** @internal */
+export interface UnrealProjectInput extends DoxygenProjectInput {
+    readonly descriptor: string;
+}
+/** @internal */
+export interface UnrealPluginInput extends DoxygenProjectInput {
+    readonly descriptor: string;
+}
+/** @internal */
+export interface UnrealGenerationInput {
+    readonly projects?: ReadonlyArray<UnrealProjectInput>;
+    readonly plugins?: ReadonlyArray<UnrealPluginInput>;
+}
+/** @internal */
 export interface ApiReferenceGenerationOptions {
     readonly packages: ReadonlyArray<ApiReferencePackageInput>;
     readonly doxygen?: ReadonlyArray<DoxygenProjectInput>;
+    readonly unreal?: UnrealGenerationInput;
     readonly jsonSchemas?: ReadonlyArray<JsonSchemaReferenceInput>;
     readonly repositoryRoot?: string;
     readonly repositoryUrl?: string;

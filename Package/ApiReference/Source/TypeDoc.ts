@@ -33,6 +33,7 @@ import { basename, dirname, isAbsolute, join, parse, relative, resolve, sep } fr
 import { createApiDataset, validateApiRecords } from "./Serialization.js";
 import { ApiReferenceError } from "./Errors.js";
 import { generateDoxygenRecords } from "./Doxygen.js";
+import { doxygenProjectsForUnreal } from "./Unreal.js";
 interface ReflectionSource {
     readonly fileName?: string;
     readonly line?: number;
@@ -1207,7 +1208,22 @@ const generateApiDataset = async (
     options: ApiReferenceGenerationOptions
 ): Promise<ApiReferenceDataset> =>
 {
-    if (options.packages.length === 0 && (options.doxygen?.length ?? 0) === 0 && (options.jsonSchemas?.length ?? 0) === 0)
+    const repositoryRoot = resolve(options.repositoryRoot ?? options.sourceRoot ?? process.cwd());
+    const unrealProjects = await doxygenProjectsForUnreal(options.unreal, repositoryRoot);
+    const doxygenProjects = [ ...(options.doxygen ?? []), ...unrealProjects ];
+    const doxygenProjectIds = new Set<string>();
+    for (const project of doxygenProjects)
+    {
+        if (doxygenProjectIds.has(project.id))
+        {
+            throw new ApiReferenceError(`duplicate Doxygen project id ${project.id}`);
+        }
+        doxygenProjectIds.add(project.id);
+    }
+    if (
+        options.packages.length === 0 && (options.doxygen?.length ?? 0) === 0 && unrealProjects.length === 0 &&
+        (options.jsonSchemas?.length ?? 0) === 0
+    )
     {
         throw new ApiReferenceError("at least one package must be configured");
     }
@@ -1256,7 +1272,7 @@ const generateApiDataset = async (
         }
     }
     records.push(...await generateDoxygenRecords({
-        projects: options.doxygen ?? [],
+        projects: doxygenProjects,
         ...(options.repositoryRoot === undefined && options.sourceRoot === undefined
             ? {}
             : { repositoryRoot: options.repositoryRoot ?? options.sourceRoot }),
@@ -1266,7 +1282,6 @@ const generateApiDataset = async (
     }));
     const jsonSchemas = [];
     const schemaRoutes = new Set<string>();
-    const repositoryRoot = resolve(options.repositoryRoot ?? options.sourceRoot ?? process.cwd());
     const repositoryUrl = options.repositoryUrl?.replace(/\/+$/u, "").replace(/\.git$/u, "");
     for (const configured of options.jsonSchemas ?? [])
     {

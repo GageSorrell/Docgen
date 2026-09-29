@@ -10,7 +10,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { generateApiDataset } from "../Source/TypeDoc.js";
@@ -54,6 +54,46 @@ const writeDoxygenFixture = async (root: string): Promise<void> =>
     <type></type><name>Mode</name><briefdescription><para>Widget mode.</para></briefdescription>
   </memberdef><memberdef id="class_demo_1_1Widget_1aCount" kind="typedef" prot="public">
     <type>unsigned int</type><name>Count</name><briefdescription><para>Number of widgets.</para></briefdescription>
+  </memberdef></sectiondef>
+</compounddef></doxygen>`);
+};
+const writeUnrealDoxygenFixture = async (root: string): Promise<void> =>
+{
+    const xml = join(root, "xml");
+    await mkdir(xml, { recursive: true });
+    await writeFile(join(xml, "index.xml"), `<?xml version="1.0"?>
+<doxygenindex>
+  <compound refid="class_UExample" kind="class"><name>UExample</name></compound>
+  <compound refid="struct_FSettings" kind="struct"><name>FSettings</name></compound>
+  <compound refid="enum_EState" kind="enum"><name>EState</name></compound>
+</doxygenindex>`);
+    await writeFile(join(xml, "class_UExample.xml"), `<?xml version="1.0"?>
+<doxygen><compounddef id="class_UExample" kind="class" prot="public">
+  <compoundname>UExample</compoundname>
+  <briefdescription><para>Unreal reflected actor API.</para></briefdescription>
+  <sectiondef kind="public-func"><memberdef id="class_UExample_1aStart" kind="function" prot="public">
+    <type>void</type><name>Start</name><argsstring>()</argsstring>
+    <briefdescription><para>Starts the actor.</para></briefdescription>
+  </memberdef></sectiondef>
+  <sectiondef kind="public-attrib"><memberdef id="class_UExample_1aHealth" kind="property" prot="public">
+    <type>float</type><name>Health</name>
+    <briefdescription><para>Current actor health.</para></briefdescription>
+  </memberdef></sectiondef>
+</compounddef></doxygen>`);
+    await writeFile(join(xml, "struct_FSettings.xml"), `<?xml version="1.0"?>
+<doxygen><compounddef id="struct_FSettings" kind="struct" prot="public">
+  <compoundname>FSettings</compoundname>
+  <briefdescription><para>Public plugin settings.</para></briefdescription>
+</compounddef></doxygen>`);
+    await writeFile(join(xml, "enum_EState.xml"), `<?xml version="1.0"?>
+<doxygen><compounddef id="enum_EState" kind="enum" prot="public">
+  <compoundname>EState</compoundname>
+  <briefdescription><para>Actor lifecycle state.</para></briefdescription>
+  <sectiondef kind="enum"><memberdef id="enum_EState" kind="enum" prot="public">
+    <name>EState</name>
+    <enumvalue id="enum_EState_Ready"><name>Ready</name><initializer>= 0</initializer><briefdescription><para>Ready to run.</para></briefdescription></enumvalue>
+    <enumvalue id="enum_EState_Stopped"><name>Stopped</name><briefdescription><para>Stopped.</para></briefdescription></enumvalue>
+    <enumvalue id="enum_EState_Undocumented"><name>Undocumented</name></enumvalue>
   </memberdef></sectiondef>
 </compounddef></doxygen>`);
 };
@@ -155,6 +195,133 @@ describe("Doxygen XML generation", () =>
             });
             expect(dataset.records).toHaveLength(1);
             expect(dataset.records[0]?.link?.href).toBe("/docs/api/widgets");
+        }
+        finally
+        {
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
+    it("generates separate Unreal project and plugin references from descriptors and Doxygen XML", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-unreal-"));
+        try
+        {
+            await writeUnrealDoxygenFixture(join(root, "project"));
+            await mkdir(join(root, "plugin"), { recursive: true });
+            for (const name of [ "index.xml", "class_UExample.xml", "struct_FSettings.xml", "enum_EState.xml" ])
+            {
+                await copyFile(join(root, "project", "xml", name), join(root, "plugin", name));
+            }
+            await mkdir(join(root, "Game", "Plugins", "Tools"), { recursive: true });
+            await writeFile(join(root, "Game", "Game.uproject"), JSON.stringify({ FileVersion: 3 }));
+            await writeFile(join(root, "Game", "Plugins", "Tools", "Tools.uplugin"), JSON.stringify({ FileVersion: 3, Modules: [] }));
+            const dataset = await generateApiDataset({
+                packages: [],
+                repositoryRoot: root,
+                unreal: {
+                    plugins: [ {
+                        descriptor: "Game/Plugins/Tools/Tools.uplugin",
+                        id: "tools",
+                        name: "Tools Plugin",
+                        version: "2.0.0",
+                        xmlDirectory: "plugin"
+                    } ],
+                    projects: [ {
+                        descriptor: "Game/Game.uproject",
+                        id: "game",
+                        name: "Game Project",
+                        version: "1.0.0",
+                        xmlDirectory: "project/xml"
+                    } ]
+                }
+            });
+            expect(dataset.records).toHaveLength(6);
+            expect(dataset.records).toEqual(expect.arrayContaining([
+                expect.objectContaining({ displayName: "UExample", packageId: "game", link: { href: "/docs/api/game/UExample", external: false, label: "UExample" } }),
+                expect.objectContaining({ displayName: "UExample", packageId: "tools", link: { href: "/docs/api/tools/UExample", external: false, label: "UExample" } }),
+                expect.objectContaining({ displayName: "FSettings", packageId: "game", language: "cpp" }),
+                expect.objectContaining({ displayName: "EState", packageId: "tools", summary: "Actor lifecycle state.", declarations: expect.arrayContaining([
+                    expect.objectContaining({ name: "Ready", signature: "Ready = 0", description: "Ready to run." })
+                ]) })
+            ]));
+            const actor = dataset.records.find((record) => record.packageId === "game" && record.displayName === "UExample");
+            expect(actor?.declarations).toEqual(expect.arrayContaining([
+                expect.objectContaining({ kind: "function", name: "Start" }),
+                expect.objectContaining({ kind: "variable", name: "Health" })
+            ]));
+            expect(dataset.records.find((record) => record.displayName === "EState")?.declarations)
+                .not.toEqual(expect.arrayContaining([ expect.objectContaining({ name: "Undocumented" }) ]));
+        }
+        finally
+        {
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
+    it("validates Unreal descriptor extension, presence, and JSON", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-unreal-invalid-"));
+        try
+        {
+            await mkdir(root, { recursive: true });
+            await writeFile(join(root, "wrong.uplugin"), JSON.stringify({ FileVersion: 3 }));
+            await writeFile(join(root, "broken.uproject"), "{");
+            await writeFile(join(root, "valid.uproject"), JSON.stringify({ FileVersion: 3 }));
+            await writeFile(join(root, "valid.uplugin"), JSON.stringify({ FileVersion: 3 }));
+            await expect(generateApiDataset({
+                packages: [],
+                repositoryRoot: root,
+                unreal: { projects: [ {
+                    descriptor: "wrong.uplugin",
+                    id: "game",
+                    name: "Game",
+                    version: "1.0.0",
+                    xmlDirectory: "xml"
+                } ] }
+            })).rejects.toThrow("must end with .uproject");
+            await expect(generateApiDataset({
+                packages: [],
+                repositoryRoot: root,
+                unreal: { plugins: [ {
+                    descriptor: "missing.uplugin",
+                    id: "plugin",
+                    name: "Plugin",
+                    version: "1.0.0",
+                    xmlDirectory: "xml"
+                } ] }
+            })).rejects.toThrow("could not read Unreal plugin descriptor");
+            await expect(generateApiDataset({
+                packages: [],
+                repositoryRoot: root,
+                unreal: { projects: [ {
+                    descriptor: "broken.uproject",
+                    id: "game",
+                    name: "Game",
+                    version: "1.0.0",
+                    xmlDirectory: "xml"
+                } ] }
+            })).rejects.toThrow("contains invalid JSON");
+            await expect(generateApiDataset({
+                packages: [],
+                repositoryRoot: root,
+                unreal: {
+                    plugins: [ {
+                        descriptor: "valid.uplugin",
+                        id: "same",
+                        name: "Plugin",
+                        version: "1.0.0",
+                        xmlDirectory: "plugin-xml"
+                    } ],
+                    projects: [ {
+                        descriptor: "valid.uproject",
+                        id: "same",
+                        name: "Project",
+                        version: "1.0.0",
+                        xmlDirectory: "project-xml"
+                    } ]
+                }
+            })).rejects.toThrow("duplicate Doxygen project id same");
         }
         finally
         {

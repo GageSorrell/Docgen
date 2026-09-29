@@ -85,6 +85,8 @@ export counts, introduction metadata, GitHub source links, declaration kind
 badges, TypeScript and C++ signature highlighting, signature copy controls,
 stable anchors, and the `On this page` table of contents. Consume Doxygen XML
 prepared by the project build; do not invoke Doxygen from the site generator.
+Support separately configured Unreal projects and plugins through their
+`.uproject` and `.uplugin` descriptors, including documented standalone enums.
 
 ## Milestone 9 — `sorrell-docs` CLI and Three-Package Website Generator
 
