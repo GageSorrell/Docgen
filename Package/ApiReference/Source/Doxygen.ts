@@ -343,6 +343,10 @@ export const generateDoxygenRecords = async (
         const projectRecords: Array<ApiReferenceRecord> = [];
         for (const indexed of indexedCompounds(index))
         {
+            if (!/^[A-Za-z0-9_.-]+$/u.test(indexed.refid))
+            {
+                throw new ApiReferenceError(`Doxygen compound reference ${indexed.refid} is not a safe XML filename`);
+            }
             const record = await recordFor(indexed, project, options, xmlDirectory, repositoryRoot);
             if (record !== undefined)
             {

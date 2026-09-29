@@ -1170,6 +1170,7 @@ const recordFrom = async (
             ? {}
             : { packagePrivate: packageMetadata.private }),
         version: packageInput.version,
+        language: "typescript",
         ...(moduleSummary === undefined ? {} : { summary: moduleSummary }),
         ...(summaryParts === undefined ? {} : { summaryParts }),
         ...(moduleSource === undefined ? {} : { source: moduleSource }),

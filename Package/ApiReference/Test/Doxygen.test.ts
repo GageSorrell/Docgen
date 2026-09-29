@@ -131,8 +131,30 @@ describe("Doxygen XML generation", () =>
                 repositoryRoot: root
             });
             expect(dataset.records.some((record) => record.language === "cpp")).toBe(true);
-            expect(dataset.records.some((record) => (record.language ?? "typescript") === "typescript")).toBe(true);
+            expect(dataset.records.some((record) => record.language === "typescript")).toBe(true);
             expect(dataset.jsonSchemas?.map((schema) => schema.title)).toEqual([ "Widget Config" ]);
+        }
+        finally
+        {
+            await rm(root, { force: true, recursive: true });
+        }
+    });
+
+    it("routes a one-compound C++ project through its package reference page", async () =>
+    {
+        const root = await mkdtemp(join(tmpdir(), "docs-doxygen-single-"));
+        try
+        {
+            await writeDoxygenFixture(root);
+            await writeFile(join(root, "build", "xml", "index.xml"), `<?xml version="1.0"?>
+<doxygenindex><compound refid="class_demo_1_1Widget" kind="class"><name>demo::Widget</name></compound></doxygenindex>`);
+            const dataset = await generateApiDataset({
+                doxygen: [ { id: "widgets", name: "Widgets", version: "2.1.0", xmlDirectory: "build/xml" } ],
+                packages: [],
+                repositoryRoot: root
+            });
+            expect(dataset.records).toHaveLength(1);
+            expect(dataset.records[0]?.link?.href).toBe("/docs/api/widgets");
         }
         finally
         {
