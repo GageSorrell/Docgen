@@ -93,7 +93,7 @@ describe("three-package website generation", () =>
         expect(docsUiCss).toContain("margin: 1.4em 0 0.35em;");
         expect(docsUiCss).toContain(".docs-api-category > .docs-api-declaration:first-of-type { border-top: 0;\npadding-top: 12px;");
         expect(docsLayout).toContain("font-size: 12px; font-weight: 400; justify-content: flex-start; min-height: 34px; padding: 0 10px; text-align: left;");
-        expect(docsLayout).toContain(".docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-around; }");
+        expect(docsLayout).toContain(".docs-heading-row { align-items: start; display: flex; gap: 2rem; justify-content: space-between; }");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { display: flex; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.2px;");
         expect(apiPackageLayout).toContain("class=\"docs-breadcrumb-separator\" aria-hidden=\"true\">{\" / \"}</span>");
         expect(apiPackageLayout).toContain(".docs-api-package-main > .docs-breadcrumbs { display: flex;");
